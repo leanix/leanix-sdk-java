@@ -27,29 +27,19 @@ import net.leanix.api.*;
 import net.leanix.api.common.*;
 import net.leanix.api.models.*;
 
-public class ProjectsTest
+public class ServicesTest
 {
 	public static void main(String[] args)
 	{
 		try
 		{
-			ApiClient client = new ApiClient();
-			client.setBasePath("https://www.leanix.net/demo/api/v1");
-			client.setApiKey("31c7cfa0b5cb755f4c7f146c92d0ad6b");
+			ApiClient apiClient = new ApiClient();
+			apiClient.setBasePath("https://www.leanix.net/demo/api/v1");
+			apiClient.setApiKey("31c7cfa0b5cb755f4c7f146c92d0ad6b");
 			
-			Project project = new Project();
-			project.setName("New Project Name");
-			
-			ProjectsApi projectsApi = new ProjectsApi(client);
-			
-			List<Project> projects = projectsApi.getProjects(true, null);
-			for (Project cur : projects)
-			{
-				System.out.println(cur);
-			}
-			
-			List<ServiceHasProject> serviceHasProjects = projectsApi.getServiceHasProjects("160000021");
-			for (ServiceHasProject cur : serviceHasProjects)
+			ServicesApi servicesApi = new ServicesApi(apiClient);
+			List<Service> services = servicesApi.getServices(false, "design");
+			for (Service cur : services)
 			{
 				System.out.println(cur);
 			}
