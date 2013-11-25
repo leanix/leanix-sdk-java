@@ -51,14 +51,14 @@ client.setBasePath("https://www.leanix.net/demo/api/v1");
 client.setApiKey("31c7cfa0b5cb755f4c7f146c92d0ad6b");
 ```
 
-You can then use the API class to execute functions. For each Fact Sheet in leanIX there is one API class, e.g. for the Fact Sheet "Application" the API class is called `ServicesApi`. To print the names of all applications which include the text "design", you could do the following:
+You can then use the API class to execute functions. For each Fact Sheet in leanIX there is one API class, e.g. for the Fact Sheet "Application" the API class is called `ServicesApi`. To print the names of all applications which match the full-text search of "design", you could do the following:
 ```java
-			ServicesApi servicesApi = new ServicesApi(client);
-			List<Service> services = servicesApi.getServices(false, "design");
-			for (Service cur : services)
-			{
-				System.out.println(cur);
-			}
+ServicesApi servicesApi = new ServicesApi(client);
+List<Service> services = servicesApi.getServices(false, "design");
+for (Service cur : services)
+{
+	System.out.println(cur);
+}
 ```
 
 Thank You
