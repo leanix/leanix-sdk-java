@@ -1,7 +1,7 @@
 leanIX SDK for Java
 ===================
 
-leanIX API version v1
+leanIX API version v1, https://developer.leanix.net
 
 Overview
 --------
@@ -13,7 +13,7 @@ Prerequisites
 -------------
 In order to use the code in this SDK, the REST API needs to be activated in your workspace and you need your personal API Key. When you are logged in to leanIX, please go to your profile (click on the user icon in the top menu). You find a menu entry called "API / 3rd party apps". If the REST API is activated, you can generate an API Key here.
 
-You can find the leanIX REST API documentation here https://www.leanix.net/demo/api. The documentation is interactive - if you are logged in to your workspace and the REST API is activated, you can try out every function directly from the documentation.
+You can find the leanIX REST API documentation here https://developer.leanix.net. The documentation is interactive - if you are logged in to your workspace and the REST API is activated, you can try out every function directly from the documentation.
 
 Including the SDK in your project
 ---------------------------------
