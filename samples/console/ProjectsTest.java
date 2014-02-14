@@ -34,8 +34,8 @@ public class ProjectsTest
 		try
 		{
 			ApiClient client = new ApiClient();
-			client.setBasePath("https://www.leanix.net/demo/api/v1");
-			client.setApiKey("31c7cfa0b5cb755f4c7f146c92d0ad6b");
+			client.setBasePath("https://dev-local-anc.leanix.net/demo/api/v1");
+			client.setApiKey("a42cb9ad37294968615ce6d12849612e");
 			
 			Project project = new Project();
 			project.setName("New Project Name");

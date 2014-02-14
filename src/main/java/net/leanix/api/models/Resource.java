@@ -38,6 +38,8 @@ public class Resource {
   /*  */
   private String name = null;
   /*  */
+  private String displayName = null;
+  /*  */
   private String reference = null;
   /*  */
   private String alias = null;
@@ -79,6 +81,16 @@ public class Resource {
   @JsonProperty("name")
   public void setName(String name) {
     this.name = name;
+  }
+
+  @JsonProperty("displayName")
+  public String getDisplayName() {
+    return displayName;
+  }
+  
+  @JsonProperty("displayName")
+  public void setDisplayName(String displayName) {
+    this.displayName = displayName;
   }
 
   @JsonProperty("reference")
@@ -207,6 +219,7 @@ public class Resource {
     sb.append("class Resource {\n");
     sb.append("  ID: ").append(ID).append("\n");
     sb.append("  name: ").append(name).append("\n");
+    sb.append("  displayName: ").append(displayName).append("\n");
     sb.append("  reference: ").append(reference).append("\n");
     sb.append("  alias: ").append(alias).append("\n");
     sb.append("  description: ").append(description).append("\n");

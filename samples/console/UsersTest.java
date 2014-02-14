@@ -27,19 +27,19 @@ import net.leanix.api.*;
 import net.leanix.api.common.*;
 import net.leanix.api.models.*;
 
-public class ServicesTest
+public class UsersTest
 {
 	public static void main(String[] args)
 	{
 		try
 		{
 			ApiClient apiClient = new ApiClient();
-			apiClient.setBasePath("https://www.leanix.net/demo/api/v1");
-			apiClient.setApiKey("31c7cfa0b5cb755f4c7f146c92d0ad6b");
+			apiClient.setBasePath("https://app.leanix.net/demo/api/v1");
+			apiClient.setApiKey("a42cb9ad37294968615ce6d12849612e");
 			
-			ServicesApi servicesApi = new ServicesApi(apiClient);
-			List<Service> services = servicesApi.getServices(false, "design");
-			for (Service cur : services)
+			UsersApi usersApi = new UsersApi(apiClient);
+			List<User> users = usersApi.getUsers(true);
+			for (User cur : users)
 			{
 				System.out.println(cur);
 			}
