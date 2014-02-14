@@ -34,7 +34,7 @@ public class ServicesTest
 		try
 		{
 			ApiClient apiClient = new ApiClient();
-			apiClient.setBasePath("https://dev-local-anc.leanix.net/demo/api/v1");
+			apiClient.setBasePath("https://app.leanix.net/demo/api/v1");
 			apiClient.setApiKey("a42cb9ad37294968615ce6d12849612e");
 			
 			ServicesApi servicesApi = new ServicesApi(apiClient);

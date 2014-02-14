@@ -7,7 +7,7 @@ Overview
 --------
 This SDK contains wrapper code used to call the leanIX REST API from Java.
 
-The SDK also contains two simple examples. The code in [samples/ServicesTest.java](samples/ServicesTest.java) demonstrates the basic use of the SDK to read Applications from the leanIX Inventory. The code in [samples/ProjectsTest.java](samples/ProjectsTest.java) demonstrates the basic use of the SDK for Projects in leanIX.
+The SDK also contains two simple examples. The code in [samples/ServicesTest.java](samples/console/ServicesTest.java) demonstrates the basic use of the SDK to read Applications from the leanIX Inventory. The code in [samples/ProjectsTest.java](samples/console/ProjectsTest.java) demonstrates the basic use of the SDK for Projects in leanIX.
 
 Prerequisites
 -------------
@@ -47,7 +47,7 @@ import net.leanix.api.models.*;
 You need to instantiate a leanIX API Client. Here you define the URL to the REST API of your workspace. Please replace `demo` with the name of your workspace. Also here you need to provide the Api-Key.
 ```java
 ApiClient client = new ApiClient();
-client.setBasePath("https://www.leanix.net/demo/api/v1");
+client.setBasePath("https://app.leanix.net/demo/api/v1");
 client.setApiKey("31c7cfa0b5cb755f4c7f146c92d0ad6b");
 ```
 
