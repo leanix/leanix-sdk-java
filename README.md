@@ -17,13 +17,13 @@ You can find the leanIX REST API documentation here https://developer.leanix.net
 
 Including the SDK in your project
 ---------------------------------
-The easiest way to incorporate the SDK into your Java project is to use Maven. If you're using Maven already, simply add a new dependency to your `pom.xml`:
+The easiest way to incorporate the SDK into your Java project is to use Maven. If you're using Maven already, simply add a new dependency to your `pom.xml`. The sdk is published into the central maven repository at http://search.maven.org/:
 
 ```xml
 <dependency>
     <groupId>net.leanix</groupId>
     <artifactId>leanix-sdk-java</artifactId>
-    <version>1.0.0</version>
+    <version>1.2.1</version>
 </dependency>
 ```
 
@@ -33,7 +33,7 @@ If you'd prefer to build the SDK yourself, it's as simple as running
 $ mvn package
 ```
 
-You'll find `leanix-sdk-java-1.0.0.jar` in the target directory after the build completes. This single JAR contains everything needed to use the API.
+You'll find `leanix-sdk-java-1.2.1.jar` in the target directory after the build completes. This single JAR contains everything needed to use the API.
 
 Usage
 -----
