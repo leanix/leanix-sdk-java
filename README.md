@@ -17,7 +17,7 @@ You can find the leanIX REST API documentation here https://developer.leanix.net
 
 Including the SDK in your project
 ---------------------------------
-The easiest way to incorporate the SDK into your Java project is to use Maven. If you're using Maven already, simply add a new dependency to your `pom.xml`. The sdk is published into the central maven repository at http://search.maven.org/:
+The easiest way to incorporate the SDK into your Java project is to use Maven. If you're using Maven already, simply add a new dependency to your `pom.xml`. The sdk is published into the central maven repository at http://search.maven.org/
 
 ```xml
 <dependency>
