@@ -61,6 +61,14 @@ for (Service cur : services)
 }
 ```
 
+Updating
+--------
+To generate the SDK from the latest REST API use the following maven commands:
+
+```bash
+$ mvn -Pcodegen scala:run
+```
+
 Thank You
 ---------
 This API made use of the swagger-* libraries which help you to describe REST APIs in an elegant way. See here for more details: https://github.com/wordnik/swagger-codegen
