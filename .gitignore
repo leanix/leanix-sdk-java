@@ -6,3 +6,4 @@
 
 *.timestamp
 /bin
+/target
