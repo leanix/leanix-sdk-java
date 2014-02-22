@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="lib" path="target/leanix-sdk-java-1.0.0.jar"/>
 	<classpathentry kind="lib" path="target/lib/jackson-annotations-2.1.4.jar"/>
 	<classpathentry kind="lib" path="target/lib/jackson-core-2.1.4.jar"/>
@@ -8,5 +9,6 @@
 	<classpathentry kind="lib" path="target/lib/jersey-client-1.7.jar"/>
 	<classpathentry kind="lib" path="target/lib/jersey-core-1.7.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
