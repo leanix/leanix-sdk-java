@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -24,7 +24,8 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class UserSubscription {
+public class UserSubscription
+{
   /*  */
   private String ID = null;
   /*  */
@@ -34,47 +35,56 @@ public class UserSubscription {
   /*  */
   private String subscriptionTypeID = null;
   @JsonProperty("ID")
-  public String getID() {
+  public String getID()
+	{
     return ID;
   }
   
   @JsonProperty("ID")
-  public void setID(String ID) {
+  public void setID(String ID)
+	{
     this.ID = ID;
   }
 
   @JsonProperty("factSheetID")
-  public String getFactSheetID() {
+  public String getFactSheetID()
+	{
     return factSheetID;
   }
   
   @JsonProperty("factSheetID")
-  public void setFactSheetID(String factSheetID) {
+  public void setFactSheetID(String factSheetID)
+	{
     this.factSheetID = factSheetID;
   }
 
   @JsonProperty("userID")
-  public String getUserID() {
+  public String getUserID()
+	{
     return userID;
   }
   
   @JsonProperty("userID")
-  public void setUserID(String userID) {
+  public void setUserID(String userID)
+	{
     this.userID = userID;
   }
 
   @JsonProperty("subscriptionTypeID")
-  public String getSubscriptionTypeID() {
+  public String getSubscriptionTypeID()
+	{
     return subscriptionTypeID;
   }
   
   @JsonProperty("subscriptionTypeID")
-  public void setSubscriptionTypeID(String subscriptionTypeID) {
+  public void setSubscriptionTypeID(String subscriptionTypeID)
+	{
     this.subscriptionTypeID = subscriptionTypeID;
   }
 
   @Override
-  public String toString()  {
+  public String toString()
+	{
     StringBuilder sb = new StringBuilder();
     sb.append("class UserSubscription {\n");
     sb.append("  ID: ").append(ID).append("\n");

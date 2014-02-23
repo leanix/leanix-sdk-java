@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 {{/imports}}
 {{#models}}
 {{#model}}
-public class {{classname}} {
+public class {{classname}}
+{
   {{#vars}}
 
   {{#description}}/* {{{description}}} */
@@ -39,19 +40,22 @@ public class {{classname}} {
   {{#vars}}
 
   @JsonProperty("{{name}}")
-  public {{{datatype}}} {{getter}}() {
+  public {{{datatype}}} {{getter}}()
+	{
     return {{name}};
   }
   
   @JsonProperty("{{name}}")
-  public void {{setter}}({{{datatype}}} {{name}}) {
+  public void {{setter}}({{{datatype}}} {{name}})
+	{
     this.{{name}} = {{name}};
   }
 
   {{/vars}}
 
   @Override
-  public String toString()  {
+  public String toString()
+	{
     StringBuilder sb = new StringBuilder();
     sb.append("class {{classname}} {\n");
     {{#vars}}

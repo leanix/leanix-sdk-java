@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -24,7 +24,8 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ServiceHasConsumer {
+public class ServiceHasConsumer
+{
   /*  */
   private String ID = null;
   /*  */
@@ -38,67 +39,80 @@ public class ServiceHasConsumer {
   /*  */
   private String functionalSuitabilityID = null;
   @JsonProperty("ID")
-  public String getID() {
+  public String getID()
+	{
     return ID;
   }
   
   @JsonProperty("ID")
-  public void setID(String ID) {
+  public void setID(String ID)
+	{
     this.ID = ID;
   }
 
   @JsonProperty("serviceID")
-  public String getServiceID() {
+  public String getServiceID()
+	{
     return serviceID;
   }
   
   @JsonProperty("serviceID")
-  public void setServiceID(String serviceID) {
+  public void setServiceID(String serviceID)
+	{
     this.serviceID = serviceID;
   }
 
   @JsonProperty("consumerID")
-  public String getConsumerID() {
+  public String getConsumerID()
+	{
     return consumerID;
   }
   
   @JsonProperty("consumerID")
-  public void setConsumerID(String consumerID) {
+  public void setConsumerID(String consumerID)
+	{
     this.consumerID = consumerID;
   }
 
   @JsonProperty("numberOfUsers")
-  public Long getNumberOfUsers() {
+  public Long getNumberOfUsers()
+	{
     return numberOfUsers;
   }
   
   @JsonProperty("numberOfUsers")
-  public void setNumberOfUsers(Long numberOfUsers) {
+  public void setNumberOfUsers(Long numberOfUsers)
+	{
     this.numberOfUsers = numberOfUsers;
   }
 
   @JsonProperty("comment")
-  public String getComment() {
+  public String getComment()
+	{
     return comment;
   }
   
   @JsonProperty("comment")
-  public void setComment(String comment) {
+  public void setComment(String comment)
+	{
     this.comment = comment;
   }
 
   @JsonProperty("functionalSuitabilityID")
-  public String getFunctionalSuitabilityID() {
+  public String getFunctionalSuitabilityID()
+	{
     return functionalSuitabilityID;
   }
   
   @JsonProperty("functionalSuitabilityID")
-  public void setFunctionalSuitabilityID(String functionalSuitabilityID) {
+  public void setFunctionalSuitabilityID(String functionalSuitabilityID)
+	{
     this.functionalSuitabilityID = functionalSuitabilityID;
   }
 
   @Override
-  public String toString()  {
+  public String toString()
+	{
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceHasConsumer {\n");
     sb.append("  ID: ").append(ID).append("\n");

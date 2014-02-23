@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -24,7 +24,8 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ServiceHasResourceHW {
+public class ServiceHasResourceHW
+{
   /*  */
   private String ID = null;
   /*  */
@@ -38,67 +39,80 @@ public class ServiceHasResourceHW {
   /*  */
   private Double costTotalAnnual = null;
   @JsonProperty("ID")
-  public String getID() {
+  public String getID()
+	{
     return ID;
   }
   
   @JsonProperty("ID")
-  public void setID(String ID) {
+  public void setID(String ID)
+	{
     this.ID = ID;
   }
 
   @JsonProperty("resourceID")
-  public String getResourceID() {
+  public String getResourceID()
+	{
     return resourceID;
   }
   
   @JsonProperty("resourceID")
-  public void setResourceID(String resourceID) {
+  public void setResourceID(String resourceID)
+	{
     this.resourceID = resourceID;
   }
 
   @JsonProperty("serviceID")
-  public String getServiceID() {
+  public String getServiceID()
+	{
     return serviceID;
   }
   
   @JsonProperty("serviceID")
-  public void setServiceID(String serviceID) {
+  public void setServiceID(String serviceID)
+	{
     this.serviceID = serviceID;
   }
 
   @JsonProperty("comment")
-  public String getComment() {
+  public String getComment()
+	{
     return comment;
   }
   
   @JsonProperty("comment")
-  public void setComment(String comment) {
+  public void setComment(String comment)
+	{
     this.comment = comment;
   }
 
   @JsonProperty("technicalSuitabilityID")
-  public String getTechnicalSuitabilityID() {
+  public String getTechnicalSuitabilityID()
+	{
     return technicalSuitabilityID;
   }
   
   @JsonProperty("technicalSuitabilityID")
-  public void setTechnicalSuitabilityID(String technicalSuitabilityID) {
+  public void setTechnicalSuitabilityID(String technicalSuitabilityID)
+	{
     this.technicalSuitabilityID = technicalSuitabilityID;
   }
 
   @JsonProperty("costTotalAnnual")
-  public Double getCostTotalAnnual() {
+  public Double getCostTotalAnnual()
+	{
     return costTotalAnnual;
   }
   
   @JsonProperty("costTotalAnnual")
-  public void setCostTotalAnnual(Double costTotalAnnual) {
+  public void setCostTotalAnnual(Double costTotalAnnual)
+	{
     this.costTotalAnnual = costTotalAnnual;
   }
 
   @Override
-  public String toString()  {
+  public String toString()
+	{
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceHasResourceHW {\n");
     sb.append("  ID: ").append(ID).append("\n");

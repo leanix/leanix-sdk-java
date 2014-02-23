@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -26,7 +26,8 @@ package net.leanix.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
 import net.leanix.api.models.UserSubscription;
-public class User {
+public class User
+{
   /*  */
   private String ID = null;
   /*  */
@@ -40,67 +41,80 @@ public class User {
   /*  */
   private List<UserSubscription> userSubscriptions = new ArrayList<UserSubscription>();
   @JsonProperty("ID")
-  public String getID() {
+  public String getID()
+	{
     return ID;
   }
   
   @JsonProperty("ID")
-  public void setID(String ID) {
+  public void setID(String ID)
+	{
     this.ID = ID;
   }
 
   @JsonProperty("firstName")
-  public String getFirstName() {
+  public String getFirstName()
+	{
     return firstName;
   }
   
   @JsonProperty("firstName")
-  public void setFirstName(String firstName) {
+  public void setFirstName(String firstName)
+	{
     this.firstName = firstName;
   }
 
   @JsonProperty("lastName")
-  public String getLastName() {
+  public String getLastName()
+	{
     return lastName;
   }
   
   @JsonProperty("lastName")
-  public void setLastName(String lastName) {
+  public void setLastName(String lastName)
+	{
     this.lastName = lastName;
   }
 
   @JsonProperty("email")
-  public String getEmail() {
+  public String getEmail()
+	{
     return email;
   }
   
   @JsonProperty("email")
-  public void setEmail(String email) {
+  public void setEmail(String email)
+	{
     this.email = email;
   }
 
   @JsonProperty("userStatusID")
-  public String getUserStatusID() {
+  public String getUserStatusID()
+	{
     return userStatusID;
   }
   
   @JsonProperty("userStatusID")
-  public void setUserStatusID(String userStatusID) {
+  public void setUserStatusID(String userStatusID)
+	{
     this.userStatusID = userStatusID;
   }
 
   @JsonProperty("userSubscriptions")
-  public List<UserSubscription> getUserSubscriptions() {
+  public List<UserSubscription> getUserSubscriptions()
+	{
     return userSubscriptions;
   }
   
   @JsonProperty("userSubscriptions")
-  public void setUserSubscriptions(List<UserSubscription> userSubscriptions) {
+  public void setUserSubscriptions(List<UserSubscription> userSubscriptions)
+	{
     this.userSubscriptions = userSubscriptions;
   }
 
   @Override
-  public String toString()  {
+  public String toString()
+	{
     StringBuilder sb = new StringBuilder();
     sb.append("class User {\n");
     sb.append("  ID: ").append(ID).append("\n");

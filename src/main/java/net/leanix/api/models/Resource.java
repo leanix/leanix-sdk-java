@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -32,7 +32,8 @@ import net.leanix.api.models.ServiceHasResourceHW;
 import net.leanix.api.models.ServiceHasResourceSW;
 import net.leanix.api.models.ResourceHasProviderSvc;
 import net.leanix.api.models.ResourceHasResourceCapability;
-public class Resource {
+public class Resource
+{
   /*  */
   private String ID = null;
   /*  */
@@ -64,157 +65,188 @@ public class Resource {
   /*  */
   private List<ServiceHasResourceHW> serviceHasResourcesHW = new ArrayList<ServiceHasResourceHW>();
   @JsonProperty("ID")
-  public String getID() {
+  public String getID()
+	{
     return ID;
   }
   
   @JsonProperty("ID")
-  public void setID(String ID) {
+  public void setID(String ID)
+	{
     this.ID = ID;
   }
 
   @JsonProperty("name")
-  public String getName() {
+  public String getName()
+	{
     return name;
   }
   
   @JsonProperty("name")
-  public void setName(String name) {
+  public void setName(String name)
+	{
     this.name = name;
   }
 
   @JsonProperty("displayName")
-  public String getDisplayName() {
+  public String getDisplayName()
+	{
     return displayName;
   }
   
   @JsonProperty("displayName")
-  public void setDisplayName(String displayName) {
+  public void setDisplayName(String displayName)
+	{
     this.displayName = displayName;
   }
 
   @JsonProperty("reference")
-  public String getReference() {
+  public String getReference()
+	{
     return reference;
   }
   
   @JsonProperty("reference")
-  public void setReference(String reference) {
+  public void setReference(String reference)
+	{
     this.reference = reference;
   }
 
   @JsonProperty("alias")
-  public String getAlias() {
+  public String getAlias()
+	{
     return alias;
   }
   
   @JsonProperty("alias")
-  public void setAlias(String alias) {
+  public void setAlias(String alias)
+	{
     this.alias = alias;
   }
 
   @JsonProperty("description")
-  public String getDescription() {
+  public String getDescription()
+	{
     return description;
   }
   
   @JsonProperty("description")
-  public void setDescription(String description) {
+  public void setDescription(String description)
+	{
     this.description = description;
   }
 
   @JsonProperty("objectCategoryID")
-  public String getObjectCategoryID() {
+  public String getObjectCategoryID()
+	{
     return objectCategoryID;
   }
   
   @JsonProperty("objectCategoryID")
-  public void setObjectCategoryID(String objectCategoryID) {
+  public void setObjectCategoryID(String objectCategoryID)
+	{
     this.objectCategoryID = objectCategoryID;
   }
 
   @JsonProperty("locationID")
-  public String getLocationID() {
+  public String getLocationID()
+	{
     return locationID;
   }
   
   @JsonProperty("locationID")
-  public void setLocationID(String locationID) {
+  public void setLocationID(String locationID)
+	{
     this.locationID = locationID;
   }
 
   @JsonProperty("resourceHasProvidersSvc")
-  public List<ResourceHasProviderSvc> getResourceHasProvidersSvc() {
+  public List<ResourceHasProviderSvc> getResourceHasProvidersSvc()
+	{
     return resourceHasProvidersSvc;
   }
   
   @JsonProperty("resourceHasProvidersSvc")
-  public void setResourceHasProvidersSvc(List<ResourceHasProviderSvc> resourceHasProvidersSvc) {
+  public void setResourceHasProvidersSvc(List<ResourceHasProviderSvc> resourceHasProvidersSvc)
+	{
     this.resourceHasProvidersSvc = resourceHasProvidersSvc;
   }
 
   @JsonProperty("resourceHasProvidersSW")
-  public List<ResourceHasProviderSW> getResourceHasProvidersSW() {
+  public List<ResourceHasProviderSW> getResourceHasProvidersSW()
+	{
     return resourceHasProvidersSW;
   }
   
   @JsonProperty("resourceHasProvidersSW")
-  public void setResourceHasProvidersSW(List<ResourceHasProviderSW> resourceHasProvidersSW) {
+  public void setResourceHasProvidersSW(List<ResourceHasProviderSW> resourceHasProvidersSW)
+	{
     this.resourceHasProvidersSW = resourceHasProvidersSW;
   }
 
   @JsonProperty("resourceHasProvidersHW")
-  public List<ResourceHasProviderHW> getResourceHasProvidersHW() {
+  public List<ResourceHasProviderHW> getResourceHasProvidersHW()
+	{
     return resourceHasProvidersHW;
   }
   
   @JsonProperty("resourceHasProvidersHW")
-  public void setResourceHasProvidersHW(List<ResourceHasProviderHW> resourceHasProvidersHW) {
+  public void setResourceHasProvidersHW(List<ResourceHasProviderHW> resourceHasProvidersHW)
+	{
     this.resourceHasProvidersHW = resourceHasProvidersHW;
   }
 
   @JsonProperty("resourceHasResourceCapabilities")
-  public List<ResourceHasResourceCapability> getResourceHasResourceCapabilities() {
+  public List<ResourceHasResourceCapability> getResourceHasResourceCapabilities()
+	{
     return resourceHasResourceCapabilities;
   }
   
   @JsonProperty("resourceHasResourceCapabilities")
-  public void setResourceHasResourceCapabilities(List<ResourceHasResourceCapability> resourceHasResourceCapabilities) {
+  public void setResourceHasResourceCapabilities(List<ResourceHasResourceCapability> resourceHasResourceCapabilities)
+	{
     this.resourceHasResourceCapabilities = resourceHasResourceCapabilities;
   }
 
   @JsonProperty("serviceHasResourcesSvc")
-  public List<ServiceHasResourceSvc> getServiceHasResourcesSvc() {
+  public List<ServiceHasResourceSvc> getServiceHasResourcesSvc()
+	{
     return serviceHasResourcesSvc;
   }
   
   @JsonProperty("serviceHasResourcesSvc")
-  public void setServiceHasResourcesSvc(List<ServiceHasResourceSvc> serviceHasResourcesSvc) {
+  public void setServiceHasResourcesSvc(List<ServiceHasResourceSvc> serviceHasResourcesSvc)
+	{
     this.serviceHasResourcesSvc = serviceHasResourcesSvc;
   }
 
   @JsonProperty("serviceHasResourcesSW")
-  public List<ServiceHasResourceSW> getServiceHasResourcesSW() {
+  public List<ServiceHasResourceSW> getServiceHasResourcesSW()
+	{
     return serviceHasResourcesSW;
   }
   
   @JsonProperty("serviceHasResourcesSW")
-  public void setServiceHasResourcesSW(List<ServiceHasResourceSW> serviceHasResourcesSW) {
+  public void setServiceHasResourcesSW(List<ServiceHasResourceSW> serviceHasResourcesSW)
+	{
     this.serviceHasResourcesSW = serviceHasResourcesSW;
   }
 
   @JsonProperty("serviceHasResourcesHW")
-  public List<ServiceHasResourceHW> getServiceHasResourcesHW() {
+  public List<ServiceHasResourceHW> getServiceHasResourcesHW()
+	{
     return serviceHasResourcesHW;
   }
   
   @JsonProperty("serviceHasResourcesHW")
-  public void setServiceHasResourcesHW(List<ServiceHasResourceHW> serviceHasResourcesHW) {
+  public void setServiceHasResourcesHW(List<ServiceHasResourceHW> serviceHasResourcesHW)
+	{
     this.serviceHasResourcesHW = serviceHasResourcesHW;
   }
 
   @Override
-  public String toString()  {
+  public String toString()
+	{
     StringBuilder sb = new StringBuilder();
     sb.append("class Resource {\n");
     sb.append("  ID: ").append(ID).append("\n");

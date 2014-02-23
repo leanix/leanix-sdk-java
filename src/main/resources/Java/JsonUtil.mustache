@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -28,16 +28,19 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.core.JsonGenerator.Feature;
 
-public class JsonUtil {
+public class JsonUtil
+{
   public static ObjectMapper mapper;
 
-  static {
+  static
+	{
   	mapper = new ObjectMapper();
 	  mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
 	  mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 	}
 
-	public static ObjectMapper getJsonMapper() {
+	public static ObjectMapper getJsonMapper()
+	{
 		return mapper;
 	}
 }

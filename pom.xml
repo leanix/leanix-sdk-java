@@ -100,22 +100,46 @@
 						<version>${scala-maven-plugin-version}</version>
 						<executions>
 							<execution>
+								<id>codegen</id>
 								<goals>
 									<goal>compile</goal>
+									<goal>run</goal>
+								</goals>
+								<phase>compile</phase>
+								<configuration>
+									<launchers>
+										<launcher>
+											<id>swagger-codegen</id>
+											<mainClass>net.leanix.api.codegen.JavaCodegen</mainClass>
+											<args>
+												<arg>${leanix-rest-api-url}/api-docs</arg>
+											</args>
+										</launcher>
+									</launchers>
+								</configuration>
+							</execution>							
+						</executions>
+
+					</plugin>
+					
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>${maven-antrun-plugin-version}</version>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<configuration>
+									<target>
+										<copy todir="src">
+											<fileset dir="target/generated-sources/swagger/src" includes="**" /> 	
+										</copy>
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
 								</goals>
 							</execution>
 						</executions>
-						<configuration>
-							<launchers>
-								<launcher>
-									<id>swagger-codegen</id>
-									<mainClass>net.leanix.api.codegen.JavaCodegen</mainClass>
-									<args>
-										<arg>https://app.leanix.net/demo/api/v1/api-docs</arg>
-									</args>
-								</launcher>
-							</launchers>
-						</configuration>
 					</plugin>
 					
 					<plugin>
@@ -341,6 +365,8 @@
 		<scala-maven-plugin-version>3.1.6</scala-maven-plugin-version>
 		<scala-lang-version>2.9.1-1</scala-lang-version>
 		<swagger-codegen-version>2.0.13</swagger-codegen-version>
+		<maven-antrun-plugin-version>1.7</maven-antrun-plugin-version>
+		<leanix-rest-api-url>https://app.leanix.net/demo/api/v1</leanix-rest-api-url>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>

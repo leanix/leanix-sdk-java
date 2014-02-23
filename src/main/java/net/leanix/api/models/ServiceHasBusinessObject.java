@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -24,7 +24,8 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ServiceHasBusinessObject {
+public class ServiceHasBusinessObject
+{
   /*  */
   private String ID = null;
   /*  */
@@ -34,47 +35,56 @@ public class ServiceHasBusinessObject {
   /*  */
   private String businessObjectRelationID = null;
   @JsonProperty("ID")
-  public String getID() {
+  public String getID()
+	{
     return ID;
   }
   
   @JsonProperty("ID")
-  public void setID(String ID) {
+  public void setID(String ID)
+	{
     this.ID = ID;
   }
 
   @JsonProperty("serviceID")
-  public String getServiceID() {
+  public String getServiceID()
+	{
     return serviceID;
   }
   
   @JsonProperty("serviceID")
-  public void setServiceID(String serviceID) {
+  public void setServiceID(String serviceID)
+	{
     this.serviceID = serviceID;
   }
 
   @JsonProperty("businessObjectID")
-  public String getBusinessObjectID() {
+  public String getBusinessObjectID()
+	{
     return businessObjectID;
   }
   
   @JsonProperty("businessObjectID")
-  public void setBusinessObjectID(String businessObjectID) {
+  public void setBusinessObjectID(String businessObjectID)
+	{
     this.businessObjectID = businessObjectID;
   }
 
   @JsonProperty("businessObjectRelationID")
-  public String getBusinessObjectRelationID() {
+  public String getBusinessObjectRelationID()
+	{
     return businessObjectRelationID;
   }
   
   @JsonProperty("businessObjectRelationID")
-  public void setBusinessObjectRelationID(String businessObjectRelationID) {
+  public void setBusinessObjectRelationID(String businessObjectRelationID)
+	{
     this.businessObjectRelationID = businessObjectRelationID;
   }
 
   @Override
-  public String toString()  {
+  public String toString()
+	{
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceHasBusinessObject {\n");
     sb.append("  ID: ").append(ID).append("\n");

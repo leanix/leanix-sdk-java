@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -26,7 +26,8 @@ package net.leanix.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
 import net.leanix.api.models.Project;
-public class ProjectUpdate {
+public class ProjectUpdate
+{
   /*  */
   private String ID = null;
   /*  */
@@ -56,147 +57,176 @@ public class ProjectUpdate {
   /*  */
   private List<Project> projects = new ArrayList<Project>();
   @JsonProperty("ID")
-  public String getID() {
+  public String getID()
+	{
     return ID;
   }
   
   @JsonProperty("ID")
-  public void setID(String ID) {
+  public void setID(String ID)
+	{
     this.ID = ID;
   }
 
   @JsonProperty("projectID")
-  public String getProjectID() {
+  public String getProjectID()
+	{
     return projectID;
   }
   
   @JsonProperty("projectID")
-  public void setProjectID(String projectID) {
+  public void setProjectID(String projectID)
+	{
     this.projectID = projectID;
   }
 
   @JsonProperty("projectStatusID")
-  public String getProjectStatusID() {
+  public String getProjectStatusID()
+	{
     return projectStatusID;
   }
   
   @JsonProperty("projectStatusID")
-  public void setProjectStatusID(String projectStatusID) {
+  public void setProjectStatusID(String projectStatusID)
+	{
     this.projectStatusID = projectStatusID;
   }
 
   @JsonProperty("statusDate")
-  public String getStatusDate() {
+  public String getStatusDate()
+	{
     return statusDate;
   }
   
   @JsonProperty("statusDate")
-  public void setStatusDate(String statusDate) {
+  public void setStatusDate(String statusDate)
+	{
     this.statusDate = statusDate;
   }
 
   @JsonProperty("description")
-  public String getDescription() {
+  public String getDescription()
+	{
     return description;
   }
   
   @JsonProperty("description")
-  public void setDescription(String description) {
+  public void setDescription(String description)
+	{
     this.description = description;
   }
 
   @JsonProperty("createUserID")
-  public String getCreateUserID() {
+  public String getCreateUserID()
+	{
     return createUserID;
   }
   
   @JsonProperty("createUserID")
-  public void setCreateUserID(String createUserID) {
+  public void setCreateUserID(String createUserID)
+	{
     this.createUserID = createUserID;
   }
 
   @JsonProperty("updateUserID")
-  public String getUpdateUserID() {
+  public String getUpdateUserID()
+	{
     return updateUserID;
   }
   
   @JsonProperty("updateUserID")
-  public void setUpdateUserID(String updateUserID) {
+  public void setUpdateUserID(String updateUserID)
+	{
     this.updateUserID = updateUserID;
   }
 
   @JsonProperty("etcOpex")
-  public Double getEtcOpex() {
+  public Double getEtcOpex()
+	{
     return etcOpex;
   }
   
   @JsonProperty("etcOpex")
-  public void setEtcOpex(Double etcOpex) {
+  public void setEtcOpex(Double etcOpex)
+	{
     this.etcOpex = etcOpex;
   }
 
   @JsonProperty("etcCapex")
-  public Double getEtcCapex() {
+  public Double getEtcCapex()
+	{
     return etcCapex;
   }
   
   @JsonProperty("etcCapex")
-  public void setEtcCapex(Double etcCapex) {
+  public void setEtcCapex(Double etcCapex)
+	{
     this.etcCapex = etcCapex;
   }
 
   @JsonProperty("actualsOpex")
-  public Double getActualsOpex() {
+  public Double getActualsOpex()
+	{
     return actualsOpex;
   }
   
   @JsonProperty("actualsOpex")
-  public void setActualsOpex(Double actualsOpex) {
+  public void setActualsOpex(Double actualsOpex)
+	{
     this.actualsOpex = actualsOpex;
   }
 
   @JsonProperty("actualsCapex")
-  public Double getActualsCapex() {
+  public Double getActualsCapex()
+	{
     return actualsCapex;
   }
   
   @JsonProperty("actualsCapex")
-  public void setActualsCapex(Double actualsCapex) {
+  public void setActualsCapex(Double actualsCapex)
+	{
     this.actualsCapex = actualsCapex;
   }
 
   @JsonProperty("statusDateYear")
-  public Long getStatusDateYear() {
+  public Long getStatusDateYear()
+	{
     return statusDateYear;
   }
   
   @JsonProperty("statusDateYear")
-  public void setStatusDateYear(Long statusDateYear) {
+  public void setStatusDateYear(Long statusDateYear)
+	{
     this.statusDateYear = statusDateYear;
   }
 
   @JsonProperty("statusDateMonth")
-  public Long getStatusDateMonth() {
+  public Long getStatusDateMonth()
+	{
     return statusDateMonth;
   }
   
   @JsonProperty("statusDateMonth")
-  public void setStatusDateMonth(Long statusDateMonth) {
+  public void setStatusDateMonth(Long statusDateMonth)
+	{
     this.statusDateMonth = statusDateMonth;
   }
 
   @JsonProperty("projects")
-  public List<Project> getProjects() {
+  public List<Project> getProjects()
+	{
     return projects;
   }
   
   @JsonProperty("projects")
-  public void setProjects(List<Project> projects) {
+  public void setProjects(List<Project> projects)
+	{
     this.projects = projects;
   }
 
   @Override
-  public String toString()  {
+  public String toString()
+	{
     StringBuilder sb = new StringBuilder();
     sb.append("class ProjectUpdate {\n");
     sb.append("  ID: ").append(ID).append("\n");

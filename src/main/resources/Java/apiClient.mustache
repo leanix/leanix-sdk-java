@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -43,75 +43,92 @@ import java.util.HashMap;
 import java.util.List;
 import java.io.IOException;
 
-public class ApiClient {
-
+public class ApiClient
+{
   private Map<String, Client> hostMap = new HashMap<String, Client>();
   private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
   private String basePath;
   
-  public void setBasePath(String basePath) {
+  public void setBasePath(String basePath)
+	{
     this.basePath = basePath;
   }
 	  
-  public String getBasePath() {
+  public String getBasePath()
+	{
     return basePath;
   }
   
-  public void setApiKey(String apiKey) {
-	this.addDefaultHeader("Api-Key", apiKey);
+  public void setApiKey(String apiKey)
+	{
+		this.addDefaultHeader("Api-Key", apiKey);
   }
   
-  public void addDefaultHeader(String key, String value) {
+  public void addDefaultHeader(String key, String value)
+	{
      defaultHeaderMap.put(key, value);
   }
 
-  public String escapeString(String str) {
+  public String escapeString(String str)
+	{
     return str;
   }
 
-  public static Object deserialize(String json, String containerType, Class cls) throws ApiException {
-    try{
-      if("List".equals(containerType) || "Array".equals(containerType)) {
+  public static Object deserialize(String json, String containerType, Class cls) throws ApiException
+	{
+    try
+		{
+      if("List".equals(containerType) || "Array".equals(containerType))
+			{
         JavaType typeInfo = JsonUtil.getJsonMapper().getTypeFactory().constructCollectionType(List.class, cls);
         List response = (List<?>) JsonUtil.getJsonMapper().readValue(json, typeInfo);
         return response;
       }
-      else if(String.class.equals(cls)) {
+      else if(String.class.equals(cls))
+			{
         if(json != null && json.startsWith("\"") && json.endsWith("\"") && json.length() > 1)
           return json.substring(1, json.length() - 2);
         else 
           return json;
       }
-      else {
+      else
+			{
         return JsonUtil.getJsonMapper().readValue(json, cls);
       }
     }
-    catch (IOException e) {
+    catch (IOException e)
+		{
       throw new ApiException(500, e.getMessage());
     }
   }
 
-  public static String serialize(Object obj) throws ApiException {
-    try {
+  public static String serialize(Object obj) throws ApiException
+	{
+    try
+		{
       if (obj != null) 
         return JsonUtil.getJsonMapper().writeValueAsString(obj);
       else 
         return null;
     }
-    catch (Exception e) {
+    catch (Exception e)
+		{
       throw new ApiException(500, e.getMessage());
     }
   }
 
-  public String invokeAPI(String path, String method, Map<String, String> queryParams, Object body, Map<String, String> headerParams) throws ApiException {
+  public String invokeAPI(String path, String method, Map<String, String> queryParams, Object body, Map<String, String> headerParams) throws ApiException
+	{
     String host = this.basePath;
-	Client client = getClient(host);
+		Client client = getClient(host);
 
     StringBuilder b = new StringBuilder();
     
-    for(String key : queryParams.keySet()) {
+    for(String key : queryParams.keySet())
+		{
       String value = queryParams.get(key);
-      if (value != null){
+      if (value != null)
+			{
         if(b.toString().length() == 0)
           b.append("?");
         else
@@ -122,53 +139,65 @@ public class ApiClient {
     String querystring = b.toString();
 
     Builder builder = client.resource(host + path + querystring).accept("application/json");
-    for(String key : headerParams.keySet()) {
+    for(String key : headerParams.keySet())
+		{
       builder.header(key, headerParams.get(key));
     }
     
-    for(String key : defaultHeaderMap.keySet()) {
-      if(!headerParams.containsKey(key)) {
+    for(String key : defaultHeaderMap.keySet())
+		{
+      if(!headerParams.containsKey(key))
+			{
         builder.header(key, defaultHeaderMap.get(key));
       }
     }
     ClientResponse response = null;
 
-    if("GET".equals(method)) {
+    if("GET".equals(method))
+		{
       response = (ClientResponse) builder.get(ClientResponse.class);
     }
-    else if ("POST".equals(method)) {
+    else if ("POST".equals(method))
+		{
       if(body == null)
         response = builder.post(ClientResponse.class, serialize(body));
       else
         response = builder.type("application/json").post(ClientResponse.class, serialize(body));
     }
-    else if ("PUT".equals(method)) {
+    else if ("PUT".equals(method))
+		{
       if(body == null)
         response = builder.put(ClientResponse.class, serialize(body));
       else
         response = builder.type("application/json").put(ClientResponse.class, serialize(body));
     }
-    else if ("DELETE".equals(method)) {
+    else if ("DELETE".equals(method))
+		{
       if(body == null)
         response = builder.delete(ClientResponse.class, serialize(body));
       else
         response = builder.type("application/json").delete(ClientResponse.class, serialize(body));
     }
-    else {
+    else
+		{
       throw new ApiException(500, "unknown method type " + method);
     }
-    if(response.getClientResponseStatus().getFamily() == Family.SUCCESSFUL) {
+    if(response.getClientResponseStatus().getFamily() == Family.SUCCESSFUL)
+		{
       return (String) response.getEntity(String.class);
     }
-    else {
+    else
+		{
       throw new ApiException(
                 response.getClientResponseStatus().getStatusCode(),
                 response.getEntity(String.class));      
     }
   }
 
-  private Client getClient(String host) {
-    if(!hostMap.containsKey(host)) {
+  private Client getClient(String host)
+	{
+    if(!hostMap.containsKey(host))
+		{
       Client client = Client.create();
       client.addFilter(new LoggingFilter());
       hostMap.put(host, client);

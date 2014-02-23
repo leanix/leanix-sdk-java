@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -26,7 +26,8 @@ package net.leanix.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
 import net.leanix.api.models.ServiceHasProcess;
-public class Process {
+public class Process
+{
   /*  */
   private String ID = null;
   /*  */
@@ -40,67 +41,80 @@ public class Process {
   /*  */
   private List<ServiceHasProcess> serviceHasProcesses = new ArrayList<ServiceHasProcess>();
   @JsonProperty("ID")
-  public String getID() {
+  public String getID()
+	{
     return ID;
   }
   
   @JsonProperty("ID")
-  public void setID(String ID) {
+  public void setID(String ID)
+	{
     this.ID = ID;
   }
 
   @JsonProperty("name")
-  public String getName() {
+  public String getName()
+	{
     return name;
   }
   
   @JsonProperty("name")
-  public void setName(String name) {
+  public void setName(String name)
+	{
     this.name = name;
   }
 
   @JsonProperty("reference")
-  public String getReference() {
+  public String getReference()
+	{
     return reference;
   }
   
   @JsonProperty("reference")
-  public void setReference(String reference) {
+  public void setReference(String reference)
+	{
     this.reference = reference;
   }
 
   @JsonProperty("alias")
-  public String getAlias() {
+  public String getAlias()
+	{
     return alias;
   }
   
   @JsonProperty("alias")
-  public void setAlias(String alias) {
+  public void setAlias(String alias)
+	{
     this.alias = alias;
   }
 
   @JsonProperty("description")
-  public String getDescription() {
+  public String getDescription()
+	{
     return description;
   }
   
   @JsonProperty("description")
-  public void setDescription(String description) {
+  public void setDescription(String description)
+	{
     this.description = description;
   }
 
   @JsonProperty("serviceHasProcesses")
-  public List<ServiceHasProcess> getServiceHasProcesses() {
+  public List<ServiceHasProcess> getServiceHasProcesses()
+	{
     return serviceHasProcesses;
   }
   
   @JsonProperty("serviceHasProcesses")
-  public void setServiceHasProcesses(List<ServiceHasProcess> serviceHasProcesses) {
+  public void setServiceHasProcesses(List<ServiceHasProcess> serviceHasProcesses)
+	{
     this.serviceHasProcesses = serviceHasProcesses;
   }
 
   @Override
-  public String toString()  {
+  public String toString()
+	{
     StringBuilder sb = new StringBuilder();
     sb.append("class Process {\n");
     sb.append("  ID: ").append(ID).append("\n");

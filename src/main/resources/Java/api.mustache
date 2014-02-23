@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -31,24 +31,28 @@ import {{invokerPackage}}.ApiClient;
 import java.util.*;
 
 {{#operations}}
-public class {{classname}} {
-
+public class {{classname}}
+{
   private ApiClient apiClient;
   
-  public {{classname}}(ApiClient client) {
+  public {{classname}}(ApiClient client)
+	{
     this.apiClient = client;
   }
   
-  public void setClient(ApiClient client) {
+  public void setClient(ApiClient client)
+	{
     this.apiClient = client;
   }
 
-  public ApiClient getClient() {
+  public ApiClient getClient()
+	{
     return this.apiClient;
   }
 
   {{#operation}}
-  public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}} {{nickname}} ({{#allParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) throws ApiException {
+  public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}} {{nickname}} ({{#allParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) throws ApiException
+	{
     // create path and map variables
     String path = "{{path}}".replaceAll("\\{format\\}","json"){{#pathParams}}.replaceAll("\\{" + "{{paramName}}" + "\\}", apiClient.escapeString({{{paramName}}}.toString())){{/pathParams}};
 
@@ -58,7 +62,8 @@ public class {{classname}} {
 
     {{#requiredParamCount}}
     // verify required params are set
-    if({{/requiredParamCount}}{{#requiredParams}} {{paramName}} == null {{#hasMore}}|| {{/hasMore}}{{/requiredParams}}{{#requiredParamCount}}) {
+    if({{/requiredParamCount}}{{#requiredParams}} {{paramName}} == null {{#hasMore}}|| {{/hasMore}}{{/requiredParams}}{{#requiredParamCount}})
+		{
        throw new ApiException(400, "missing required params");
     }
     {{/requiredParamCount}}
@@ -70,19 +75,26 @@ public class {{classname}} {
     {{#headerParams}}headerParams.put("{{baseName}}", {{paramName}});
     {{/headerParams}}
 
-    try {
+    try
+		{
       String response = apiClient.invokeAPI(path, "{{httpMethod}}", queryParams, {{#bodyParam}}{{bodyParam}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}}, headerParams);
-      if(response != null){
+      if (response != null)
+			{
         return {{#returnType}}({{{returnType}}}) ApiClient.deserialize(response, "{{returnContainer}}", {{returnBaseType}}.class){{/returnType}};
       }
-      else {
+      else
+			{
         return {{#returnType}}null{{/returnType}};
       }
-    } catch (ApiException ex) {
-      if(ex.getCode() == 404) {
+    }
+		catch (ApiException ex)
+		{
+      if(ex.getCode() == 404)
+			{
       	return {{#returnType}} null{{/returnType}};
       }
-      else {
+      else
+			{
         throw ex;
       }
     }

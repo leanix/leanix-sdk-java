@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -24,7 +24,8 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ServiceHasInterface {
+public class ServiceHasInterface
+{
   /*  */
   private String ID = null;
   /*  */
@@ -44,97 +45,116 @@ public class ServiceHasInterface {
   /*  */
   private String reference = null;
   @JsonProperty("ID")
-  public String getID() {
+  public String getID()
+	{
     return ID;
   }
   
   @JsonProperty("ID")
-  public void setID(String ID) {
+  public void setID(String ID)
+	{
     this.ID = ID;
   }
 
   @JsonProperty("name")
-  public String getName() {
+  public String getName()
+	{
     return name;
   }
   
   @JsonProperty("name")
-  public void setName(String name) {
+  public void setName(String name)
+	{
     this.name = name;
   }
 
   @JsonProperty("serviceID")
-  public String getServiceID() {
+  public String getServiceID()
+	{
     return serviceID;
   }
   
   @JsonProperty("serviceID")
-  public void setServiceID(String serviceID) {
+  public void setServiceID(String serviceID)
+	{
     this.serviceID = serviceID;
   }
 
   @JsonProperty("serviceRefID")
-  public String getServiceRefID() {
+  public String getServiceRefID()
+	{
     return serviceRefID;
   }
   
   @JsonProperty("serviceRefID")
-  public void setServiceRefID(String serviceRefID) {
+  public void setServiceRefID(String serviceRefID)
+	{
     this.serviceRefID = serviceRefID;
   }
 
   @JsonProperty("interfaceDirectionID")
-  public String getInterfaceDirectionID() {
+  public String getInterfaceDirectionID()
+	{
     return interfaceDirectionID;
   }
   
   @JsonProperty("interfaceDirectionID")
-  public void setInterfaceDirectionID(String interfaceDirectionID) {
+  public void setInterfaceDirectionID(String interfaceDirectionID)
+	{
     this.interfaceDirectionID = interfaceDirectionID;
   }
 
   @JsonProperty("interfaceFrequencyID")
-  public String getInterfaceFrequencyID() {
+  public String getInterfaceFrequencyID()
+	{
     return interfaceFrequencyID;
   }
   
   @JsonProperty("interfaceFrequencyID")
-  public void setInterfaceFrequencyID(String interfaceFrequencyID) {
+  public void setInterfaceFrequencyID(String interfaceFrequencyID)
+	{
     this.interfaceFrequencyID = interfaceFrequencyID;
   }
 
   @JsonProperty("interfaceTypeID")
-  public String getInterfaceTypeID() {
+  public String getInterfaceTypeID()
+	{
     return interfaceTypeID;
   }
   
   @JsonProperty("interfaceTypeID")
-  public void setInterfaceTypeID(String interfaceTypeID) {
+  public void setInterfaceTypeID(String interfaceTypeID)
+	{
     this.interfaceTypeID = interfaceTypeID;
   }
 
   @JsonProperty("interfaceTechnologyID")
-  public String getInterfaceTechnologyID() {
+  public String getInterfaceTechnologyID()
+	{
     return interfaceTechnologyID;
   }
   
   @JsonProperty("interfaceTechnologyID")
-  public void setInterfaceTechnologyID(String interfaceTechnologyID) {
+  public void setInterfaceTechnologyID(String interfaceTechnologyID)
+	{
     this.interfaceTechnologyID = interfaceTechnologyID;
   }
 
   @JsonProperty("reference")
-  public String getReference() {
+  public String getReference()
+	{
     return reference;
   }
   
   @JsonProperty("reference")
-  public void setReference(String reference) {
+  public void setReference(String reference)
+	{
     this.reference = reference;
   }
 
   @Override
-  public String toString()  {
+  public String toString()
+	{
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceHasInterface {\n");
     sb.append("  ID: ").append(ID).append("\n");

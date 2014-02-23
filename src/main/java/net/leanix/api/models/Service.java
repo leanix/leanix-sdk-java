@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -34,7 +34,8 @@ import net.leanix.api.models.ServiceHasResourceSW;
 import net.leanix.api.models.ServiceHasProcess;
 import net.leanix.api.models.ServiceHasConsumer;
 import net.leanix.api.models.ServiceHasBusinessObject;
-public class Service {
+public class Service
+{
   /*  */
   private String ID = null;
   /*  */
@@ -78,217 +79,260 @@ public class Service {
   /*  */
   private List<ServiceHasResourceHW> serviceHasResourcesHW = new ArrayList<ServiceHasResourceHW>();
   @JsonProperty("ID")
-  public String getID() {
+  public String getID()
+	{
     return ID;
   }
   
   @JsonProperty("ID")
-  public void setID(String ID) {
+  public void setID(String ID)
+	{
     this.ID = ID;
   }
 
   @JsonProperty("release")
-  public String getRelease() {
+  public String getRelease()
+	{
     return release;
   }
   
   @JsonProperty("release")
-  public void setRelease(String release) {
+  public void setRelease(String release)
+	{
     this.release = release;
   }
 
   @JsonProperty("name")
-  public String getName() {
+  public String getName()
+	{
     return name;
   }
   
   @JsonProperty("name")
-  public void setName(String name) {
+  public void setName(String name)
+	{
     this.name = name;
   }
 
   @JsonProperty("reference")
-  public String getReference() {
+  public String getReference()
+	{
     return reference;
   }
   
   @JsonProperty("reference")
-  public void setReference(String reference) {
+  public void setReference(String reference)
+	{
     this.reference = reference;
   }
 
   @JsonProperty("alias")
-  public String getAlias() {
+  public String getAlias()
+	{
     return alias;
   }
   
   @JsonProperty("alias")
-  public void setAlias(String alias) {
+  public void setAlias(String alias)
+	{
     this.alias = alias;
   }
 
   @JsonProperty("description")
-  public String getDescription() {
+  public String getDescription()
+	{
     return description;
   }
   
   @JsonProperty("description")
-  public void setDescription(String description) {
+  public void setDescription(String description)
+	{
     this.description = description;
   }
 
   @JsonProperty("businessCriticalityID")
-  public String getBusinessCriticalityID() {
+  public String getBusinessCriticalityID()
+	{
     return businessCriticalityID;
   }
   
   @JsonProperty("businessCriticalityID")
-  public void setBusinessCriticalityID(String businessCriticalityID) {
+  public void setBusinessCriticalityID(String businessCriticalityID)
+	{
     this.businessCriticalityID = businessCriticalityID;
   }
 
   @JsonProperty("businessCriticalityDescription")
-  public String getBusinessCriticalityDescription() {
+  public String getBusinessCriticalityDescription()
+	{
     return businessCriticalityDescription;
   }
   
   @JsonProperty("businessCriticalityDescription")
-  public void setBusinessCriticalityDescription(String businessCriticalityDescription) {
+  public void setBusinessCriticalityDescription(String businessCriticalityDescription)
+	{
     this.businessCriticalityDescription = businessCriticalityDescription;
   }
 
   @JsonProperty("functionalSuitabilityID")
-  public String getFunctionalSuitabilityID() {
+  public String getFunctionalSuitabilityID()
+	{
     return functionalSuitabilityID;
   }
   
   @JsonProperty("functionalSuitabilityID")
-  public void setFunctionalSuitabilityID(String functionalSuitabilityID) {
+  public void setFunctionalSuitabilityID(String functionalSuitabilityID)
+	{
     this.functionalSuitabilityID = functionalSuitabilityID;
   }
 
   @JsonProperty("functionalSuitabilityDescription")
-  public String getFunctionalSuitabilityDescription() {
+  public String getFunctionalSuitabilityDescription()
+	{
     return functionalSuitabilityDescription;
   }
   
   @JsonProperty("functionalSuitabilityDescription")
-  public void setFunctionalSuitabilityDescription(String functionalSuitabilityDescription) {
+  public void setFunctionalSuitabilityDescription(String functionalSuitabilityDescription)
+	{
     this.functionalSuitabilityDescription = functionalSuitabilityDescription;
   }
 
   @JsonProperty("technicalSuitabilityID")
-  public String getTechnicalSuitabilityID() {
+  public String getTechnicalSuitabilityID()
+	{
     return technicalSuitabilityID;
   }
   
   @JsonProperty("technicalSuitabilityID")
-  public void setTechnicalSuitabilityID(String technicalSuitabilityID) {
+  public void setTechnicalSuitabilityID(String technicalSuitabilityID)
+	{
     this.technicalSuitabilityID = technicalSuitabilityID;
   }
 
   @JsonProperty("technicalSuitabilityDescription")
-  public String getTechnicalSuitabilityDescription() {
+  public String getTechnicalSuitabilityDescription()
+	{
     return technicalSuitabilityDescription;
   }
   
   @JsonProperty("technicalSuitabilityDescription")
-  public void setTechnicalSuitabilityDescription(String technicalSuitabilityDescription) {
+  public void setTechnicalSuitabilityDescription(String technicalSuitabilityDescription)
+	{
     this.technicalSuitabilityDescription = technicalSuitabilityDescription;
   }
 
   @JsonProperty("serviceHasProjects")
-  public List<ServiceHasProject> getServiceHasProjects() {
+  public List<ServiceHasProject> getServiceHasProjects()
+	{
     return serviceHasProjects;
   }
   
   @JsonProperty("serviceHasProjects")
-  public void setServiceHasProjects(List<ServiceHasProject> serviceHasProjects) {
+  public void setServiceHasProjects(List<ServiceHasProject> serviceHasProjects)
+	{
     this.serviceHasProjects = serviceHasProjects;
   }
 
   @JsonProperty("serviceHasBusinessCapabilities")
-  public List<ServiceHasBusinessCapability> getServiceHasBusinessCapabilities() {
+  public List<ServiceHasBusinessCapability> getServiceHasBusinessCapabilities()
+	{
     return serviceHasBusinessCapabilities;
   }
   
   @JsonProperty("serviceHasBusinessCapabilities")
-  public void setServiceHasBusinessCapabilities(List<ServiceHasBusinessCapability> serviceHasBusinessCapabilities) {
+  public void setServiceHasBusinessCapabilities(List<ServiceHasBusinessCapability> serviceHasBusinessCapabilities)
+	{
     this.serviceHasBusinessCapabilities = serviceHasBusinessCapabilities;
   }
 
   @JsonProperty("serviceHasProcesses")
-  public List<ServiceHasProcess> getServiceHasProcesses() {
+  public List<ServiceHasProcess> getServiceHasProcesses()
+	{
     return serviceHasProcesses;
   }
   
   @JsonProperty("serviceHasProcesses")
-  public void setServiceHasProcesses(List<ServiceHasProcess> serviceHasProcesses) {
+  public void setServiceHasProcesses(List<ServiceHasProcess> serviceHasProcesses)
+	{
     this.serviceHasProcesses = serviceHasProcesses;
   }
 
   @JsonProperty("serviceHasConsumers")
-  public List<ServiceHasConsumer> getServiceHasConsumers() {
+  public List<ServiceHasConsumer> getServiceHasConsumers()
+	{
     return serviceHasConsumers;
   }
   
   @JsonProperty("serviceHasConsumers")
-  public void setServiceHasConsumers(List<ServiceHasConsumer> serviceHasConsumers) {
+  public void setServiceHasConsumers(List<ServiceHasConsumer> serviceHasConsumers)
+	{
     this.serviceHasConsumers = serviceHasConsumers;
   }
 
   @JsonProperty("serviceHasBusinessObjects")
-  public List<ServiceHasBusinessObject> getServiceHasBusinessObjects() {
+  public List<ServiceHasBusinessObject> getServiceHasBusinessObjects()
+	{
     return serviceHasBusinessObjects;
   }
   
   @JsonProperty("serviceHasBusinessObjects")
-  public void setServiceHasBusinessObjects(List<ServiceHasBusinessObject> serviceHasBusinessObjects) {
+  public void setServiceHasBusinessObjects(List<ServiceHasBusinessObject> serviceHasBusinessObjects)
+	{
     this.serviceHasBusinessObjects = serviceHasBusinessObjects;
   }
 
   @JsonProperty("serviceHasInterfaces")
-  public List<ServiceHasInterface> getServiceHasInterfaces() {
+  public List<ServiceHasInterface> getServiceHasInterfaces()
+	{
     return serviceHasInterfaces;
   }
   
   @JsonProperty("serviceHasInterfaces")
-  public void setServiceHasInterfaces(List<ServiceHasInterface> serviceHasInterfaces) {
+  public void setServiceHasInterfaces(List<ServiceHasInterface> serviceHasInterfaces)
+	{
     this.serviceHasInterfaces = serviceHasInterfaces;
   }
 
   @JsonProperty("serviceHasResourcesSvc")
-  public List<ServiceHasResourceSvc> getServiceHasResourcesSvc() {
+  public List<ServiceHasResourceSvc> getServiceHasResourcesSvc()
+	{
     return serviceHasResourcesSvc;
   }
   
   @JsonProperty("serviceHasResourcesSvc")
-  public void setServiceHasResourcesSvc(List<ServiceHasResourceSvc> serviceHasResourcesSvc) {
+  public void setServiceHasResourcesSvc(List<ServiceHasResourceSvc> serviceHasResourcesSvc)
+	{
     this.serviceHasResourcesSvc = serviceHasResourcesSvc;
   }
 
   @JsonProperty("serviceHasResourcesSW")
-  public List<ServiceHasResourceSW> getServiceHasResourcesSW() {
+  public List<ServiceHasResourceSW> getServiceHasResourcesSW()
+	{
     return serviceHasResourcesSW;
   }
   
   @JsonProperty("serviceHasResourcesSW")
-  public void setServiceHasResourcesSW(List<ServiceHasResourceSW> serviceHasResourcesSW) {
+  public void setServiceHasResourcesSW(List<ServiceHasResourceSW> serviceHasResourcesSW)
+	{
     this.serviceHasResourcesSW = serviceHasResourcesSW;
   }
 
   @JsonProperty("serviceHasResourcesHW")
-  public List<ServiceHasResourceHW> getServiceHasResourcesHW() {
+  public List<ServiceHasResourceHW> getServiceHasResourcesHW()
+	{
     return serviceHasResourcesHW;
   }
   
   @JsonProperty("serviceHasResourcesHW")
-  public void setServiceHasResourcesHW(List<ServiceHasResourceHW> serviceHasResourcesHW) {
+  public void setServiceHasResourcesHW(List<ServiceHasResourceHW> serviceHasResourcesHW)
+	{
     this.serviceHasResourcesHW = serviceHasResourcesHW;
   }
 
   @Override
-  public String toString()  {
+  public String toString()
+	{
     StringBuilder sb = new StringBuilder();
     sb.append("class Service {\n");
     sb.append("  ID: ").append(ID).append("\n");

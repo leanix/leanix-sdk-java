@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -26,7 +26,8 @@ package net.leanix.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
 import net.leanix.api.models.ServiceHasBusinessObject;
-public class BusinessObject {
+public class BusinessObject
+{
   /*  */
   private String ID = null;
   /*  */
@@ -40,67 +41,80 @@ public class BusinessObject {
   /*  */
   private List<ServiceHasBusinessObject> serviceHasBusinessObjects = new ArrayList<ServiceHasBusinessObject>();
   @JsonProperty("ID")
-  public String getID() {
+  public String getID()
+	{
     return ID;
   }
   
   @JsonProperty("ID")
-  public void setID(String ID) {
+  public void setID(String ID)
+	{
     this.ID = ID;
   }
 
   @JsonProperty("name")
-  public String getName() {
+  public String getName()
+	{
     return name;
   }
   
   @JsonProperty("name")
-  public void setName(String name) {
+  public void setName(String name)
+	{
     this.name = name;
   }
 
   @JsonProperty("reference")
-  public String getReference() {
+  public String getReference()
+	{
     return reference;
   }
   
   @JsonProperty("reference")
-  public void setReference(String reference) {
+  public void setReference(String reference)
+	{
     this.reference = reference;
   }
 
   @JsonProperty("alias")
-  public String getAlias() {
+  public String getAlias()
+	{
     return alias;
   }
   
   @JsonProperty("alias")
-  public void setAlias(String alias) {
+  public void setAlias(String alias)
+	{
     this.alias = alias;
   }
 
   @JsonProperty("description")
-  public String getDescription() {
+  public String getDescription()
+	{
     return description;
   }
   
   @JsonProperty("description")
-  public void setDescription(String description) {
+  public void setDescription(String description)
+	{
     this.description = description;
   }
 
   @JsonProperty("serviceHasBusinessObjects")
-  public List<ServiceHasBusinessObject> getServiceHasBusinessObjects() {
+  public List<ServiceHasBusinessObject> getServiceHasBusinessObjects()
+	{
     return serviceHasBusinessObjects;
   }
   
   @JsonProperty("serviceHasBusinessObjects")
-  public void setServiceHasBusinessObjects(List<ServiceHasBusinessObject> serviceHasBusinessObjects) {
+  public void setServiceHasBusinessObjects(List<ServiceHasBusinessObject> serviceHasBusinessObjects)
+	{
     this.serviceHasBusinessObjects = serviceHasBusinessObjects;
   }
 
   @Override
-  public String toString()  {
+  public String toString()
+	{
     StringBuilder sb = new StringBuilder();
     sb.append("class BusinessObject {\n");
     sb.append("  ID: ").append(ID).append("\n");

@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -24,7 +24,8 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ResourceHasProviderSW {
+public class ResourceHasProviderSW
+{
   /*  */
   private String ID = null;
   /*  */
@@ -32,37 +33,44 @@ public class ResourceHasProviderSW {
   /*  */
   private String resourceID = null;
   @JsonProperty("ID")
-  public String getID() {
+  public String getID()
+	{
     return ID;
   }
   
   @JsonProperty("ID")
-  public void setID(String ID) {
+  public void setID(String ID)
+	{
     this.ID = ID;
   }
 
   @JsonProperty("providerID")
-  public String getProviderID() {
+  public String getProviderID()
+	{
     return providerID;
   }
   
   @JsonProperty("providerID")
-  public void setProviderID(String providerID) {
+  public void setProviderID(String providerID)
+	{
     this.providerID = providerID;
   }
 
   @JsonProperty("resourceID")
-  public String getResourceID() {
+  public String getResourceID()
+	{
     return resourceID;
   }
   
   @JsonProperty("resourceID")
-  public void setResourceID(String resourceID) {
+  public void setResourceID(String resourceID)
+	{
     this.resourceID = resourceID;
   }
 
   @Override
-  public String toString()  {
+  public String toString()
+	{
     StringBuilder sb = new StringBuilder();
     sb.append("class ResourceHasProviderSW {\n");
     sb.append("  ID: ").append(ID).append("\n");

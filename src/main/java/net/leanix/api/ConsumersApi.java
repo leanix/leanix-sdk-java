@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -29,23 +29,27 @@ import net.leanix.api.models.ServiceHasConsumer;
 import net.leanix.api.models.Consumer;
 import java.util.*;
 
-public class ConsumersApi {
-
+public class ConsumersApi
+{
   private ApiClient apiClient;
   
-  public ConsumersApi(ApiClient client) {
+  public ConsumersApi(ApiClient client)
+	{
     this.apiClient = client;
   }
   
-  public void setClient(ApiClient client) {
+  public void setClient(ApiClient client)
+	{
     this.apiClient = client;
   }
 
-  public ApiClient getClient() {
+  public ApiClient getClient()
+	{
     return this.apiClient;
   }
 
-  public List<Consumer> getConsumers (Boolean relations, String filter) throws ApiException {
+  public List<Consumer> getConsumers (Boolean relations, String filter) throws ApiException
+	{
     // create path and map variables
     String path = "/consumers".replaceAll("\\{format\\}","json");
 
@@ -57,24 +61,32 @@ public class ConsumersApi {
       queryParams.put("relations", String.valueOf(relations));
     if(!"null".equals(String.valueOf(filter)))
       queryParams.put("filter", String.valueOf(filter));
-    try {
+    try
+		{
       String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-      if(response != null){
+      if (response != null)
+			{
         return (List<Consumer>) ApiClient.deserialize(response, "Array", Consumer.class);
       }
-      else {
+      else
+			{
         return null;
       }
-    } catch (ApiException ex) {
-      if(ex.getCode() == 404) {
+    }
+		catch (ApiException ex)
+		{
+      if(ex.getCode() == 404)
+			{
       	return null;
       }
-      else {
+      else
+			{
         throw ex;
       }
     }
   }
-  public Consumer createConsumer (Consumer body) throws ApiException {
+  public Consumer createConsumer (Consumer body) throws ApiException
+	{
     // create path and map variables
     String path = "/consumers".replaceAll("\\{format\\}","json");
 
@@ -82,24 +94,32 @@ public class ConsumersApi {
     Map<String, String> queryParams = new HashMap<String, String>();
     Map<String, String> headerParams = new HashMap<String, String>();
 
-    try {
+    try
+		{
       String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-      if(response != null){
+      if (response != null)
+			{
         return (Consumer) ApiClient.deserialize(response, "", Consumer.class);
       }
-      else {
+      else
+			{
         return null;
       }
-    } catch (ApiException ex) {
-      if(ex.getCode() == 404) {
+    }
+		catch (ApiException ex)
+		{
+      if(ex.getCode() == 404)
+			{
       	return null;
       }
-      else {
+      else
+			{
         throw ex;
       }
     }
   }
-  public Consumer getConsumer (String ID, Boolean relations) throws ApiException {
+  public Consumer getConsumer (String ID, Boolean relations) throws ApiException
+	{
     // create path and map variables
     String path = "/consumers/{ID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
@@ -108,29 +128,38 @@ public class ConsumersApi {
     Map<String, String> headerParams = new HashMap<String, String>();
 
     // verify required params are set
-    if(ID == null ) {
+    if(ID == null )
+		{
        throw new ApiException(400, "missing required params");
     }
     if(!"null".equals(String.valueOf(relations)))
       queryParams.put("relations", String.valueOf(relations));
-    try {
+    try
+		{
       String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-      if(response != null){
+      if (response != null)
+			{
         return (Consumer) ApiClient.deserialize(response, "", Consumer.class);
       }
-      else {
+      else
+			{
         return null;
       }
-    } catch (ApiException ex) {
-      if(ex.getCode() == 404) {
+    }
+		catch (ApiException ex)
+		{
+      if(ex.getCode() == 404)
+			{
       	return null;
       }
-      else {
+      else
+			{
         throw ex;
       }
     }
   }
-  public Consumer updateConsumer (String ID, Consumer body) throws ApiException {
+  public Consumer updateConsumer (String ID, Consumer body) throws ApiException
+	{
     // create path and map variables
     String path = "/consumers/{ID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
@@ -139,27 +168,36 @@ public class ConsumersApi {
     Map<String, String> headerParams = new HashMap<String, String>();
 
     // verify required params are set
-    if(ID == null ) {
+    if(ID == null )
+		{
        throw new ApiException(400, "missing required params");
     }
-    try {
+    try
+		{
       String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-      if(response != null){
+      if (response != null)
+			{
         return (Consumer) ApiClient.deserialize(response, "", Consumer.class);
       }
-      else {
+      else
+			{
         return null;
       }
-    } catch (ApiException ex) {
-      if(ex.getCode() == 404) {
+    }
+		catch (ApiException ex)
+		{
+      if(ex.getCode() == 404)
+			{
       	return null;
       }
-      else {
+      else
+			{
         throw ex;
       }
     }
   }
-  public void deleteConsumer (String ID) throws ApiException {
+  public void deleteConsumer (String ID) throws ApiException
+	{
     // create path and map variables
     String path = "/consumers/{ID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
@@ -168,27 +206,36 @@ public class ConsumersApi {
     Map<String, String> headerParams = new HashMap<String, String>();
 
     // verify required params are set
-    if(ID == null ) {
+    if(ID == null )
+		{
        throw new ApiException(400, "missing required params");
     }
-    try {
+    try
+		{
       String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-      if(response != null){
+      if (response != null)
+			{
         return ;
       }
-      else {
+      else
+			{
         return ;
       }
-    } catch (ApiException ex) {
-      if(ex.getCode() == 404) {
+    }
+		catch (ApiException ex)
+		{
+      if(ex.getCode() == 404)
+			{
       	return ;
       }
-      else {
+      else
+			{
         throw ex;
       }
     }
   }
-  public List<ServiceHasConsumer> getServiceHasConsumers (String ID) throws ApiException {
+  public List<ServiceHasConsumer> getServiceHasConsumers (String ID) throws ApiException
+	{
     // create path and map variables
     String path = "/consumers/{ID}/serviceHasConsumers".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
@@ -197,27 +244,36 @@ public class ConsumersApi {
     Map<String, String> headerParams = new HashMap<String, String>();
 
     // verify required params are set
-    if(ID == null ) {
+    if(ID == null )
+		{
        throw new ApiException(400, "missing required params");
     }
-    try {
+    try
+		{
       String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-      if(response != null){
+      if (response != null)
+			{
         return (List<ServiceHasConsumer>) ApiClient.deserialize(response, "Array", ServiceHasConsumer.class);
       }
-      else {
+      else
+			{
         return null;
       }
-    } catch (ApiException ex) {
-      if(ex.getCode() == 404) {
+    }
+		catch (ApiException ex)
+		{
+      if(ex.getCode() == 404)
+			{
       	return null;
       }
-      else {
+      else
+			{
         throw ex;
       }
     }
   }
-  public ServiceHasConsumer createServiceHasConsumer (String ID, Consumer body) throws ApiException {
+  public ServiceHasConsumer createServiceHasConsumer (String ID, Consumer body) throws ApiException
+	{
     // create path and map variables
     String path = "/consumers/{ID}/serviceHasConsumers".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
@@ -226,27 +282,36 @@ public class ConsumersApi {
     Map<String, String> headerParams = new HashMap<String, String>();
 
     // verify required params are set
-    if(ID == null ) {
+    if(ID == null )
+		{
        throw new ApiException(400, "missing required params");
     }
-    try {
+    try
+		{
       String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-      if(response != null){
+      if (response != null)
+			{
         return (ServiceHasConsumer) ApiClient.deserialize(response, "", ServiceHasConsumer.class);
       }
-      else {
+      else
+			{
         return null;
       }
-    } catch (ApiException ex) {
-      if(ex.getCode() == 404) {
+    }
+		catch (ApiException ex)
+		{
+      if(ex.getCode() == 404)
+			{
       	return null;
       }
-      else {
+      else
+			{
         throw ex;
       }
     }
   }
-  public ServiceHasConsumer getServiceHasConsumer (String ID, String relationID) throws ApiException {
+  public ServiceHasConsumer getServiceHasConsumer (String ID, String relationID) throws ApiException
+	{
     // create path and map variables
     String path = "/consumers/{ID}/serviceHasConsumers/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
@@ -255,27 +320,36 @@ public class ConsumersApi {
     Map<String, String> headerParams = new HashMap<String, String>();
 
     // verify required params are set
-    if(ID == null || relationID == null ) {
+    if(ID == null || relationID == null )
+		{
        throw new ApiException(400, "missing required params");
     }
-    try {
+    try
+		{
       String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-      if(response != null){
+      if (response != null)
+			{
         return (ServiceHasConsumer) ApiClient.deserialize(response, "", ServiceHasConsumer.class);
       }
-      else {
+      else
+			{
         return null;
       }
-    } catch (ApiException ex) {
-      if(ex.getCode() == 404) {
+    }
+		catch (ApiException ex)
+		{
+      if(ex.getCode() == 404)
+			{
       	return null;
       }
-      else {
+      else
+			{
         throw ex;
       }
     }
   }
-  public ServiceHasConsumer updateServiceHasConsumer (String ID, String relationID, Consumer body) throws ApiException {
+  public ServiceHasConsumer updateServiceHasConsumer (String ID, String relationID, Consumer body) throws ApiException
+	{
     // create path and map variables
     String path = "/consumers/{ID}/serviceHasConsumers/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
@@ -284,27 +358,36 @@ public class ConsumersApi {
     Map<String, String> headerParams = new HashMap<String, String>();
 
     // verify required params are set
-    if(ID == null || relationID == null ) {
+    if(ID == null || relationID == null )
+		{
        throw new ApiException(400, "missing required params");
     }
-    try {
+    try
+		{
       String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-      if(response != null){
+      if (response != null)
+			{
         return (ServiceHasConsumer) ApiClient.deserialize(response, "", ServiceHasConsumer.class);
       }
-      else {
+      else
+			{
         return null;
       }
-    } catch (ApiException ex) {
-      if(ex.getCode() == 404) {
+    }
+		catch (ApiException ex)
+		{
+      if(ex.getCode() == 404)
+			{
       	return null;
       }
-      else {
+      else
+			{
         throw ex;
       }
     }
   }
-  public void deleteServiceHasConsumer (String ID, String relationID) throws ApiException {
+  public void deleteServiceHasConsumer (String ID, String relationID) throws ApiException
+	{
     // create path and map variables
     String path = "/consumers/{ID}/serviceHasConsumers/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
@@ -313,22 +396,30 @@ public class ConsumersApi {
     Map<String, String> headerParams = new HashMap<String, String>();
 
     // verify required params are set
-    if(ID == null || relationID == null ) {
+    if(ID == null || relationID == null )
+		{
        throw new ApiException(400, "missing required params");
     }
-    try {
+    try
+		{
       String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-      if(response != null){
+      if (response != null)
+			{
         return ;
       }
-      else {
+      else
+			{
         return ;
       }
-    } catch (ApiException ex) {
-      if(ex.getCode() == 404) {
+    }
+		catch (ApiException ex)
+		{
+      if(ex.getCode() == 404)
+			{
       	return ;
       }
-      else {
+      else
+			{
         throw ex;
       }
     }

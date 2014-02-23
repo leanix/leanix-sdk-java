@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -24,7 +24,8 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ServiceHasBusinessCapability {
+public class ServiceHasBusinessCapability
+{
   /*  */
   private String ID = null;
   /*  */
@@ -38,67 +39,80 @@ public class ServiceHasBusinessCapability {
   /*  */
   private String comment = null;
   @JsonProperty("ID")
-  public String getID() {
+  public String getID()
+	{
     return ID;
   }
   
   @JsonProperty("ID")
-  public void setID(String ID) {
+  public void setID(String ID)
+	{
     this.ID = ID;
   }
 
   @JsonProperty("serviceID")
-  public String getServiceID() {
+  public String getServiceID()
+	{
     return serviceID;
   }
   
   @JsonProperty("serviceID")
-  public void setServiceID(String serviceID) {
+  public void setServiceID(String serviceID)
+	{
     this.serviceID = serviceID;
   }
 
   @JsonProperty("businessCapabilityID")
-  public String getBusinessCapabilityID() {
+  public String getBusinessCapabilityID()
+	{
     return businessCapabilityID;
   }
   
   @JsonProperty("businessCapabilityID")
-  public void setBusinessCapabilityID(String businessCapabilityID) {
+  public void setBusinessCapabilityID(String businessCapabilityID)
+	{
     this.businessCapabilityID = businessCapabilityID;
   }
 
   @JsonProperty("isLeading")
-  public Boolean getIsLeading() {
+  public Boolean getIsLeading()
+	{
     return isLeading;
   }
   
   @JsonProperty("isLeading")
-  public void setIsLeading(Boolean isLeading) {
+  public void setIsLeading(Boolean isLeading)
+	{
     this.isLeading = isLeading;
   }
 
   @JsonProperty("functionalSuitabilityID")
-  public String getFunctionalSuitabilityID() {
+  public String getFunctionalSuitabilityID()
+	{
     return functionalSuitabilityID;
   }
   
   @JsonProperty("functionalSuitabilityID")
-  public void setFunctionalSuitabilityID(String functionalSuitabilityID) {
+  public void setFunctionalSuitabilityID(String functionalSuitabilityID)
+	{
     this.functionalSuitabilityID = functionalSuitabilityID;
   }
 
   @JsonProperty("comment")
-  public String getComment() {
+  public String getComment()
+	{
     return comment;
   }
   
   @JsonProperty("comment")
-  public void setComment(String comment) {
+  public void setComment(String comment)
+	{
     this.comment = comment;
   }
 
   @Override
-  public String toString()  {
+  public String toString()
+	{
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceHasBusinessCapability {\n");
     sb.append("  ID: ").append(ID).append("\n");

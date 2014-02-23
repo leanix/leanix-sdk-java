@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)	 
  *
- * Copyright (c) 2013 LeanIX GmbH
+ * Copyright (c) 2014 LeanIX GmbH
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -29,7 +29,8 @@ import net.leanix.api.models.ResourceHasProviderHW;
 import net.leanix.api.models.ResourceHasProviderSW;
 import net.leanix.api.models.ProjectHasProvider;
 import net.leanix.api.models.ResourceHasProviderSvc;
-public class Provider {
+public class Provider
+{
   /*  */
   private String ID = null;
   /*  */
@@ -49,97 +50,116 @@ public class Provider {
   /*  */
   private List<ResourceHasProviderHW> resourceHasProvidersHW = new ArrayList<ResourceHasProviderHW>();
   @JsonProperty("ID")
-  public String getID() {
+  public String getID()
+	{
     return ID;
   }
   
   @JsonProperty("ID")
-  public void setID(String ID) {
+  public void setID(String ID)
+	{
     this.ID = ID;
   }
 
   @JsonProperty("name")
-  public String getName() {
+  public String getName()
+	{
     return name;
   }
   
   @JsonProperty("name")
-  public void setName(String name) {
+  public void setName(String name)
+	{
     this.name = name;
   }
 
   @JsonProperty("reference")
-  public String getReference() {
+  public String getReference()
+	{
     return reference;
   }
   
   @JsonProperty("reference")
-  public void setReference(String reference) {
+  public void setReference(String reference)
+	{
     this.reference = reference;
   }
 
   @JsonProperty("alias")
-  public String getAlias() {
+  public String getAlias()
+	{
     return alias;
   }
   
   @JsonProperty("alias")
-  public void setAlias(String alias) {
+  public void setAlias(String alias)
+	{
     this.alias = alias;
   }
 
   @JsonProperty("description")
-  public String getDescription() {
+  public String getDescription()
+	{
     return description;
   }
   
   @JsonProperty("description")
-  public void setDescription(String description) {
+  public void setDescription(String description)
+	{
     this.description = description;
   }
 
   @JsonProperty("projectHasProviders")
-  public List<ProjectHasProvider> getProjectHasProviders() {
+  public List<ProjectHasProvider> getProjectHasProviders()
+	{
     return projectHasProviders;
   }
   
   @JsonProperty("projectHasProviders")
-  public void setProjectHasProviders(List<ProjectHasProvider> projectHasProviders) {
+  public void setProjectHasProviders(List<ProjectHasProvider> projectHasProviders)
+	{
     this.projectHasProviders = projectHasProviders;
   }
 
   @JsonProperty("resourceHasProvidersSvc")
-  public List<ResourceHasProviderSvc> getResourceHasProvidersSvc() {
+  public List<ResourceHasProviderSvc> getResourceHasProvidersSvc()
+	{
     return resourceHasProvidersSvc;
   }
   
   @JsonProperty("resourceHasProvidersSvc")
-  public void setResourceHasProvidersSvc(List<ResourceHasProviderSvc> resourceHasProvidersSvc) {
+  public void setResourceHasProvidersSvc(List<ResourceHasProviderSvc> resourceHasProvidersSvc)
+	{
     this.resourceHasProvidersSvc = resourceHasProvidersSvc;
   }
 
   @JsonProperty("resourceHasProvidersSW")
-  public List<ResourceHasProviderSW> getResourceHasProvidersSW() {
+  public List<ResourceHasProviderSW> getResourceHasProvidersSW()
+	{
     return resourceHasProvidersSW;
   }
   
   @JsonProperty("resourceHasProvidersSW")
-  public void setResourceHasProvidersSW(List<ResourceHasProviderSW> resourceHasProvidersSW) {
+  public void setResourceHasProvidersSW(List<ResourceHasProviderSW> resourceHasProvidersSW)
+	{
     this.resourceHasProvidersSW = resourceHasProvidersSW;
   }
 
   @JsonProperty("resourceHasProvidersHW")
-  public List<ResourceHasProviderHW> getResourceHasProvidersHW() {
+  public List<ResourceHasProviderHW> getResourceHasProvidersHW()
+	{
     return resourceHasProvidersHW;
   }
   
   @JsonProperty("resourceHasProvidersHW")
-  public void setResourceHasProvidersHW(List<ResourceHasProviderHW> resourceHasProvidersHW) {
+  public void setResourceHasProvidersHW(List<ResourceHasProviderHW> resourceHasProvidersHW)
+	{
     this.resourceHasProvidersHW = resourceHasProvidersHW;
   }
 
   @Override
-  public String toString()  {
+  public String toString()
+	{
     StringBuilder sb = new StringBuilder();
     sb.append("class Provider {\n");
     sb.append("  ID: ").append(ID).append("\n");
