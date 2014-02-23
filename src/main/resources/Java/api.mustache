@@ -1,25 +1,25 @@
 /*
- * The MIT License (MIT)	 
- *
- * Copyright (c) 2014 LeanIX GmbH
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
+* The MIT License (MIT)	 
+*
+* Copyright (c) 2014 LeanIX GmbH
+* 
+* Permission is hereby granted, free of charge, to any person obtaining a copy of
+* this software and associated documentation files (the "Software"), to deal in
+* the Software without restriction, including without limitation the rights to
+* use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+* the Software, and to permit persons to whom the Software is furnished to do so,
+* subject to the following conditions:
+* 
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+* 
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+* FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+* COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+* IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+* CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
 
 package {{package}};
 
@@ -33,72 +33,72 @@ import java.util.*;
 {{#operations}}
 public class {{classname}}
 {
-  private ApiClient apiClient;
-  
-  public {{classname}}(ApiClient client)
+	private ApiClient apiClient;
+	
+	public {{classname}}(ApiClient client)
 	{
-    this.apiClient = client;
-  }
-  
-  public void setClient(ApiClient client)
+		this.apiClient = client;
+	}
+	
+	public void setClient(ApiClient client)
 	{
-    this.apiClient = client;
-  }
+		this.apiClient = client;
+	}
 
-  public ApiClient getClient()
+	public ApiClient getClient()
 	{
-    return this.apiClient;
-  }
+		return this.apiClient;
+	}
 
-  {{#operation}}
-  public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}} {{nickname}} ({{#allParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) throws ApiException
+	{{#operation}}
+	public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}} {{nickname}} ({{#allParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) throws ApiException
 	{
-    // create path and map variables
-    String path = "{{path}}".replaceAll("\\{format\\}","json"){{#pathParams}}.replaceAll("\\{" + "{{paramName}}" + "\\}", apiClient.escapeString({{{paramName}}}.toString())){{/pathParams}};
+		// create path and map variables
+		String path = "{{path}}".replaceAll("\\{format\\}","json"){{#pathParams}}.replaceAll("\\{" + "{{paramName}}" + "\\}", apiClient.escapeString({{{paramName}}}.toString())){{/pathParams}};
 
-    // query params
-    Map<String, String> queryParams = new HashMap<String, String>();
-    Map<String, String> headerParams = new HashMap<String, String>();
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
 
-    {{#requiredParamCount}}
-    // verify required params are set
-    if({{/requiredParamCount}}{{#requiredParams}} {{paramName}} == null {{#hasMore}}|| {{/hasMore}}{{/requiredParams}}{{#requiredParamCount}})
+		{{#requiredParamCount}}
+		// verify required params are set
+		if({{/requiredParamCount}}{{#requiredParams}} {{paramName}} == null {{#hasMore}}|| {{/hasMore}}{{/requiredParams}}{{#requiredParamCount}})
 		{
-       throw new ApiException(400, "missing required params");
-    }
-    {{/requiredParamCount}}
+			throw new ApiException(400, "missing required params");
+		}
+		{{/requiredParamCount}}
 
-    {{#queryParams}}if(!"null".equals(String.valueOf({{paramName}})))
-      queryParams.put("{{baseName}}", String.valueOf({{paramName}}));
-    {{/queryParams}}
+		{{#queryParams}}if(!"null".equals(String.valueOf({{paramName}})))
+			queryParams.put("{{baseName}}", String.valueOf({{paramName}}));
+		{{/queryParams}}
 
-    {{#headerParams}}headerParams.put("{{baseName}}", {{paramName}});
-    {{/headerParams}}
+		{{#headerParams}}headerParams.put("{{baseName}}", {{paramName}});
+		{{/headerParams}}
 
-    try
+		try
 		{
-      String response = apiClient.invokeAPI(path, "{{httpMethod}}", queryParams, {{#bodyParam}}{{bodyParam}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}}, headerParams);
-      if (response != null)
+			String response = apiClient.invokeAPI(path, "{{httpMethod}}", queryParams, {{#bodyParam}}{{bodyParam}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}}, headerParams);
+			if (response != null)
 			{
-        return {{#returnType}}({{{returnType}}}) ApiClient.deserialize(response, "{{returnContainer}}", {{returnBaseType}}.class){{/returnType}};
-      }
-      else
+				return {{#returnType}}({{{returnType}}}) ApiClient.deserialize(response, "{{returnContainer}}", {{returnBaseType}}.class){{/returnType}};
+			}
+			else
 			{
-        return {{#returnType}}null{{/returnType}};
-      }
-    }
+				return {{#returnType}}null{{/returnType}};
+			}
+		}
 		catch (ApiException ex)
 		{
-      if(ex.getCode() == 404)
+			if(ex.getCode() == 404)
 			{
-      	return {{#returnType}} null{{/returnType}};
-      }
-      else
+				return {{#returnType}} null{{/returnType}};
+			}
+			else
 			{
-        throw ex;
-      }
-    }
-  }
-  {{/operation}}
+				throw ex;
+			}
+		}
+	}
+	{{/operation}}
 }
 {{/operations}}
