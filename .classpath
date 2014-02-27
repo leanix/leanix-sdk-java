@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="src" path="src/test/java"/>
-	<classpathentry kind="lib" path="target/leanix-sdk-java-1.0.0.jar"/>
-	<classpathentry kind="lib" path="target/lib/jackson-annotations-2.1.4.jar"/>
-	<classpathentry kind="lib" path="target/lib/jackson-core-2.1.4.jar"/>
-	<classpathentry kind="lib" path="target/lib/jackson-databind-2.1.4.jar"/>
-	<classpathentry kind="lib" path="target/lib/jersey-client-1.7.jar"/>
-	<classpathentry kind="lib" path="target/lib/jersey-core-1.7.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="output" path="bin"/>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey-client/1.7/jersey-client-1.7.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey-core/1.7/jersey-core-1.7.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-core/2.1.4/jackson-core-2.1.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.1.4/jackson-annotations-2.1.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-databind/2.1.4/jackson-databind-2.1.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/junit/junit/4.8.1/junit-4.8.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/scala-lang/scala-library/2.9.1-1/scala-library-2.9.1-1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/wordnik/swagger-codegen_2.9.1-1/2.0.13/swagger-codegen_2.9.1-1-2.0.13.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/json4s/json4s-jackson_2.9.1-1/3.2.5/json4s-jackson_2.9.1-1-3.2.5.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/json4s/json4s-core_2.9.1-1/3.2.5/json4s-core_2.9.1-1-3.2.5.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/json4s/json4s-ast_2.9.1-1/3.2.5/json4s-ast_2.9.1-1-3.2.5.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/thoughtworks/paranamer/paranamer/2.5.6/paranamer-2.5.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/mockito/mockito-all/1.9.0/mockito-all-1.9.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/scala-lang/scalap/2.9.1-1/scalap-2.9.1-1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/scala-lang/scala-compiler/2.9.1/scala-compiler-2.9.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/io/backchat/inflector/scala-inflector_2.9.1-1/1.3.5/scala-inflector_2.9.1-1-1.3.5.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-io/commons-io/2.3/commons-io-2.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/rogach/scallop_2.9.1-1/0.8.1/scallop_2.9.1-1-0.8.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/fusesource/scalate/scalate-core_2.9/1.6.1/scalate-core_2.9-1.6.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/fusesource/scalate/scalate-util_2.9/1.6.1/scalate-util_2.9-1.6.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar"/>
 </classpath>
