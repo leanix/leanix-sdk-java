@@ -29,7 +29,7 @@ object JavaCodegen extends BasicJavaGenerator {
   def main(args: Array[String]) = generateClient(args)
 
   // location of templates
-  override def templateDir = "Java"
+  override def templateDir = "swagger/Java"
 
   def destinationRoot = "target/generated-sources/swagger"
   

@@ -24,14 +24,18 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ResourceHasProviderSvc
+public class Workspace
 {
 	/*  */
 	private String ID = null;
 	/*  */
-	private String providerID = null;
+	private String name = null;
 	/*  */
-	private String resourceID = null;
+	private String workspaceStatusID = null;
+	/*  */
+	private String config = null;
+	/*  */
+	private String setup = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -44,38 +48,64 @@ public class ResourceHasProviderSvc
 		this.ID = ID;
 	}
 
-	@JsonProperty("providerID")
-	public String getProviderID()
+	@JsonProperty("name")
+	public String getName()
 	{
-		return providerID;
+		return name;
 	}
 	
-	@JsonProperty("providerID")
-	public void setProviderID(String providerID)
+	@JsonProperty("name")
+	public void setName(String name)
 	{
-		this.providerID = providerID;
+		this.name = name;
 	}
 
-	@JsonProperty("resourceID")
-	public String getResourceID()
+	@JsonProperty("workspaceStatusID")
+	public String getWorkspaceStatusID()
 	{
-		return resourceID;
+		return workspaceStatusID;
 	}
 	
-	@JsonProperty("resourceID")
-	public void setResourceID(String resourceID)
+	@JsonProperty("workspaceStatusID")
+	public void setWorkspaceStatusID(String workspaceStatusID)
 	{
-		this.resourceID = resourceID;
+		this.workspaceStatusID = workspaceStatusID;
+	}
+
+	@JsonProperty("config")
+	public String getConfig()
+	{
+		return config;
+	}
+	
+	@JsonProperty("config")
+	public void setConfig(String config)
+	{
+		this.config = config;
+	}
+
+	@JsonProperty("setup")
+	public String getSetup()
+	{
+		return setup;
+	}
+	
+	@JsonProperty("setup")
+	public void setSetup(String setup)
+	{
+		this.setup = setup;
 	}
 
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("class ResourceHasProviderSvc {\n");
+		sb.append("class Workspace {\n");
 		sb.append("  ID: ").append(ID).append("\n");
-		sb.append("  providerID: ").append(providerID).append("\n");
-		sb.append("  resourceID: ").append(resourceID).append("\n");
+		sb.append("  name: ").append(name).append("\n");
+		sb.append("  workspaceStatusID: ").append(workspaceStatusID).append("\n");
+		sb.append("  config: ").append(config).append("\n");
+		sb.append("  setup: ").append(setup).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

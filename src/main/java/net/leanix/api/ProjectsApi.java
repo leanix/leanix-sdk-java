@@ -274,7 +274,7 @@ public class ProjectsApi
 			}
 		}
 	}
-	public ServiceHasProject createServiceHasProject (String ID, Project body) throws ApiException
+	public ServiceHasProject createServiceHasProject (String ID, ServiceHasProject body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/projects/{ID}/serviceHasProjects".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
@@ -350,7 +350,7 @@ public class ProjectsApi
 			}
 		}
 	}
-	public ServiceHasProject updateServiceHasProject (String ID, String relationID, Project body) throws ApiException
+	public ServiceHasProject updateServiceHasProject (String ID, String relationID, ServiceHasProject body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/projects/{ID}/serviceHasProjects/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
@@ -464,7 +464,7 @@ public class ProjectsApi
 			}
 		}
 	}
-	public ProjectHasProvider createProjectHasProvider (String ID, Project body) throws ApiException
+	public ProjectHasProvider createProjectHasProvider (String ID, ProjectHasProvider body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/projects/{ID}/projectHasProviders".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
@@ -540,7 +540,7 @@ public class ProjectsApi
 			}
 		}
 	}
-	public ProjectHasProvider updateProjectHasProvider (String ID, String relationID, Project body) throws ApiException
+	public ProjectHasProvider updateProjectHasProvider (String ID, String relationID, ProjectHasProvider body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/projects/{ID}/projectHasProviders/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
@@ -654,7 +654,7 @@ public class ProjectsApi
 			}
 		}
 	}
-	public ProjectUpdate createProjectUpdate (String ID, Project body) throws ApiException
+	public ProjectUpdate createProjectUpdate (String ID, ProjectUpdate body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/projects/{ID}/projectUpdates".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
@@ -730,7 +730,7 @@ public class ProjectsApi
 			}
 		}
 	}
-	public ProjectUpdate updateProjectUpdate (String ID, String relationID, Project body) throws ApiException
+	public ProjectUpdate updateProjectUpdate (String ID, String relationID, ProjectUpdate body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/projects/{ID}/projectUpdates/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));

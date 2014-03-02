@@ -25,12 +25,8 @@ package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
-import net.leanix.api.models.ServiceHasResourceSvc;
-import net.leanix.api.models.ResourceHasProviderHW;
-import net.leanix.api.models.ResourceHasProviderSW;
-import net.leanix.api.models.ServiceHasResourceHW;
-import net.leanix.api.models.ServiceHasResourceSW;
-import net.leanix.api.models.ResourceHasProviderSvc;
+import net.leanix.api.models.ResourceHasProvider;
+import net.leanix.api.models.ServiceHasResource;
 import net.leanix.api.models.ResourceHasResourceCapability;
 public class Resource
 {
@@ -51,19 +47,11 @@ public class Resource
 	/*  */
 	private String locationID = null;
 	/*  */
-	private List<ResourceHasProviderSvc> resourceHasProvidersSvc = new ArrayList<ResourceHasProviderSvc>();
-	/*  */
-	private List<ResourceHasProviderSW> resourceHasProvidersSW = new ArrayList<ResourceHasProviderSW>();
-	/*  */
-	private List<ResourceHasProviderHW> resourceHasProvidersHW = new ArrayList<ResourceHasProviderHW>();
+	private List<ResourceHasProvider> resourceHasProviders = new ArrayList<ResourceHasProvider>();
 	/*  */
 	private List<ResourceHasResourceCapability> resourceHasResourceCapabilities = new ArrayList<ResourceHasResourceCapability>();
 	/*  */
-	private List<ServiceHasResourceSvc> serviceHasResourcesSvc = new ArrayList<ServiceHasResourceSvc>();
-	/*  */
-	private List<ServiceHasResourceSW> serviceHasResourcesSW = new ArrayList<ServiceHasResourceSW>();
-	/*  */
-	private List<ServiceHasResourceHW> serviceHasResourcesHW = new ArrayList<ServiceHasResourceHW>();
+	private List<ServiceHasResource> serviceHasResources = new ArrayList<ServiceHasResource>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -160,40 +148,16 @@ public class Resource
 		this.locationID = locationID;
 	}
 
-	@JsonProperty("resourceHasProvidersSvc")
-	public List<ResourceHasProviderSvc> getResourceHasProvidersSvc()
+	@JsonProperty("resourceHasProviders")
+	public List<ResourceHasProvider> getResourceHasProviders()
 	{
-		return resourceHasProvidersSvc;
+		return resourceHasProviders;
 	}
 	
-	@JsonProperty("resourceHasProvidersSvc")
-	public void setResourceHasProvidersSvc(List<ResourceHasProviderSvc> resourceHasProvidersSvc)
+	@JsonProperty("resourceHasProviders")
+	public void setResourceHasProviders(List<ResourceHasProvider> resourceHasProviders)
 	{
-		this.resourceHasProvidersSvc = resourceHasProvidersSvc;
-	}
-
-	@JsonProperty("resourceHasProvidersSW")
-	public List<ResourceHasProviderSW> getResourceHasProvidersSW()
-	{
-		return resourceHasProvidersSW;
-	}
-	
-	@JsonProperty("resourceHasProvidersSW")
-	public void setResourceHasProvidersSW(List<ResourceHasProviderSW> resourceHasProvidersSW)
-	{
-		this.resourceHasProvidersSW = resourceHasProvidersSW;
-	}
-
-	@JsonProperty("resourceHasProvidersHW")
-	public List<ResourceHasProviderHW> getResourceHasProvidersHW()
-	{
-		return resourceHasProvidersHW;
-	}
-	
-	@JsonProperty("resourceHasProvidersHW")
-	public void setResourceHasProvidersHW(List<ResourceHasProviderHW> resourceHasProvidersHW)
-	{
-		this.resourceHasProvidersHW = resourceHasProvidersHW;
+		this.resourceHasProviders = resourceHasProviders;
 	}
 
 	@JsonProperty("resourceHasResourceCapabilities")
@@ -208,40 +172,16 @@ public class Resource
 		this.resourceHasResourceCapabilities = resourceHasResourceCapabilities;
 	}
 
-	@JsonProperty("serviceHasResourcesSvc")
-	public List<ServiceHasResourceSvc> getServiceHasResourcesSvc()
+	@JsonProperty("serviceHasResources")
+	public List<ServiceHasResource> getServiceHasResources()
 	{
-		return serviceHasResourcesSvc;
+		return serviceHasResources;
 	}
 	
-	@JsonProperty("serviceHasResourcesSvc")
-	public void setServiceHasResourcesSvc(List<ServiceHasResourceSvc> serviceHasResourcesSvc)
+	@JsonProperty("serviceHasResources")
+	public void setServiceHasResources(List<ServiceHasResource> serviceHasResources)
 	{
-		this.serviceHasResourcesSvc = serviceHasResourcesSvc;
-	}
-
-	@JsonProperty("serviceHasResourcesSW")
-	public List<ServiceHasResourceSW> getServiceHasResourcesSW()
-	{
-		return serviceHasResourcesSW;
-	}
-	
-	@JsonProperty("serviceHasResourcesSW")
-	public void setServiceHasResourcesSW(List<ServiceHasResourceSW> serviceHasResourcesSW)
-	{
-		this.serviceHasResourcesSW = serviceHasResourcesSW;
-	}
-
-	@JsonProperty("serviceHasResourcesHW")
-	public List<ServiceHasResourceHW> getServiceHasResourcesHW()
-	{
-		return serviceHasResourcesHW;
-	}
-	
-	@JsonProperty("serviceHasResourcesHW")
-	public void setServiceHasResourcesHW(List<ServiceHasResourceHW> serviceHasResourcesHW)
-	{
-		this.serviceHasResourcesHW = serviceHasResourcesHW;
+		this.serviceHasResources = serviceHasResources;
 	}
 
 	@Override
@@ -257,13 +197,9 @@ public class Resource
 		sb.append("  description: ").append(description).append("\n");
 		sb.append("  objectCategoryID: ").append(objectCategoryID).append("\n");
 		sb.append("  locationID: ").append(locationID).append("\n");
-		sb.append("  resourceHasProvidersSvc: ").append(resourceHasProvidersSvc).append("\n");
-		sb.append("  resourceHasProvidersSW: ").append(resourceHasProvidersSW).append("\n");
-		sb.append("  resourceHasProvidersHW: ").append(resourceHasProvidersHW).append("\n");
+		sb.append("  resourceHasProviders: ").append(resourceHasProviders).append("\n");
 		sb.append("  resourceHasResourceCapabilities: ").append(resourceHasResourceCapabilities).append("\n");
-		sb.append("  serviceHasResourcesSvc: ").append(serviceHasResourcesSvc).append("\n");
-		sb.append("  serviceHasResourcesSW: ").append(serviceHasResourcesSW).append("\n");
-		sb.append("  serviceHasResourcesHW: ").append(serviceHasResourcesHW).append("\n");
+		sb.append("  serviceHasResources: ").append(serviceHasResources).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

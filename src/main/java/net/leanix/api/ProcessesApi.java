@@ -272,7 +272,7 @@ public class ProcessesApi
 			}
 		}
 	}
-	public ServiceHasProcess createServiceHasProcess (String ID, Process body) throws ApiException
+	public ServiceHasProcess createServiceHasProcess (String ID, ServiceHasProcess body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/processes/{ID}/serviceHasProcesses".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
@@ -348,7 +348,7 @@ public class ProcessesApi
 			}
 		}
 	}
-	public ServiceHasProcess updateServiceHasProcess (String ID, String relationID, Process body) throws ApiException
+	public ServiceHasProcess updateServiceHasProcess (String ID, String relationID, ServiceHasProcess body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/processes/{ID}/serviceHasProcesses/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));

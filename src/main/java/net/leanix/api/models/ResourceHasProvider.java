@@ -24,20 +24,14 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ServiceHasResourceSvc
+public class ResourceHasProvider
 {
 	/*  */
 	private String ID = null;
 	/*  */
+	private String providerID = null;
+	/*  */
 	private String resourceID = null;
-	/*  */
-	private String serviceID = null;
-	/*  */
-	private String comment = null;
-	/*  */
-	private String technicalSuitabilityID = null;
-	/*  */
-	private Double costTotalAnnual = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -48,6 +42,18 @@ public class ServiceHasResourceSvc
 	public void setID(String ID)
 	{
 		this.ID = ID;
+	}
+
+	@JsonProperty("providerID")
+	public String getProviderID()
+	{
+		return providerID;
+	}
+	
+	@JsonProperty("providerID")
+	public void setProviderID(String providerID)
+	{
+		this.providerID = providerID;
 	}
 
 	@JsonProperty("resourceID")
@@ -62,65 +68,14 @@ public class ServiceHasResourceSvc
 		this.resourceID = resourceID;
 	}
 
-	@JsonProperty("serviceID")
-	public String getServiceID()
-	{
-		return serviceID;
-	}
-	
-	@JsonProperty("serviceID")
-	public void setServiceID(String serviceID)
-	{
-		this.serviceID = serviceID;
-	}
-
-	@JsonProperty("comment")
-	public String getComment()
-	{
-		return comment;
-	}
-	
-	@JsonProperty("comment")
-	public void setComment(String comment)
-	{
-		this.comment = comment;
-	}
-
-	@JsonProperty("technicalSuitabilityID")
-	public String getTechnicalSuitabilityID()
-	{
-		return technicalSuitabilityID;
-	}
-	
-	@JsonProperty("technicalSuitabilityID")
-	public void setTechnicalSuitabilityID(String technicalSuitabilityID)
-	{
-		this.technicalSuitabilityID = technicalSuitabilityID;
-	}
-
-	@JsonProperty("costTotalAnnual")
-	public Double getCostTotalAnnual()
-	{
-		return costTotalAnnual;
-	}
-	
-	@JsonProperty("costTotalAnnual")
-	public void setCostTotalAnnual(Double costTotalAnnual)
-	{
-		this.costTotalAnnual = costTotalAnnual;
-	}
-
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("class ServiceHasResourceSvc {\n");
+		sb.append("class ResourceHasProvider {\n");
 		sb.append("  ID: ").append(ID).append("\n");
+		sb.append("  providerID: ").append(providerID).append("\n");
 		sb.append("  resourceID: ").append(resourceID).append("\n");
-		sb.append("  serviceID: ").append(serviceID).append("\n");
-		sb.append("  comment: ").append(comment).append("\n");
-		sb.append("  technicalSuitabilityID: ").append(technicalSuitabilityID).append("\n");
-		sb.append("  costTotalAnnual: ").append(costTotalAnnual).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

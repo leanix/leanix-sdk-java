@@ -273,7 +273,7 @@ public class BusinessObjectsApi
 			}
 		}
 	}
-	public ServiceHasBusinessObject createServiceHasBusinessObject (String ID, BusinessObject body) throws ApiException
+	public ServiceHasBusinessObject createServiceHasBusinessObject (String ID, ServiceHasBusinessObject body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/businessObjects/{ID}/serviceHasBusinessObjects".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
@@ -349,7 +349,7 @@ public class BusinessObjectsApi
 			}
 		}
 	}
-	public ServiceHasBusinessObject updateServiceHasBusinessObject (String ID, String relationID, BusinessObject body) throws ApiException
+	public ServiceHasBusinessObject updateServiceHasBusinessObject (String ID, String relationID, ServiceHasBusinessObject body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/businessObjects/{ID}/serviceHasBusinessObjects/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
@@ -463,7 +463,7 @@ public class BusinessObjectsApi
 			}
 		}
 	}
-	public ServiceHasInterface createServiceHasInterface (String ID, BusinessObject body) throws ApiException
+	public ServiceHasInterface createServiceHasInterface (String ID, ServiceHasInterface body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/businessObjects/{ID}/serviceHasInterfaces".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
@@ -539,7 +539,7 @@ public class BusinessObjectsApi
 			}
 		}
 	}
-	public ServiceHasInterface updateServiceHasInterface (String ID, String relationID, BusinessObject body) throws ApiException
+	public ServiceHasInterface updateServiceHasInterface (String ID, String relationID, ServiceHasInterface body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/businessObjects/{ID}/serviceHasInterfaces/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));

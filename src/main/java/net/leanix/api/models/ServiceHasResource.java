@@ -24,7 +24,7 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ServiceHasResourceSW
+public class ServiceHasResource
 {
 	/*  */
 	private String ID = null;
@@ -114,7 +114,7 @@ public class ServiceHasResourceSW
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("class ServiceHasResourceSW {\n");
+		sb.append("class ServiceHasResource {\n");
 		sb.append("  ID: ").append(ID).append("\n");
 		sb.append("  resourceID: ").append(resourceID).append("\n");
 		sb.append("  serviceID: ").append(serviceID).append("\n");

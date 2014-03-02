@@ -33,25 +33,11 @@ public class ProjectHasProvider
 	/*  */
 	private String projectID = null;
 	/*  */
-	private String orderNo = null;
-	/*  */
 	private Double orderedOpex = null;
 	/*  */
 	private Double orderedCapex = null;
 	/*  */
-	private String comment = null;
-	/*  */
-	private Double actualsOpex = null;
-	/*  */
-	private Double actualsCapex = null;
-	/*  */
-	private Double etcOpex = null;
-	/*  */
-	private Double etcCapex = null;
-	/*  */
-	private Double deltaOpex = null;
-	/*  */
-	private Double deltaCapex = null;
+	private String orderNo = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -88,18 +74,6 @@ public class ProjectHasProvider
 		this.projectID = projectID;
 	}
 
-	@JsonProperty("orderNo")
-	public String getOrderNo()
-	{
-		return orderNo;
-	}
-	
-	@JsonProperty("orderNo")
-	public void setOrderNo(String orderNo)
-	{
-		this.orderNo = orderNo;
-	}
-
 	@JsonProperty("orderedOpex")
 	public Double getOrderedOpex()
 	{
@@ -124,88 +98,16 @@ public class ProjectHasProvider
 		this.orderedCapex = orderedCapex;
 	}
 
-	@JsonProperty("comment")
-	public String getComment()
+	@JsonProperty("orderNo")
+	public String getOrderNo()
 	{
-		return comment;
+		return orderNo;
 	}
 	
-	@JsonProperty("comment")
-	public void setComment(String comment)
+	@JsonProperty("orderNo")
+	public void setOrderNo(String orderNo)
 	{
-		this.comment = comment;
-	}
-
-	@JsonProperty("actualsOpex")
-	public Double getActualsOpex()
-	{
-		return actualsOpex;
-	}
-	
-	@JsonProperty("actualsOpex")
-	public void setActualsOpex(Double actualsOpex)
-	{
-		this.actualsOpex = actualsOpex;
-	}
-
-	@JsonProperty("actualsCapex")
-	public Double getActualsCapex()
-	{
-		return actualsCapex;
-	}
-	
-	@JsonProperty("actualsCapex")
-	public void setActualsCapex(Double actualsCapex)
-	{
-		this.actualsCapex = actualsCapex;
-	}
-
-	@JsonProperty("etcOpex")
-	public Double getEtcOpex()
-	{
-		return etcOpex;
-	}
-	
-	@JsonProperty("etcOpex")
-	public void setEtcOpex(Double etcOpex)
-	{
-		this.etcOpex = etcOpex;
-	}
-
-	@JsonProperty("etcCapex")
-	public Double getEtcCapex()
-	{
-		return etcCapex;
-	}
-	
-	@JsonProperty("etcCapex")
-	public void setEtcCapex(Double etcCapex)
-	{
-		this.etcCapex = etcCapex;
-	}
-
-	@JsonProperty("deltaOpex")
-	public Double getDeltaOpex()
-	{
-		return deltaOpex;
-	}
-	
-	@JsonProperty("deltaOpex")
-	public void setDeltaOpex(Double deltaOpex)
-	{
-		this.deltaOpex = deltaOpex;
-	}
-
-	@JsonProperty("deltaCapex")
-	public Double getDeltaCapex()
-	{
-		return deltaCapex;
-	}
-	
-	@JsonProperty("deltaCapex")
-	public void setDeltaCapex(Double deltaCapex)
-	{
-		this.deltaCapex = deltaCapex;
+		this.orderNo = orderNo;
 	}
 
 	@Override
@@ -216,16 +118,9 @@ public class ProjectHasProvider
 		sb.append("  ID: ").append(ID).append("\n");
 		sb.append("  providerID: ").append(providerID).append("\n");
 		sb.append("  projectID: ").append(projectID).append("\n");
-		sb.append("  orderNo: ").append(orderNo).append("\n");
 		sb.append("  orderedOpex: ").append(orderedOpex).append("\n");
 		sb.append("  orderedCapex: ").append(orderedCapex).append("\n");
-		sb.append("  comment: ").append(comment).append("\n");
-		sb.append("  actualsOpex: ").append(actualsOpex).append("\n");
-		sb.append("  actualsCapex: ").append(actualsCapex).append("\n");
-		sb.append("  etcOpex: ").append(etcOpex).append("\n");
-		sb.append("  etcCapex: ").append(etcCapex).append("\n");
-		sb.append("  deltaOpex: ").append(deltaOpex).append("\n");
-		sb.append("  deltaCapex: ").append(deltaCapex).append("\n");
+		sb.append("  orderNo: ").append(orderNo).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

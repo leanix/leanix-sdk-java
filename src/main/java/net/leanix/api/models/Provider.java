@@ -25,10 +25,8 @@ package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
-import net.leanix.api.models.ResourceHasProviderHW;
-import net.leanix.api.models.ResourceHasProviderSW;
+import net.leanix.api.models.ResourceHasProvider;
 import net.leanix.api.models.ProjectHasProvider;
-import net.leanix.api.models.ResourceHasProviderSvc;
 public class Provider
 {
 	/*  */
@@ -42,13 +40,9 @@ public class Provider
 	/*  */
 	private String description = null;
 	/*  */
+	private List<ResourceHasProvider> resourceHasProviders = new ArrayList<ResourceHasProvider>();
+	/*  */
 	private List<ProjectHasProvider> projectHasProviders = new ArrayList<ProjectHasProvider>();
-	/*  */
-	private List<ResourceHasProviderSvc> resourceHasProvidersSvc = new ArrayList<ResourceHasProviderSvc>();
-	/*  */
-	private List<ResourceHasProviderSW> resourceHasProvidersSW = new ArrayList<ResourceHasProviderSW>();
-	/*  */
-	private List<ResourceHasProviderHW> resourceHasProvidersHW = new ArrayList<ResourceHasProviderHW>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -109,6 +103,18 @@ public class Provider
 		this.description = description;
 	}
 
+	@JsonProperty("resourceHasProviders")
+	public List<ResourceHasProvider> getResourceHasProviders()
+	{
+		return resourceHasProviders;
+	}
+	
+	@JsonProperty("resourceHasProviders")
+	public void setResourceHasProviders(List<ResourceHasProvider> resourceHasProviders)
+	{
+		this.resourceHasProviders = resourceHasProviders;
+	}
+
 	@JsonProperty("projectHasProviders")
 	public List<ProjectHasProvider> getProjectHasProviders()
 	{
@@ -121,42 +127,6 @@ public class Provider
 		this.projectHasProviders = projectHasProviders;
 	}
 
-	@JsonProperty("resourceHasProvidersSvc")
-	public List<ResourceHasProviderSvc> getResourceHasProvidersSvc()
-	{
-		return resourceHasProvidersSvc;
-	}
-	
-	@JsonProperty("resourceHasProvidersSvc")
-	public void setResourceHasProvidersSvc(List<ResourceHasProviderSvc> resourceHasProvidersSvc)
-	{
-		this.resourceHasProvidersSvc = resourceHasProvidersSvc;
-	}
-
-	@JsonProperty("resourceHasProvidersSW")
-	public List<ResourceHasProviderSW> getResourceHasProvidersSW()
-	{
-		return resourceHasProvidersSW;
-	}
-	
-	@JsonProperty("resourceHasProvidersSW")
-	public void setResourceHasProvidersSW(List<ResourceHasProviderSW> resourceHasProvidersSW)
-	{
-		this.resourceHasProvidersSW = resourceHasProvidersSW;
-	}
-
-	@JsonProperty("resourceHasProvidersHW")
-	public List<ResourceHasProviderHW> getResourceHasProvidersHW()
-	{
-		return resourceHasProvidersHW;
-	}
-	
-	@JsonProperty("resourceHasProvidersHW")
-	public void setResourceHasProvidersHW(List<ResourceHasProviderHW> resourceHasProvidersHW)
-	{
-		this.resourceHasProvidersHW = resourceHasProvidersHW;
-	}
-
 	@Override
 	public String toString()
 	{
@@ -167,10 +137,8 @@ public class Provider
 		sb.append("  reference: ").append(reference).append("\n");
 		sb.append("  alias: ").append(alias).append("\n");
 		sb.append("  description: ").append(description).append("\n");
+		sb.append("  resourceHasProviders: ").append(resourceHasProviders).append("\n");
 		sb.append("  projectHasProviders: ").append(projectHasProviders).append("\n");
-		sb.append("  resourceHasProvidersSvc: ").append(resourceHasProvidersSvc).append("\n");
-		sb.append("  resourceHasProvidersSW: ").append(resourceHasProvidersSW).append("\n");
-		sb.append("  resourceHasProvidersHW: ").append(resourceHasProvidersHW).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

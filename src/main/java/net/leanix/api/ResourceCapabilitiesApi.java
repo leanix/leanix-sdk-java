@@ -462,7 +462,7 @@ public class ResourceCapabilitiesApi
 			}
 		}
 	}
-	public ResourceHasResourceCapability createResourceHasResourceCapability (String ID, ResourceCapability body) throws ApiException
+	public ResourceHasResourceCapability createResourceHasResourceCapability (String ID, ResourceHasResourceCapability body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/resourceCapabilities/{ID}/resourceHasResourceCapabilities".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
@@ -538,7 +538,7 @@ public class ResourceCapabilitiesApi
 			}
 		}
 	}
-	public ResourceHasResourceCapability updateResourceHasResourceCapability (String ID, String relationID, ResourceCapability body) throws ApiException
+	public ResourceHasResourceCapability updateResourceHasResourceCapability (String ID, String relationID, ResourceHasResourceCapability body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/resourceCapabilities/{ID}/resourceHasResourceCapabilities/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));

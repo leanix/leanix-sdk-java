@@ -25,13 +25,9 @@ package net.leanix.api;
 
 import net.leanix.api.common.ApiException;
 import net.leanix.api.common.ApiClient;
-import net.leanix.api.models.ServiceHasResourceSvc;
-import net.leanix.api.models.ResourceHasProviderHW;
 import net.leanix.api.models.Resource;
-import net.leanix.api.models.ResourceHasProviderSW;
-import net.leanix.api.models.ServiceHasResourceSW;
-import net.leanix.api.models.ServiceHasResourceHW;
-import net.leanix.api.models.ResourceHasProviderSvc;
+import net.leanix.api.models.ResourceHasProvider;
+import net.leanix.api.models.ServiceHasResource;
 import net.leanix.api.models.ResourceHasResourceCapability;
 import java.util.*;
 
@@ -240,10 +236,10 @@ public class ResourcesApi
 			}
 		}
 	}
-	public List<ResourceHasProviderSvc> getResourceHasProvidersSvc (String ID) throws ApiException
+	public List<ResourceHasProvider> getResourceHasProviders (String ID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/resources/{ID}/resourceHasProvidersSvc".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/resources/{ID}/resourceHasProviders".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -259,7 +255,7 @@ public class ResourcesApi
 			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
 			if (response != null)
 			{
-				return (List<ResourceHasProviderSvc>) ApiClient.deserialize(response, "Array", ResourceHasProviderSvc.class);
+				return (List<ResourceHasProvider>) ApiClient.deserialize(response, "Array", ResourceHasProvider.class);
 			}
 			else
 			{
@@ -278,200 +274,10 @@ public class ResourcesApi
 			}
 		}
 	}
-	public ResourceHasProviderSvc createResourceHasProviderSvc (String ID, Resource body) throws ApiException
+	public ResourceHasProvider createResourceHasProvider (String ID, ResourceHasProvider body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/resources/{ID}/resourceHasProvidersSvc".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (ResourceHasProviderSvc) ApiClient.deserialize(response, "", ResourceHasProviderSvc.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public ResourceHasProviderSvc getResourceHasProviderSvc (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/resourceHasProvidersSvc/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (ResourceHasProviderSvc) ApiClient.deserialize(response, "", ResourceHasProviderSvc.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public ResourceHasProviderSvc updateResourceHasProviderSvc (String ID, String relationID, Resource body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/resourceHasProvidersSvc/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (ResourceHasProviderSvc) ApiClient.deserialize(response, "", ResourceHasProviderSvc.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteResourceHasProviderSvc (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/resourceHasProvidersSvc/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<ResourceHasProviderSW> getResourceHasProvidersSW (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/resourceHasProvidersSW".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<ResourceHasProviderSW>) ApiClient.deserialize(response, "Array", ResourceHasProviderSW.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public ResourceHasProviderSW createResourceHasProviderSW (String ID, Resource body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/resourceHasProvidersSW".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/resources/{ID}/resourceHasProviders".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -487,7 +293,7 @@ public class ResourcesApi
 			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
 			if (response != null)
 			{
-				return (ResourceHasProviderSW) ApiClient.deserialize(response, "", ResourceHasProviderSW.class);
+				return (ResourceHasProvider) ApiClient.deserialize(response, "", ResourceHasProvider.class);
 			}
 			else
 			{
@@ -506,10 +312,10 @@ public class ResourcesApi
 			}
 		}
 	}
-	public ResourceHasProviderSW getResourceHasProviderSW (String ID, String relationID) throws ApiException
+	public ResourceHasProvider getResourceHasProvider (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/resources/{ID}/resourceHasProvidersSW/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/resources/{ID}/resourceHasProviders/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -525,7 +331,7 @@ public class ResourcesApi
 			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
 			if (response != null)
 			{
-				return (ResourceHasProviderSW) ApiClient.deserialize(response, "", ResourceHasProviderSW.class);
+				return (ResourceHasProvider) ApiClient.deserialize(response, "", ResourceHasProvider.class);
 			}
 			else
 			{
@@ -544,10 +350,10 @@ public class ResourcesApi
 			}
 		}
 	}
-	public ResourceHasProviderSW updateResourceHasProviderSW (String ID, String relationID, Resource body) throws ApiException
+	public ResourceHasProvider updateResourceHasProvider (String ID, String relationID, ResourceHasProvider body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/resources/{ID}/resourceHasProvidersSW/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/resources/{ID}/resourceHasProviders/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -563,7 +369,7 @@ public class ResourcesApi
 			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
 			if (response != null)
 			{
-				return (ResourceHasProviderSW) ApiClient.deserialize(response, "", ResourceHasProviderSW.class);
+				return (ResourceHasProvider) ApiClient.deserialize(response, "", ResourceHasProvider.class);
 			}
 			else
 			{
@@ -582,200 +388,10 @@ public class ResourcesApi
 			}
 		}
 	}
-	public void deleteResourceHasProviderSW (String ID, String relationID) throws ApiException
+	public void deleteResourceHasProvider (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/resources/{ID}/resourceHasProvidersSW/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<ResourceHasProviderHW> getResourceHasProvidersHW (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/resourceHasProvidersHW".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<ResourceHasProviderHW>) ApiClient.deserialize(response, "Array", ResourceHasProviderHW.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public ResourceHasProviderHW createResourceHasProviderHW (String ID, Resource body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/resourceHasProvidersHW".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (ResourceHasProviderHW) ApiClient.deserialize(response, "", ResourceHasProviderHW.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public ResourceHasProviderHW getResourceHasProviderHW (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/resourceHasProvidersHW/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (ResourceHasProviderHW) ApiClient.deserialize(response, "", ResourceHasProviderHW.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public ResourceHasProviderHW updateResourceHasProviderHW (String ID, String relationID, Resource body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/resourceHasProvidersHW/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (ResourceHasProviderHW) ApiClient.deserialize(response, "", ResourceHasProviderHW.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteResourceHasProviderHW (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/resourceHasProvidersHW/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/resources/{ID}/resourceHasProviders/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -848,7 +464,7 @@ public class ResourcesApi
 			}
 		}
 	}
-	public ResourceHasResourceCapability createResourceHasResourceCapability (String ID, Resource body) throws ApiException
+	public ResourceHasResourceCapability createResourceHasResourceCapability (String ID, ResourceHasResourceCapability body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/resources/{ID}/resourceHasResourceCapabilities".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
@@ -924,7 +540,7 @@ public class ResourcesApi
 			}
 		}
 	}
-	public ResourceHasResourceCapability updateResourceHasResourceCapability (String ID, String relationID, Resource body) throws ApiException
+	public ResourceHasResourceCapability updateResourceHasResourceCapability (String ID, String relationID, ResourceHasResourceCapability body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/resources/{ID}/resourceHasResourceCapabilities/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
@@ -1000,10 +616,10 @@ public class ResourcesApi
 			}
 		}
 	}
-	public List<ServiceHasResourceSvc> getServiceHasResourcesSvc (String ID) throws ApiException
+	public List<ServiceHasResource> getServiceHasResources (String ID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/resources/{ID}/serviceHasResourcesSvc".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/resources/{ID}/serviceHasResources".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1019,7 +635,7 @@ public class ResourcesApi
 			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
 			if (response != null)
 			{
-				return (List<ServiceHasResourceSvc>) ApiClient.deserialize(response, "Array", ServiceHasResourceSvc.class);
+				return (List<ServiceHasResource>) ApiClient.deserialize(response, "Array", ServiceHasResource.class);
 			}
 			else
 			{
@@ -1038,200 +654,10 @@ public class ResourcesApi
 			}
 		}
 	}
-	public ServiceHasResourceSvc createServiceHasResourceSvc (String ID, Resource body) throws ApiException
+	public ServiceHasResource createServiceHasResource (String ID, ServiceHasResource body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/resources/{ID}/serviceHasResourcesSvc".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (ServiceHasResourceSvc) ApiClient.deserialize(response, "", ServiceHasResourceSvc.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public ServiceHasResourceSvc getServiceHasResourceSvc (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/serviceHasResourcesSvc/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (ServiceHasResourceSvc) ApiClient.deserialize(response, "", ServiceHasResourceSvc.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public ServiceHasResourceSvc updateServiceHasResourceSvc (String ID, String relationID, Resource body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/serviceHasResourcesSvc/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (ServiceHasResourceSvc) ApiClient.deserialize(response, "", ServiceHasResourceSvc.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteServiceHasResourceSvc (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/serviceHasResourcesSvc/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<ServiceHasResourceSW> getServiceHasResourcesSW (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/serviceHasResourcesSW".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<ServiceHasResourceSW>) ApiClient.deserialize(response, "Array", ServiceHasResourceSW.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public ServiceHasResourceSW createServiceHasResourceSW (String ID, Resource body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/serviceHasResourcesSW".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/resources/{ID}/serviceHasResources".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1247,7 +673,7 @@ public class ResourcesApi
 			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
 			if (response != null)
 			{
-				return (ServiceHasResourceSW) ApiClient.deserialize(response, "", ServiceHasResourceSW.class);
+				return (ServiceHasResource) ApiClient.deserialize(response, "", ServiceHasResource.class);
 			}
 			else
 			{
@@ -1266,10 +692,10 @@ public class ResourcesApi
 			}
 		}
 	}
-	public ServiceHasResourceSW getServiceHasResourceSW (String ID, String relationID) throws ApiException
+	public ServiceHasResource getServiceHasResource (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/resources/{ID}/serviceHasResourcesSW/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/resources/{ID}/serviceHasResources/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1285,7 +711,7 @@ public class ResourcesApi
 			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
 			if (response != null)
 			{
-				return (ServiceHasResourceSW) ApiClient.deserialize(response, "", ServiceHasResourceSW.class);
+				return (ServiceHasResource) ApiClient.deserialize(response, "", ServiceHasResource.class);
 			}
 			else
 			{
@@ -1304,10 +730,10 @@ public class ResourcesApi
 			}
 		}
 	}
-	public ServiceHasResourceSW updateServiceHasResourceSW (String ID, String relationID, Resource body) throws ApiException
+	public ServiceHasResource updateServiceHasResource (String ID, String relationID, ServiceHasResource body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/resources/{ID}/serviceHasResourcesSW/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/resources/{ID}/serviceHasResources/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1323,7 +749,7 @@ public class ResourcesApi
 			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
 			if (response != null)
 			{
-				return (ServiceHasResourceSW) ApiClient.deserialize(response, "", ServiceHasResourceSW.class);
+				return (ServiceHasResource) ApiClient.deserialize(response, "", ServiceHasResource.class);
 			}
 			else
 			{
@@ -1342,200 +768,10 @@ public class ResourcesApi
 			}
 		}
 	}
-	public void deleteServiceHasResourceSW (String ID, String relationID) throws ApiException
+	public void deleteServiceHasResource (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/resources/{ID}/serviceHasResourcesSW/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<ServiceHasResourceHW> getServiceHasResourcesHW (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/serviceHasResourcesHW".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<ServiceHasResourceHW>) ApiClient.deserialize(response, "Array", ServiceHasResourceHW.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public ServiceHasResourceHW createServiceHasResourceHW (String ID, Resource body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/serviceHasResourcesHW".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (ServiceHasResourceHW) ApiClient.deserialize(response, "", ServiceHasResourceHW.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public ServiceHasResourceHW getServiceHasResourceHW (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/serviceHasResourcesHW/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (ServiceHasResourceHW) ApiClient.deserialize(response, "", ServiceHasResourceHW.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public ServiceHasResourceHW updateServiceHasResourceHW (String ID, String relationID, Resource body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/serviceHasResourcesHW/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (ServiceHasResourceHW) ApiClient.deserialize(response, "", ServiceHasResourceHW.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteServiceHasResourceHW (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/resources/{ID}/serviceHasResourcesHW/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/resources/{ID}/serviceHasResources/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();

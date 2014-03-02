@@ -272,7 +272,7 @@ public class ConsumersApi
 			}
 		}
 	}
-	public ServiceHasConsumer createServiceHasConsumer (String ID, Consumer body) throws ApiException
+	public ServiceHasConsumer createServiceHasConsumer (String ID, ServiceHasConsumer body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/consumers/{ID}/serviceHasConsumers".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
@@ -348,7 +348,7 @@ public class ConsumersApi
 			}
 		}
 	}
-	public ServiceHasConsumer updateServiceHasConsumer (String ID, String relationID, Consumer body) throws ApiException
+	public ServiceHasConsumer updateServiceHasConsumer (String ID, String relationID, ServiceHasConsumer body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/consumers/{ID}/serviceHasConsumers/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));

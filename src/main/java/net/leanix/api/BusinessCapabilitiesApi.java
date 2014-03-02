@@ -462,7 +462,7 @@ public class BusinessCapabilitiesApi
 			}
 		}
 	}
-	public ServiceHasBusinessCapability createServiceHasBusinessCapability (String ID, BusinessCapability body) throws ApiException
+	public ServiceHasBusinessCapability createServiceHasBusinessCapability (String ID, ServiceHasBusinessCapability body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/businessCapabilities/{ID}/serviceHasBusinessCapabilities".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
@@ -538,7 +538,7 @@ public class BusinessCapabilitiesApi
 			}
 		}
 	}
-	public ServiceHasBusinessCapability updateServiceHasBusinessCapability (String ID, String relationID, BusinessCapability body) throws ApiException
+	public ServiceHasBusinessCapability updateServiceHasBusinessCapability (String ID, String relationID, ServiceHasBusinessCapability body) throws ApiException
 	{
 		// create path and map variables
 		String path = "/businessCapabilities/{ID}/serviceHasBusinessCapabilities/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
