@@ -6,7 +6,7 @@
 	<name>leanIX Java SDK</name>
 	<description>SDK for Java to access leanIX REST API</description>
 	<url>https://developer.leanix.net</url>
-	<version>1.3.0-SNAPSHOT</version>
+	<version>1.3.1-SNAPSHOT</version>
 
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -103,7 +103,7 @@
 							<configuration>
 								<mavenExecutorId>forked-path</mavenExecutorId>
 								<useReleaseProfile>false</useReleaseProfile>
-								<arguments>${arguments} -Psonatype-oss-release</arguments>
+								<arguments>-Psonatype-oss-release</arguments>
 							</configuration>
 						</plugin>
 					</plugins>
