@@ -17,7 +17,7 @@ public class WorkspaceSetupRule extends ExternalResource
 	protected String apiBaseWorkspace = "demo";
 	protected String apiVersion = "v1";
 	protected String apiSetup = "{\"featureBundleID\":\"beta\"}";
-	protected String apiKey = "1d4cdefc56371bab6ed9005a3a0f12d8";
+	protected String apiKey = "d47ce567319ef858c426f2f68cb823dd";
 	
 	protected boolean cleanUpWorkspace = false;
 	

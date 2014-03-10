@@ -31,6 +31,8 @@ public class BusinessCapability
 	/*  */
 	private String ID = null;
 	/*  */
+	private List<String> tags = new ArrayList<String>();
+	/*  */
 	private String name = null;
 	/*  */
 	private String reference = null;
@@ -38,10 +40,6 @@ public class BusinessCapability
 	private String alias = null;
 	/*  */
 	private String description = null;
-	/*  */
-	private String parentID = null;
-	/*  */
-	private List<BusinessCapability> businessCapabilities = new ArrayList<BusinessCapability>();
 	/*  */
 	private List<ServiceHasBusinessCapability> serviceHasBusinessCapabilities = new ArrayList<ServiceHasBusinessCapability>();
 	@JsonProperty("ID")
@@ -54,6 +52,18 @@ public class BusinessCapability
 	public void setID(String ID)
 	{
 		this.ID = ID;
+	}
+
+	@JsonProperty("tags")
+	public List<String> getTags()
+	{
+		return tags;
+	}
+	
+	@JsonProperty("tags")
+	public void setTags(List<String> tags)
+	{
+		this.tags = tags;
 	}
 
 	@JsonProperty("name")
@@ -104,30 +114,6 @@ public class BusinessCapability
 		this.description = description;
 	}
 
-	@JsonProperty("parentID")
-	public String getParentID()
-	{
-		return parentID;
-	}
-	
-	@JsonProperty("parentID")
-	public void setParentID(String parentID)
-	{
-		this.parentID = parentID;
-	}
-
-	@JsonProperty("businessCapabilities")
-	public List<BusinessCapability> getBusinessCapabilities()
-	{
-		return businessCapabilities;
-	}
-	
-	@JsonProperty("businessCapabilities")
-	public void setBusinessCapabilities(List<BusinessCapability> businessCapabilities)
-	{
-		this.businessCapabilities = businessCapabilities;
-	}
-
 	@JsonProperty("serviceHasBusinessCapabilities")
 	public List<ServiceHasBusinessCapability> getServiceHasBusinessCapabilities()
 	{
@@ -146,12 +132,11 @@ public class BusinessCapability
 		StringBuilder sb = new StringBuilder();
 		sb.append("class BusinessCapability {\n");
 		sb.append("  ID: ").append(ID).append("\n");
+		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  name: ").append(name).append("\n");
 		sb.append("  reference: ").append(reference).append("\n");
 		sb.append("  alias: ").append(alias).append("\n");
 		sb.append("  description: ").append(description).append("\n");
-		sb.append("  parentID: ").append(parentID).append("\n");
-		sb.append("  businessCapabilities: ").append(businessCapabilities).append("\n");
 		sb.append("  serviceHasBusinessCapabilities: ").append(serviceHasBusinessCapabilities).append("\n");
 		sb.append("}\n");
 		return sb.toString();

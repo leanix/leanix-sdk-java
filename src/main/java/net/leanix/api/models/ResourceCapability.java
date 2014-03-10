@@ -31,6 +31,8 @@ public class ResourceCapability
 	/*  */
 	private String ID = null;
 	/*  */
+	private List<String> tags = new ArrayList<String>();
+	/*  */
 	private String name = null;
 	/*  */
 	private String reference = null;
@@ -38,10 +40,6 @@ public class ResourceCapability
 	private String alias = null;
 	/*  */
 	private String description = null;
-	/*  */
-	private String parentID = null;
-	/*  */
-	private List<ResourceCapability> resourceCapabilities = new ArrayList<ResourceCapability>();
 	/*  */
 	private List<ResourceHasResourceCapability> resourceHasResourceCapabilities = new ArrayList<ResourceHasResourceCapability>();
 	@JsonProperty("ID")
@@ -54,6 +52,18 @@ public class ResourceCapability
 	public void setID(String ID)
 	{
 		this.ID = ID;
+	}
+
+	@JsonProperty("tags")
+	public List<String> getTags()
+	{
+		return tags;
+	}
+	
+	@JsonProperty("tags")
+	public void setTags(List<String> tags)
+	{
+		this.tags = tags;
 	}
 
 	@JsonProperty("name")
@@ -104,30 +114,6 @@ public class ResourceCapability
 		this.description = description;
 	}
 
-	@JsonProperty("parentID")
-	public String getParentID()
-	{
-		return parentID;
-	}
-	
-	@JsonProperty("parentID")
-	public void setParentID(String parentID)
-	{
-		this.parentID = parentID;
-	}
-
-	@JsonProperty("resourceCapabilities")
-	public List<ResourceCapability> getResourceCapabilities()
-	{
-		return resourceCapabilities;
-	}
-	
-	@JsonProperty("resourceCapabilities")
-	public void setResourceCapabilities(List<ResourceCapability> resourceCapabilities)
-	{
-		this.resourceCapabilities = resourceCapabilities;
-	}
-
 	@JsonProperty("resourceHasResourceCapabilities")
 	public List<ResourceHasResourceCapability> getResourceHasResourceCapabilities()
 	{
@@ -146,12 +132,11 @@ public class ResourceCapability
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ResourceCapability {\n");
 		sb.append("  ID: ").append(ID).append("\n");
+		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  name: ").append(name).append("\n");
 		sb.append("  reference: ").append(reference).append("\n");
 		sb.append("  alias: ").append(alias).append("\n");
 		sb.append("  description: ").append(description).append("\n");
-		sb.append("  parentID: ").append(parentID).append("\n");
-		sb.append("  resourceCapabilities: ").append(resourceCapabilities).append("\n");
 		sb.append("  resourceHasResourceCapabilities: ").append(resourceHasResourceCapabilities).append("\n");
 		sb.append("}\n");
 		return sb.toString();

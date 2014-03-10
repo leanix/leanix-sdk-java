@@ -37,6 +37,8 @@ public class Service
 	/*  */
 	private String ID = null;
 	/*  */
+	private List<String> tags = new ArrayList<String>();
+	/*  */
 	private String release = null;
 	/*  */
 	private String name = null;
@@ -82,6 +84,18 @@ public class Service
 	public void setID(String ID)
 	{
 		this.ID = ID;
+	}
+
+	@JsonProperty("tags")
+	public List<String> getTags()
+	{
+		return tags;
+	}
+	
+	@JsonProperty("tags")
+	public void setTags(List<String> tags)
+	{
+		this.tags = tags;
 	}
 
 	@JsonProperty("release")
@@ -306,6 +320,7 @@ public class Service
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Service {\n");
 		sb.append("  ID: ").append(ID).append("\n");
+		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  release: ").append(release).append("\n");
 		sb.append("  name: ").append(name).append("\n");
 		sb.append("  reference: ").append(reference).append("\n");
