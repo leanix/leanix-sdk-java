@@ -6,7 +6,7 @@
 	<name>leanIX Java SDK</name>
 	<description>SDK for Java to access leanIX REST API</description>
 	<url>https://developer.leanix.net</url>
-	<version>1.4.0</version>
+	<version>1.4.0-SNAPSHOT</version>
 
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
