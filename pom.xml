@@ -103,7 +103,7 @@
 							<configuration>
 								<mavenExecutorId>forked-path</mavenExecutorId>
 								<useReleaseProfile>false</useReleaseProfile>
-								<arguments>-D${arguments} -Psonatype-oss-release</arguments>
+								<arguments>${arguments} -Psonatype-oss-release</arguments>
 							</configuration>
 						</plugin>
 					</plugins>
