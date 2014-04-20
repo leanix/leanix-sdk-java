@@ -417,6 +417,10 @@
                                 <className>Resource</className>
                                 <classNamePlural>Resources</classNamePlural>
                             </properties>
+                            <controller>
+                                <className>net.leanix.api.codegen.ResourcesApiTestController</className>
+                                <method>getProperties</method>
+                            </controller>                             
                         </template>
                         
                         <template>
@@ -612,7 +616,23 @@
                                 <className>net.leanix.api.codegen.ServicesApiTestController</className>
                                 <method>getPropertiesServiceHasResources</method>
                             </controller>                            
-                        </template>
+                        </template>      
+                        
+                        <!--
+                        <template>
+                            <directory>${template-dir-tests}</directory>
+                            <name>TemplateApiTest</name>
+                            <target>${target-dir-tests}/DocumentsApiTest.java</target>
+                            <properties>
+                                <className>Document</className>
+                                <classNamePlural>Documents</classNamePlural>
+                            </properties>
+                            <controller>
+                                <className>net.leanix.api.codegen.DocumentsApiTestController</className>
+                                <method>getProperties</method>
+                            </controller>                            
+                        </template>   
+                        -->            
                                                                                
                     </templates>
                 </configuration>

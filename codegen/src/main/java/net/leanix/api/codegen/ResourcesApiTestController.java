@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ResourcesApiTestController extends BaseApiTestController
+public class ResourcesApiTestController extends BaseApiFactSheetTestController
 {
     public Map<String, Object> getPropertiesResourceHasResourceCapabilities()
     {

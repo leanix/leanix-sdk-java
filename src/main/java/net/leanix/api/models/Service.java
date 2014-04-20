@@ -26,6 +26,7 @@ package net.leanix.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
 import net.leanix.api.models.ServiceHasBusinessCapability;
+import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.ServiceHasResource;
 import net.leanix.api.models.ServiceHasProject;
 import net.leanix.api.models.ServiceHasInterface;
@@ -36,8 +37,6 @@ public class Service
 {
 	/*  */
 	private String ID = null;
-	/*  */
-	private List<String> tags = new ArrayList<String>();
 	/*  */
 	private String release = null;
 	/*  */
@@ -61,6 +60,8 @@ public class Service
 	/*  */
 	private String technicalSuitabilityDescription = null;
 	/*  */
+	private List<String> tags = new ArrayList<String>();
+	/*  */
 	private List<ServiceHasProject> serviceHasProjects = new ArrayList<ServiceHasProject>();
 	/*  */
 	private List<ServiceHasBusinessCapability> serviceHasBusinessCapabilities = new ArrayList<ServiceHasBusinessCapability>();
@@ -74,6 +75,8 @@ public class Service
 	private List<ServiceHasInterface> serviceHasInterfaces = new ArrayList<ServiceHasInterface>();
 	/*  */
 	private List<ServiceHasResource> serviceHasResources = new ArrayList<ServiceHasResource>();
+	/*  */
+	private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -84,18 +87,6 @@ public class Service
 	public void setID(String ID)
 	{
 		this.ID = ID;
-	}
-
-	@JsonProperty("tags")
-	public List<String> getTags()
-	{
-		return tags;
-	}
-	
-	@JsonProperty("tags")
-	public void setTags(List<String> tags)
-	{
-		this.tags = tags;
 	}
 
 	@JsonProperty("release")
@@ -230,6 +221,18 @@ public class Service
 		this.technicalSuitabilityDescription = technicalSuitabilityDescription;
 	}
 
+	@JsonProperty("tags")
+	public List<String> getTags()
+	{
+		return tags;
+	}
+	
+	@JsonProperty("tags")
+	public void setTags(List<String> tags)
+	{
+		this.tags = tags;
+	}
+
 	@JsonProperty("serviceHasProjects")
 	public List<ServiceHasProject> getServiceHasProjects()
 	{
@@ -314,13 +317,24 @@ public class Service
 		this.serviceHasResources = serviceHasResources;
 	}
 
+	@JsonProperty("factSheetHasDocuments")
+	public List<FactSheetHasDocument> getFactSheetHasDocuments()
+	{
+		return factSheetHasDocuments;
+	}
+	
+	@JsonProperty("factSheetHasDocuments")
+	public void setFactSheetHasDocuments(List<FactSheetHasDocument> factSheetHasDocuments)
+	{
+		this.factSheetHasDocuments = factSheetHasDocuments;
+	}
+
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Service {\n");
 		sb.append("  ID: ").append(ID).append("\n");
-		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  release: ").append(release).append("\n");
 		sb.append("  name: ").append(name).append("\n");
 		sb.append("  reference: ").append(reference).append("\n");
@@ -332,6 +346,7 @@ public class Service
 		sb.append("  functionalSuitabilityDescription: ").append(functionalSuitabilityDescription).append("\n");
 		sb.append("  technicalSuitabilityID: ").append(technicalSuitabilityID).append("\n");
 		sb.append("  technicalSuitabilityDescription: ").append(technicalSuitabilityDescription).append("\n");
+		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  serviceHasProjects: ").append(serviceHasProjects).append("\n");
 		sb.append("  serviceHasBusinessCapabilities: ").append(serviceHasBusinessCapabilities).append("\n");
 		sb.append("  serviceHasProcesses: ").append(serviceHasProcesses).append("\n");
@@ -339,6 +354,7 @@ public class Service
 		sb.append("  serviceHasBusinessObjects: ").append(serviceHasBusinessObjects).append("\n");
 		sb.append("  serviceHasInterfaces: ").append(serviceHasInterfaces).append("\n");
 		sb.append("  serviceHasResources: ").append(serviceHasResources).append("\n");
+		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

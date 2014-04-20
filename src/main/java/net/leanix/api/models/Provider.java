@@ -25,14 +25,13 @@ package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
+import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.ResourceHasProvider;
 import net.leanix.api.models.ProjectHasProvider;
 public class Provider
 {
 	/*  */
 	private String ID = null;
-	/*  */
-	private List<String> tags = new ArrayList<String>();
 	/*  */
 	private String name = null;
 	/*  */
@@ -42,9 +41,21 @@ public class Provider
 	/*  */
 	private String description = null;
 	/*  */
+	private String providerCriticalityID = null;
+	/*  */
+	private String providerCriticalityDescription = null;
+	/*  */
+	private String providerQualityID = null;
+	/*  */
+	private String providerQualityDescription = null;
+	/*  */
+	private List<String> tags = new ArrayList<String>();
+	/*  */
 	private List<ResourceHasProvider> resourceHasProviders = new ArrayList<ResourceHasProvider>();
 	/*  */
 	private List<ProjectHasProvider> projectHasProviders = new ArrayList<ProjectHasProvider>();
+	/*  */
+	private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -55,18 +66,6 @@ public class Provider
 	public void setID(String ID)
 	{
 		this.ID = ID;
-	}
-
-	@JsonProperty("tags")
-	public List<String> getTags()
-	{
-		return tags;
-	}
-	
-	@JsonProperty("tags")
-	public void setTags(List<String> tags)
-	{
-		this.tags = tags;
 	}
 
 	@JsonProperty("name")
@@ -117,6 +116,66 @@ public class Provider
 		this.description = description;
 	}
 
+	@JsonProperty("providerCriticalityID")
+	public String getProviderCriticalityID()
+	{
+		return providerCriticalityID;
+	}
+	
+	@JsonProperty("providerCriticalityID")
+	public void setProviderCriticalityID(String providerCriticalityID)
+	{
+		this.providerCriticalityID = providerCriticalityID;
+	}
+
+	@JsonProperty("providerCriticalityDescription")
+	public String getProviderCriticalityDescription()
+	{
+		return providerCriticalityDescription;
+	}
+	
+	@JsonProperty("providerCriticalityDescription")
+	public void setProviderCriticalityDescription(String providerCriticalityDescription)
+	{
+		this.providerCriticalityDescription = providerCriticalityDescription;
+	}
+
+	@JsonProperty("providerQualityID")
+	public String getProviderQualityID()
+	{
+		return providerQualityID;
+	}
+	
+	@JsonProperty("providerQualityID")
+	public void setProviderQualityID(String providerQualityID)
+	{
+		this.providerQualityID = providerQualityID;
+	}
+
+	@JsonProperty("providerQualityDescription")
+	public String getProviderQualityDescription()
+	{
+		return providerQualityDescription;
+	}
+	
+	@JsonProperty("providerQualityDescription")
+	public void setProviderQualityDescription(String providerQualityDescription)
+	{
+		this.providerQualityDescription = providerQualityDescription;
+	}
+
+	@JsonProperty("tags")
+	public List<String> getTags()
+	{
+		return tags;
+	}
+	
+	@JsonProperty("tags")
+	public void setTags(List<String> tags)
+	{
+		this.tags = tags;
+	}
+
 	@JsonProperty("resourceHasProviders")
 	public List<ResourceHasProvider> getResourceHasProviders()
 	{
@@ -141,19 +200,36 @@ public class Provider
 		this.projectHasProviders = projectHasProviders;
 	}
 
+	@JsonProperty("factSheetHasDocuments")
+	public List<FactSheetHasDocument> getFactSheetHasDocuments()
+	{
+		return factSheetHasDocuments;
+	}
+	
+	@JsonProperty("factSheetHasDocuments")
+	public void setFactSheetHasDocuments(List<FactSheetHasDocument> factSheetHasDocuments)
+	{
+		this.factSheetHasDocuments = factSheetHasDocuments;
+	}
+
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Provider {\n");
 		sb.append("  ID: ").append(ID).append("\n");
-		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  name: ").append(name).append("\n");
 		sb.append("  reference: ").append(reference).append("\n");
 		sb.append("  alias: ").append(alias).append("\n");
 		sb.append("  description: ").append(description).append("\n");
+		sb.append("  providerCriticalityID: ").append(providerCriticalityID).append("\n");
+		sb.append("  providerCriticalityDescription: ").append(providerCriticalityDescription).append("\n");
+		sb.append("  providerQualityID: ").append(providerQualityID).append("\n");
+		sb.append("  providerQualityDescription: ").append(providerQualityDescription).append("\n");
+		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  resourceHasProviders: ").append(resourceHasProviders).append("\n");
 		sb.append("  projectHasProviders: ").append(projectHasProviders).append("\n");
+		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

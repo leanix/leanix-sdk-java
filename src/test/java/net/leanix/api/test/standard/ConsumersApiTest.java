@@ -54,25 +54,30 @@ public class ConsumersApiTest
 
 	protected Consumer newModel()
 	{
-		return new Consumer();
+		Consumer model = new Consumer();
+		this.setRequiredAttributes(model);
+		return model;
+	}
+
+	protected void setRequiredAttributes(Consumer model)
+	{
 	}
 
 	protected void setBasicAttributes(Consumer model)
 	{
+		model.setAlias("Alias");
 		model.setDescription("Test Description");
-		model.setReference("R-1000");
-		model.setAlias("NApp");
-
+		model.setReference("R-10001");
 	
 	}
 
 	protected void assertEqual(Consumer a, Consumer b)
 	{
 		assertEquals(a.getName(), b.getName());
-		assertEquals(a.getAlias(), b.getAlias());
-		assertEquals(a.getReference(), b.getReference());
-		assertEquals(a.getDescription(), b.getDescription());
 
+		assertEquals(a.getAlias(), b.getAlias());
+		assertEquals(a.getDescription(), b.getDescription());
+		assertEquals(a.getReference(), b.getReference());
 	
 	}	
 
@@ -80,7 +85,7 @@ public class ConsumersApiTest
 	public void testCreateAndGetSuccess() throws Exception
 	{	
 		Consumer model = this.newModel();
-		model.setName("CreateServiceSuccess");
+		model.setName("Create Model Success");
 
 		this.setBasicAttributes(model);
 
@@ -127,7 +132,7 @@ public class ConsumersApiTest
 	public void testUpdateSuccess() throws Exception
 	{
 		Consumer model = this.newModel();
-		model.setName("UpdateService");	
+		model.setName("Update Model");	
 
 		Consumer newModel = this.getApi().createConsumer(model);
 
@@ -166,7 +171,7 @@ public class ConsumersApiTest
 	public void testDelete() throws Exception
 	{
 		Consumer model = this.newModel();
-		model.setName("DeleteService");	
+		model.setName("Delete Model");	
 
 		Consumer newModel = this.getApi().createConsumer(model);
 

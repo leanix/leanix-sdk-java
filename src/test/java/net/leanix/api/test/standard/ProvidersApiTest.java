@@ -54,25 +54,30 @@ public class ProvidersApiTest
 
 	protected Provider newModel()
 	{
-		return new Provider();
+		Provider model = new Provider();
+		this.setRequiredAttributes(model);
+		return model;
+	}
+
+	protected void setRequiredAttributes(Provider model)
+	{
 	}
 
 	protected void setBasicAttributes(Provider model)
 	{
+		model.setAlias("Alias");
 		model.setDescription("Test Description");
-		model.setReference("R-1000");
-		model.setAlias("NApp");
-
+		model.setReference("R-10001");
 	
 	}
 
 	protected void assertEqual(Provider a, Provider b)
 	{
 		assertEquals(a.getName(), b.getName());
-		assertEquals(a.getAlias(), b.getAlias());
-		assertEquals(a.getReference(), b.getReference());
-		assertEquals(a.getDescription(), b.getDescription());
 
+		assertEquals(a.getAlias(), b.getAlias());
+		assertEquals(a.getDescription(), b.getDescription());
+		assertEquals(a.getReference(), b.getReference());
 	
 	}	
 
@@ -80,7 +85,7 @@ public class ProvidersApiTest
 	public void testCreateAndGetSuccess() throws Exception
 	{	
 		Provider model = this.newModel();
-		model.setName("CreateServiceSuccess");
+		model.setName("Create Model Success");
 
 		this.setBasicAttributes(model);
 
@@ -127,7 +132,7 @@ public class ProvidersApiTest
 	public void testUpdateSuccess() throws Exception
 	{
 		Provider model = this.newModel();
-		model.setName("UpdateService");	
+		model.setName("Update Model");	
 
 		Provider newModel = this.getApi().createProvider(model);
 
@@ -166,7 +171,7 @@ public class ProvidersApiTest
 	public void testDelete() throws Exception
 	{
 		Provider model = this.newModel();
-		model.setName("DeleteService");	
+		model.setName("Delete Model");	
 
 		Provider newModel = this.getApi().createProvider(model);
 

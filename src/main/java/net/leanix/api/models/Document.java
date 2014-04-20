@@ -26,23 +26,14 @@ package net.leanix.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
 import net.leanix.api.models.FactSheetHasDocument;
-import net.leanix.api.models.ServiceHasProcess;
-public class Process
+public class Document
 {
 	/*  */
 	private String ID = null;
 	/*  */
 	private String name = null;
 	/*  */
-	private String reference = null;
-	/*  */
-	private String alias = null;
-	/*  */
-	private String description = null;
-	/*  */
-	private List<String> tags = new ArrayList<String>();
-	/*  */
-	private List<ServiceHasProcess> serviceHasProcesses = new ArrayList<ServiceHasProcess>();
+	private String url = null;
 	/*  */
 	private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
 	@JsonProperty("ID")
@@ -69,64 +60,16 @@ public class Process
 		this.name = name;
 	}
 
-	@JsonProperty("reference")
-	public String getReference()
+	@JsonProperty("url")
+	public String getUrl()
 	{
-		return reference;
+		return url;
 	}
 	
-	@JsonProperty("reference")
-	public void setReference(String reference)
+	@JsonProperty("url")
+	public void setUrl(String url)
 	{
-		this.reference = reference;
-	}
-
-	@JsonProperty("alias")
-	public String getAlias()
-	{
-		return alias;
-	}
-	
-	@JsonProperty("alias")
-	public void setAlias(String alias)
-	{
-		this.alias = alias;
-	}
-
-	@JsonProperty("description")
-	public String getDescription()
-	{
-		return description;
-	}
-	
-	@JsonProperty("description")
-	public void setDescription(String description)
-	{
-		this.description = description;
-	}
-
-	@JsonProperty("tags")
-	public List<String> getTags()
-	{
-		return tags;
-	}
-	
-	@JsonProperty("tags")
-	public void setTags(List<String> tags)
-	{
-		this.tags = tags;
-	}
-
-	@JsonProperty("serviceHasProcesses")
-	public List<ServiceHasProcess> getServiceHasProcesses()
-	{
-		return serviceHasProcesses;
-	}
-	
-	@JsonProperty("serviceHasProcesses")
-	public void setServiceHasProcesses(List<ServiceHasProcess> serviceHasProcesses)
-	{
-		this.serviceHasProcesses = serviceHasProcesses;
+		this.url = url;
 	}
 
 	@JsonProperty("factSheetHasDocuments")
@@ -145,14 +88,10 @@ public class Process
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("class Process {\n");
+		sb.append("class Document {\n");
 		sb.append("  ID: ").append(ID).append("\n");
 		sb.append("  name: ").append(name).append("\n");
-		sb.append("  reference: ").append(reference).append("\n");
-		sb.append("  alias: ").append(alias).append("\n");
-		sb.append("  description: ").append(description).append("\n");
-		sb.append("  tags: ").append(tags).append("\n");
-		sb.append("  serviceHasProcesses: ").append(serviceHasProcesses).append("\n");
+		sb.append("  url: ").append(url).append("\n");
 		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
 		sb.append("}\n");
 		return sb.toString();

@@ -35,7 +35,7 @@ public class ServicesTest
 		{
 			ApiClient apiClient = new ApiClient();
 			apiClient.setBasePath("https://app.leanix.net/demo/api/v1");
-			apiClient.setApiKey("9d8372d55b307f0912facb66f5f36780");
+			apiClient.setApiKey("de1d5ee775de2fddd0314a5ce18e31d5");
 			
 			ServicesApi servicesApi = new ServicesApi(apiClient);
 			List<Service> services = servicesApi.getServices(true, "design");

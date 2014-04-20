@@ -1,4 +1,3 @@
-TemplateApiTest(className, classNamePlural, attributes, attributesRequired) ::= <<
 /*
 * The MIT License (MIT)	 
 *
@@ -22,14 +21,14 @@ TemplateApiTest(className, classNamePlural, attributes, attributesRequired) ::= 
 * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package net.leanix.api.test.standard;
+package net.leanix.api.test;
 
 import static org.junit.Assert.*;
 
 import java.util.List;
 
 import net.leanix.api.common.*;
-import net.leanix.api.models.<className>;
+import net.leanix.api.models.Document;
 import net.leanix.api.*;
 import net.leanix.api.test.*;
 
@@ -40,145 +39,133 @@ import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class <classNamePlural>ApiTest
+public class DocumentsApiTest
 {
 	@ClassRule public static WorkspaceSetupRule setup = new WorkspaceSetupRule();
 	@Rule public ExpectedException thrown = ExpectedException.none();
-	
-	final Logger logger = LoggerFactory.getLogger(<classNamePlural>ApiTest.class);
-	
-	protected <classNamePlural>Api getApi() throws Exception
+
+	final Logger logger = LoggerFactory.getLogger(DocumentsApiTest.class);
+
+	protected DocumentsApi getApi() throws Exception
 	{
-		<classNamePlural>Api api = new <classNamePlural>Api(setup.getApiClient());
+		DocumentsApi api = new DocumentsApi(setup.getApiClient());
 		return api;
 	}
-	
-	protected <className> newModel()
+
+	protected Document newModel()
 	{
-		<className> model = new <className>();
+		Document model = new Document();
 		this.setRequiredAttributes(model);
 		return model;
 	}
-	
-	protected void setRequiredAttributes(<className> model)
+
+	protected void setRequiredAttributes(Document model)
 	{
-		<attributesRequired:{each | model.set<each.name>(<each.value>);
-	    }>
+		model.setUrl("http://www.heise.de");
+
 	}
-	
-	protected void setBasicAttributes(<className> model)
+
+	protected void setBasicAttributes(Document model)
 	{
-		<attributes:{each | model.set<each.name>(<each.value>);
-	    }>	
-	}
+		model.setUrl("http://www.heise.de");
 	
-	protected void assertEqual(<className> a, <className> b)
+	}
+
+	protected void assertEqual(Document a, Document b)
 	{
 		assertEquals(a.getName(), b.getName());
 
-		<attributes:{each | assertEquals(a.get<each.name>(), b.get<each.name>());
-	    }>	
-	}	
+		assertEquals(a.getUrl(), b.getUrl());
 	
+	}	
+
 	@Test
 	public void testCreateAndGetSuccess() throws Exception
 	{	
-		<className> model = this.newModel();
+		Document model = this.newModel();
 		model.setName("Create Model Success");
-		
+
 		this.setBasicAttributes(model);
-		
-		<className> newModel = this.getApi().create<className>(model);
+
+		Document newModel = this.getApi().createDocument(model);
 		assertNotNull(newModel);
 		assertNotNull(newModel.getID());		
-		
-		<className> found = this.getApi().get<className>(newModel.getID(), false);
+
+		Document found = this.getApi().getDocument(newModel.getID(), false);
 		assertNotNull(found);
 		this.assertEqual(newModel, found);
 	}
-	
-	@Test
-	public void testCreateFailDuplicate() throws Exception
-	{
-		// We expect an exception
-		thrown.expect(ApiException.class);
-		<className> model = this.newModel();
-		model.setName("Duplicate");
-		this.getApi().create<className>(model);
-		
-		this.getApi().create<className>(model);
-	}
-	
+
 	@Test
 	public void testCreateFailNoName() throws Exception
 	{
 		// We expect an exception
 		thrown.expect(ApiException.class);
-		<className> model = this.newModel();
-		this.getApi().create<className>(model);
+		Document model = this.newModel();
+		this.getApi().createDocument(model);
 	}
-	
+
 	@Test
 	public void testCreateFailName() throws Exception
 	{
 		thrown.expect(ApiException.class);
-		<className> model = this.newModel();
-		model.setName("\<html\>");
-		this.getApi().create<className>(model);
+		Document model = this.newModel();
+		model.setName("<html>");
+		this.getApi().createDocument(model);
 	}	
-	
+
 	@Test
 	public void testUpdateSuccess() throws Exception
 	{
-		<className> model = this.newModel();
+		Document model = this.newModel();
 		model.setName("Update Model");	
-		
-		<className> newModel = this.getApi().create<className>(model);
-		
+
+		Document newModel = this.getApi().createDocument(model);
+
 		this.setBasicAttributes(newModel);
-		<className> updatedModel = this.getApi().update<className>(newModel.getID(), newModel);
-		
+		Document updatedModel = this.getApi().updateDocument(newModel.getID(), newModel);
+
 		this.assertEqual(newModel, updatedModel);
 	}
-	
+
 	@Test
 	public void testGetList() throws Exception
 	{
 		int totalItems = 5;
-		
-		for (int i = 0; i \< totalItems; i++)
+
+		for (int i = 0; i < totalItems; i++)
 		{
-			<className> newModel = this.newModel();
+			Document newModel = this.newModel();
 			newModel.setName("GetModels " + i);
-			this.getApi().create<className>(newModel);
+			this.getApi().createDocument(newModel);
 		}
-		
+
 		int foundCount = 0;
-		List\<<className>\> models = this.getApi().get<classNamePlural>(false, null);
-		for (<className> s : models)
+		List<Document> models = this.getApi().getDocuments(false, null);
+		for (Document s : models)
 		{
 			logger.info(s.getName());
 			if (s.getName().startsWith("GetModels"))
 				foundCount++;
 		}
-		
+
 		// We should have found 5 items we have inserted before
 		assertEquals(totalItems, foundCount);
 	}	
-	
+
 	@Test
 	public void testDelete() throws Exception
 	{
-		<className> model = this.newModel();
+		Document model = this.newModel();
 		model.setName("Delete Model");	
-		
-		<className> newModel = this.getApi().create<className>(model);
-		
-		this.getApi().delete<className>(newModel.getID());
-		
-		List\<<className>\> models = this.getApi().get<classNamePlural>(false, null);
+
+		Document newModel = this.getApi().createDocument(model);
+
+		this.getApi().deleteDocument(newModel.getID());
+
+		List<Document> models = this.getApi().getDocuments(false, null);
 		boolean found = false;
-		for (<className> s : models)
+		for (Document s : models)
 		{
 			if (s.getID().equals(newModel.getID()))
 				found = true;	
@@ -187,4 +174,3 @@ public class <classNamePlural>ApiTest
 		assertFalse(found);
 	}
 }
->>

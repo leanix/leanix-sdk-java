@@ -38,6 +38,8 @@ public class ServiceHasResource
 	private String technicalSuitabilityID = null;
 	/*  */
 	private Double costTotalAnnual = null;
+	/*  */
+	private String serviceLevelID = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -110,6 +112,18 @@ public class ServiceHasResource
 		this.costTotalAnnual = costTotalAnnual;
 	}
 
+	@JsonProperty("serviceLevelID")
+	public String getServiceLevelID()
+	{
+		return serviceLevelID;
+	}
+	
+	@JsonProperty("serviceLevelID")
+	public void setServiceLevelID(String serviceLevelID)
+	{
+		this.serviceLevelID = serviceLevelID;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -121,6 +135,7 @@ public class ServiceHasResource
 		sb.append("  comment: ").append(comment).append("\n");
 		sb.append("  technicalSuitabilityID: ").append(technicalSuitabilityID).append("\n");
 		sb.append("  costTotalAnnual: ").append(costTotalAnnual).append("\n");
+		sb.append("  serviceLevelID: ").append(serviceLevelID).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

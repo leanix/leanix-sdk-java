@@ -54,25 +54,30 @@ public class ProcessesApiTest
 
 	protected Process newModel()
 	{
-		return new Process();
+		Process model = new Process();
+		this.setRequiredAttributes(model);
+		return model;
+	}
+
+	protected void setRequiredAttributes(Process model)
+	{
 	}
 
 	protected void setBasicAttributes(Process model)
 	{
+		model.setAlias("Alias");
 		model.setDescription("Test Description");
-		model.setReference("R-1000");
-		model.setAlias("NApp");
-
+		model.setReference("R-10001");
 	
 	}
 
 	protected void assertEqual(Process a, Process b)
 	{
 		assertEquals(a.getName(), b.getName());
-		assertEquals(a.getAlias(), b.getAlias());
-		assertEquals(a.getReference(), b.getReference());
-		assertEquals(a.getDescription(), b.getDescription());
 
+		assertEquals(a.getAlias(), b.getAlias());
+		assertEquals(a.getDescription(), b.getDescription());
+		assertEquals(a.getReference(), b.getReference());
 	
 	}	
 
@@ -80,7 +85,7 @@ public class ProcessesApiTest
 	public void testCreateAndGetSuccess() throws Exception
 	{	
 		Process model = this.newModel();
-		model.setName("CreateServiceSuccess");
+		model.setName("Create Model Success");
 
 		this.setBasicAttributes(model);
 
@@ -127,7 +132,7 @@ public class ProcessesApiTest
 	public void testUpdateSuccess() throws Exception
 	{
 		Process model = this.newModel();
-		model.setName("UpdateService");	
+		model.setName("Update Model");	
 
 		Process newModel = this.getApi().createProcess(model);
 
@@ -166,7 +171,7 @@ public class ProcessesApiTest
 	public void testDelete() throws Exception
 	{
 		Process model = this.newModel();
-		model.setName("DeleteService");	
+		model.setName("Delete Model");	
 
 		Process newModel = this.getApi().createProcess(model);
 

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ConsumersApiTestController extends BaseApiTestController
+public class ConsumersApiTestController extends BaseApiFactSheetTestController
 {
     public Map<String, Object> getPropertiesServiceHasConsumers()
     {

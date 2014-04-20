@@ -25,6 +25,7 @@ package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
+import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.ServiceHasProject;
 import net.leanix.api.models.ProjectHasProvider;
 import net.leanix.api.models.ProjectUpdate;
@@ -32,8 +33,6 @@ public class Project
 {
 	/*  */
 	private String ID = null;
-	/*  */
-	private List<String> tags = new ArrayList<String>();
 	/*  */
 	private String name = null;
 	/*  */
@@ -55,11 +54,15 @@ public class Project
 	/*  */
 	private Double budgetCapex = null;
 	/*  */
+	private List<String> tags = new ArrayList<String>();
+	/*  */
 	private List<ServiceHasProject> serviceHasProjects = new ArrayList<ServiceHasProject>();
 	/*  */
 	private List<ProjectHasProvider> projectHasProviders = new ArrayList<ProjectHasProvider>();
 	/*  */
 	private List<ProjectUpdate> projectUpdates = new ArrayList<ProjectUpdate>();
+	/*  */
+	private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -70,18 +73,6 @@ public class Project
 	public void setID(String ID)
 	{
 		this.ID = ID;
-	}
-
-	@JsonProperty("tags")
-	public List<String> getTags()
-	{
-		return tags;
-	}
-	
-	@JsonProperty("tags")
-	public void setTags(List<String> tags)
-	{
-		this.tags = tags;
 	}
 
 	@JsonProperty("name")
@@ -204,6 +195,18 @@ public class Project
 		this.budgetCapex = budgetCapex;
 	}
 
+	@JsonProperty("tags")
+	public List<String> getTags()
+	{
+		return tags;
+	}
+	
+	@JsonProperty("tags")
+	public void setTags(List<String> tags)
+	{
+		this.tags = tags;
+	}
+
 	@JsonProperty("serviceHasProjects")
 	public List<ServiceHasProject> getServiceHasProjects()
 	{
@@ -240,13 +243,24 @@ public class Project
 		this.projectUpdates = projectUpdates;
 	}
 
+	@JsonProperty("factSheetHasDocuments")
+	public List<FactSheetHasDocument> getFactSheetHasDocuments()
+	{
+		return factSheetHasDocuments;
+	}
+	
+	@JsonProperty("factSheetHasDocuments")
+	public void setFactSheetHasDocuments(List<FactSheetHasDocument> factSheetHasDocuments)
+	{
+		this.factSheetHasDocuments = factSheetHasDocuments;
+	}
+
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Project {\n");
 		sb.append("  ID: ").append(ID).append("\n");
-		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  name: ").append(name).append("\n");
 		sb.append("  reference: ").append(reference).append("\n");
 		sb.append("  alias: ").append(alias).append("\n");
@@ -257,9 +271,11 @@ public class Project
 		sb.append("  projectRiskDescription: ").append(projectRiskDescription).append("\n");
 		sb.append("  budgetOpex: ").append(budgetOpex).append("\n");
 		sb.append("  budgetCapex: ").append(budgetCapex).append("\n");
+		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  serviceHasProjects: ").append(serviceHasProjects).append("\n");
 		sb.append("  projectHasProviders: ").append(projectHasProviders).append("\n");
 		sb.append("  projectUpdates: ").append(projectUpdates).append("\n");
+		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

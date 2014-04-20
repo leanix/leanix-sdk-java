@@ -1,22 +1,27 @@
 package net.leanix.api.codegen;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class ServicesApiTestController extends BaseApiTestController
+public class ServicesApiTestController extends BaseApiFactSheetTestController
 {
     public Map<String, Object> getProperties()
     {
-        HashMap<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<String, Object>();
         
-        result.put("attributes",Arrays.asList(
-        		new TestAttribute("Release", "1.0"),
-        		new TestAttribute("FunctionalSuitabilityID", "1"),
-        		new TestAttribute("FunctionalSuitabilityDescription", "Functional Suitability"),
-        		new TestAttribute("BusinessCriticalityID", "1"),
-        		new TestAttribute("BusinessCriticalityDescription", "Business Criticality")
-        ));	
+        List<TestAttribute> list = new ArrayList<TestAttribute>(this.getBaseAttributes());
+        
+        list.add(new TestAttribute("Release", "1.0"));
+        list.add(new TestAttribute("FunctionalSuitabilityID", "1"));
+        list.add(new TestAttribute("FunctionalSuitabilityDescription", "Functional Suitability"));
+        list.add(new TestAttribute("BusinessCriticalityID", "1"));
+        list.add(new TestAttribute("BusinessCriticalityDescription", "Business Criticality"));
+        
+        result.put("attributes", list);
+        result.put("attributesRequired", new ArrayList());
 
         return result;
     }

@@ -54,25 +54,30 @@ public class ResourcesApiTest
 
 	protected Resource newModel()
 	{
-		return new Resource();
+		Resource model = new Resource();
+		this.setRequiredAttributes(model);
+		return model;
+	}
+
+	protected void setRequiredAttributes(Resource model)
+	{
 	}
 
 	protected void setBasicAttributes(Resource model)
 	{
+		model.setAlias("Alias");
 		model.setDescription("Test Description");
-		model.setReference("R-1000");
-		model.setAlias("NApp");
-
+		model.setReference("R-10001");
 	
 	}
 
 	protected void assertEqual(Resource a, Resource b)
 	{
 		assertEquals(a.getName(), b.getName());
-		assertEquals(a.getAlias(), b.getAlias());
-		assertEquals(a.getReference(), b.getReference());
-		assertEquals(a.getDescription(), b.getDescription());
 
+		assertEquals(a.getAlias(), b.getAlias());
+		assertEquals(a.getDescription(), b.getDescription());
+		assertEquals(a.getReference(), b.getReference());
 	
 	}	
 
@@ -80,7 +85,7 @@ public class ResourcesApiTest
 	public void testCreateAndGetSuccess() throws Exception
 	{	
 		Resource model = this.newModel();
-		model.setName("CreateServiceSuccess");
+		model.setName("Create Model Success");
 
 		this.setBasicAttributes(model);
 
@@ -127,7 +132,7 @@ public class ResourcesApiTest
 	public void testUpdateSuccess() throws Exception
 	{
 		Resource model = this.newModel();
-		model.setName("UpdateService");	
+		model.setName("Update Model");	
 
 		Resource newModel = this.getApi().createResource(model);
 
@@ -166,7 +171,7 @@ public class ResourcesApiTest
 	public void testDelete() throws Exception
 	{
 		Resource model = this.newModel();
-		model.setName("DeleteService");	
+		model.setName("Delete Model");	
 
 		Resource newModel = this.getApi().createResource(model);
 

@@ -54,25 +54,30 @@ public class BusinessObjectsApiTest
 
 	protected BusinessObject newModel()
 	{
-		return new BusinessObject();
+		BusinessObject model = new BusinessObject();
+		this.setRequiredAttributes(model);
+		return model;
+	}
+
+	protected void setRequiredAttributes(BusinessObject model)
+	{
 	}
 
 	protected void setBasicAttributes(BusinessObject model)
 	{
+		model.setAlias("Alias");
 		model.setDescription("Test Description");
-		model.setReference("R-1000");
-		model.setAlias("NApp");
-
+		model.setReference("R-10001");
 	
 	}
 
 	protected void assertEqual(BusinessObject a, BusinessObject b)
 	{
 		assertEquals(a.getName(), b.getName());
-		assertEquals(a.getAlias(), b.getAlias());
-		assertEquals(a.getReference(), b.getReference());
-		assertEquals(a.getDescription(), b.getDescription());
 
+		assertEquals(a.getAlias(), b.getAlias());
+		assertEquals(a.getDescription(), b.getDescription());
+		assertEquals(a.getReference(), b.getReference());
 	
 	}	
 
@@ -80,7 +85,7 @@ public class BusinessObjectsApiTest
 	public void testCreateAndGetSuccess() throws Exception
 	{	
 		BusinessObject model = this.newModel();
-		model.setName("CreateServiceSuccess");
+		model.setName("Create Model Success");
 
 		this.setBasicAttributes(model);
 
@@ -127,7 +132,7 @@ public class BusinessObjectsApiTest
 	public void testUpdateSuccess() throws Exception
 	{
 		BusinessObject model = this.newModel();
-		model.setName("UpdateService");	
+		model.setName("Update Model");	
 
 		BusinessObject newModel = this.getApi().createBusinessObject(model);
 
@@ -166,7 +171,7 @@ public class BusinessObjectsApiTest
 	public void testDelete() throws Exception
 	{
 		BusinessObject model = this.newModel();
-		model.setName("DeleteService");	
+		model.setName("Delete Model");	
 
 		BusinessObject newModel = this.getApi().createBusinessObject(model);
 

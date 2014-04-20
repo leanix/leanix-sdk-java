@@ -25,13 +25,12 @@ package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
+import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.ResourceHasResourceCapability;
 public class ResourceCapability
 {
 	/*  */
 	private String ID = null;
-	/*  */
-	private List<String> tags = new ArrayList<String>();
 	/*  */
 	private String name = null;
 	/*  */
@@ -41,7 +40,11 @@ public class ResourceCapability
 	/*  */
 	private String description = null;
 	/*  */
+	private List<String> tags = new ArrayList<String>();
+	/*  */
 	private List<ResourceHasResourceCapability> resourceHasResourceCapabilities = new ArrayList<ResourceHasResourceCapability>();
+	/*  */
+	private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -52,18 +55,6 @@ public class ResourceCapability
 	public void setID(String ID)
 	{
 		this.ID = ID;
-	}
-
-	@JsonProperty("tags")
-	public List<String> getTags()
-	{
-		return tags;
-	}
-	
-	@JsonProperty("tags")
-	public void setTags(List<String> tags)
-	{
-		this.tags = tags;
 	}
 
 	@JsonProperty("name")
@@ -114,6 +105,18 @@ public class ResourceCapability
 		this.description = description;
 	}
 
+	@JsonProperty("tags")
+	public List<String> getTags()
+	{
+		return tags;
+	}
+	
+	@JsonProperty("tags")
+	public void setTags(List<String> tags)
+	{
+		this.tags = tags;
+	}
+
 	@JsonProperty("resourceHasResourceCapabilities")
 	public List<ResourceHasResourceCapability> getResourceHasResourceCapabilities()
 	{
@@ -126,18 +129,31 @@ public class ResourceCapability
 		this.resourceHasResourceCapabilities = resourceHasResourceCapabilities;
 	}
 
+	@JsonProperty("factSheetHasDocuments")
+	public List<FactSheetHasDocument> getFactSheetHasDocuments()
+	{
+		return factSheetHasDocuments;
+	}
+	
+	@JsonProperty("factSheetHasDocuments")
+	public void setFactSheetHasDocuments(List<FactSheetHasDocument> factSheetHasDocuments)
+	{
+		this.factSheetHasDocuments = factSheetHasDocuments;
+	}
+
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ResourceCapability {\n");
 		sb.append("  ID: ").append(ID).append("\n");
-		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  name: ").append(name).append("\n");
 		sb.append("  reference: ").append(reference).append("\n");
 		sb.append("  alias: ").append(alias).append("\n");
 		sb.append("  description: ").append(description).append("\n");
+		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  resourceHasResourceCapabilities: ").append(resourceHasResourceCapabilities).append("\n");
+		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

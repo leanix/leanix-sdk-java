@@ -54,25 +54,30 @@ public class ProjectsApiTest
 
 	protected Project newModel()
 	{
-		return new Project();
+		Project model = new Project();
+		this.setRequiredAttributes(model);
+		return model;
+	}
+
+	protected void setRequiredAttributes(Project model)
+	{
 	}
 
 	protected void setBasicAttributes(Project model)
 	{
+		model.setAlias("Alias");
 		model.setDescription("Test Description");
-		model.setReference("R-1000");
-		model.setAlias("NApp");
-
+		model.setReference("R-10001");
 	
 	}
 
 	protected void assertEqual(Project a, Project b)
 	{
 		assertEquals(a.getName(), b.getName());
-		assertEquals(a.getAlias(), b.getAlias());
-		assertEquals(a.getReference(), b.getReference());
-		assertEquals(a.getDescription(), b.getDescription());
 
+		assertEquals(a.getAlias(), b.getAlias());
+		assertEquals(a.getDescription(), b.getDescription());
+		assertEquals(a.getReference(), b.getReference());
 	
 	}	
 
@@ -80,7 +85,7 @@ public class ProjectsApiTest
 	public void testCreateAndGetSuccess() throws Exception
 	{	
 		Project model = this.newModel();
-		model.setName("CreateServiceSuccess");
+		model.setName("Create Model Success");
 
 		this.setBasicAttributes(model);
 
@@ -127,7 +132,7 @@ public class ProjectsApiTest
 	public void testUpdateSuccess() throws Exception
 	{
 		Project model = this.newModel();
-		model.setName("UpdateService");	
+		model.setName("Update Model");	
 
 		Project newModel = this.getApi().createProject(model);
 
@@ -166,7 +171,7 @@ public class ProjectsApiTest
 	public void testDelete() throws Exception
 	{
 		Project model = this.newModel();
-		model.setName("DeleteService");	
+		model.setName("Delete Model");	
 
 		Project newModel = this.getApi().createProject(model);
 

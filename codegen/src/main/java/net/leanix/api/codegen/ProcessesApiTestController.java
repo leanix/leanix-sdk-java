@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProcessesApiTestController extends BaseApiTestController
+public class ProcessesApiTestController extends BaseApiFactSheetTestController
 {
     public Map<String, Object> getPropertiesServiceHasProcesses()
     {

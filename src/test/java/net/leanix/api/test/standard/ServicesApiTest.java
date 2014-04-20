@@ -54,15 +54,20 @@ public class ServicesApiTest
 
 	protected Service newModel()
 	{
-		return new Service();
+		Service model = new Service();
+		this.setRequiredAttributes(model);
+		return model;
+	}
+
+	protected void setRequiredAttributes(Service model)
+	{
 	}
 
 	protected void setBasicAttributes(Service model)
 	{
+		model.setAlias("Alias");
 		model.setDescription("Test Description");
-		model.setReference("R-1000");
-		model.setAlias("NApp");
-
+		model.setReference("R-10001");
 		model.setRelease("1.0");
 		model.setFunctionalSuitabilityID("1");
 		model.setFunctionalSuitabilityDescription("Functional Suitability");
@@ -74,10 +79,10 @@ public class ServicesApiTest
 	protected void assertEqual(Service a, Service b)
 	{
 		assertEquals(a.getName(), b.getName());
-		assertEquals(a.getAlias(), b.getAlias());
-		assertEquals(a.getReference(), b.getReference());
-		assertEquals(a.getDescription(), b.getDescription());
 
+		assertEquals(a.getAlias(), b.getAlias());
+		assertEquals(a.getDescription(), b.getDescription());
+		assertEquals(a.getReference(), b.getReference());
 		assertEquals(a.getRelease(), b.getRelease());
 		assertEquals(a.getFunctionalSuitabilityID(), b.getFunctionalSuitabilityID());
 		assertEquals(a.getFunctionalSuitabilityDescription(), b.getFunctionalSuitabilityDescription());
@@ -90,7 +95,7 @@ public class ServicesApiTest
 	public void testCreateAndGetSuccess() throws Exception
 	{	
 		Service model = this.newModel();
-		model.setName("CreateServiceSuccess");
+		model.setName("Create Model Success");
 
 		this.setBasicAttributes(model);
 
@@ -137,7 +142,7 @@ public class ServicesApiTest
 	public void testUpdateSuccess() throws Exception
 	{
 		Service model = this.newModel();
-		model.setName("UpdateService");	
+		model.setName("Update Model");	
 
 		Service newModel = this.getApi().createService(model);
 
@@ -176,7 +181,7 @@ public class ServicesApiTest
 	public void testDelete() throws Exception
 	{
 		Service model = this.newModel();
-		model.setName("DeleteService");	
+		model.setName("Delete Model");	
 
 		Service newModel = this.getApi().createService(model);
 
