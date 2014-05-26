@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 
 public class WorkspaceSetupRule extends ExternalResource
 {
-	protected String apiServerUrl = "https://nightly.leanix.net/index-dev.php";
+	protected String apiServerUrl = "https://nightly.leanix.net";
 	protected String apiBaseWorkspace = "demo";
 	protected String apiVersion = "v1";
 	protected String apiSetup = "{\"featureBundleID\":\"beta\"}";
