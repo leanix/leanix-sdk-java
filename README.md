@@ -35,6 +35,15 @@ $ mvn package
 
 You'll find `leanix-sdk-java-1.2.1.jar` in the target directory after the build completes. This single JAR contains everything needed to use the API.
 
+Testing
+-------
+
+The SDK contains units tests. They can be executed as follows:
+
+```bash
+$ mvn test -Dapi.key=<Your-Api-Key-Here> -Dapi.baseurl=https://app.leanix.net
+```
+
 Usage
 -----
 In order to use the SDK in your Java application, import the following packages:
@@ -66,7 +75,8 @@ Updating
 To generate the SDK from the latest REST API use the following maven commands:
 
 ```bash
-$ mvn -Pcodegen scala:run
+$ cd codegen
+$ mvn package
 ```
 
 Thank You
