@@ -34,9 +34,13 @@ public class Resource
 	/*  */
 	private String ID = null;
 	/*  */
-	private String name = null;
-	/*  */
 	private String displayName = null;
+	/*  */
+	private String parentID = null;
+	/*  */
+	private Long level = null;
+	/*  */
+	private String name = null;
 	/*  */
 	private String reference = null;
 	/*  */
@@ -73,18 +77,6 @@ public class Resource
 		this.ID = ID;
 	}
 
-	@JsonProperty("name")
-	public String getName()
-	{
-		return name;
-	}
-	
-	@JsonProperty("name")
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-
 	@JsonProperty("displayName")
 	public String getDisplayName()
 	{
@@ -95,6 +87,42 @@ public class Resource
 	public void setDisplayName(String displayName)
 	{
 		this.displayName = displayName;
+	}
+
+	@JsonProperty("parentID")
+	public String getParentID()
+	{
+		return parentID;
+	}
+	
+	@JsonProperty("parentID")
+	public void setParentID(String parentID)
+	{
+		this.parentID = parentID;
+	}
+
+	@JsonProperty("level")
+	public Long getLevel()
+	{
+		return level;
+	}
+	
+	@JsonProperty("level")
+	public void setLevel(Long level)
+	{
+		this.level = level;
+	}
+
+	@JsonProperty("name")
+	public String getName()
+	{
+		return name;
+	}
+	
+	@JsonProperty("name")
+	public void setName(String name)
+	{
+		this.name = name;
 	}
 
 	@JsonProperty("reference")
@@ -247,8 +275,10 @@ public class Resource
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Resource {\n");
 		sb.append("  ID: ").append(ID).append("\n");
-		sb.append("  name: ").append(name).append("\n");
 		sb.append("  displayName: ").append(displayName).append("\n");
+		sb.append("  parentID: ").append(parentID).append("\n");
+		sb.append("  level: ").append(level).append("\n");
+		sb.append("  name: ").append(name).append("\n");
 		sb.append("  reference: ").append(reference).append("\n");
 		sb.append("  alias: ").append(alias).append("\n");
 		sb.append("  description: ").append(description).append("\n");

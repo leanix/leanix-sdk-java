@@ -34,6 +34,12 @@ public class Project
 	/*  */
 	private String ID = null;
 	/*  */
+	private String displayName = null;
+	/*  */
+	private String parentID = null;
+	/*  */
+	private Long level = null;
+	/*  */
 	private String name = null;
 	/*  */
 	private String reference = null;
@@ -73,6 +79,42 @@ public class Project
 	public void setID(String ID)
 	{
 		this.ID = ID;
+	}
+
+	@JsonProperty("displayName")
+	public String getDisplayName()
+	{
+		return displayName;
+	}
+	
+	@JsonProperty("displayName")
+	public void setDisplayName(String displayName)
+	{
+		this.displayName = displayName;
+	}
+
+	@JsonProperty("parentID")
+	public String getParentID()
+	{
+		return parentID;
+	}
+	
+	@JsonProperty("parentID")
+	public void setParentID(String parentID)
+	{
+		this.parentID = parentID;
+	}
+
+	@JsonProperty("level")
+	public Long getLevel()
+	{
+		return level;
+	}
+	
+	@JsonProperty("level")
+	public void setLevel(Long level)
+	{
+		this.level = level;
 	}
 
 	@JsonProperty("name")
@@ -261,6 +303,9 @@ public class Project
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Project {\n");
 		sb.append("  ID: ").append(ID).append("\n");
+		sb.append("  displayName: ").append(displayName).append("\n");
+		sb.append("  parentID: ").append(parentID).append("\n");
+		sb.append("  level: ").append(level).append("\n");
 		sb.append("  name: ").append(name).append("\n");
 		sb.append("  reference: ").append(reference).append("\n");
 		sb.append("  alias: ").append(alias).append("\n");
