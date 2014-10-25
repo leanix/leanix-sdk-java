@@ -25,12 +25,11 @@ package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
-import net.leanix.api.models.ServiceHasBusinessCapability;
 import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.FactSheetHasChild;
 import net.leanix.api.models.FactSheetHasParent;
-public class BusinessCapability
+public class Report
 {
 	/*  */
 	private String ID = null;
@@ -58,8 +57,6 @@ public class BusinessCapability
 	private List<FactSheetHasParent> factSheetHasParents = new ArrayList<FactSheetHasParent>();
 	/*  */
 	private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
-	/*  */
-	private List<ServiceHasBusinessCapability> serviceHasBusinessCapabilities = new ArrayList<ServiceHasBusinessCapability>();
 	/*  */
 	private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
 	@JsonProperty("ID")
@@ -218,18 +215,6 @@ public class BusinessCapability
 		this.factSheetHasChildren = factSheetHasChildren;
 	}
 
-	@JsonProperty("serviceHasBusinessCapabilities")
-	public List<ServiceHasBusinessCapability> getServiceHasBusinessCapabilities()
-	{
-		return serviceHasBusinessCapabilities;
-	}
-	
-	@JsonProperty("serviceHasBusinessCapabilities")
-	public void setServiceHasBusinessCapabilities(List<ServiceHasBusinessCapability> serviceHasBusinessCapabilities)
-	{
-		this.serviceHasBusinessCapabilities = serviceHasBusinessCapabilities;
-	}
-
 	@JsonProperty("factSheetHasDocuments")
 	public List<FactSheetHasDocument> getFactSheetHasDocuments()
 	{
@@ -246,7 +231,7 @@ public class BusinessCapability
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("class BusinessCapability {\n");
+		sb.append("class Report {\n");
 		sb.append("  ID: ").append(ID).append("\n");
 		sb.append("  displayName: ").append(displayName).append("\n");
 		sb.append("  parentID: ").append(parentID).append("\n");
@@ -260,7 +245,6 @@ public class BusinessCapability
 		sb.append("  factSheetHasLifecycles: ").append(factSheetHasLifecycles).append("\n");
 		sb.append("  factSheetHasParents: ").append(factSheetHasParents).append("\n");
 		sb.append("  factSheetHasChildren: ").append(factSheetHasChildren).append("\n");
-		sb.append("  serviceHasBusinessCapabilities: ").append(serviceHasBusinessCapabilities).append("\n");
 		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
 		sb.append("}\n");
 		return sb.toString();

@@ -38,6 +38,8 @@ public class ServiceHasConsumer
 	private String comment = null;
 	/*  */
 	private String functionalSuitabilityID = null;
+	/*  */
+	private String usageTypeID = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -110,6 +112,18 @@ public class ServiceHasConsumer
 		this.functionalSuitabilityID = functionalSuitabilityID;
 	}
 
+	@JsonProperty("usageTypeID")
+	public String getUsageTypeID()
+	{
+		return usageTypeID;
+	}
+	
+	@JsonProperty("usageTypeID")
+	public void setUsageTypeID(String usageTypeID)
+	{
+		this.usageTypeID = usageTypeID;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -121,6 +135,7 @@ public class ServiceHasConsumer
 		sb.append("  numberOfUsers: ").append(numberOfUsers).append("\n");
 		sb.append("  comment: ").append(comment).append("\n");
 		sb.append("  functionalSuitabilityID: ").append(functionalSuitabilityID).append("\n");
+		sb.append("  usageTypeID: ").append(usageTypeID).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

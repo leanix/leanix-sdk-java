@@ -24,20 +24,18 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ResourceHasResourceCapability
+public class FactSheetHasChild
 {
 	/*  */
 	private String ID = null;
 	/*  */
-	private String resourceCapabilityID = null;
+	private String factSheetID = null;
 	/*  */
-	private String resourceID = null;
+	private String factSheetRefID = null;
 	/*  */
-	private Boolean isLeading = null;
+	private String description = null;
 	/*  */
-	private String comment = null;
-	/*  */
-	private String supportTypeID = null;
+	private String dependencyTypeID = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -50,77 +48,64 @@ public class ResourceHasResourceCapability
 		this.ID = ID;
 	}
 
-	@JsonProperty("resourceCapabilityID")
-	public String getResourceCapabilityID()
+	@JsonProperty("factSheetID")
+	public String getFactSheetID()
 	{
-		return resourceCapabilityID;
+		return factSheetID;
 	}
 	
-	@JsonProperty("resourceCapabilityID")
-	public void setResourceCapabilityID(String resourceCapabilityID)
+	@JsonProperty("factSheetID")
+	public void setFactSheetID(String factSheetID)
 	{
-		this.resourceCapabilityID = resourceCapabilityID;
+		this.factSheetID = factSheetID;
 	}
 
-	@JsonProperty("resourceID")
-	public String getResourceID()
+	@JsonProperty("factSheetRefID")
+	public String getFactSheetRefID()
 	{
-		return resourceID;
+		return factSheetRefID;
 	}
 	
-	@JsonProperty("resourceID")
-	public void setResourceID(String resourceID)
+	@JsonProperty("factSheetRefID")
+	public void setFactSheetRefID(String factSheetRefID)
 	{
-		this.resourceID = resourceID;
+		this.factSheetRefID = factSheetRefID;
 	}
 
-	@JsonProperty("isLeading")
-	public Boolean getIsLeading()
+	@JsonProperty("description")
+	public String getDescription()
 	{
-		return isLeading;
+		return description;
 	}
 	
-	@JsonProperty("isLeading")
-	public void setIsLeading(Boolean isLeading)
+	@JsonProperty("description")
+	public void setDescription(String description)
 	{
-		this.isLeading = isLeading;
+		this.description = description;
 	}
 
-	@JsonProperty("comment")
-	public String getComment()
+	@JsonProperty("dependencyTypeID")
+	public String getDependencyTypeID()
 	{
-		return comment;
+		return dependencyTypeID;
 	}
 	
-	@JsonProperty("comment")
-	public void setComment(String comment)
+	@JsonProperty("dependencyTypeID")
+	public void setDependencyTypeID(String dependencyTypeID)
 	{
-		this.comment = comment;
-	}
-
-	@JsonProperty("supportTypeID")
-	public String getSupportTypeID()
-	{
-		return supportTypeID;
-	}
-	
-	@JsonProperty("supportTypeID")
-	public void setSupportTypeID(String supportTypeID)
-	{
-		this.supportTypeID = supportTypeID;
+		this.dependencyTypeID = dependencyTypeID;
 	}
 
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("class ResourceHasResourceCapability {\n");
+		sb.append("class FactSheetHasChild {\n");
 		sb.append("  ID: ").append(ID).append("\n");
-		sb.append("  resourceCapabilityID: ").append(resourceCapabilityID).append("\n");
-		sb.append("  resourceID: ").append(resourceID).append("\n");
-		sb.append("  isLeading: ").append(isLeading).append("\n");
-		sb.append("  comment: ").append(comment).append("\n");
-		sb.append("  supportTypeID: ").append(supportTypeID).append("\n");
+		sb.append("  factSheetID: ").append(factSheetID).append("\n");
+		sb.append("  factSheetRefID: ").append(factSheetRefID).append("\n");
+		sb.append("  description: ").append(description).append("\n");
+		sb.append("  dependencyTypeID: ").append(dependencyTypeID).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

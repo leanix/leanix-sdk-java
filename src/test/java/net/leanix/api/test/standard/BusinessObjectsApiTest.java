@@ -102,7 +102,7 @@ public class BusinessObjectsApiTest
 	public void testCreateFailDuplicate() throws Exception
 	{
 		// We expect an exception
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		BusinessObject model = this.newModel();
 		model.setName("Duplicate");
 		this.getApi().createBusinessObject(model);
@@ -114,7 +114,7 @@ public class BusinessObjectsApiTest
 	public void testCreateFailNoName() throws Exception
 	{
 		// We expect an exception
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		BusinessObject model = this.newModel();
 		this.getApi().createBusinessObject(model);
 	}
@@ -122,7 +122,7 @@ public class BusinessObjectsApiTest
 	@Test
 	public void testCreateFailName() throws Exception
 	{
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		BusinessObject model = this.newModel();
 		model.setName("<html>");
 		this.getApi().createBusinessObject(model);

@@ -102,7 +102,7 @@ public class BusinessCapabilitiesApiTest
 	public void testCreateFailDuplicate() throws Exception
 	{
 		// We expect an exception
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		BusinessCapability model = this.newModel();
 		model.setName("Duplicate");
 		this.getApi().createBusinessCapability(model);
@@ -114,7 +114,7 @@ public class BusinessCapabilitiesApiTest
 	public void testCreateFailNoName() throws Exception
 	{
 		// We expect an exception
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		BusinessCapability model = this.newModel();
 		this.getApi().createBusinessCapability(model);
 	}
@@ -122,7 +122,7 @@ public class BusinessCapabilitiesApiTest
 	@Test
 	public void testCreateFailName() throws Exception
 	{
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		BusinessCapability model = this.newModel();
 		model.setName("<html>");
 		this.getApi().createBusinessCapability(model);

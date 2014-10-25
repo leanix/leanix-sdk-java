@@ -26,7 +26,10 @@ package net.leanix.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
 import net.leanix.api.models.FactSheetHasDocument;
+import net.leanix.api.models.FactSheetHasLifecycle;
+import net.leanix.api.models.FactSheetHasChild;
 import net.leanix.api.models.ResourceHasResourceCapability;
+import net.leanix.api.models.FactSheetHasParent;
 public class ResourceCapability
 {
 	/*  */
@@ -47,6 +50,14 @@ public class ResourceCapability
 	private String description = null;
 	/*  */
 	private List<String> tags = new ArrayList<String>();
+	/*  */
+	private String fullName = null;
+	/*  */
+	private List<FactSheetHasLifecycle> factSheetHasLifecycles = new ArrayList<FactSheetHasLifecycle>();
+	/*  */
+	private List<FactSheetHasParent> factSheetHasParents = new ArrayList<FactSheetHasParent>();
+	/*  */
+	private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
 	/*  */
 	private List<ResourceHasResourceCapability> resourceHasResourceCapabilities = new ArrayList<ResourceHasResourceCapability>();
 	/*  */
@@ -159,6 +170,54 @@ public class ResourceCapability
 		this.tags = tags;
 	}
 
+	@JsonProperty("fullName")
+	public String getFullName()
+	{
+		return fullName;
+	}
+	
+	@JsonProperty("fullName")
+	public void setFullName(String fullName)
+	{
+		this.fullName = fullName;
+	}
+
+	@JsonProperty("factSheetHasLifecycles")
+	public List<FactSheetHasLifecycle> getFactSheetHasLifecycles()
+	{
+		return factSheetHasLifecycles;
+	}
+	
+	@JsonProperty("factSheetHasLifecycles")
+	public void setFactSheetHasLifecycles(List<FactSheetHasLifecycle> factSheetHasLifecycles)
+	{
+		this.factSheetHasLifecycles = factSheetHasLifecycles;
+	}
+
+	@JsonProperty("factSheetHasParents")
+	public List<FactSheetHasParent> getFactSheetHasParents()
+	{
+		return factSheetHasParents;
+	}
+	
+	@JsonProperty("factSheetHasParents")
+	public void setFactSheetHasParents(List<FactSheetHasParent> factSheetHasParents)
+	{
+		this.factSheetHasParents = factSheetHasParents;
+	}
+
+	@JsonProperty("factSheetHasChildren")
+	public List<FactSheetHasChild> getFactSheetHasChildren()
+	{
+		return factSheetHasChildren;
+	}
+	
+	@JsonProperty("factSheetHasChildren")
+	public void setFactSheetHasChildren(List<FactSheetHasChild> factSheetHasChildren)
+	{
+		this.factSheetHasChildren = factSheetHasChildren;
+	}
+
 	@JsonProperty("resourceHasResourceCapabilities")
 	public List<ResourceHasResourceCapability> getResourceHasResourceCapabilities()
 	{
@@ -197,6 +256,10 @@ public class ResourceCapability
 		sb.append("  alias: ").append(alias).append("\n");
 		sb.append("  description: ").append(description).append("\n");
 		sb.append("  tags: ").append(tags).append("\n");
+		sb.append("  fullName: ").append(fullName).append("\n");
+		sb.append("  factSheetHasLifecycles: ").append(factSheetHasLifecycles).append("\n");
+		sb.append("  factSheetHasParents: ").append(factSheetHasParents).append("\n");
+		sb.append("  factSheetHasChildren: ").append(factSheetHasChildren).append("\n");
 		sb.append("  resourceHasResourceCapabilities: ").append(resourceHasResourceCapabilities).append("\n");
 		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
 		sb.append("}\n");

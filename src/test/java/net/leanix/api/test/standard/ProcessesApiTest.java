@@ -102,7 +102,7 @@ public class ProcessesApiTest
 	public void testCreateFailDuplicate() throws Exception
 	{
 		// We expect an exception
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		Process model = this.newModel();
 		model.setName("Duplicate");
 		this.getApi().createProcess(model);
@@ -114,7 +114,7 @@ public class ProcessesApiTest
 	public void testCreateFailNoName() throws Exception
 	{
 		// We expect an exception
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		Process model = this.newModel();
 		this.getApi().createProcess(model);
 	}
@@ -122,7 +122,7 @@ public class ProcessesApiTest
 	@Test
 	public void testCreateFailName() throws Exception
 	{
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		Process model = this.newModel();
 		model.setName("<html>");
 		this.getApi().createProcess(model);

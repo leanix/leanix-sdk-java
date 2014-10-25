@@ -73,7 +73,7 @@ public class ResourcesApiResourceHasResourceCapabilitiesTest
 	protected void setAttributes(ResourceHasResourceCapability model)
 	{
 		// Attributes
-		model.setIsLeading(true);
+		model.setSupportTypeID("2");
 	}
 
 	protected void changeAttributes(ResourceHasResourceCapability model)
@@ -88,7 +88,7 @@ public class ResourcesApiResourceHasResourceCapabilitiesTest
 		assertEquals(a.getResourceCapabilityID(), b.getResourceCapabilityID());
 
 		// Further attributes		
-		assertEquals(a.getIsLeading(), b.getIsLeading());
+		assertEquals(a.getSupportTypeID(), b.getSupportTypeID());
 	}
 
 	protected Resource createNewModel(String namePart) throws ApiException, Exception

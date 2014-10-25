@@ -100,7 +100,7 @@ public class DocumentsApiTest
 	public void testCreateFailNoName() throws Exception
 	{
 		// We expect an exception
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		Document model = this.newModel();
 		this.getApi().createDocument(model);
 	}
@@ -108,7 +108,7 @@ public class DocumentsApiTest
 	@Test
 	public void testCreateFailName() throws Exception
 	{
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		Document model = this.newModel();
 		model.setName("<html>");
 		this.getApi().createDocument(model);

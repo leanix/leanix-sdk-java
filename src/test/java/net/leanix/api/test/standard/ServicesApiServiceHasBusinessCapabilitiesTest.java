@@ -73,7 +73,7 @@ public class ServicesApiServiceHasBusinessCapabilitiesTest
 	protected void setAttributes(ServiceHasBusinessCapability model)
 	{
 		// Attributes
-		model.setIsLeading(true);
+		model.setSupportTypeID("2");
 	}
 
 	protected void changeAttributes(ServiceHasBusinessCapability model)
@@ -88,7 +88,7 @@ public class ServicesApiServiceHasBusinessCapabilitiesTest
 		assertEquals(a.getBusinessCapabilityID(), b.getBusinessCapabilityID());
 
 		// Further attributes		
-		assertEquals(a.getIsLeading(), b.getIsLeading());
+		assertEquals(a.getSupportTypeID(), b.getSupportTypeID());
 	}
 
 	protected Service createNewModel(String namePart) throws ApiException, Exception

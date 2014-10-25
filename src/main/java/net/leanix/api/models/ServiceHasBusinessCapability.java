@@ -38,6 +38,8 @@ public class ServiceHasBusinessCapability
 	private String functionalSuitabilityID = null;
 	/*  */
 	private String comment = null;
+	/*  */
+	private String supportTypeID = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -110,6 +112,18 @@ public class ServiceHasBusinessCapability
 		this.comment = comment;
 	}
 
+	@JsonProperty("supportTypeID")
+	public String getSupportTypeID()
+	{
+		return supportTypeID;
+	}
+	
+	@JsonProperty("supportTypeID")
+	public void setSupportTypeID(String supportTypeID)
+	{
+		this.supportTypeID = supportTypeID;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -121,6 +135,7 @@ public class ServiceHasBusinessCapability
 		sb.append("  isLeading: ").append(isLeading).append("\n");
 		sb.append("  functionalSuitabilityID: ").append(functionalSuitabilityID).append("\n");
 		sb.append("  comment: ").append(comment).append("\n");
+		sb.append("  supportTypeID: ").append(supportTypeID).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

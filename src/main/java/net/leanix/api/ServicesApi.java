@@ -29,11 +29,14 @@ import net.leanix.api.models.ServiceHasBusinessCapability;
 import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.Service;
 import net.leanix.api.models.ServiceHasResource;
+import net.leanix.api.models.FactSheetHasChild;
 import net.leanix.api.models.ServiceHasProject;
 import net.leanix.api.models.ServiceHasInterface;
+import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.ServiceHasProcess;
 import net.leanix.api.models.ServiceHasConsumer;
 import net.leanix.api.models.ServiceHasBusinessObject;
+import net.leanix.api.models.FactSheetHasParent;
 import java.util.*;
 
 public class ServicesApi
@@ -241,10 +244,10 @@ public class ServicesApi
 			}
 		}
 	}
-	public List<ServiceHasProject> getServiceHasProjects (String ID) throws ApiException
+	public List<FactSheetHasParent> getFactSheetHasParents (String ID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/services/{ID}/serviceHasProjects".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/services/{ID}/factSheetHasParents".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -260,7 +263,7 @@ public class ServicesApi
 			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
 			if (response != null)
 			{
-				return (List<ServiceHasProject>) ApiClient.deserialize(response, "Array", ServiceHasProject.class);
+				return (List<FactSheetHasParent>) ApiClient.deserialize(response, "Array", FactSheetHasParent.class);
 			}
 			else
 			{
@@ -279,10 +282,10 @@ public class ServicesApi
 			}
 		}
 	}
-	public ServiceHasProject createServiceHasProject (String ID, ServiceHasProject body) throws ApiException
+	public FactSheetHasParent createFactSheetHasParent (String ID, FactSheetHasParent body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/services/{ID}/serviceHasProjects".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/services/{ID}/factSheetHasParents".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -298,7 +301,7 @@ public class ServicesApi
 			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
 			if (response != null)
 			{
-				return (ServiceHasProject) ApiClient.deserialize(response, "", ServiceHasProject.class);
+				return (FactSheetHasParent) ApiClient.deserialize(response, "", FactSheetHasParent.class);
 			}
 			else
 			{
@@ -317,10 +320,10 @@ public class ServicesApi
 			}
 		}
 	}
-	public ServiceHasProject getServiceHasProject (String ID, String relationID) throws ApiException
+	public FactSheetHasParent getFactSheetHasParent (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/services/{ID}/serviceHasProjects/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/services/{ID}/factSheetHasParents/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -336,7 +339,7 @@ public class ServicesApi
 			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
 			if (response != null)
 			{
-				return (ServiceHasProject) ApiClient.deserialize(response, "", ServiceHasProject.class);
+				return (FactSheetHasParent) ApiClient.deserialize(response, "", FactSheetHasParent.class);
 			}
 			else
 			{
@@ -355,10 +358,10 @@ public class ServicesApi
 			}
 		}
 	}
-	public ServiceHasProject updateServiceHasProject (String ID, String relationID, ServiceHasProject body) throws ApiException
+	public FactSheetHasParent updateFactSheetHasParent (String ID, String relationID, FactSheetHasParent body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/services/{ID}/serviceHasProjects/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/services/{ID}/factSheetHasParents/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -374,7 +377,7 @@ public class ServicesApi
 			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
 			if (response != null)
 			{
-				return (ServiceHasProject) ApiClient.deserialize(response, "", ServiceHasProject.class);
+				return (FactSheetHasParent) ApiClient.deserialize(response, "", FactSheetHasParent.class);
 			}
 			else
 			{
@@ -393,10 +396,200 @@ public class ServicesApi
 			}
 		}
 	}
-	public void deleteServiceHasProject (String ID, String relationID) throws ApiException
+	public void deleteFactSheetHasParent (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/services/{ID}/serviceHasProjects/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/services/{ID}/factSheetHasParents/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null || relationID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
+			if (response != null)
+			{
+				return ;
+			}
+			else
+			{
+				return ;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return ;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public List<FactSheetHasChild> getFactSheetHasChildren (String ID) throws ApiException
+	{
+		// create path and map variables
+		String path = "/services/{ID}/factSheetHasChildren".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
+			if (response != null)
+			{
+				return (List<FactSheetHasChild>) ApiClient.deserialize(response, "Array", FactSheetHasChild.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public FactSheetHasChild createFactSheetHasChild (String ID, FactSheetHasChild body) throws ApiException
+	{
+		// create path and map variables
+		String path = "/services/{ID}/factSheetHasChildren".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
+			if (response != null)
+			{
+				return (FactSheetHasChild) ApiClient.deserialize(response, "", FactSheetHasChild.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public FactSheetHasChild getFactSheetHasChild (String ID, String relationID) throws ApiException
+	{
+		// create path and map variables
+		String path = "/services/{ID}/factSheetHasChildren/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null || relationID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
+			if (response != null)
+			{
+				return (FactSheetHasChild) ApiClient.deserialize(response, "", FactSheetHasChild.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public FactSheetHasChild updateFactSheetHasChild (String ID, String relationID, FactSheetHasChild body) throws ApiException
+	{
+		// create path and map variables
+		String path = "/services/{ID}/factSheetHasChildren/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null || relationID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
+			if (response != null)
+			{
+				return (FactSheetHasChild) ApiClient.deserialize(response, "", FactSheetHasChild.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public void deleteFactSheetHasChild (String ID, String relationID) throws ApiException
+	{
+		// create path and map variables
+		String path = "/services/{ID}/factSheetHasChildren/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1381,6 +1574,196 @@ public class ServicesApi
 			}
 		}
 	}
+	public List<ServiceHasProject> getServiceHasProjects (String ID) throws ApiException
+	{
+		// create path and map variables
+		String path = "/services/{ID}/serviceHasProjects".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
+			if (response != null)
+			{
+				return (List<ServiceHasProject>) ApiClient.deserialize(response, "Array", ServiceHasProject.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public ServiceHasProject createServiceHasProject (String ID, ServiceHasProject body) throws ApiException
+	{
+		// create path and map variables
+		String path = "/services/{ID}/serviceHasProjects".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
+			if (response != null)
+			{
+				return (ServiceHasProject) ApiClient.deserialize(response, "", ServiceHasProject.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public ServiceHasProject getServiceHasProject (String ID, String relationID) throws ApiException
+	{
+		// create path and map variables
+		String path = "/services/{ID}/serviceHasProjects/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null || relationID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
+			if (response != null)
+			{
+				return (ServiceHasProject) ApiClient.deserialize(response, "", ServiceHasProject.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public ServiceHasProject updateServiceHasProject (String ID, String relationID, ServiceHasProject body) throws ApiException
+	{
+		// create path and map variables
+		String path = "/services/{ID}/serviceHasProjects/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null || relationID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
+			if (response != null)
+			{
+				return (ServiceHasProject) ApiClient.deserialize(response, "", ServiceHasProject.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public void deleteServiceHasProject (String ID, String relationID) throws ApiException
+	{
+		// create path and map variables
+		String path = "/services/{ID}/serviceHasProjects/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null || relationID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
+			if (response != null)
+			{
+				return ;
+			}
+			else
+			{
+				return ;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return ;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
 	public List<ServiceHasResource> getServiceHasResources (String ID) throws ApiException
 	{
 		// create path and map variables
@@ -1727,6 +2110,196 @@ public class ServicesApi
 	{
 		// create path and map variables
 		String path = "/services/{ID}/factSheetHasDocuments/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null || relationID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
+			if (response != null)
+			{
+				return ;
+			}
+			else
+			{
+				return ;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return ;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public List<FactSheetHasLifecycle> getFactSheetHasLifecycles (String ID) throws ApiException
+	{
+		// create path and map variables
+		String path = "/services/{ID}/factSheetHasLifecycles".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
+			if (response != null)
+			{
+				return (List<FactSheetHasLifecycle>) ApiClient.deserialize(response, "Array", FactSheetHasLifecycle.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public FactSheetHasLifecycle createFactSheetHasLifecycle (String ID, FactSheetHasLifecycle body) throws ApiException
+	{
+		// create path and map variables
+		String path = "/services/{ID}/factSheetHasLifecycles".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
+			if (response != null)
+			{
+				return (FactSheetHasLifecycle) ApiClient.deserialize(response, "", FactSheetHasLifecycle.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public FactSheetHasLifecycle getFactSheetHasLifecycle (String ID, String relationID) throws ApiException
+	{
+		// create path and map variables
+		String path = "/services/{ID}/factSheetHasLifecycles/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null || relationID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
+			if (response != null)
+			{
+				return (FactSheetHasLifecycle) ApiClient.deserialize(response, "", FactSheetHasLifecycle.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public FactSheetHasLifecycle updateFactSheetHasLifecycle (String ID, String relationID, FactSheetHasLifecycle body) throws ApiException
+	{
+		// create path and map variables
+		String path = "/services/{ID}/factSheetHasLifecycles/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null || relationID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
+			if (response != null)
+			{
+				return (FactSheetHasLifecycle) ApiClient.deserialize(response, "", FactSheetHasLifecycle.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public void deleteFactSheetHasLifecycle (String ID, String relationID) throws ApiException
+	{
+		// create path and map variables
+		String path = "/services/{ID}/factSheetHasLifecycles/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
