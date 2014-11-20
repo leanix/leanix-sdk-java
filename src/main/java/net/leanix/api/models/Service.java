@@ -73,6 +73,8 @@ public class Service
 	/*  */
 	private String fullName = null;
 	/*  */
+	private String resourceType = null;
+	/*  */
 	private List<FactSheetHasParent> factSheetHasParents = new ArrayList<FactSheetHasParent>();
 	/*  */
 	private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
@@ -298,6 +300,18 @@ public class Service
 		this.fullName = fullName;
 	}
 
+	@JsonProperty("resourceType")
+	public String getResourceType()
+	{
+		return resourceType;
+	}
+	
+	@JsonProperty("resourceType")
+	public void setResourceType(String resourceType)
+	{
+		this.resourceType = resourceType;
+	}
+
 	@JsonProperty("factSheetHasParents")
 	public List<FactSheetHasParent> getFactSheetHasParents()
 	{
@@ -452,6 +466,7 @@ public class Service
 		sb.append("  technicalSuitabilityDescription: ").append(technicalSuitabilityDescription).append("\n");
 		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  fullName: ").append(fullName).append("\n");
+		sb.append("  resourceType: ").append(resourceType).append("\n");
 		sb.append("  factSheetHasParents: ").append(factSheetHasParents).append("\n");
 		sb.append("  factSheetHasChildren: ").append(factSheetHasChildren).append("\n");
 		sb.append("  serviceHasBusinessCapabilities: ").append(serviceHasBusinessCapabilities).append("\n");

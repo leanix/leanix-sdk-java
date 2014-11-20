@@ -63,6 +63,8 @@ public class Resource
 	/*  */
 	private String fullName = null;
 	/*  */
+	private String resourceType = null;
+	/*  */
 	private List<FactSheetHasParent> factSheetHasParents = new ArrayList<FactSheetHasParent>();
 	/*  */
 	private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
@@ -244,6 +246,18 @@ public class Resource
 		this.fullName = fullName;
 	}
 
+	@JsonProperty("resourceType")
+	public String getResourceType()
+	{
+		return resourceType;
+	}
+	
+	@JsonProperty("resourceType")
+	public void setResourceType(String resourceType)
+	{
+		this.resourceType = resourceType;
+	}
+
 	@JsonProperty("factSheetHasParents")
 	public List<FactSheetHasParent> getFactSheetHasParents()
 	{
@@ -347,6 +361,7 @@ public class Resource
 		sb.append("  technicalSuitabilityDescription: ").append(technicalSuitabilityDescription).append("\n");
 		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  fullName: ").append(fullName).append("\n");
+		sb.append("  resourceType: ").append(resourceType).append("\n");
 		sb.append("  factSheetHasParents: ").append(factSheetHasParents).append("\n");
 		sb.append("  factSheetHasChildren: ").append(factSheetHasChildren).append("\n");
 		sb.append("  resourceHasProviders: ").append(resourceHasProviders).append("\n");

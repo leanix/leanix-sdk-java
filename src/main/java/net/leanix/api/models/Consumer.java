@@ -26,6 +26,7 @@ package net.leanix.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
 import net.leanix.api.models.FactSheetHasDocument;
+import net.leanix.api.models.ResourceHasConsumer;
 import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.FactSheetHasChild;
 import net.leanix.api.models.ServiceHasConsumer;
@@ -55,6 +56,8 @@ public class Consumer
 	/*  */
 	private String fullName = null;
 	/*  */
+	private String resourceType = null;
+	/*  */
 	private List<FactSheetHasLifecycle> factSheetHasLifecycles = new ArrayList<FactSheetHasLifecycle>();
 	/*  */
 	private List<FactSheetHasParent> factSheetHasParents = new ArrayList<FactSheetHasParent>();
@@ -62,6 +65,8 @@ public class Consumer
 	private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
 	/*  */
 	private List<ServiceHasConsumer> serviceHasConsumers = new ArrayList<ServiceHasConsumer>();
+	/*  */
+	private List<ResourceHasConsumer> resourceHasConsumers = new ArrayList<ResourceHasConsumer>();
 	/*  */
 	private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
 	@JsonProperty("ID")
@@ -196,6 +201,18 @@ public class Consumer
 		this.fullName = fullName;
 	}
 
+	@JsonProperty("resourceType")
+	public String getResourceType()
+	{
+		return resourceType;
+	}
+	
+	@JsonProperty("resourceType")
+	public void setResourceType(String resourceType)
+	{
+		this.resourceType = resourceType;
+	}
+
 	@JsonProperty("factSheetHasLifecycles")
 	public List<FactSheetHasLifecycle> getFactSheetHasLifecycles()
 	{
@@ -244,6 +261,18 @@ public class Consumer
 		this.serviceHasConsumers = serviceHasConsumers;
 	}
 
+	@JsonProperty("resourceHasConsumers")
+	public List<ResourceHasConsumer> getResourceHasConsumers()
+	{
+		return resourceHasConsumers;
+	}
+	
+	@JsonProperty("resourceHasConsumers")
+	public void setResourceHasConsumers(List<ResourceHasConsumer> resourceHasConsumers)
+	{
+		this.resourceHasConsumers = resourceHasConsumers;
+	}
+
 	@JsonProperty("factSheetHasDocuments")
 	public List<FactSheetHasDocument> getFactSheetHasDocuments()
 	{
@@ -272,10 +301,12 @@ public class Consumer
 		sb.append("  locationID: ").append(locationID).append("\n");
 		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  fullName: ").append(fullName).append("\n");
+		sb.append("  resourceType: ").append(resourceType).append("\n");
 		sb.append("  factSheetHasLifecycles: ").append(factSheetHasLifecycles).append("\n");
 		sb.append("  factSheetHasParents: ").append(factSheetHasParents).append("\n");
 		sb.append("  factSheetHasChildren: ").append(factSheetHasChildren).append("\n");
 		sb.append("  serviceHasConsumers: ").append(serviceHasConsumers).append("\n");
+		sb.append("  resourceHasConsumers: ").append(resourceHasConsumers).append("\n");
 		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
 		sb.append("}\n");
 		return sb.toString();

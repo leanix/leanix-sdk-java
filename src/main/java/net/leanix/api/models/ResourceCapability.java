@@ -53,6 +53,8 @@ public class ResourceCapability
 	/*  */
 	private String fullName = null;
 	/*  */
+	private String resourceType = null;
+	/*  */
 	private List<FactSheetHasLifecycle> factSheetHasLifecycles = new ArrayList<FactSheetHasLifecycle>();
 	/*  */
 	private List<FactSheetHasParent> factSheetHasParents = new ArrayList<FactSheetHasParent>();
@@ -182,6 +184,18 @@ public class ResourceCapability
 		this.fullName = fullName;
 	}
 
+	@JsonProperty("resourceType")
+	public String getResourceType()
+	{
+		return resourceType;
+	}
+	
+	@JsonProperty("resourceType")
+	public void setResourceType(String resourceType)
+	{
+		this.resourceType = resourceType;
+	}
+
 	@JsonProperty("factSheetHasLifecycles")
 	public List<FactSheetHasLifecycle> getFactSheetHasLifecycles()
 	{
@@ -257,6 +271,7 @@ public class ResourceCapability
 		sb.append("  description: ").append(description).append("\n");
 		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  fullName: ").append(fullName).append("\n");
+		sb.append("  resourceType: ").append(resourceType).append("\n");
 		sb.append("  factSheetHasLifecycles: ").append(factSheetHasLifecycles).append("\n");
 		sb.append("  factSheetHasParents: ").append(factSheetHasParents).append("\n");
 		sb.append("  factSheetHasChildren: ").append(factSheetHasChildren).append("\n");

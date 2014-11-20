@@ -187,10 +187,6 @@ public class ApiClient
 		{
 			return (String) response.getEntity(String.class);
 		}
-        else if (response.getStatus() == 204)
-        {
-            return "";
-        }
         else if (response.getStatus() == 422)
         {
             Response resp = null;
