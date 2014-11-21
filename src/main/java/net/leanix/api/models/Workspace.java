@@ -24,7 +24,9 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class Workspace
+import java.io.*;
+
+public class Workspace implements Serializable
 {
 	/*  */
 	private String ID = null;

@@ -24,7 +24,9 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class Activity
+import java.io.*;
+
+public class Activity implements Serializable
 {
 	/*  */
 	private String ID = null;

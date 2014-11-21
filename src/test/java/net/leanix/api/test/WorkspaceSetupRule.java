@@ -15,7 +15,7 @@ public class WorkspaceSetupRule extends ExternalResource
 {
 	protected String apiSetup = "{\"featureBundleID\":\"professional-v1\"}";
 
-	protected boolean cleanUpWorkspace = false;
+	protected boolean cleanUpWorkspace = true;
 
 	protected ApiClient apiClient = null;
 	protected Workspace workspace = null;

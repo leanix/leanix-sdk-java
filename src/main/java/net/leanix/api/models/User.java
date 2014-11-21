@@ -24,9 +24,11 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.*;
+
 import java.util.*;
 import net.leanix.api.models.UserSubscription;
-public class User
+public class User implements Serializable
 {
 	/*  */
 	private String ID = null;

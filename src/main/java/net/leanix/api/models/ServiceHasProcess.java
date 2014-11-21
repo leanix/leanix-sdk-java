@@ -24,7 +24,9 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ServiceHasProcess
+import java.io.*;
+
+public class ServiceHasProcess implements Serializable
 {
 	/*  */
 	private String ID = null;

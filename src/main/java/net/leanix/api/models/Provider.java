@@ -24,6 +24,8 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.*;
+
 import java.util.*;
 import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.ResourceHasProvider;
@@ -31,7 +33,7 @@ import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.FactSheetHasChild;
 import net.leanix.api.models.ProjectHasProvider;
 import net.leanix.api.models.FactSheetHasParent;
-public class Provider
+public class Provider implements Serializable
 {
 	/*  */
 	private String ID = null;

@@ -24,7 +24,9 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ServiceHasConsumer
+import java.io.*;
+
+public class ServiceHasConsumer implements Serializable
 {
 	/*  */
 	private String ID = null;

@@ -24,6 +24,8 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.*;
+
 import java.util.*;
 import net.leanix.api.models.ServiceHasBusinessCapability;
 import net.leanix.api.models.FactSheetHasDocument;
@@ -36,7 +38,7 @@ import net.leanix.api.models.ServiceHasProcess;
 import net.leanix.api.models.ServiceHasConsumer;
 import net.leanix.api.models.ServiceHasBusinessObject;
 import net.leanix.api.models.FactSheetHasParent;
-public class Service
+public class Service implements Serializable
 {
 	/*  */
 	private String ID = null;
