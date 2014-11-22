@@ -46,8 +46,7 @@ public class ServiceHasInterface implements Serializable
 	private String interfaceTechnologyID = null;
 	/*  */
 	private String reference = null;
-	/*  */
-	private String businessObjects = null;
+    
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -156,18 +155,6 @@ public class ServiceHasInterface implements Serializable
 		this.reference = reference;
 	}
 
-	@JsonProperty("businessObjects")
-	public String getBusinessObjects()
-	{
-		return businessObjects;
-	}
-	
-	@JsonProperty("businessObjects")
-	public void setBusinessObjects(String businessObjects)
-	{
-		this.businessObjects = businessObjects;
-	}
-
 	@Override
 	public String toString()
 	{
@@ -182,7 +169,6 @@ public class ServiceHasInterface implements Serializable
 		sb.append("  interfaceTypeID: ").append(interfaceTypeID).append("\n");
 		sb.append("  interfaceTechnologyID: ").append(interfaceTechnologyID).append("\n");
 		sb.append("  reference: ").append(reference).append("\n");
-		sb.append("  businessObjects: ").append(businessObjects).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}
