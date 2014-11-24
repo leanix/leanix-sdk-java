@@ -25,6 +25,7 @@ package net.leanix.api;
 
 import net.leanix.api.common.ApiException;
 import net.leanix.api.common.ApiClient;
+import net.leanix.api.models.DataObject;
 import net.leanix.api.models.Document;
 import java.util.*;
 
@@ -226,6 +227,44 @@ public class DocumentsApi
 			if(ex.getCode() == 404)
 			{
 				return ;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public DataObject updateDataObject (String ID, DataObject body) throws ApiException
+	{
+		// create path and map variables
+		String path = "/documents/{ID}/dataobjects".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
+			if (response != null)
+			{
+				return (DataObject) ApiClient.deserialize(response, "", DataObject.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
 			}
 			else
 			{

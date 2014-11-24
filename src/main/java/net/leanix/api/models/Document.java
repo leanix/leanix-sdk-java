@@ -37,6 +37,10 @@ public class Document implements Serializable
 	/*  */
 	private String url = null;
 	/*  */
+	private String topic = null;
+	/*  */
+	private String version = null;
+	/*  */
 	private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
 	@JsonProperty("ID")
 	public String getID()
@@ -74,6 +78,30 @@ public class Document implements Serializable
 		this.url = url;
 	}
 
+	@JsonProperty("topic")
+	public String getTopic()
+	{
+		return topic;
+	}
+	
+	@JsonProperty("topic")
+	public void setTopic(String topic)
+	{
+		this.topic = topic;
+	}
+
+	@JsonProperty("version")
+	public String getVersion()
+	{
+		return version;
+	}
+	
+	@JsonProperty("version")
+	public void setVersion(String version)
+	{
+		this.version = version;
+	}
+
 	@JsonProperty("factSheetHasDocuments")
 	public List<FactSheetHasDocument> getFactSheetHasDocuments()
 	{
@@ -94,6 +122,8 @@ public class Document implements Serializable
 		sb.append("  ID: ").append(ID).append("\n");
 		sb.append("  name: ").append(name).append("\n");
 		sb.append("  url: ").append(url).append("\n");
+		sb.append("  topic: ").append(topic).append("\n");
+		sb.append("  version: ").append(version).append("\n");
 		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
 		sb.append("}\n");
 		return sb.toString();
