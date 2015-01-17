@@ -129,6 +129,7 @@ public class WorkspaceSetupRule extends ExternalResource
 	protected ApiClient createApiClient(String workspace) throws Exception
 	{
 		ApiClient apiClient = new ApiClient();
+		apiClient.addDefaultHeader("X-Api-Sync-Mode", "sync");
 		apiClient.setBasePath(this.createApiUrl(workspace));
 		apiClient.setApiKey(this.getApiKey());
 
