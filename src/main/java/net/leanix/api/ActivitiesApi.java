@@ -25,7 +25,7 @@ package net.leanix.api;
 
 import net.leanix.api.common.ApiException;
 import net.leanix.api.common.ApiClient;
-import net.leanix.api.models.Activity;
+import net.leanix.api.models.ActivityStream;
 import java.util.*;
 
 public class ActivitiesApi
@@ -47,7 +47,7 @@ public class ActivitiesApi
 		return this.apiClient;
 	}
 
-	public List<Activity> getActivities (String scope) throws ApiException
+	public ActivityStream getActivities (String scope, String startDate, String endDate, String factSheetType, String eventType, Integer countOnly) throws ApiException
 	{
 		// create path and map variables
 		String path = "/activities".replaceAll("\\{format\\}","json");
@@ -58,12 +58,22 @@ public class ActivitiesApi
 
 		if(!"null".equals(String.valueOf(scope)))
 			queryParams.put("scope", String.valueOf(scope));
+		if(!"null".equals(String.valueOf(startDate)))
+			queryParams.put("startDate", String.valueOf(startDate));
+		if(!"null".equals(String.valueOf(endDate)))
+			queryParams.put("endDate", String.valueOf(endDate));
+		if(!"null".equals(String.valueOf(factSheetType)))
+			queryParams.put("factSheetType", String.valueOf(factSheetType));
+		if(!"null".equals(String.valueOf(eventType)))
+			queryParams.put("eventType", String.valueOf(eventType));
+		if(!"null".equals(String.valueOf(countOnly)))
+			queryParams.put("countOnly", String.valueOf(countOnly));
 		try
 		{
 			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
 			if (response != null)
 			{
-				return (List<Activity>) ApiClient.deserialize(response, "Array", Activity.class);
+				return (ActivityStream) ApiClient.deserialize(response, "", ActivityStream.class);
 			}
 			else
 			{

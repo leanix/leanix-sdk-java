@@ -28,6 +28,7 @@ import java.io.*;
 
 import java.util.*;
 import net.leanix.api.models.ProjectUpdate;
+import net.leanix.api.models.ProjectHasBusinessCapability;
 import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.FactSheetHasChild;
@@ -78,6 +79,8 @@ public class Project implements Serializable
 	private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
 	/*  */
 	private List<ServiceHasProject> serviceHasProjects = new ArrayList<ServiceHasProject>();
+	/*  */
+	private List<ProjectHasBusinessCapability> projectHasBusinessCapabilities = new ArrayList<ProjectHasBusinessCapability>();
 	/*  */
 	private List<ProjectHasProvider> projectHasProviders = new ArrayList<ProjectHasProvider>();
 	/*  */
@@ -336,6 +339,18 @@ public class Project implements Serializable
 		this.serviceHasProjects = serviceHasProjects;
 	}
 
+	@JsonProperty("projectHasBusinessCapabilities")
+	public List<ProjectHasBusinessCapability> getProjectHasBusinessCapabilities()
+	{
+		return projectHasBusinessCapabilities;
+	}
+	
+	@JsonProperty("projectHasBusinessCapabilities")
+	public void setProjectHasBusinessCapabilities(List<ProjectHasBusinessCapability> projectHasBusinessCapabilities)
+	{
+		this.projectHasBusinessCapabilities = projectHasBusinessCapabilities;
+	}
+
 	@JsonProperty("projectHasProviders")
 	public List<ProjectHasProvider> getProjectHasProviders()
 	{
@@ -398,6 +413,7 @@ public class Project implements Serializable
 		sb.append("  factSheetHasParents: ").append(factSheetHasParents).append("\n");
 		sb.append("  factSheetHasChildren: ").append(factSheetHasChildren).append("\n");
 		sb.append("  serviceHasProjects: ").append(serviceHasProjects).append("\n");
+		sb.append("  projectHasBusinessCapabilities: ").append(projectHasBusinessCapabilities).append("\n");
 		sb.append("  projectHasProviders: ").append(projectHasProviders).append("\n");
 		sb.append("  projectUpdates: ").append(projectUpdates).append("\n");
 		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");

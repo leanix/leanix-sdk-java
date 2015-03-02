@@ -53,6 +53,8 @@ public class Resource implements Serializable
 	/*  */
 	private String description = null;
 	/*  */
+	private String release = null;
+	/*  */
 	private String objectCategoryID = null;
 	/*  */
 	private String locationID = null;
@@ -174,6 +176,18 @@ public class Resource implements Serializable
 	public void setDescription(String description)
 	{
 		this.description = description;
+	}
+
+	@JsonProperty("release")
+	public String getRelease()
+	{
+		return release;
+	}
+	
+	@JsonProperty("release")
+	public void setRelease(String release)
+	{
+		this.release = release;
 	}
 
 	@JsonProperty("objectCategoryID")
@@ -357,6 +371,7 @@ public class Resource implements Serializable
 		sb.append("  reference: ").append(reference).append("\n");
 		sb.append("  alias: ").append(alias).append("\n");
 		sb.append("  description: ").append(description).append("\n");
+		sb.append("  release: ").append(release).append("\n");
 		sb.append("  objectCategoryID: ").append(objectCategoryID).append("\n");
 		sb.append("  locationID: ").append(locationID).append("\n");
 		sb.append("  technicalSuitabilityID: ").append(technicalSuitabilityID).append("\n");

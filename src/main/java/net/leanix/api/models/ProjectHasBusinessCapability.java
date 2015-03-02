@@ -26,18 +26,14 @@ package net.leanix.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.*;
 
-public class ServiceHasBusinessCapability implements Serializable
+public class ProjectHasBusinessCapability implements Serializable
 {
 	/*  */
 	private String ID = null;
 	/*  */
-	private String serviceID = null;
+	private String projectID = null;
 	/*  */
 	private String businessCapabilityID = null;
-	/*  */
-	private Boolean isLeading = null;
-	/*  */
-	private String functionalSuitabilityID = null;
 	/*  */
 	private String comment = null;
 	/*  */
@@ -56,16 +52,16 @@ public class ServiceHasBusinessCapability implements Serializable
 		this.ID = ID;
 	}
 
-	@JsonProperty("serviceID")
-	public String getServiceID()
+	@JsonProperty("projectID")
+	public String getProjectID()
 	{
-		return serviceID;
+		return projectID;
 	}
 	
-	@JsonProperty("serviceID")
-	public void setServiceID(String serviceID)
+	@JsonProperty("projectID")
+	public void setProjectID(String projectID)
 	{
-		this.serviceID = serviceID;
+		this.projectID = projectID;
 	}
 
 	@JsonProperty("businessCapabilityID")
@@ -78,30 +74,6 @@ public class ServiceHasBusinessCapability implements Serializable
 	public void setBusinessCapabilityID(String businessCapabilityID)
 	{
 		this.businessCapabilityID = businessCapabilityID;
-	}
-
-	@JsonProperty("isLeading")
-	public Boolean getIsLeading()
-	{
-		return isLeading;
-	}
-	
-	@JsonProperty("isLeading")
-	public void setIsLeading(Boolean isLeading)
-	{
-		this.isLeading = isLeading;
-	}
-
-	@JsonProperty("functionalSuitabilityID")
-	public String getFunctionalSuitabilityID()
-	{
-		return functionalSuitabilityID;
-	}
-	
-	@JsonProperty("functionalSuitabilityID")
-	public void setFunctionalSuitabilityID(String functionalSuitabilityID)
-	{
-		this.functionalSuitabilityID = functionalSuitabilityID;
 	}
 
 	@JsonProperty("comment")
@@ -144,12 +116,10 @@ public class ServiceHasBusinessCapability implements Serializable
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("class ServiceHasBusinessCapability {\n");
+		sb.append("class ProjectHasBusinessCapability {\n");
 		sb.append("  ID: ").append(ID).append("\n");
-		sb.append("  serviceID: ").append(serviceID).append("\n");
+		sb.append("  projectID: ").append(projectID).append("\n");
 		sb.append("  businessCapabilityID: ").append(businessCapabilityID).append("\n");
-		sb.append("  isLeading: ").append(isLeading).append("\n");
-		sb.append("  functionalSuitabilityID: ").append(functionalSuitabilityID).append("\n");
 		sb.append("  comment: ").append(comment).append("\n");
 		sb.append("  supportTypeID: ").append(supportTypeID).append("\n");
 		sb.append("  constraints: ").append(constraints).append("\n");

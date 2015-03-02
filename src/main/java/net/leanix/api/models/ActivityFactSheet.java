@@ -28,16 +28,11 @@ import java.io.*;
 
 import java.util.Date;
 import java.util.*;
-import net.leanix.api.models.Activity;
-public class Activity implements Serializable
+import net.leanix.api.models.ActivityFactSheet;
+public class ActivityFactSheet implements Serializable
 {
     private String ID;
-    private ActivityFactSheet factSheet;
-    private ActivityUser user;
-    private String eventType;
-    private String title;
-    private Date date;
-    private String description;
+    private String name;
 
     public String getID()
     {
@@ -49,66 +44,14 @@ public class Activity implements Serializable
         this.ID = ID;
     }
 
-    public ActivityFactSheet getFactSheet()
+    public String getName()
     {
-        return factSheet;
+        return name;
     }
 
-    public void setFactSheet(ActivityFactSheet factSheet)
+    public void setName(String name)
     {
-        this.factSheet = factSheet;
+        this.name = name;
     }
-
-    public ActivityUser getUser()
-    {
-        return user;
-    }
-
-    public void setUser(ActivityUser user)
-    {
-        this.user = user;
-    }
-
-    public String getEventType()
-    {
-        return eventType;
-    }
-
-    public void setEventType(String eventType)
-    {
-        this.eventType = eventType;
-    }
-
-    public String getTitle()
-    {
-        return title;
-    }
-
-    public void setTitle(String title)
-    {
-        this.title = title;
-    }
-
-    public Date getDate()
-    {
-        return date;
-    }
-
-    public void setDate(Date date)
-    {
-        this.date = date;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
-    
-    
 }
 

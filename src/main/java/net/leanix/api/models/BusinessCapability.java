@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.*;
 
 import java.util.*;
+import net.leanix.api.models.ProjectHasBusinessCapability;
 import net.leanix.api.models.ServiceHasBusinessCapability;
 import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.FactSheetHasLifecycle;
@@ -64,6 +65,8 @@ public class BusinessCapability implements Serializable
 	private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
 	/*  */
 	private List<ServiceHasBusinessCapability> serviceHasBusinessCapabilities = new ArrayList<ServiceHasBusinessCapability>();
+	/*  */
+	private List<ProjectHasBusinessCapability> projectHasBusinessCapabilities = new ArrayList<ProjectHasBusinessCapability>();
 	/*  */
 	private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
 	@JsonProperty("ID")
@@ -246,6 +249,18 @@ public class BusinessCapability implements Serializable
 		this.serviceHasBusinessCapabilities = serviceHasBusinessCapabilities;
 	}
 
+	@JsonProperty("projectHasBusinessCapabilities")
+	public List<ProjectHasBusinessCapability> getProjectHasBusinessCapabilities()
+	{
+		return projectHasBusinessCapabilities;
+	}
+	
+	@JsonProperty("projectHasBusinessCapabilities")
+	public void setProjectHasBusinessCapabilities(List<ProjectHasBusinessCapability> projectHasBusinessCapabilities)
+	{
+		this.projectHasBusinessCapabilities = projectHasBusinessCapabilities;
+	}
+
 	@JsonProperty("factSheetHasDocuments")
 	public List<FactSheetHasDocument> getFactSheetHasDocuments()
 	{
@@ -278,6 +293,7 @@ public class BusinessCapability implements Serializable
 		sb.append("  factSheetHasParents: ").append(factSheetHasParents).append("\n");
 		sb.append("  factSheetHasChildren: ").append(factSheetHasChildren).append("\n");
 		sb.append("  serviceHasBusinessCapabilities: ").append(serviceHasBusinessCapabilities).append("\n");
+		sb.append("  projectHasBusinessCapabilities: ").append(projectHasBusinessCapabilities).append("\n");
 		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
 		sb.append("}\n");
 		return sb.toString();

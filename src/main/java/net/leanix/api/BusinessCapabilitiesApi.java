@@ -26,6 +26,7 @@ package net.leanix.api;
 import net.leanix.api.common.ApiException;
 import net.leanix.api.common.ApiClient;
 import net.leanix.api.models.ServiceHasBusinessCapability;
+import net.leanix.api.models.ProjectHasBusinessCapability;
 import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.BusinessCapability;
 import net.leanix.api.models.FactSheetHasLifecycle;
@@ -964,6 +965,196 @@ public class BusinessCapabilitiesApi
 	{
 		// create path and map variables
 		String path = "/businessCapabilities/{ID}/serviceHasBusinessCapabilities/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null || relationID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
+			if (response != null)
+			{
+				return ;
+			}
+			else
+			{
+				return ;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return ;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public List<ProjectHasBusinessCapability> getProjectHasBusinessCapabilities (String ID) throws ApiException
+	{
+		// create path and map variables
+		String path = "/businessCapabilities/{ID}/projectHasBusinessCapabilities".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
+			if (response != null)
+			{
+				return (List<ProjectHasBusinessCapability>) ApiClient.deserialize(response, "Array", ProjectHasBusinessCapability.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public ProjectHasBusinessCapability createProjectHasBusinessCapability (String ID, ProjectHasBusinessCapability body) throws ApiException
+	{
+		// create path and map variables
+		String path = "/businessCapabilities/{ID}/projectHasBusinessCapabilities".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
+			if (response != null)
+			{
+				return (ProjectHasBusinessCapability) ApiClient.deserialize(response, "", ProjectHasBusinessCapability.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public ProjectHasBusinessCapability getProjectHasBusinessCapability (String ID, String relationID) throws ApiException
+	{
+		// create path and map variables
+		String path = "/businessCapabilities/{ID}/projectHasBusinessCapabilities/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null || relationID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
+			if (response != null)
+			{
+				return (ProjectHasBusinessCapability) ApiClient.deserialize(response, "", ProjectHasBusinessCapability.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public ProjectHasBusinessCapability updateProjectHasBusinessCapability (String ID, String relationID, ProjectHasBusinessCapability body) throws ApiException
+	{
+		// create path and map variables
+		String path = "/businessCapabilities/{ID}/projectHasBusinessCapabilities/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+		// query params
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
+
+		// verify required params are set
+		if(ID == null || relationID == null )
+		{
+			throw new ApiException(400, "missing required params");
+		}
+		try
+		{
+			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
+			if (response != null)
+			{
+				return (ProjectHasBusinessCapability) ApiClient.deserialize(response, "", ProjectHasBusinessCapability.class);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch (ApiException ex)
+		{
+			if(ex.getCode() == 404)
+			{
+				return null;
+			}
+			else
+			{
+				throw ex;
+			}
+		}
+	}
+	public void deleteProjectHasBusinessCapability (String ID, String relationID) throws ApiException
+	{
+		// create path and map variables
+		String path = "/businessCapabilities/{ID}/projectHasBusinessCapabilities/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();

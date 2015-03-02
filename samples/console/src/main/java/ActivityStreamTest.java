@@ -1,0 +1,67 @@
+/*
+ * The MIT License (MIT)	 
+ *
+ * Copyright (c) 2013 LeanIX GmbH
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+
+import net.leanix.api.*;
+import net.leanix.api.common.*;
+import net.leanix.api.models.*;
+
+public class ActivityStreamTest
+{
+	public static void main(String[] args)
+	{
+		try
+		{
+			ApiClient apiClient = new ApiClient();
+			apiClient.setBasePath("https://local-dev.leanix.net/demo/api/v1");
+			apiClient.setApiKey("8e04041857900e8b6183b5284cc06c3b");
+			
+			ActivitiesApi api = new ActivitiesApi(apiClient);
+                        
+                        Calendar calendar = new GregorianCalendar(2015,1,1);
+                        Date startDate = calendar.getTime();
+                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                        
+                        ActivityStream stream = api.getActivities(null, df.format(startDate).toString(), null, null, null, null);
+                        
+                        System.out.println("Last update = " + stream.getUpdate());
+                        
+                        for (Activity act : stream.getData())
+                        {
+                            System.out.println(act.getDate() + " " + act.getEventType() + " " + (act.getFactSheet() != null ? act.getFactSheet().getName() : ""));
+                        }
+
+		}
+		catch (Exception ex)
+		{
+			System.out.println("Exception: " + ex.getMessage());
+		}
+	}
+
+}

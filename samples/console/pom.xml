@@ -3,7 +3,7 @@
 	<groupId>net.leanix</groupId>
 	<artifactId>leanix-sdk-java</artifactId>
 	<packaging>jar</packaging>
-	<name>leanIX Java SDK</name>
+	<name>leanIX Java SDK Samples</name>
 	<description>SDK for Java to access leanIX REST API</description>
 	<url>https://developer.leanix.net</url>
 	<version>1.0.0</version>
@@ -21,11 +21,11 @@
   </build>
 	
 	<dependencies>
-		<dependency>
-			<groupId>net.leanix</groupId>
-			<artifactId>leanix-sdk-java</artifactId>
-			<version>1.4.1</version>
-		</dependency>
+	 <dependency>
+	  <groupId>${project.groupId}</groupId>
+	  <artifactId>leanix-sdk-java</artifactId>
+	  <version>1.6.0</version>
+	 </dependency>
 	</dependencies>
 	
 </project>

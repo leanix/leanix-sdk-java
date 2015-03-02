@@ -26,73 +26,61 @@ package net.leanix.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.*;
 
-public class ServiceHasProcess implements Serializable
+import java.util.Date;
+import java.util.*;
+import net.leanix.api.models.Activity;
+public class ActivityStream implements Serializable
 {
 	/*  */
-	private String ID = null;
+	private Date update = null;
 	/*  */
-	private String serviceID = null;
+	private Long count = null;
 	/*  */
-	private String processID = null;
-	/*  */
-	private String constraints = null;
-	@JsonProperty("ID")
-	public String getID()
+	private List<Activity> data = new ArrayList<Activity>();
+	@JsonProperty("update")
+	public Date getUpdate()
 	{
-		return ID;
+		return update;
 	}
 	
-	@JsonProperty("ID")
-	public void setID(String ID)
+	@JsonProperty("update")
+	public void setUpdate(Date update)
 	{
-		this.ID = ID;
+		this.update = update;
 	}
 
-	@JsonProperty("serviceID")
-	public String getServiceID()
+	@JsonProperty("count")
+	public Long getCount()
 	{
-		return serviceID;
+		return count;
 	}
 	
-	@JsonProperty("serviceID")
-	public void setServiceID(String serviceID)
+	@JsonProperty("count")
+	public void setCount(Long count)
 	{
-		this.serviceID = serviceID;
+		this.count = count;
 	}
 
-	@JsonProperty("processID")
-	public String getProcessID()
+	@JsonProperty("data")
+	public List<Activity> getData()
 	{
-		return processID;
+		return data;
 	}
 	
-	@JsonProperty("processID")
-	public void setProcessID(String processID)
+	@JsonProperty("data")
+	public void setData(List<Activity> data)
 	{
-		this.processID = processID;
-	}
-
-	@JsonProperty("constraints")
-	public String getConstraints()
-	{
-		return constraints;
-	}
-	
-	@JsonProperty("constraints")
-	public void setConstraints(String constraints)
-	{
-		this.constraints = constraints;
+		this.data = data;
 	}
 
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("class ServiceHasProcess {\n");
-		sb.append("  ID: ").append(ID).append("\n");
-		sb.append("  serviceID: ").append(serviceID).append("\n");
-		sb.append("  processID: ").append(processID).append("\n");
-		sb.append("  constraints: ").append(constraints).append("\n");
+		sb.append("class ActivityStream {\n");
+		sb.append("  update: ").append(update).append("\n");
+		sb.append("  count: ").append(count).append("\n");
+		sb.append("  data: ").append(data).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}
