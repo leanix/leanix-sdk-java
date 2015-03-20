@@ -49,7 +49,7 @@ public class ActivitiesApi
 		return this.apiClient;
 	}
 
-	public ActivityStream getActivities (String scope, String startDate, String endDate, String factSheetType, String eventType, Integer countOnly) throws ApiException, IOException
+	public ActivityStream getActivities (String scope, String startDate, String endDate, String factSheetType, String eventType, Integer countOnly) throws ApiException
 	{
 		// create path and map variables
 		String path = "/activities".replaceAll("\\{format\\}","json");
