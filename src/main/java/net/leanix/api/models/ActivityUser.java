@@ -26,40 +26,43 @@ package net.leanix.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.*;
 
-import java.util.Date;
-import java.util.*;
-import net.leanix.api.models.ActivityUser;
 public class ActivityUser implements Serializable
 {
     private String ID;
     private String fullName;
     private String email;
     
+    @JsonProperty("ID")
     public String getID()
     {
         return ID;
     }
 
+    @JsonProperty("ID")
     public void setID(String ID)
     {
         this.ID = ID;
     }
 
+    @JsonProperty("fullName")
     public String getFullName()
     {
         return fullName;
     }
 
+    @JsonProperty("fullName")
     public void setFullName(String fullName)
     {
         this.fullName = fullName;
     }
 
+    @JsonProperty("email")
     public String getEmail()
     {
         return email;
     }
 
+    @JsonProperty("email")
     public void setEmail(String email)
     {
         this.email = email;

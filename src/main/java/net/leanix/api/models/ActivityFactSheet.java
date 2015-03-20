@@ -26,29 +26,30 @@ package net.leanix.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.*;
 
-import java.util.Date;
-import java.util.*;
-import net.leanix.api.models.ActivityFactSheet;
 public class ActivityFactSheet implements Serializable
 {
     private String ID;
     private String name;
 
+    @JsonProperty("ID")
     public String getID()
     {
         return ID;
     }
 
+    @JsonProperty("ID")
     public void setID(String ID)
     {
         this.ID = ID;
     }
 
+    @JsonProperty("name")
     public String getName()
     {
         return name;
     }
 
+    @JsonProperty("name")
     public void setName(String name)
     {
         this.name = name;

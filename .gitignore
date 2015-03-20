@@ -7,3 +7,4 @@
 *.timestamp
 /bin
 /target
+/samples/console/target/

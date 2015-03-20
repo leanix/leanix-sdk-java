@@ -28,7 +28,7 @@ import java.io.*;
 
 import java.util.Date;
 import java.util.*;
-import net.leanix.api.models.Activity;
+
 public class ActivityStream implements Serializable
 {
 	/*  */
@@ -37,6 +37,7 @@ public class ActivityStream implements Serializable
 	private Long count = null;
 	/*  */
 	private List<Activity> data = new ArrayList<Activity>();
+        
 	@JsonProperty("update")
 	public Date getUpdate()
 	{

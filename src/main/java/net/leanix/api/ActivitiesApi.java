@@ -23,6 +23,8 @@
 
 package net.leanix.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import net.leanix.api.common.ApiException;
 import net.leanix.api.common.ApiClient;
 import net.leanix.api.models.ActivityStream;
@@ -47,14 +49,14 @@ public class ActivitiesApi
 		return this.apiClient;
 	}
 
-	public ActivityStream getActivities (String scope, String startDate, String endDate, String factSheetType, String eventType, Integer countOnly) throws ApiException
+	public ActivityStream getActivities (String scope, String startDate, String endDate, String factSheetType, String eventType, Integer countOnly) throws ApiException, IOException
 	{
 		// create path and map variables
 		String path = "/activities".replaceAll("\\{format\\}","json");
 
 		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
+		Map<String, String> queryParams = new HashMap<>();
+		Map<String, String> headerParams = new HashMap<>();
 
 		if(!"null".equals(String.valueOf(scope)))
 			queryParams.put("scope", String.valueOf(scope));

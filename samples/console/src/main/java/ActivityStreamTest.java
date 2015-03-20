@@ -26,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import net.leanix.api.*;
 import net.leanix.api.common.*;
@@ -39,8 +38,8 @@ public class ActivityStreamTest
 		try
 		{
 			ApiClient apiClient = new ApiClient();
-			apiClient.setBasePath("https://local-dev.leanix.net/demo/api/v1");
-			apiClient.setApiKey("8e04041857900e8b6183b5284cc06c3b");
+			apiClient.setBasePath("https://test-app.leanix.net/alexaltdemo/api/v1");
+			apiClient.setApiKey("1263c0635fff8e9b5dd52cf010ed8822");
 			
 			ActivitiesApi api = new ActivitiesApi(apiClient);
                         
@@ -48,13 +47,13 @@ public class ActivityStreamTest
                         Date startDate = calendar.getTime();
                         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
                         
-                        ActivityStream stream = api.getActivities(null, df.format(startDate).toString(), null, null, null, null);
+                        ActivityStream stream = api.getActivities(null, df.format(startDate), null, null, null, null);
                         
-                        System.out.println("Last update = " + stream.getUpdate());
+                        System.out.println("Last update = " + stream);
                         
                         for (Activity act : stream.getData())
                         {
-                            System.out.println(act.getDate() + " " + act.getEventType() + " " + (act.getFactSheet() != null ? act.getFactSheet().getName() : ""));
+                            System.out.println(act.getID()+ " " + act.getEventType() + " " + (act.getFactSheet() != null ? act.getFactSheet().getName() : ""));
                         }
 
 		}

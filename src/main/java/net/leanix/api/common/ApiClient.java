@@ -23,21 +23,11 @@
 
 package net.leanix.api.common;
 
-import com.fasterxml.jackson.core.JsonGenerator.Feature;
 import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.api.client.WebResource.Builder;
-
-import javax.ws.rs.core.Response.Status.Family;
-import javax.ws.rs.core.MediaType;
-
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
@@ -45,8 +35,8 @@ import java.io.IOException;
 
 public class ApiClient
 {
-	private Map<String, Client> hostMap = new HashMap<String, Client>();
-	private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
+	private final Map<String, Client> hostMap = new HashMap<>();
+	private final Map<String, String> defaultHeaderMap = new HashMap<>();
 	private String basePath;
 	
 	public void setBasePath(String basePath)
