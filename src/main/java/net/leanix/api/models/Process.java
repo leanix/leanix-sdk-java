@@ -28,6 +28,7 @@ import java.io.*;
 
 import java.util.*;
 import net.leanix.api.models.FactSheetHasDocument;
+import net.leanix.api.models.ProcessHasBusinessCapability;
 import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.FactSheetHasChild;
 import net.leanix.api.models.ServiceHasProcess;
@@ -62,6 +63,8 @@ public class Process implements Serializable
 	private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
 	/*  */
 	private List<ServiceHasProcess> serviceHasProcesses = new ArrayList<ServiceHasProcess>();
+	/*  */
+	private List<ProcessHasBusinessCapability> processHasBusinessCapabilities = new ArrayList<ProcessHasBusinessCapability>();
 	/*  */
 	private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
 	/*  */
@@ -234,6 +237,18 @@ public class Process implements Serializable
 		this.serviceHasProcesses = serviceHasProcesses;
 	}
 
+	@JsonProperty("processHasBusinessCapabilities")
+	public List<ProcessHasBusinessCapability> getProcessHasBusinessCapabilities()
+	{
+		return processHasBusinessCapabilities;
+	}
+	
+	@JsonProperty("processHasBusinessCapabilities")
+	public void setProcessHasBusinessCapabilities(List<ProcessHasBusinessCapability> processHasBusinessCapabilities)
+	{
+		this.processHasBusinessCapabilities = processHasBusinessCapabilities;
+	}
+
 	@JsonProperty("factSheetHasDocuments")
 	public List<FactSheetHasDocument> getFactSheetHasDocuments()
 	{
@@ -277,6 +292,7 @@ public class Process implements Serializable
 		sb.append("  factSheetHasParents: ").append(factSheetHasParents).append("\n");
 		sb.append("  factSheetHasChildren: ").append(factSheetHasChildren).append("\n");
 		sb.append("  serviceHasProcesses: ").append(serviceHasProcesses).append("\n");
+		sb.append("  processHasBusinessCapabilities: ").append(processHasBusinessCapabilities).append("\n");
 		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
 		sb.append("  factSheetHasLifecycles: ").append(factSheetHasLifecycles).append("\n");
 		sb.append("}\n");

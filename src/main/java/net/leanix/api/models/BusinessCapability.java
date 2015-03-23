@@ -30,6 +30,7 @@ import java.util.*;
 import net.leanix.api.models.ProjectHasBusinessCapability;
 import net.leanix.api.models.ServiceHasBusinessCapability;
 import net.leanix.api.models.FactSheetHasDocument;
+import net.leanix.api.models.ProcessHasBusinessCapability;
 import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.FactSheetHasChild;
 import net.leanix.api.models.FactSheetHasParent;
@@ -67,6 +68,8 @@ public class BusinessCapability implements Serializable
 	private List<ServiceHasBusinessCapability> serviceHasBusinessCapabilities = new ArrayList<ServiceHasBusinessCapability>();
 	/*  */
 	private List<ProjectHasBusinessCapability> projectHasBusinessCapabilities = new ArrayList<ProjectHasBusinessCapability>();
+	/*  */
+	private List<ProcessHasBusinessCapability> processHasBusinessCapabilities = new ArrayList<ProcessHasBusinessCapability>();
 	/*  */
 	private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
 	@JsonProperty("ID")
@@ -261,6 +264,18 @@ public class BusinessCapability implements Serializable
 		this.projectHasBusinessCapabilities = projectHasBusinessCapabilities;
 	}
 
+	@JsonProperty("processHasBusinessCapabilities")
+	public List<ProcessHasBusinessCapability> getProcessHasBusinessCapabilities()
+	{
+		return processHasBusinessCapabilities;
+	}
+	
+	@JsonProperty("processHasBusinessCapabilities")
+	public void setProcessHasBusinessCapabilities(List<ProcessHasBusinessCapability> processHasBusinessCapabilities)
+	{
+		this.processHasBusinessCapabilities = processHasBusinessCapabilities;
+	}
+
 	@JsonProperty("factSheetHasDocuments")
 	public List<FactSheetHasDocument> getFactSheetHasDocuments()
 	{
@@ -294,6 +309,7 @@ public class BusinessCapability implements Serializable
 		sb.append("  factSheetHasChildren: ").append(factSheetHasChildren).append("\n");
 		sb.append("  serviceHasBusinessCapabilities: ").append(serviceHasBusinessCapabilities).append("\n");
 		sb.append("  projectHasBusinessCapabilities: ").append(projectHasBusinessCapabilities).append("\n");
+		sb.append("  processHasBusinessCapabilities: ").append(processHasBusinessCapabilities).append("\n");
 		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
 		sb.append("}\n");
 		return sb.toString();

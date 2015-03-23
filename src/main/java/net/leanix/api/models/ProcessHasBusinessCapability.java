@@ -26,61 +26,73 @@ package net.leanix.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.*;
 
-import java.util.Date;
-import java.util.*;
-import net.leanix.api.models.Activity;
-public class ActivityStream implements Serializable
+public class ProcessHasBusinessCapability implements Serializable
 {
 	/*  */
-	private Date update = null;
+	private String ID = null;
 	/*  */
-	private Long count = null;
+	private String processID = null;
 	/*  */
-	private List<Activity> data = new ArrayList<Activity>();
-	@JsonProperty("update")
-	public Date getUpdate()
+	private String businessCapabilityID = null;
+	/*  */
+	private String comment = null;
+	@JsonProperty("ID")
+	public String getID()
 	{
-		return update;
+		return ID;
 	}
 	
-	@JsonProperty("update")
-	public void setUpdate(Date update)
+	@JsonProperty("ID")
+	public void setID(String ID)
 	{
-		this.update = update;
+		this.ID = ID;
 	}
 
-	@JsonProperty("count")
-	public Long getCount()
+	@JsonProperty("processID")
+	public String getProcessID()
 	{
-		return count;
+		return processID;
 	}
 	
-	@JsonProperty("count")
-	public void setCount(Long count)
+	@JsonProperty("processID")
+	public void setProcessID(String processID)
 	{
-		this.count = count;
+		this.processID = processID;
 	}
 
-	@JsonProperty("data")
-	public List<Activity> getData()
+	@JsonProperty("businessCapabilityID")
+	public String getBusinessCapabilityID()
 	{
-		return data;
+		return businessCapabilityID;
 	}
 	
-	@JsonProperty("data")
-	public void setData(List<Activity> data)
+	@JsonProperty("businessCapabilityID")
+	public void setBusinessCapabilityID(String businessCapabilityID)
 	{
-		this.data = data;
+		this.businessCapabilityID = businessCapabilityID;
+	}
+
+	@JsonProperty("comment")
+	public String getComment()
+	{
+		return comment;
+	}
+	
+	@JsonProperty("comment")
+	public void setComment(String comment)
+	{
+		this.comment = comment;
 	}
 
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("class ActivityStream {\n");
-		sb.append("  update: ").append(update).append("\n");
-		sb.append("  count: ").append(count).append("\n");
-		sb.append("  data: ").append(data).append("\n");
+		sb.append("class ProcessHasBusinessCapability {\n");
+		sb.append("  ID: ").append(ID).append("\n");
+		sb.append("  processID: ").append(processID).append("\n");
+		sb.append("  businessCapabilityID: ").append(businessCapabilityID).append("\n");
+		sb.append("  comment: ").append(comment).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

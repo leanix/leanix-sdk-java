@@ -57,6 +57,8 @@ public class ProjectUpdate implements Serializable
 	/*  */
 	private Long statusDateMonth = null;
 	/*  */
+	private Long progress = null;
+	/*  */
 	private List<Project> projects = new ArrayList<Project>();
 	@JsonProperty("ID")
 	public String getID()
@@ -214,6 +216,18 @@ public class ProjectUpdate implements Serializable
 		this.statusDateMonth = statusDateMonth;
 	}
 
+	@JsonProperty("progress")
+	public Long getProgress()
+	{
+		return progress;
+	}
+	
+	@JsonProperty("progress")
+	public void setProgress(Long progress)
+	{
+		this.progress = progress;
+	}
+
 	@JsonProperty("projects")
 	public List<Project> getProjects()
 	{
@@ -244,6 +258,7 @@ public class ProjectUpdate implements Serializable
 		sb.append("  actualsCapex: ").append(actualsCapex).append("\n");
 		sb.append("  statusDateYear: ").append(statusDateYear).append("\n");
 		sb.append("  statusDateMonth: ").append(statusDateMonth).append("\n");
+		sb.append("  progress: ").append(progress).append("\n");
 		sb.append("  projects: ").append(projects).append("\n");
 		sb.append("}\n");
 		return sb.toString();

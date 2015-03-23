@@ -30,6 +30,7 @@ public class ActivityFactSheet implements Serializable
 {
     private String ID;
     private String name;
+    private String type;
 
     @JsonProperty("ID")
     public String getID()
@@ -53,6 +54,18 @@ public class ActivityFactSheet implements Serializable
     public void setName(String name)
     {
         this.name = name;
+    }
+    
+    @JsonProperty("type")
+    public String getType()
+    {
+        return type;
+    }
+
+    @JsonProperty("type")
+    public void setType(String type)
+    {
+        this.type = type;
     }
 }
 

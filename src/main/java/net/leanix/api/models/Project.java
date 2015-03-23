@@ -54,6 +54,8 @@ public class Project implements Serializable
 	/*  */
 	private String description = null;
 	/*  */
+	private Long progress = null;
+	/*  */
 	private String businessValueID = null;
 	/*  */
 	private String businessValueDescription = null;
@@ -65,6 +67,14 @@ public class Project implements Serializable
 	private Double budgetOpex = null;
 	/*  */
 	private Double budgetCapex = null;
+	/*  */
+	private String costComment = null;
+	/*  */
+	private Double netPresentValue = null;
+	/*  */
+	private Double paybackPeriod = null;
+	/*  */
+	private String benefitComment = null;
 	/*  */
 	private List<String> tags = new ArrayList<String>();
 	/*  */
@@ -183,6 +193,18 @@ public class Project implements Serializable
 		this.description = description;
 	}
 
+	@JsonProperty("progress")
+	public Long getProgress()
+	{
+		return progress;
+	}
+	
+	@JsonProperty("progress")
+	public void setProgress(Long progress)
+	{
+		this.progress = progress;
+	}
+
 	@JsonProperty("businessValueID")
 	public String getBusinessValueID()
 	{
@@ -253,6 +275,54 @@ public class Project implements Serializable
 	public void setBudgetCapex(Double budgetCapex)
 	{
 		this.budgetCapex = budgetCapex;
+	}
+
+	@JsonProperty("costComment")
+	public String getCostComment()
+	{
+		return costComment;
+	}
+	
+	@JsonProperty("costComment")
+	public void setCostComment(String costComment)
+	{
+		this.costComment = costComment;
+	}
+
+	@JsonProperty("netPresentValue")
+	public Double getNetPresentValue()
+	{
+		return netPresentValue;
+	}
+	
+	@JsonProperty("netPresentValue")
+	public void setNetPresentValue(Double netPresentValue)
+	{
+		this.netPresentValue = netPresentValue;
+	}
+
+	@JsonProperty("paybackPeriod")
+	public Double getPaybackPeriod()
+	{
+		return paybackPeriod;
+	}
+	
+	@JsonProperty("paybackPeriod")
+	public void setPaybackPeriod(Double paybackPeriod)
+	{
+		this.paybackPeriod = paybackPeriod;
+	}
+
+	@JsonProperty("benefitComment")
+	public String getBenefitComment()
+	{
+		return benefitComment;
+	}
+	
+	@JsonProperty("benefitComment")
+	public void setBenefitComment(String benefitComment)
+	{
+		this.benefitComment = benefitComment;
 	}
 
 	@JsonProperty("tags")
@@ -400,12 +470,17 @@ public class Project implements Serializable
 		sb.append("  reference: ").append(reference).append("\n");
 		sb.append("  alias: ").append(alias).append("\n");
 		sb.append("  description: ").append(description).append("\n");
+		sb.append("  progress: ").append(progress).append("\n");
 		sb.append("  businessValueID: ").append(businessValueID).append("\n");
 		sb.append("  businessValueDescription: ").append(businessValueDescription).append("\n");
 		sb.append("  projectRiskID: ").append(projectRiskID).append("\n");
 		sb.append("  projectRiskDescription: ").append(projectRiskDescription).append("\n");
 		sb.append("  budgetOpex: ").append(budgetOpex).append("\n");
 		sb.append("  budgetCapex: ").append(budgetCapex).append("\n");
+		sb.append("  costComment: ").append(costComment).append("\n");
+		sb.append("  netPresentValue: ").append(netPresentValue).append("\n");
+		sb.append("  paybackPeriod: ").append(paybackPeriod).append("\n");
+		sb.append("  benefitComment: ").append(benefitComment).append("\n");
 		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  fullName: ").append(fullName).append("\n");
 		sb.append("  resourceType: ").append(resourceType).append("\n");

@@ -23,8 +23,6 @@
 
 package net.leanix.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
 import net.leanix.api.common.ApiException;
 import net.leanix.api.common.ApiClient;
 import net.leanix.api.models.ActivityStream;
@@ -55,8 +53,8 @@ public class ActivitiesApi
 		String path = "/activities".replaceAll("\\{format\\}","json");
 
 		// query params
-		Map<String, String> queryParams = new HashMap<>();
-		Map<String, String> headerParams = new HashMap<>();
+		Map<String, String> queryParams = new HashMap<String, String>();
+		Map<String, String> headerParams = new HashMap<String, String>();
 
 		if(!"null".equals(String.valueOf(scope)))
 			queryParams.put("scope", String.valueOf(scope));
