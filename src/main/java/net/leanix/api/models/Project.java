@@ -76,6 +76,8 @@ public class Project implements Serializable
 	/*  */
 	private String benefitComment = null;
 	/*  */
+	private String objectStatusID = null;
+	/*  */
 	private List<String> tags = new ArrayList<String>();
 	/*  */
 	private String fullName = null;
@@ -325,6 +327,18 @@ public class Project implements Serializable
 		this.benefitComment = benefitComment;
 	}
 
+	@JsonProperty("objectStatusID")
+	public String getObjectStatusID()
+	{
+		return objectStatusID;
+	}
+	
+	@JsonProperty("objectStatusID")
+	public void setObjectStatusID(String objectStatusID)
+	{
+		this.objectStatusID = objectStatusID;
+	}
+
 	@JsonProperty("tags")
 	public List<String> getTags()
 	{
@@ -481,6 +495,7 @@ public class Project implements Serializable
 		sb.append("  netPresentValue: ").append(netPresentValue).append("\n");
 		sb.append("  paybackPeriod: ").append(paybackPeriod).append("\n");
 		sb.append("  benefitComment: ").append(benefitComment).append("\n");
+		sb.append("  objectStatusID: ").append(objectStatusID).append("\n");
 		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  fullName: ").append(fullName).append("\n");
 		sb.append("  resourceType: ").append(resourceType).append("\n");

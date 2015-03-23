@@ -55,6 +55,8 @@ public class BusinessObject implements Serializable
 	/*  */
 	private String dataClassificationDescription = null;
 	/*  */
+	private String objectStatusID = null;
+	/*  */
 	private List<String> tags = new ArrayList<String>();
 	/*  */
 	private String fullName = null;
@@ -190,6 +192,18 @@ public class BusinessObject implements Serializable
 		this.dataClassificationDescription = dataClassificationDescription;
 	}
 
+	@JsonProperty("objectStatusID")
+	public String getObjectStatusID()
+	{
+		return objectStatusID;
+	}
+	
+	@JsonProperty("objectStatusID")
+	public void setObjectStatusID(String objectStatusID)
+	{
+		this.objectStatusID = objectStatusID;
+	}
+
 	@JsonProperty("tags")
 	public List<String> getTags()
 	{
@@ -301,6 +315,7 @@ public class BusinessObject implements Serializable
 		sb.append("  description: ").append(description).append("\n");
 		sb.append("  dataClassificationID: ").append(dataClassificationID).append("\n");
 		sb.append("  dataClassificationDescription: ").append(dataClassificationDescription).append("\n");
+		sb.append("  objectStatusID: ").append(objectStatusID).append("\n");
 		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  fullName: ").append(fullName).append("\n");
 		sb.append("  resourceType: ").append(resourceType).append("\n");

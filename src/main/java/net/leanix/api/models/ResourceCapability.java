@@ -51,6 +51,8 @@ public class ResourceCapability implements Serializable
 	/*  */
 	private String description = null;
 	/*  */
+	private String objectStatusID = null;
+	/*  */
 	private List<String> tags = new ArrayList<String>();
 	/*  */
 	private String fullName = null;
@@ -162,6 +164,18 @@ public class ResourceCapability implements Serializable
 		this.description = description;
 	}
 
+	@JsonProperty("objectStatusID")
+	public String getObjectStatusID()
+	{
+		return objectStatusID;
+	}
+	
+	@JsonProperty("objectStatusID")
+	public void setObjectStatusID(String objectStatusID)
+	{
+		this.objectStatusID = objectStatusID;
+	}
+
 	@JsonProperty("tags")
 	public List<String> getTags()
 	{
@@ -271,6 +285,7 @@ public class ResourceCapability implements Serializable
 		sb.append("  reference: ").append(reference).append("\n");
 		sb.append("  alias: ").append(alias).append("\n");
 		sb.append("  description: ").append(description).append("\n");
+		sb.append("  objectStatusID: ").append(objectStatusID).append("\n");
 		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  fullName: ").append(fullName).append("\n");
 		sb.append("  resourceType: ").append(resourceType).append("\n");

@@ -60,6 +60,8 @@ public class Provider implements Serializable
 	/*  */
 	private String providerQualityDescription = null;
 	/*  */
+	private String objectStatusID = null;
+	/*  */
 	private List<String> tags = new ArrayList<String>();
 	/*  */
 	private String fullName = null;
@@ -221,6 +223,18 @@ public class Provider implements Serializable
 		this.providerQualityDescription = providerQualityDescription;
 	}
 
+	@JsonProperty("objectStatusID")
+	public String getObjectStatusID()
+	{
+		return objectStatusID;
+	}
+	
+	@JsonProperty("objectStatusID")
+	public void setObjectStatusID(String objectStatusID)
+	{
+		this.objectStatusID = objectStatusID;
+	}
+
 	@JsonProperty("tags")
 	public List<String> getTags()
 	{
@@ -346,6 +360,7 @@ public class Provider implements Serializable
 		sb.append("  providerCriticalityDescription: ").append(providerCriticalityDescription).append("\n");
 		sb.append("  providerQualityID: ").append(providerQualityID).append("\n");
 		sb.append("  providerQualityDescription: ").append(providerQualityDescription).append("\n");
+		sb.append("  objectStatusID: ").append(objectStatusID).append("\n");
 		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  fullName: ").append(fullName).append("\n");
 		sb.append("  resourceType: ").append(resourceType).append("\n");

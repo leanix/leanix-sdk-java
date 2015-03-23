@@ -71,6 +71,8 @@ public class Service implements Serializable
 	/*  */
 	private String technicalSuitabilityDescription = null;
 	/*  */
+	private String objectStatusID = null;
+	/*  */
 	private List<String> tags = new ArrayList<String>();
 	/*  */
 	private String fullName = null;
@@ -278,6 +280,18 @@ public class Service implements Serializable
 		this.technicalSuitabilityDescription = technicalSuitabilityDescription;
 	}
 
+	@JsonProperty("objectStatusID")
+	public String getObjectStatusID()
+	{
+		return objectStatusID;
+	}
+	
+	@JsonProperty("objectStatusID")
+	public void setObjectStatusID(String objectStatusID)
+	{
+		this.objectStatusID = objectStatusID;
+	}
+
 	@JsonProperty("tags")
 	public List<String> getTags()
 	{
@@ -466,6 +480,7 @@ public class Service implements Serializable
 		sb.append("  functionalSuitabilityDescription: ").append(functionalSuitabilityDescription).append("\n");
 		sb.append("  technicalSuitabilityID: ").append(technicalSuitabilityID).append("\n");
 		sb.append("  technicalSuitabilityDescription: ").append(technicalSuitabilityDescription).append("\n");
+		sb.append("  objectStatusID: ").append(objectStatusID).append("\n");
 		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  fullName: ").append(fullName).append("\n");
 		sb.append("  resourceType: ").append(resourceType).append("\n");
