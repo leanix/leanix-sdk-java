@@ -132,7 +132,6 @@
 								<goals>
 									<goal>compile</goal>
 								</goals>
-								
 							</execution>
 						</executions>
 					</plugin>				
@@ -223,7 +222,7 @@
                             </controller>                            
                         </template>
                         
-						<template>
+			<template>
                             <directory>${template-dir-tests}</directory>
                             <name>TemplateApiRelationTest</name>
                             <target>${target-dir-tests}/ConsumersApiServiceHasConsumersTest.java</target>
@@ -242,7 +241,7 @@
                         </template>                        
                         
                         
-						<template>
+			<template>
                             <directory>${template-dir-tests}</directory>
                             <name>TemplateApiTest</name>
                             <target>${target-dir-tests}/ProcessesApiTest.java</target>
@@ -646,26 +645,6 @@
                 </executions>
             </plugin>
 					
-					<plugin>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<version>${maven-antrun-plugin-version}</version>
-						<executions>
-							<execution>
-								<phase>package</phase>
-								<configuration>
-									<target>
-										<copy todir="../src">
-											<fileset dir="${target-dir-tests}" includes="**" /> 	
-										</copy>
-									</target>
-								</configuration>
-								<goals>
-									<goal>run</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					
 				</plugins>
 			</build>
 		</profile>		
@@ -713,12 +692,12 @@
 		<scala-lang-version>2.9.1-1</scala-lang-version>
 		<swagger-codegen-version>2.0.13</swagger-codegen-version>
 		<maven-antrun-plugin-version>1.7</maven-antrun-plugin-version>
-		<leanix-rest-api-url>https://local-dev-anc.leanix.net/demo/api/v1</leanix-rest-api-url>
+		<leanix-rest-api-url>https://local-dev.leanix.net/demo/api/v1</leanix-rest-api-url>
 		<slf4j-version>1.6.1</slf4j-version>
 		<slf4j-simple-version>1.7.6</slf4j-simple-version>
 		<junit-version>4.11</junit-version>
 		<template-dir-tests>${basedir}/src/main/resources/string-template</template-dir-tests>
-		<target-dir-tests>${basedir}/target/generated-sources/string-template/net/leanix/api/test/standard/</target-dir-tests>
+		<target-dir-tests>${basedir}/../src/test/java/net/leanix/api/test/standard/</target-dir-tests>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>

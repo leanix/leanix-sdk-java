@@ -102,7 +102,7 @@ public class ConsumersApiTest
 	public void testCreateFailDuplicate() throws Exception
 	{
 		// We expect an exception
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		Consumer model = this.newModel();
 		model.setName("Duplicate");
 		this.getApi().createConsumer(model);
@@ -114,7 +114,7 @@ public class ConsumersApiTest
 	public void testCreateFailNoName() throws Exception
 	{
 		// We expect an exception
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		Consumer model = this.newModel();
 		this.getApi().createConsumer(model);
 	}
@@ -122,7 +122,7 @@ public class ConsumersApiTest
 	@Test
 	public void testCreateFailName() throws Exception
 	{
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		Consumer model = this.newModel();
 		model.setName("<html>");
 		this.getApi().createConsumer(model);

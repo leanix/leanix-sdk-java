@@ -182,15 +182,21 @@ public class ApiClient
 		{
 			throw new ApiException(500, "unknown method type " + method);
 		}
-		if(response.getClientResponseStatus().getFamily() == Family.SUCCESSFUL)
+
+		if(response.getStatus() == 200)
 		{
 			return (String) response.getEntity(String.class);
 		}
+        else if (response.getStatus() == 422)
+        {
+            Response resp = null;
+            resp = (Response) ApiClient.deserialize((String) response.getEntity(String.class), "", Response.class);
+            
+            throw new ValidationException(resp);
+        }
 		else
 		{
-			throw new ApiException(
-								response.getClientResponseStatus().getStatusCode(),
-								response.getEntity(String.class));      
+			throw new ApiException(response.getStatus(), response.getEntity(String.class));      
 		}
 	}
 

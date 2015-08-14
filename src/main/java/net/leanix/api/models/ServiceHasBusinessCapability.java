@@ -24,7 +24,9 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ServiceHasBusinessCapability
+import java.io.*;
+
+public class ServiceHasBusinessCapability implements Serializable
 {
 	/*  */
 	private String ID = null;
@@ -38,6 +40,10 @@ public class ServiceHasBusinessCapability
 	private String functionalSuitabilityID = null;
 	/*  */
 	private String comment = null;
+	/*  */
+	private String supportTypeID = null;
+	/*  */
+	private String constraints = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -110,6 +116,30 @@ public class ServiceHasBusinessCapability
 		this.comment = comment;
 	}
 
+	@JsonProperty("supportTypeID")
+	public String getSupportTypeID()
+	{
+		return supportTypeID;
+	}
+	
+	@JsonProperty("supportTypeID")
+	public void setSupportTypeID(String supportTypeID)
+	{
+		this.supportTypeID = supportTypeID;
+	}
+
+	@JsonProperty("constraints")
+	public String getConstraints()
+	{
+		return constraints;
+	}
+	
+	@JsonProperty("constraints")
+	public void setConstraints(String constraints)
+	{
+		this.constraints = constraints;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -121,6 +151,8 @@ public class ServiceHasBusinessCapability
 		sb.append("  isLeading: ").append(isLeading).append("\n");
 		sb.append("  functionalSuitabilityID: ").append(functionalSuitabilityID).append("\n");
 		sb.append("  comment: ").append(comment).append("\n");
+		sb.append("  supportTypeID: ").append(supportTypeID).append("\n");
+		sb.append("  constraints: ").append(constraints).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

@@ -102,7 +102,7 @@ public class ResourceCapabilitiesApiTest
 	public void testCreateFailDuplicate() throws Exception
 	{
 		// We expect an exception
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		ResourceCapability model = this.newModel();
 		model.setName("Duplicate");
 		this.getApi().createResourceCapability(model);
@@ -114,7 +114,7 @@ public class ResourceCapabilitiesApiTest
 	public void testCreateFailNoName() throws Exception
 	{
 		// We expect an exception
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		ResourceCapability model = this.newModel();
 		this.getApi().createResourceCapability(model);
 	}
@@ -122,7 +122,7 @@ public class ResourceCapabilitiesApiTest
 	@Test
 	public void testCreateFailName() throws Exception
 	{
-		thrown.expect(ApiException.class);
+		thrown.expect(ValidationException.class);
 		ResourceCapability model = this.newModel();
 		model.setName("<html>");
 		this.getApi().createResourceCapability(model);

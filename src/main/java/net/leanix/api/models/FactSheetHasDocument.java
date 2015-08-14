@@ -24,7 +24,9 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class FactSheetHasDocument
+import java.io.*;
+
+public class FactSheetHasDocument implements Serializable
 {
 	/*  */
 	private String ID = null;

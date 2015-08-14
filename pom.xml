@@ -6,7 +6,7 @@
 	<name>leanIX Java SDK</name>
 	<description>SDK for Java to access leanIX REST API</description>
 	<url>https://developer.leanix.net</url>
-	<version>1.4.2-SNAPSHOT</version>
+	<version>1.6.3-SNAPSHOT</version>
 
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -42,49 +42,19 @@
 			<organizationUrl>https://www.leanix.net</organizationUrl>
 		</developer>
 	</developers>
-
+	
 	<distributionManagement>
-		<repository>
-			<id>sonatype-nexus-staging</id>
-			<name>Sonatype Repository</name>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-		</repository>
 		<snapshotRepository>
-			<id>sonatype-nexus-snapshots</id>
-			<name>Sonatype Snapshot</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
 	</distributionManagement>
 
 	<profiles>
-
-		<profile>
-			<id>release-sign-artifacts</id>
-			<activation>
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.1</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
 
 		<profile>
 			<id>main</id>
@@ -110,7 +80,34 @@
 				</pluginManagement>
 
 				<plugins>
-
+				
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.1</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.2</version>
+						<extensions>true</extensions>
+						<configuration>
+							 <serverId>ossrh</serverId>
+							 <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							 <autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+				
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
@@ -144,8 +141,8 @@
 						<artifactId>maven-compiler-plugin</artifactId>
 						<version>2.3.2</version>
 						<configuration>
-							<source>1.6</source>
-							<target>1.6</target>
+							<source>1.7</source>
+							<target>1.7</target>
 						</configuration>
 					</plugin>
 
@@ -286,6 +283,8 @@
 	</dependencies>
 
 	<properties>
+        <gpg.keyname>developer@leanix.net</gpg.keyname>
+        <gpg.passphrase></gpg.passphrase>
 		<jersey-version>1.7</jersey-version>
 		<jackson-version>2.1.4</jackson-version>
 		<junit-version>4.11</junit-version>

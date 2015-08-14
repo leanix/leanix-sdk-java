@@ -15,7 +15,7 @@ public class WorkspaceSetupRule extends ExternalResource
 {
 	protected String apiSetup = "{\"featureBundleID\":\"professional-v1\"}";
 
-	protected boolean cleanUpWorkspace = false;
+	protected boolean cleanUpWorkspace = true;
 
 	protected ApiClient apiClient = null;
 	protected Workspace workspace = null;
@@ -129,6 +129,7 @@ public class WorkspaceSetupRule extends ExternalResource
 	protected ApiClient createApiClient(String workspace) throws Exception
 	{
 		ApiClient apiClient = new ApiClient();
+		apiClient.addDefaultHeader("X-Api-Sync-Mode", "sync");
 		apiClient.setBasePath(this.createApiUrl(workspace));
 		apiClient.setApiKey(this.getApiKey());
 

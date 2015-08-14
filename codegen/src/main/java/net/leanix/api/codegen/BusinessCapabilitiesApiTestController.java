@@ -11,7 +11,7 @@ public class BusinessCapabilitiesApiTestController extends BaseApiFactSheetTestC
         HashMap<String, Object> result = new HashMap<String, Object>();
         
         result.put("attributes",Arrays.asList(
-        		new TestAttribute("IsLeading", new Boolean(true), new Boolean(true))
+        		new TestAttribute("SupportTypeID", "2", "2")
         ));	
 
         return result;

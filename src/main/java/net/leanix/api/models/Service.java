@@ -24,19 +24,30 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.*;
+
 import java.util.*;
 import net.leanix.api.models.ServiceHasBusinessCapability;
 import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.ServiceHasResource;
+import net.leanix.api.models.FactSheetHasLifecycle;
+import net.leanix.api.models.FactSheetHasChild;
 import net.leanix.api.models.ServiceHasProject;
 import net.leanix.api.models.ServiceHasInterface;
 import net.leanix.api.models.ServiceHasProcess;
 import net.leanix.api.models.ServiceHasConsumer;
 import net.leanix.api.models.ServiceHasBusinessObject;
-public class Service
+import net.leanix.api.models.FactSheetHasParent;
+public class Service implements Serializable
 {
 	/*  */
 	private String ID = null;
+	/*  */
+	private String displayName = null;
+	/*  */
+	private String parentID = null;
+	/*  */
+	private Long level = null;
 	/*  */
 	private String release = null;
 	/*  */
@@ -60,9 +71,17 @@ public class Service
 	/*  */
 	private String technicalSuitabilityDescription = null;
 	/*  */
+	private String objectStatusID = null;
+	/*  */
 	private List<String> tags = new ArrayList<String>();
 	/*  */
-	private List<ServiceHasProject> serviceHasProjects = new ArrayList<ServiceHasProject>();
+	private String fullName = null;
+	/*  */
+	private String resourceType = null;
+	/*  */
+	private List<FactSheetHasParent> factSheetHasParents = new ArrayList<FactSheetHasParent>();
+	/*  */
+	private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
 	/*  */
 	private List<ServiceHasBusinessCapability> serviceHasBusinessCapabilities = new ArrayList<ServiceHasBusinessCapability>();
 	/*  */
@@ -74,9 +93,13 @@ public class Service
 	/*  */
 	private List<ServiceHasInterface> serviceHasInterfaces = new ArrayList<ServiceHasInterface>();
 	/*  */
+	private List<ServiceHasProject> serviceHasProjects = new ArrayList<ServiceHasProject>();
+	/*  */
 	private List<ServiceHasResource> serviceHasResources = new ArrayList<ServiceHasResource>();
 	/*  */
 	private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
+	/*  */
+	private List<FactSheetHasLifecycle> factSheetHasLifecycles = new ArrayList<FactSheetHasLifecycle>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -87,6 +110,42 @@ public class Service
 	public void setID(String ID)
 	{
 		this.ID = ID;
+	}
+
+	@JsonProperty("displayName")
+	public String getDisplayName()
+	{
+		return displayName;
+	}
+	
+	@JsonProperty("displayName")
+	public void setDisplayName(String displayName)
+	{
+		this.displayName = displayName;
+	}
+
+	@JsonProperty("parentID")
+	public String getParentID()
+	{
+		return parentID;
+	}
+	
+	@JsonProperty("parentID")
+	public void setParentID(String parentID)
+	{
+		this.parentID = parentID;
+	}
+
+	@JsonProperty("level")
+	public Long getLevel()
+	{
+		return level;
+	}
+	
+	@JsonProperty("level")
+	public void setLevel(Long level)
+	{
+		this.level = level;
 	}
 
 	@JsonProperty("release")
@@ -221,6 +280,18 @@ public class Service
 		this.technicalSuitabilityDescription = technicalSuitabilityDescription;
 	}
 
+	@JsonProperty("objectStatusID")
+	public String getObjectStatusID()
+	{
+		return objectStatusID;
+	}
+	
+	@JsonProperty("objectStatusID")
+	public void setObjectStatusID(String objectStatusID)
+	{
+		this.objectStatusID = objectStatusID;
+	}
+
 	@JsonProperty("tags")
 	public List<String> getTags()
 	{
@@ -233,16 +304,52 @@ public class Service
 		this.tags = tags;
 	}
 
-	@JsonProperty("serviceHasProjects")
-	public List<ServiceHasProject> getServiceHasProjects()
+	@JsonProperty("fullName")
+	public String getFullName()
 	{
-		return serviceHasProjects;
+		return fullName;
 	}
 	
-	@JsonProperty("serviceHasProjects")
-	public void setServiceHasProjects(List<ServiceHasProject> serviceHasProjects)
+	@JsonProperty("fullName")
+	public void setFullName(String fullName)
 	{
-		this.serviceHasProjects = serviceHasProjects;
+		this.fullName = fullName;
+	}
+
+	@JsonProperty("resourceType")
+	public String getResourceType()
+	{
+		return resourceType;
+	}
+	
+	@JsonProperty("resourceType")
+	public void setResourceType(String resourceType)
+	{
+		this.resourceType = resourceType;
+	}
+
+	@JsonProperty("factSheetHasParents")
+	public List<FactSheetHasParent> getFactSheetHasParents()
+	{
+		return factSheetHasParents;
+	}
+	
+	@JsonProperty("factSheetHasParents")
+	public void setFactSheetHasParents(List<FactSheetHasParent> factSheetHasParents)
+	{
+		this.factSheetHasParents = factSheetHasParents;
+	}
+
+	@JsonProperty("factSheetHasChildren")
+	public List<FactSheetHasChild> getFactSheetHasChildren()
+	{
+		return factSheetHasChildren;
+	}
+	
+	@JsonProperty("factSheetHasChildren")
+	public void setFactSheetHasChildren(List<FactSheetHasChild> factSheetHasChildren)
+	{
+		this.factSheetHasChildren = factSheetHasChildren;
 	}
 
 	@JsonProperty("serviceHasBusinessCapabilities")
@@ -305,6 +412,18 @@ public class Service
 		this.serviceHasInterfaces = serviceHasInterfaces;
 	}
 
+	@JsonProperty("serviceHasProjects")
+	public List<ServiceHasProject> getServiceHasProjects()
+	{
+		return serviceHasProjects;
+	}
+	
+	@JsonProperty("serviceHasProjects")
+	public void setServiceHasProjects(List<ServiceHasProject> serviceHasProjects)
+	{
+		this.serviceHasProjects = serviceHasProjects;
+	}
+
 	@JsonProperty("serviceHasResources")
 	public List<ServiceHasResource> getServiceHasResources()
 	{
@@ -329,12 +448,27 @@ public class Service
 		this.factSheetHasDocuments = factSheetHasDocuments;
 	}
 
+	@JsonProperty("factSheetHasLifecycles")
+	public List<FactSheetHasLifecycle> getFactSheetHasLifecycles()
+	{
+		return factSheetHasLifecycles;
+	}
+	
+	@JsonProperty("factSheetHasLifecycles")
+	public void setFactSheetHasLifecycles(List<FactSheetHasLifecycle> factSheetHasLifecycles)
+	{
+		this.factSheetHasLifecycles = factSheetHasLifecycles;
+	}
+
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Service {\n");
 		sb.append("  ID: ").append(ID).append("\n");
+		sb.append("  displayName: ").append(displayName).append("\n");
+		sb.append("  parentID: ").append(parentID).append("\n");
+		sb.append("  level: ").append(level).append("\n");
 		sb.append("  release: ").append(release).append("\n");
 		sb.append("  name: ").append(name).append("\n");
 		sb.append("  reference: ").append(reference).append("\n");
@@ -346,15 +480,21 @@ public class Service
 		sb.append("  functionalSuitabilityDescription: ").append(functionalSuitabilityDescription).append("\n");
 		sb.append("  technicalSuitabilityID: ").append(technicalSuitabilityID).append("\n");
 		sb.append("  technicalSuitabilityDescription: ").append(technicalSuitabilityDescription).append("\n");
+		sb.append("  objectStatusID: ").append(objectStatusID).append("\n");
 		sb.append("  tags: ").append(tags).append("\n");
-		sb.append("  serviceHasProjects: ").append(serviceHasProjects).append("\n");
+		sb.append("  fullName: ").append(fullName).append("\n");
+		sb.append("  resourceType: ").append(resourceType).append("\n");
+		sb.append("  factSheetHasParents: ").append(factSheetHasParents).append("\n");
+		sb.append("  factSheetHasChildren: ").append(factSheetHasChildren).append("\n");
 		sb.append("  serviceHasBusinessCapabilities: ").append(serviceHasBusinessCapabilities).append("\n");
 		sb.append("  serviceHasProcesses: ").append(serviceHasProcesses).append("\n");
 		sb.append("  serviceHasConsumers: ").append(serviceHasConsumers).append("\n");
 		sb.append("  serviceHasBusinessObjects: ").append(serviceHasBusinessObjects).append("\n");
 		sb.append("  serviceHasInterfaces: ").append(serviceHasInterfaces).append("\n");
+		sb.append("  serviceHasProjects: ").append(serviceHasProjects).append("\n");
 		sb.append("  serviceHasResources: ").append(serviceHasResources).append("\n");
 		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
+		sb.append("  factSheetHasLifecycles: ").append(factSheetHasLifecycles).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

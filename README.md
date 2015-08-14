@@ -1,22 +1,19 @@
-leanIX SDK for Java
-===================
+# leanIX SDK for Java #
 
 leanIX API version v1, https://developer.leanix.net
 
-Overview
---------
+## Overview ##
 This SDK contains wrapper code used to call the leanIX REST API from Java.
 
 The SDK also contains two simple examples. The code in [samples/ServicesTest.java](samples/console/ServicesTest.java) demonstrates the basic use of the SDK to read Applications from the leanIX Inventory. The code in [samples/ProjectsTest.java](samples/console/ProjectsTest.java) demonstrates the basic use of the SDK for Projects in leanIX.
 
-Prerequisites
--------------
+## Prerequisites ##
 In order to use the code in this SDK, the REST API needs to be activated in your workspace and you need your personal API Key. When you are logged in to leanIX, please go to your profile (click on the user icon in the top menu). You find a menu entry called "API / 3rd party apps". If the REST API is activated, you can generate an API Key here.
 
 You can find the leanIX REST API documentation here https://developer.leanix.net. The documentation is interactive - if you are logged in to your workspace and the REST API is activated, you can try out every function directly from the documentation.
 
-Including the SDK in your project
----------------------------------
+## Including the SDK in your project ##
+
 The easiest way to incorporate the SDK into your Java project is to use Maven. If you're using Maven already, simply add a new dependency to your `pom.xml`. The sdk is published into the central maven repository at http://search.maven.org/
 
 ```xml
@@ -35,8 +32,17 @@ $ mvn package
 
 You'll find `leanix-sdk-java-1.2.1.jar` in the target directory after the build completes. This single JAR contains everything needed to use the API.
 
-Usage
------
+## Testing ##
+
+
+The SDK contains units tests. They can be executed as follows:
+
+```bash
+$ mvn test -Dapi.key=<Your-Api-Key-Here> -Dapi.baseurl=https://app.leanix.net
+```
+
+## Usage ##
+
 In order to use the SDK in your Java application, import the following packages:
 ```java
 import net.leanix.api.*;
@@ -61,18 +67,47 @@ for (Service cur : services)
 }
 ```
 
-Updating
---------
+## Updating ##
+
+### Generate from API-Docs ###
+
 To generate the SDK from the latest REST API use the following maven commands:
 
 ```bash
-$ mvn -Pcodegen scala:run
+$ cd codegen
+$ mvn package
 ```
 
-Thank You
----------
+### Deploy to Maven Central ###
+
+Details can be read here: http://central.sonatype.org/pages/apache-maven.html
+
+Add leanIX Developer GPG key and make sure gpg is installed
+```bash
+$ gpg --import private.key
+```
+
+Create maven settings.xml file (in ~/.m2/settings.xml) with Sonatype account info:
+```xml
+<settings>
+  <servers>
+    <server>
+      <id>ossrh</id>
+      <username>andre_christ</username>
+      <password>PASSWORD</password>
+    </server>
+  </servers>
+</settings>
+```
+
+To create a package without tests do:
+```bash
+mvn package -Dmaven.test.skip=true
+```
+
+## Thank You ##
 This API made use of the swagger-* libraries which help you to describe REST APIs in an elegant way. See here for more details: https://github.com/wordnik/swagger-codegen
 
-Copyright and license
-------------------------
+## Copyright and license ##
+
 Copyright 2014 LeanIX GmbH under [the MIT license](LICENSE).

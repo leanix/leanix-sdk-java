@@ -24,7 +24,9 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ServiceHasProcess
+import java.io.*;
+
+public class ServiceHasProcess implements Serializable
 {
 	/*  */
 	private String ID = null;
@@ -32,6 +34,8 @@ public class ServiceHasProcess
 	private String serviceID = null;
 	/*  */
 	private String processID = null;
+	/*  */
+	private String constraints = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -68,6 +72,18 @@ public class ServiceHasProcess
 		this.processID = processID;
 	}
 
+	@JsonProperty("constraints")
+	public String getConstraints()
+	{
+		return constraints;
+	}
+	
+	@JsonProperty("constraints")
+	public void setConstraints(String constraints)
+	{
+		this.constraints = constraints;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -76,6 +92,7 @@ public class ServiceHasProcess
 		sb.append("  ID: ").append(ID).append("\n");
 		sb.append("  serviceID: ").append(serviceID).append("\n");
 		sb.append("  processID: ").append(processID).append("\n");
+		sb.append("  constraints: ").append(constraints).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

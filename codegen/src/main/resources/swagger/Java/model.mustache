@@ -24,11 +24,13 @@
 package {{package}};
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.*;
+
 {{#imports}}import {{import}};
 {{/imports}}
 {{#models}}
 {{#model}}
-public class {{classname}}
+public class {{classname}} implements Serializable
 {
 	{{#vars}}
 

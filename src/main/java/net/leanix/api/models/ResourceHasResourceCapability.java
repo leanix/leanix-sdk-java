@@ -24,7 +24,9 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ResourceHasResourceCapability
+import java.io.*;
+
+public class ResourceHasResourceCapability implements Serializable
 {
 	/*  */
 	private String ID = null;
@@ -36,6 +38,10 @@ public class ResourceHasResourceCapability
 	private Boolean isLeading = null;
 	/*  */
 	private String comment = null;
+	/*  */
+	private String supportTypeID = null;
+	/*  */
+	private String constraints = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -96,6 +102,30 @@ public class ResourceHasResourceCapability
 		this.comment = comment;
 	}
 
+	@JsonProperty("supportTypeID")
+	public String getSupportTypeID()
+	{
+		return supportTypeID;
+	}
+	
+	@JsonProperty("supportTypeID")
+	public void setSupportTypeID(String supportTypeID)
+	{
+		this.supportTypeID = supportTypeID;
+	}
+
+	@JsonProperty("constraints")
+	public String getConstraints()
+	{
+		return constraints;
+	}
+	
+	@JsonProperty("constraints")
+	public void setConstraints(String constraints)
+	{
+		this.constraints = constraints;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -106,6 +136,8 @@ public class ResourceHasResourceCapability
 		sb.append("  resourceID: ").append(resourceID).append("\n");
 		sb.append("  isLeading: ").append(isLeading).append("\n");
 		sb.append("  comment: ").append(comment).append("\n");
+		sb.append("  supportTypeID: ").append(supportTypeID).append("\n");
+		sb.append("  constraints: ").append(constraints).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

@@ -73,6 +73,7 @@ public class ConsumersApiServiceHasConsumersTest
 	protected void setAttributes(ServiceHasConsumer model)
 	{
 		// Attributes
+		model.setUsageTypeID("1");
 	}
 
 	protected void changeAttributes(ServiceHasConsumer model)
@@ -87,6 +88,7 @@ public class ConsumersApiServiceHasConsumersTest
 		assertEquals(a.getServiceID(), b.getServiceID());
 
 		// Further attributes		
+		assertEquals(a.getUsageTypeID(), b.getUsageTypeID());
 	}
 
 	protected Consumer createNewModel(String namePart) throws ApiException, Exception

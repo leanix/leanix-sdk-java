@@ -24,7 +24,9 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class ServiceHasInterface
+import java.io.*;
+
+public class ServiceHasInterface implements Serializable
 {
 	/*  */
 	private String ID = null;
@@ -44,6 +46,7 @@ public class ServiceHasInterface
 	private String interfaceTechnologyID = null;
 	/*  */
 	private String reference = null;
+    
 	@JsonProperty("ID")
 	public String getID()
 	{
