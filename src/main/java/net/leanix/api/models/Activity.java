@@ -23,7 +23,8 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.*;
+
+import java.io.Serializable;
 import java.util.Date;
 
 public class Activity implements Serializable {

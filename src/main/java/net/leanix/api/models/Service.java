@@ -24,20 +24,10 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.*;
 
-import java.util.*;
-import net.leanix.api.models.ServiceHasBusinessCapability;
-import net.leanix.api.models.FactSheetHasDocument;
-import net.leanix.api.models.ServiceHasResource;
-import net.leanix.api.models.FactSheetHasLifecycle;
-import net.leanix.api.models.FactSheetHasChild;
-import net.leanix.api.models.ServiceHasProject;
-import net.leanix.api.models.ServiceHasInterface;
-import net.leanix.api.models.ServiceHasProcess;
-import net.leanix.api.models.ServiceHasConsumer;
-import net.leanix.api.models.ServiceHasBusinessObject;
-import net.leanix.api.models.FactSheetHasParent;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 public class Service implements Serializable
 {
 	/*  */

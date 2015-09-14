@@ -23,10 +23,10 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.*;
 
-import java.util.*;
-import net.leanix.api.models.UserSubscription;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User implements Serializable {
 	/*  */

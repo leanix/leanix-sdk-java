@@ -24,11 +24,11 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.*;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.*;
-import net.leanix.api.models.Activity;
+import java.util.List;
 public class ActivityStream implements Serializable
 {
 	/*  */

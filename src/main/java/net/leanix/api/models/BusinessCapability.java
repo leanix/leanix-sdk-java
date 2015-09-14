@@ -24,16 +24,10 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.*;
 
-import java.util.*;
-import net.leanix.api.models.ProjectHasBusinessCapability;
-import net.leanix.api.models.ServiceHasBusinessCapability;
-import net.leanix.api.models.FactSheetHasDocument;
-import net.leanix.api.models.ProcessHasBusinessCapability;
-import net.leanix.api.models.FactSheetHasLifecycle;
-import net.leanix.api.models.FactSheetHasChild;
-import net.leanix.api.models.FactSheetHasParent;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 public class BusinessCapability implements Serializable
 {
 	/*  */

@@ -23,16 +23,17 @@
 
 package net.leanix.api.test.standard;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
-import java.util.List;
-
-import net.leanix.api.common.*;
-import net.leanix.api.models.Service;
+import net.leanix.api.BusinessCapabilitiesApi;
+import net.leanix.api.ServicesApi;
+import net.leanix.api.common.ApiException;
 import net.leanix.api.models.BusinessCapability;
+import net.leanix.api.models.Service;
 import net.leanix.api.models.ServiceHasBusinessCapability;
-import net.leanix.api.*;
-import net.leanix.api.test.*;
+import net.leanix.api.test.WorkspaceSetupRule;
 
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -40,6 +41,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class ServicesApiServiceHasBusinessCapabilitiesTest
 {

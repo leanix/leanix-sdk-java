@@ -23,10 +23,12 @@
 
 package net.leanix.api;
 
-import net.leanix.api.common.ApiException;
 import net.leanix.api.common.ApiClient;
+import net.leanix.api.common.ApiException;
 import net.leanix.api.models.ActivityStream;
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ActivitiesApi
 {

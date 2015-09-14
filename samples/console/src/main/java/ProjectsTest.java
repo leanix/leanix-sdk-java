@@ -21,11 +21,12 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.util.List;
+import net.leanix.api.ProjectsApi;
+import net.leanix.api.common.ApiClient;
+import net.leanix.api.models.Project;
+import net.leanix.api.models.ServiceHasProject;
 
-import net.leanix.api.*;
-import net.leanix.api.common.*;
-import net.leanix.api.models.*;
+import java.util.List;
 
 public class ProjectsTest
 {

@@ -23,11 +23,14 @@
 
 package net.leanix.api;
 
-import net.leanix.api.common.ApiException;
 import net.leanix.api.common.ApiClient;
+import net.leanix.api.common.ApiException;
 import net.leanix.api.models.User;
 import net.leanix.api.models.UserSubscription;
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UsersApi
 {

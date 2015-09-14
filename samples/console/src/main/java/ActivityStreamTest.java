@@ -21,15 +21,16 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import net.leanix.api.ActivitiesApi;
+import net.leanix.api.common.ApiClient;
+import net.leanix.api.models.Activity;
+import net.leanix.api.models.ActivityStream;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import net.leanix.api.*;
-import net.leanix.api.common.*;
-import net.leanix.api.models.*;
 
 public class ActivityStreamTest
 {

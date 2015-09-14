@@ -23,15 +23,18 @@
 
 package net.leanix.api;
 
-import net.leanix.api.common.ApiException;
 import net.leanix.api.common.ApiClient;
+import net.leanix.api.common.ApiException;
+import net.leanix.api.models.FactSheetHasChild;
 import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.FactSheetHasLifecycle;
-import net.leanix.api.models.FactSheetHasChild;
+import net.leanix.api.models.FactSheetHasParent;
 import net.leanix.api.models.ResourceCapability;
 import net.leanix.api.models.ResourceHasResourceCapability;
-import net.leanix.api.models.FactSheetHasParent;
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ResourceCapabilitiesApi
 {
