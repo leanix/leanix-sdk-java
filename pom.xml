@@ -13,7 +13,7 @@
     <parent>
         <groupId>net.leanix.poms</groupId>
         <artifactId>sdk-public-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>0.8.0-SNAPSHOT</version>
         <relativePath/>
     </parent>
 
@@ -58,35 +58,6 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-
-    <profiles>
-
-        <profile>
-            <id>main</id>
-
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-
-            <build>
-                <plugins>
-                    <!-- attach test jar -->
-                    <plugin>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>test-jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
     <dependencies>
         <dependency>
