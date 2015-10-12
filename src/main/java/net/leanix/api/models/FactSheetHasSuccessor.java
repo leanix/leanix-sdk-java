@@ -27,19 +27,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-import java.util.*;
-public class UserSubscription implements Serializable
+public class FactSheetHasSuccessor implements Serializable
 {
 	/*  */
 	private String ID = null;
 	/*  */
 	private String factSheetID = null;
 	/*  */
-	private String userID = null;
+	private String factSheetRefID = null;
 	/*  */
-	private String subscriptionTypeID = null;
+	private String description = null;
 	/*  */
-	private List<String> roleDetails = new ArrayList<String>();
+	private String dependencyTypeID = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -64,52 +63,52 @@ public class UserSubscription implements Serializable
 		this.factSheetID = factSheetID;
 	}
 
-	@JsonProperty("userID")
-	public String getUserID()
+	@JsonProperty("factSheetRefID")
+	public String getFactSheetRefID()
 	{
-		return userID;
+		return factSheetRefID;
 	}
 	
-	@JsonProperty("userID")
-	public void setUserID(String userID)
+	@JsonProperty("factSheetRefID")
+	public void setFactSheetRefID(String factSheetRefID)
 	{
-		this.userID = userID;
+		this.factSheetRefID = factSheetRefID;
 	}
 
-	@JsonProperty("subscriptionTypeID")
-	public String getSubscriptionTypeID()
+	@JsonProperty("description")
+	public String getDescription()
 	{
-		return subscriptionTypeID;
+		return description;
 	}
 	
-	@JsonProperty("subscriptionTypeID")
-	public void setSubscriptionTypeID(String subscriptionTypeID)
+	@JsonProperty("description")
+	public void setDescription(String description)
 	{
-		this.subscriptionTypeID = subscriptionTypeID;
+		this.description = description;
 	}
 
-	@JsonProperty("roleDetails")
-	public List<String> getRoleDetails()
+	@JsonProperty("dependencyTypeID")
+	public String getDependencyTypeID()
 	{
-		return roleDetails;
+		return dependencyTypeID;
 	}
 	
-	@JsonProperty("roleDetails")
-	public void setRoleDetails(List<String> roleDetails)
+	@JsonProperty("dependencyTypeID")
+	public void setDependencyTypeID(String dependencyTypeID)
 	{
-		this.roleDetails = roleDetails;
+		this.dependencyTypeID = dependencyTypeID;
 	}
 
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("class UserSubscription {\n");
+		sb.append("class FactSheetHasSuccessor {\n");
 		sb.append("  ID: ").append(ID).append("\n");
 		sb.append("  factSheetID: ").append(factSheetID).append("\n");
-		sb.append("  userID: ").append(userID).append("\n");
-		sb.append("  subscriptionTypeID: ").append(subscriptionTypeID).append("\n");
-		sb.append("  roleDetails: ").append(roleDetails).append("\n");
+		sb.append("  factSheetRefID: ").append(factSheetRefID).append("\n");
+		sb.append("  description: ").append(description).append("\n");
+		sb.append("  dependencyTypeID: ").append(dependencyTypeID).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

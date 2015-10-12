@@ -27,61 +27,43 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-import java.util.Date;
-import java.util.*;
-import net.leanix.api.models.Activity;
-public class ActivityStream implements Serializable
+public class InterfaceTechnology implements Serializable
 {
 	/*  */
-	private Date update = null;
+	private String ID = null;
 	/*  */
-	private Long count = null;
-	/*  */
-	private List<Activity> data = new ArrayList<Activity>();
-	@JsonProperty("update")
-	public Date getUpdate()
+	private String name = null;
+	@JsonProperty("ID")
+	public String getID()
 	{
-		return update;
+		return ID;
 	}
 	
-	@JsonProperty("update")
-	public void setUpdate(Date update)
+	@JsonProperty("ID")
+	public void setID(String ID)
 	{
-		this.update = update;
+		this.ID = ID;
 	}
 
-	@JsonProperty("count")
-	public Long getCount()
+	@JsonProperty("name")
+	public String getName()
 	{
-		return count;
+		return name;
 	}
 	
-	@JsonProperty("count")
-	public void setCount(Long count)
+	@JsonProperty("name")
+	public void setName(String name)
 	{
-		this.count = count;
-	}
-
-	@JsonProperty("data")
-	public List<Activity> getData()
-	{
-		return data;
-	}
-	
-	@JsonProperty("data")
-	public void setData(List<Activity> data)
-	{
-		this.data = data;
+		this.name = name;
 	}
 
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("class ActivityStream {\n");
-		sb.append("  update: ").append(update).append("\n");
-		sb.append("  count: ").append(count).append("\n");
-		sb.append("  data: ").append(data).append("\n");
+		sb.append("class InterfaceTechnology {\n");
+		sb.append("  ID: ").append(ID).append("\n");
+		sb.append("  name: ").append(name).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

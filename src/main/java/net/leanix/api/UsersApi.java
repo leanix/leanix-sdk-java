@@ -23,11 +23,9 @@
 
 package net.leanix.api;
 
-import net.leanix.api.common.ApiClient;
 import net.leanix.api.common.ApiException;
+import net.leanix.api.common.ApiClient;
 import net.leanix.api.models.User;
-import net.leanix.api.models.UserSubscription;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,82 +106,6 @@ public class UsersApi
 			if (response != null)
 			{
 				return (User) ApiClient.deserialize(response, "", User.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<UserSubscription> getUserSubscriptions (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/users/{ID}/userSubscriptions".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<UserSubscription>) ApiClient.deserialize(response, "Array", UserSubscription.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public UserSubscription getUserSubscription (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/users/{ID}/userSubscription/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (UserSubscription) ApiClient.deserialize(response, "", UserSubscription.class);
 			}
 			else
 			{

@@ -24,7 +24,6 @@
 package net.leanix.api.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 

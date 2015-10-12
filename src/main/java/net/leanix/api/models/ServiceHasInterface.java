@@ -27,6 +27,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
+import java.util.*;
+import net.leanix.api.models.BusinessObject;
+import net.leanix.api.models.InterfaceTechnology;
 public class ServiceHasInterface implements Serializable
 {
 	/*  */
@@ -47,7 +50,14 @@ public class ServiceHasInterface implements Serializable
 	private String interfaceTechnologyID = null;
 	/*  */
 	private String reference = null;
-    
+	/*  */
+	private String visibilityID = null;
+	/*  */
+	private String link = null;
+	/*  */
+	private InterfaceTechnology interfaceTechnology = null;
+	/*  */
+	private List<BusinessObject> businessObjects = new ArrayList<BusinessObject>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -156,6 +166,54 @@ public class ServiceHasInterface implements Serializable
 		this.reference = reference;
 	}
 
+	@JsonProperty("visibilityID")
+	public String getVisibilityID()
+	{
+		return visibilityID;
+	}
+	
+	@JsonProperty("visibilityID")
+	public void setVisibilityID(String visibilityID)
+	{
+		this.visibilityID = visibilityID;
+	}
+
+	@JsonProperty("link")
+	public String getLink()
+	{
+		return link;
+	}
+	
+	@JsonProperty("link")
+	public void setLink(String link)
+	{
+		this.link = link;
+	}
+
+	@JsonProperty("interfaceTechnology")
+	public InterfaceTechnology getInterfaceTechnology()
+	{
+		return interfaceTechnology;
+	}
+	
+	@JsonProperty("interfaceTechnology")
+	public void setInterfaceTechnology(InterfaceTechnology interfaceTechnology)
+	{
+		this.interfaceTechnology = interfaceTechnology;
+	}
+
+	@JsonProperty("businessObjects")
+	public List<BusinessObject> getBusinessObjects()
+	{
+		return businessObjects;
+	}
+	
+	@JsonProperty("businessObjects")
+	public void setBusinessObjects(List<BusinessObject> businessObjects)
+	{
+		this.businessObjects = businessObjects;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -170,6 +228,10 @@ public class ServiceHasInterface implements Serializable
 		sb.append("  interfaceTypeID: ").append(interfaceTypeID).append("\n");
 		sb.append("  interfaceTechnologyID: ").append(interfaceTechnologyID).append("\n");
 		sb.append("  reference: ").append(reference).append("\n");
+		sb.append("  visibilityID: ").append(visibilityID).append("\n");
+		sb.append("  link: ").append(link).append("\n");
+		sb.append("  interfaceTechnology: ").append(interfaceTechnology).append("\n");
+		sb.append("  businessObjects: ").append(businessObjects).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

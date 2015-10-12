@@ -23,14 +23,14 @@
 
 package net.leanix.api.test.standard;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
-import net.leanix.api.ProcessesApi;
-import net.leanix.api.common.ValidationException;
+import java.util.List;
+
+import net.leanix.api.common.*;
 import net.leanix.api.models.Process;
-import net.leanix.api.test.WorkspaceSetupRule;
+import net.leanix.api.*;
+import net.leanix.api.test.*;
 
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -38,8 +38,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 public class ProcessesApiTest
 {

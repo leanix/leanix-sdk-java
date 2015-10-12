@@ -26,8 +26,17 @@ package net.leanix.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
+import net.leanix.api.models.FactSheetHasDocument;
+import net.leanix.api.models.ResourceHasProvider;
+import net.leanix.api.models.FactSheetHasPredecessor;
+import net.leanix.api.models.FactSheetHasLifecycle;
+import net.leanix.api.models.FactSheetHasChild;
+import net.leanix.api.models.UserSubscription;
+import net.leanix.api.models.ProjectHasProvider;
+import net.leanix.api.models.FactSheetHasSuccessor;
+import net.leanix.api.models.FactSheetHasParent;
 public class Provider implements Serializable
 {
 	/*  */
@@ -67,13 +76,19 @@ public class Provider implements Serializable
 	/*  */
 	private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
 	/*  */
-	private List<ResourceHasProvider> resourceHasProviders = new ArrayList<ResourceHasProvider>();
-	/*  */
-	private List<ProjectHasProvider> projectHasProviders = new ArrayList<ProjectHasProvider>();
-	/*  */
 	private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
 	/*  */
 	private List<FactSheetHasLifecycle> factSheetHasLifecycles = new ArrayList<FactSheetHasLifecycle>();
+	/*  */
+	private List<UserSubscription> userSubscriptions = new ArrayList<UserSubscription>();
+	/*  */
+	private List<FactSheetHasPredecessor> factSheetHasPredecessors = new ArrayList<FactSheetHasPredecessor>();
+	/*  */
+	private List<FactSheetHasSuccessor> factSheetHasSuccessors = new ArrayList<FactSheetHasSuccessor>();
+	/*  */
+	private List<ResourceHasProvider> resourceHasProviders = new ArrayList<ResourceHasProvider>();
+	/*  */
+	private List<ProjectHasProvider> projectHasProviders = new ArrayList<ProjectHasProvider>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -290,30 +305,6 @@ public class Provider implements Serializable
 		this.factSheetHasChildren = factSheetHasChildren;
 	}
 
-	@JsonProperty("resourceHasProviders")
-	public List<ResourceHasProvider> getResourceHasProviders()
-	{
-		return resourceHasProviders;
-	}
-	
-	@JsonProperty("resourceHasProviders")
-	public void setResourceHasProviders(List<ResourceHasProvider> resourceHasProviders)
-	{
-		this.resourceHasProviders = resourceHasProviders;
-	}
-
-	@JsonProperty("projectHasProviders")
-	public List<ProjectHasProvider> getProjectHasProviders()
-	{
-		return projectHasProviders;
-	}
-	
-	@JsonProperty("projectHasProviders")
-	public void setProjectHasProviders(List<ProjectHasProvider> projectHasProviders)
-	{
-		this.projectHasProviders = projectHasProviders;
-	}
-
 	@JsonProperty("factSheetHasDocuments")
 	public List<FactSheetHasDocument> getFactSheetHasDocuments()
 	{
@@ -336,6 +327,66 @@ public class Provider implements Serializable
 	public void setFactSheetHasLifecycles(List<FactSheetHasLifecycle> factSheetHasLifecycles)
 	{
 		this.factSheetHasLifecycles = factSheetHasLifecycles;
+	}
+
+	@JsonProperty("userSubscriptions")
+	public List<UserSubscription> getUserSubscriptions()
+	{
+		return userSubscriptions;
+	}
+	
+	@JsonProperty("userSubscriptions")
+	public void setUserSubscriptions(List<UserSubscription> userSubscriptions)
+	{
+		this.userSubscriptions = userSubscriptions;
+	}
+
+	@JsonProperty("factSheetHasPredecessors")
+	public List<FactSheetHasPredecessor> getFactSheetHasPredecessors()
+	{
+		return factSheetHasPredecessors;
+	}
+	
+	@JsonProperty("factSheetHasPredecessors")
+	public void setFactSheetHasPredecessors(List<FactSheetHasPredecessor> factSheetHasPredecessors)
+	{
+		this.factSheetHasPredecessors = factSheetHasPredecessors;
+	}
+
+	@JsonProperty("factSheetHasSuccessors")
+	public List<FactSheetHasSuccessor> getFactSheetHasSuccessors()
+	{
+		return factSheetHasSuccessors;
+	}
+	
+	@JsonProperty("factSheetHasSuccessors")
+	public void setFactSheetHasSuccessors(List<FactSheetHasSuccessor> factSheetHasSuccessors)
+	{
+		this.factSheetHasSuccessors = factSheetHasSuccessors;
+	}
+
+	@JsonProperty("resourceHasProviders")
+	public List<ResourceHasProvider> getResourceHasProviders()
+	{
+		return resourceHasProviders;
+	}
+	
+	@JsonProperty("resourceHasProviders")
+	public void setResourceHasProviders(List<ResourceHasProvider> resourceHasProviders)
+	{
+		this.resourceHasProviders = resourceHasProviders;
+	}
+
+	@JsonProperty("projectHasProviders")
+	public List<ProjectHasProvider> getProjectHasProviders()
+	{
+		return projectHasProviders;
+	}
+	
+	@JsonProperty("projectHasProviders")
+	public void setProjectHasProviders(List<ProjectHasProvider> projectHasProviders)
+	{
+		this.projectHasProviders = projectHasProviders;
 	}
 
 	@Override
@@ -361,10 +412,13 @@ public class Provider implements Serializable
 		sb.append("  resourceType: ").append(resourceType).append("\n");
 		sb.append("  factSheetHasParents: ").append(factSheetHasParents).append("\n");
 		sb.append("  factSheetHasChildren: ").append(factSheetHasChildren).append("\n");
-		sb.append("  resourceHasProviders: ").append(resourceHasProviders).append("\n");
-		sb.append("  projectHasProviders: ").append(projectHasProviders).append("\n");
 		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
 		sb.append("  factSheetHasLifecycles: ").append(factSheetHasLifecycles).append("\n");
+		sb.append("  userSubscriptions: ").append(userSubscriptions).append("\n");
+		sb.append("  factSheetHasPredecessors: ").append(factSheetHasPredecessors).append("\n");
+		sb.append("  factSheetHasSuccessors: ").append(factSheetHasSuccessors).append("\n");
+		sb.append("  resourceHasProviders: ").append(resourceHasProviders).append("\n");
+		sb.append("  projectHasProviders: ").append(projectHasProviders).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}
