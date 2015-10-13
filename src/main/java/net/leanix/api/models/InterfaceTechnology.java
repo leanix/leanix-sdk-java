@@ -27,46 +27,45 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-public class ActivityUser implements Serializable
+public class InterfaceTechnology implements Serializable
 {
-    private String ID;
-    private String fullName;
-    private String email;
-    
-    @JsonProperty("ID")
-    public String getID()
-    {
-        return ID;
-    }
+	/*  */
+	private String ID = null;
+	/*  */
+	private String name = null;
+	@JsonProperty("ID")
+	public String getID()
+	{
+		return ID;
+	}
+	
+	@JsonProperty("ID")
+	public void setID(String ID)
+	{
+		this.ID = ID;
+	}
 
-    @JsonProperty("ID")
-    public void setID(String ID)
-    {
-        this.ID = ID;
-    }
+	@JsonProperty("name")
+	public String getName()
+	{
+		return name;
+	}
+	
+	@JsonProperty("name")
+	public void setName(String name)
+	{
+		this.name = name;
+	}
 
-    @JsonProperty("fullName")
-    public String getFullName()
-    {
-        return fullName;
-    }
-
-    @JsonProperty("fullName")
-    public void setFullName(String fullName)
-    {
-        this.fullName = fullName;
-    }
-
-    @JsonProperty("email")
-    public String getEmail()
-    {
-        return email;
-    }
-
-    @JsonProperty("email")
-    public void setEmail(String email)
-    {
-        this.email = email;
-    }
+	@Override
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append("class InterfaceTechnology {\n");
+		sb.append("  ID: ").append(ID).append("\n");
+		sb.append("  name: ").append(name).append("\n");
+		sb.append("}\n");
+		return sb.toString();
+	}
 }
 

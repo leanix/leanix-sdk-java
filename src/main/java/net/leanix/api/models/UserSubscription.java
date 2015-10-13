@@ -24,8 +24,10 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.*;
 
+import java.io.Serializable;
+
+import java.util.*;
 public class UserSubscription implements Serializable
 {
 	/*  */
@@ -36,6 +38,8 @@ public class UserSubscription implements Serializable
 	private String userID = null;
 	/*  */
 	private String subscriptionTypeID = null;
+	/*  */
+	private List<String> roleDetails = new ArrayList<String>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -84,6 +88,18 @@ public class UserSubscription implements Serializable
 		this.subscriptionTypeID = subscriptionTypeID;
 	}
 
+	@JsonProperty("roleDetails")
+	public List<String> getRoleDetails()
+	{
+		return roleDetails;
+	}
+	
+	@JsonProperty("roleDetails")
+	public void setRoleDetails(List<String> roleDetails)
+	{
+		this.roleDetails = roleDetails;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -93,6 +109,7 @@ public class UserSubscription implements Serializable
 		sb.append("  factSheetID: ").append(factSheetID).append("\n");
 		sb.append("  userID: ").append(userID).append("\n");
 		sb.append("  subscriptionTypeID: ").append(subscriptionTypeID).append("\n");
+		sb.append("  roleDetails: ").append(roleDetails).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

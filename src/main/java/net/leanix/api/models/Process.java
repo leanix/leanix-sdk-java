@@ -24,14 +24,18 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.*;
+
+import java.io.Serializable;
 
 import java.util.*;
 import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.ProcessHasBusinessCapability;
+import net.leanix.api.models.FactSheetHasPredecessor;
 import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.FactSheetHasChild;
+import net.leanix.api.models.UserSubscription;
 import net.leanix.api.models.ServiceHasProcess;
+import net.leanix.api.models.FactSheetHasSuccessor;
 import net.leanix.api.models.FactSheetHasParent;
 public class Process implements Serializable
 {
@@ -64,13 +68,19 @@ public class Process implements Serializable
 	/*  */
 	private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
 	/*  */
-	private List<ServiceHasProcess> serviceHasProcesses = new ArrayList<ServiceHasProcess>();
-	/*  */
-	private List<ProcessHasBusinessCapability> processHasBusinessCapabilities = new ArrayList<ProcessHasBusinessCapability>();
-	/*  */
 	private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
 	/*  */
 	private List<FactSheetHasLifecycle> factSheetHasLifecycles = new ArrayList<FactSheetHasLifecycle>();
+	/*  */
+	private List<UserSubscription> userSubscriptions = new ArrayList<UserSubscription>();
+	/*  */
+	private List<FactSheetHasPredecessor> factSheetHasPredecessors = new ArrayList<FactSheetHasPredecessor>();
+	/*  */
+	private List<FactSheetHasSuccessor> factSheetHasSuccessors = new ArrayList<FactSheetHasSuccessor>();
+	/*  */
+	private List<ServiceHasProcess> serviceHasProcesses = new ArrayList<ServiceHasProcess>();
+	/*  */
+	private List<ProcessHasBusinessCapability> processHasBusinessCapabilities = new ArrayList<ProcessHasBusinessCapability>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -239,30 +249,6 @@ public class Process implements Serializable
 		this.factSheetHasChildren = factSheetHasChildren;
 	}
 
-	@JsonProperty("serviceHasProcesses")
-	public List<ServiceHasProcess> getServiceHasProcesses()
-	{
-		return serviceHasProcesses;
-	}
-	
-	@JsonProperty("serviceHasProcesses")
-	public void setServiceHasProcesses(List<ServiceHasProcess> serviceHasProcesses)
-	{
-		this.serviceHasProcesses = serviceHasProcesses;
-	}
-
-	@JsonProperty("processHasBusinessCapabilities")
-	public List<ProcessHasBusinessCapability> getProcessHasBusinessCapabilities()
-	{
-		return processHasBusinessCapabilities;
-	}
-	
-	@JsonProperty("processHasBusinessCapabilities")
-	public void setProcessHasBusinessCapabilities(List<ProcessHasBusinessCapability> processHasBusinessCapabilities)
-	{
-		this.processHasBusinessCapabilities = processHasBusinessCapabilities;
-	}
-
 	@JsonProperty("factSheetHasDocuments")
 	public List<FactSheetHasDocument> getFactSheetHasDocuments()
 	{
@@ -287,6 +273,66 @@ public class Process implements Serializable
 		this.factSheetHasLifecycles = factSheetHasLifecycles;
 	}
 
+	@JsonProperty("userSubscriptions")
+	public List<UserSubscription> getUserSubscriptions()
+	{
+		return userSubscriptions;
+	}
+	
+	@JsonProperty("userSubscriptions")
+	public void setUserSubscriptions(List<UserSubscription> userSubscriptions)
+	{
+		this.userSubscriptions = userSubscriptions;
+	}
+
+	@JsonProperty("factSheetHasPredecessors")
+	public List<FactSheetHasPredecessor> getFactSheetHasPredecessors()
+	{
+		return factSheetHasPredecessors;
+	}
+	
+	@JsonProperty("factSheetHasPredecessors")
+	public void setFactSheetHasPredecessors(List<FactSheetHasPredecessor> factSheetHasPredecessors)
+	{
+		this.factSheetHasPredecessors = factSheetHasPredecessors;
+	}
+
+	@JsonProperty("factSheetHasSuccessors")
+	public List<FactSheetHasSuccessor> getFactSheetHasSuccessors()
+	{
+		return factSheetHasSuccessors;
+	}
+	
+	@JsonProperty("factSheetHasSuccessors")
+	public void setFactSheetHasSuccessors(List<FactSheetHasSuccessor> factSheetHasSuccessors)
+	{
+		this.factSheetHasSuccessors = factSheetHasSuccessors;
+	}
+
+	@JsonProperty("serviceHasProcesses")
+	public List<ServiceHasProcess> getServiceHasProcesses()
+	{
+		return serviceHasProcesses;
+	}
+	
+	@JsonProperty("serviceHasProcesses")
+	public void setServiceHasProcesses(List<ServiceHasProcess> serviceHasProcesses)
+	{
+		this.serviceHasProcesses = serviceHasProcesses;
+	}
+
+	@JsonProperty("processHasBusinessCapabilities")
+	public List<ProcessHasBusinessCapability> getProcessHasBusinessCapabilities()
+	{
+		return processHasBusinessCapabilities;
+	}
+	
+	@JsonProperty("processHasBusinessCapabilities")
+	public void setProcessHasBusinessCapabilities(List<ProcessHasBusinessCapability> processHasBusinessCapabilities)
+	{
+		this.processHasBusinessCapabilities = processHasBusinessCapabilities;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -306,10 +352,13 @@ public class Process implements Serializable
 		sb.append("  resourceType: ").append(resourceType).append("\n");
 		sb.append("  factSheetHasParents: ").append(factSheetHasParents).append("\n");
 		sb.append("  factSheetHasChildren: ").append(factSheetHasChildren).append("\n");
-		sb.append("  serviceHasProcesses: ").append(serviceHasProcesses).append("\n");
-		sb.append("  processHasBusinessCapabilities: ").append(processHasBusinessCapabilities).append("\n");
 		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
 		sb.append("  factSheetHasLifecycles: ").append(factSheetHasLifecycles).append("\n");
+		sb.append("  userSubscriptions: ").append(userSubscriptions).append("\n");
+		sb.append("  factSheetHasPredecessors: ").append(factSheetHasPredecessors).append("\n");
+		sb.append("  factSheetHasSuccessors: ").append(factSheetHasSuccessors).append("\n");
+		sb.append("  serviceHasProcesses: ").append(serviceHasProcesses).append("\n");
+		sb.append("  processHasBusinessCapabilities: ").append(processHasBusinessCapabilities).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}
