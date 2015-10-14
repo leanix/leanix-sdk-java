@@ -1,15 +1,16 @@
 package net.leanix.api.test;
 
+import net.leanix.api.WorkspacesApi;
+import net.leanix.api.common.ApiClient;
+import net.leanix.api.common.ApiException;
+import net.leanix.api.models.Workspace;
+
+import org.junit.rules.ExternalResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import net.leanix.api.WorkspacesApi;
-import net.leanix.api.common.*;
-import net.leanix.api.models.*;
-
-import org.junit.rules.*;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 
 public class WorkspaceSetupRule extends ExternalResource
 {

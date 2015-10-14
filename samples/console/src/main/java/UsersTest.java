@@ -21,11 +21,11 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.util.List;
+import net.leanix.api.UsersApi;
+import net.leanix.api.common.ApiClient;
+import net.leanix.api.models.User;
 
-import net.leanix.api.*;
-import net.leanix.api.common.*;
-import net.leanix.api.models.*;
+import java.util.List;
 
 public class UsersTest
 {

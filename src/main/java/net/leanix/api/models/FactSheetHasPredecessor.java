@@ -27,20 +27,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-public class ProjectHasBusinessCapability implements Serializable
+public class FactSheetHasPredecessor implements Serializable
 {
 	/*  */
 	private String ID = null;
 	/*  */
-	private String projectID = null;
+	private String factSheetID = null;
 	/*  */
-	private String businessCapabilityID = null;
+	private String factSheetRefID = null;
 	/*  */
-	private String comment = null;
+	private String description = null;
 	/*  */
-	private String supportTypeID = null;
-	/*  */
-	private String constraints = null;
+	private String dependencyTypeID = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -53,77 +51,64 @@ public class ProjectHasBusinessCapability implements Serializable
 		this.ID = ID;
 	}
 
-	@JsonProperty("projectID")
-	public String getProjectID()
+	@JsonProperty("factSheetID")
+	public String getFactSheetID()
 	{
-		return projectID;
+		return factSheetID;
 	}
 	
-	@JsonProperty("projectID")
-	public void setProjectID(String projectID)
+	@JsonProperty("factSheetID")
+	public void setFactSheetID(String factSheetID)
 	{
-		this.projectID = projectID;
+		this.factSheetID = factSheetID;
 	}
 
-	@JsonProperty("businessCapabilityID")
-	public String getBusinessCapabilityID()
+	@JsonProperty("factSheetRefID")
+	public String getFactSheetRefID()
 	{
-		return businessCapabilityID;
+		return factSheetRefID;
 	}
 	
-	@JsonProperty("businessCapabilityID")
-	public void setBusinessCapabilityID(String businessCapabilityID)
+	@JsonProperty("factSheetRefID")
+	public void setFactSheetRefID(String factSheetRefID)
 	{
-		this.businessCapabilityID = businessCapabilityID;
+		this.factSheetRefID = factSheetRefID;
 	}
 
-	@JsonProperty("comment")
-	public String getComment()
+	@JsonProperty("description")
+	public String getDescription()
 	{
-		return comment;
+		return description;
 	}
 	
-	@JsonProperty("comment")
-	public void setComment(String comment)
+	@JsonProperty("description")
+	public void setDescription(String description)
 	{
-		this.comment = comment;
+		this.description = description;
 	}
 
-	@JsonProperty("supportTypeID")
-	public String getSupportTypeID()
+	@JsonProperty("dependencyTypeID")
+	public String getDependencyTypeID()
 	{
-		return supportTypeID;
+		return dependencyTypeID;
 	}
 	
-	@JsonProperty("supportTypeID")
-	public void setSupportTypeID(String supportTypeID)
+	@JsonProperty("dependencyTypeID")
+	public void setDependencyTypeID(String dependencyTypeID)
 	{
-		this.supportTypeID = supportTypeID;
-	}
-
-	@JsonProperty("constraints")
-	public String getConstraints()
-	{
-		return constraints;
-	}
-	
-	@JsonProperty("constraints")
-	public void setConstraints(String constraints)
-	{
-		this.constraints = constraints;
+		this.dependencyTypeID = dependencyTypeID;
 	}
 
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("class ProjectHasBusinessCapability {\n");
+		sb.append("class FactSheetHasPredecessor {\n");
 		sb.append("  ID: ").append(ID).append("\n");
-		sb.append("  projectID: ").append(projectID).append("\n");
-		sb.append("  businessCapabilityID: ").append(businessCapabilityID).append("\n");
-		sb.append("  comment: ").append(comment).append("\n");
-		sb.append("  supportTypeID: ").append(supportTypeID).append("\n");
-		sb.append("  constraints: ").append(constraints).append("\n");
+		sb.append("  factSheetID: ").append(factSheetID).append("\n");
+		sb.append("  factSheetRefID: ").append(factSheetRefID).append("\n");
+		sb.append("  description: ").append(description).append("\n");
+		sb.append("  dependencyTypeID: ").append(dependencyTypeID).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

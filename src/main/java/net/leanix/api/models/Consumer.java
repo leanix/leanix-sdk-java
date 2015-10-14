@@ -24,14 +24,17 @@
 package net.leanix.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.*;
+
+import java.io.Serializable;
 
 import java.util.*;
 import net.leanix.api.models.FactSheetHasDocument;
-import net.leanix.api.models.ResourceHasConsumer;
+import net.leanix.api.models.FactSheetHasPredecessor;
 import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.FactSheetHasChild;
+import net.leanix.api.models.UserSubscription;
 import net.leanix.api.models.ServiceHasConsumer;
+import net.leanix.api.models.FactSheetHasSuccessor;
 import net.leanix.api.models.FactSheetHasParent;
 public class Consumer implements Serializable
 {
@@ -62,17 +65,21 @@ public class Consumer implements Serializable
 	/*  */
 	private String resourceType = null;
 	/*  */
-	private List<FactSheetHasLifecycle> factSheetHasLifecycles = new ArrayList<FactSheetHasLifecycle>();
-	/*  */
 	private List<FactSheetHasParent> factSheetHasParents = new ArrayList<FactSheetHasParent>();
 	/*  */
 	private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
 	/*  */
-	private List<ServiceHasConsumer> serviceHasConsumers = new ArrayList<ServiceHasConsumer>();
-	/*  */
-	private List<ResourceHasConsumer> resourceHasConsumers = new ArrayList<ResourceHasConsumer>();
-	/*  */
 	private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
+	/*  */
+	private List<FactSheetHasLifecycle> factSheetHasLifecycles = new ArrayList<FactSheetHasLifecycle>();
+	/*  */
+	private List<UserSubscription> userSubscriptions = new ArrayList<UserSubscription>();
+	/*  */
+	private List<FactSheetHasPredecessor> factSheetHasPredecessors = new ArrayList<FactSheetHasPredecessor>();
+	/*  */
+	private List<FactSheetHasSuccessor> factSheetHasSuccessors = new ArrayList<FactSheetHasSuccessor>();
+	/*  */
+	private List<ServiceHasConsumer> serviceHasConsumers = new ArrayList<ServiceHasConsumer>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -229,18 +236,6 @@ public class Consumer implements Serializable
 		this.resourceType = resourceType;
 	}
 
-	@JsonProperty("factSheetHasLifecycles")
-	public List<FactSheetHasLifecycle> getFactSheetHasLifecycles()
-	{
-		return factSheetHasLifecycles;
-	}
-	
-	@JsonProperty("factSheetHasLifecycles")
-	public void setFactSheetHasLifecycles(List<FactSheetHasLifecycle> factSheetHasLifecycles)
-	{
-		this.factSheetHasLifecycles = factSheetHasLifecycles;
-	}
-
 	@JsonProperty("factSheetHasParents")
 	public List<FactSheetHasParent> getFactSheetHasParents()
 	{
@@ -265,30 +260,6 @@ public class Consumer implements Serializable
 		this.factSheetHasChildren = factSheetHasChildren;
 	}
 
-	@JsonProperty("serviceHasConsumers")
-	public List<ServiceHasConsumer> getServiceHasConsumers()
-	{
-		return serviceHasConsumers;
-	}
-	
-	@JsonProperty("serviceHasConsumers")
-	public void setServiceHasConsumers(List<ServiceHasConsumer> serviceHasConsumers)
-	{
-		this.serviceHasConsumers = serviceHasConsumers;
-	}
-
-	@JsonProperty("resourceHasConsumers")
-	public List<ResourceHasConsumer> getResourceHasConsumers()
-	{
-		return resourceHasConsumers;
-	}
-	
-	@JsonProperty("resourceHasConsumers")
-	public void setResourceHasConsumers(List<ResourceHasConsumer> resourceHasConsumers)
-	{
-		this.resourceHasConsumers = resourceHasConsumers;
-	}
-
 	@JsonProperty("factSheetHasDocuments")
 	public List<FactSheetHasDocument> getFactSheetHasDocuments()
 	{
@@ -299,6 +270,66 @@ public class Consumer implements Serializable
 	public void setFactSheetHasDocuments(List<FactSheetHasDocument> factSheetHasDocuments)
 	{
 		this.factSheetHasDocuments = factSheetHasDocuments;
+	}
+
+	@JsonProperty("factSheetHasLifecycles")
+	public List<FactSheetHasLifecycle> getFactSheetHasLifecycles()
+	{
+		return factSheetHasLifecycles;
+	}
+	
+	@JsonProperty("factSheetHasLifecycles")
+	public void setFactSheetHasLifecycles(List<FactSheetHasLifecycle> factSheetHasLifecycles)
+	{
+		this.factSheetHasLifecycles = factSheetHasLifecycles;
+	}
+
+	@JsonProperty("userSubscriptions")
+	public List<UserSubscription> getUserSubscriptions()
+	{
+		return userSubscriptions;
+	}
+	
+	@JsonProperty("userSubscriptions")
+	public void setUserSubscriptions(List<UserSubscription> userSubscriptions)
+	{
+		this.userSubscriptions = userSubscriptions;
+	}
+
+	@JsonProperty("factSheetHasPredecessors")
+	public List<FactSheetHasPredecessor> getFactSheetHasPredecessors()
+	{
+		return factSheetHasPredecessors;
+	}
+	
+	@JsonProperty("factSheetHasPredecessors")
+	public void setFactSheetHasPredecessors(List<FactSheetHasPredecessor> factSheetHasPredecessors)
+	{
+		this.factSheetHasPredecessors = factSheetHasPredecessors;
+	}
+
+	@JsonProperty("factSheetHasSuccessors")
+	public List<FactSheetHasSuccessor> getFactSheetHasSuccessors()
+	{
+		return factSheetHasSuccessors;
+	}
+	
+	@JsonProperty("factSheetHasSuccessors")
+	public void setFactSheetHasSuccessors(List<FactSheetHasSuccessor> factSheetHasSuccessors)
+	{
+		this.factSheetHasSuccessors = factSheetHasSuccessors;
+	}
+
+	@JsonProperty("serviceHasConsumers")
+	public List<ServiceHasConsumer> getServiceHasConsumers()
+	{
+		return serviceHasConsumers;
+	}
+	
+	@JsonProperty("serviceHasConsumers")
+	public void setServiceHasConsumers(List<ServiceHasConsumer> serviceHasConsumers)
+	{
+		this.serviceHasConsumers = serviceHasConsumers;
 	}
 
 	@Override
@@ -319,12 +350,14 @@ public class Consumer implements Serializable
 		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  fullName: ").append(fullName).append("\n");
 		sb.append("  resourceType: ").append(resourceType).append("\n");
-		sb.append("  factSheetHasLifecycles: ").append(factSheetHasLifecycles).append("\n");
 		sb.append("  factSheetHasParents: ").append(factSheetHasParents).append("\n");
 		sb.append("  factSheetHasChildren: ").append(factSheetHasChildren).append("\n");
-		sb.append("  serviceHasConsumers: ").append(serviceHasConsumers).append("\n");
-		sb.append("  resourceHasConsumers: ").append(resourceHasConsumers).append("\n");
 		sb.append("  factSheetHasDocuments: ").append(factSheetHasDocuments).append("\n");
+		sb.append("  factSheetHasLifecycles: ").append(factSheetHasLifecycles).append("\n");
+		sb.append("  userSubscriptions: ").append(userSubscriptions).append("\n");
+		sb.append("  factSheetHasPredecessors: ").append(factSheetHasPredecessors).append("\n");
+		sb.append("  factSheetHasSuccessors: ").append(factSheetHasSuccessors).append("\n");
+		sb.append("  serviceHasConsumers: ").append(serviceHasConsumers).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

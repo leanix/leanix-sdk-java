@@ -1,9 +1,8 @@
-
-import java.util.List;
 import net.leanix.api.ProjectsApi;
 import net.leanix.api.common.ApiClient;
 import net.leanix.api.models.Project;
-import net.leanix.api.models.ServiceHasProject;
+
+import java.util.List;
 
 /*
  * The MIT License

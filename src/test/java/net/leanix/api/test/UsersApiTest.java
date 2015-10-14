@@ -23,9 +23,8 @@
 
 package net.leanix.api.test;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import net.leanix.api.UsersApi;
 import net.leanix.api.models.User;
@@ -34,6 +33,8 @@ import org.junit.ClassRule;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class UsersApiTest
 {
