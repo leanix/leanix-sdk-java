@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.leanix</groupId>
     <artifactId>leanix-sdk-java</artifactId>
     <packaging>jar</packaging>
 
-    <version>1.6.4-SNAPSHOT</version>
+    <version>1.6.4</version>
 
     <parent>
         <groupId>net.leanix.poms</groupId>
         <artifactId>sdk-parent</artifactId>
         <version>0.8.0</version>
-        <relativePath/>
+        <relativePath />
     </parent>
 
-    <name>leanIX Java SDK</name>
+    <name>leanix-sdk-java</name>
 
     <description>SDK for Java to access leanIX REST API</description>
 
-    <url>https://developer.leanix.net</url>
+    <url>https://dev.leanix.net</url>
 
     <licenses>
         <license>
@@ -47,17 +45,6 @@
             <organizationUrl>https://www.leanix.net</organizationUrl>
         </developer>
     </developers>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 
     <dependencies>
         <dependency>
