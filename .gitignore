@@ -4,6 +4,8 @@
 *.war
 *.ear
 
+*.iml
+
 *.timestamp
 /bin
 /target
