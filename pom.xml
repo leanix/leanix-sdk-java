@@ -15,11 +15,11 @@
         <relativePath />
     </parent>
 
-    <name>leanIX Java SDK</name>
+    <name>leanix-sdk-java</name>
 
     <description>SDK for Java to access leanIX REST API</description>
 
-    <url>https://developer.leanix.net</url>
+    <url>https://dev.leanix.net</url>
 
     <licenses>
         <license>
@@ -45,17 +45,6 @@
             <organizationUrl>https://www.leanix.net</organizationUrl>
         </developer>
     </developers>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 
     <dependencies>
         <dependency>
