@@ -1,2 +1,2 @@
 #!/bin/bash
-mvn compile exec:java -Dexec.mainClass=BenchmarkA -Dapi.basePath=https://local-eam.leanix.net/benchmark/api/v1 -Dapi.key=482a56b550de467c9508575d93de000a -Dservices.count=500 -DresourcesPerServices.count=10
+mvn compile exec:java -Dexec.mainClass=BenchmarkA -Dapi.basePath=https://local-eam.leanix.net/benchmarka1/api/v1 -Dapi.key=8cfc99f32092449190a1fc63f413492b -Dservices.count=50 -DresourcesPerServices.count=5

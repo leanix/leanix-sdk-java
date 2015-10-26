@@ -62,7 +62,7 @@ public class BenchmarkA {
             // Todo: Create workspace
             
             // Create services
-            for (int i = 0; i < Integer.parseInt(h.getProperty("services.count", "10")); i++) {
+            for (int i = 0; i < Integer.parseInt(h.getProperty("services.count", "50")); i++) {
                 Service s = new Service();
                 s.setName(rnd.next());
                 s.setDescription("Create by SDK");
@@ -71,7 +71,7 @@ public class BenchmarkA {
                 System.out.println("Create SERVICE " + i + ", name = " + s.getName() + ", id = " + s.getID());
                 
                 // Create resources
-                for (int x = 0; x < Integer.parseInt(h.getProperty("resourcePerService.count", "2")); x++) {
+                for (int x = 0; x < Integer.parseInt(h.getProperty("resourcesPerServices.count", "5")); x++) {
                     Resource r = new Resource();
                     r.setName(rnd.next());
                     r.setDescription("Created by SDK");
