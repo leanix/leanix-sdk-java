@@ -25,21 +25,22 @@ package net.leanix.benchmark;
 import net.leanix.api.common.ApiClient;
 
 public class ApiClientFactory {
-    
+
     /**
-     * Creates a new ApiClient based on property information. Allows to execute
-     * via -Dapi.basepath=https://local-eam.leanix.net/demo/api/v1 -Dapi.key=XXX
+     * Creates a new ApiClient based on property information. Allows to execute via -Dapi.basepath=https://local-eam.leanix.net/demo/api/v1
+     * -Dapi.key=XXX
+     * 
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     public static ApiClient getApiClient() throws Exception {
         Helper helper = new Helper();
-        
+
         ApiClient apiClient = new ApiClient();
-	apiClient.addDefaultHeader("X-Api-Sync-Mode", "sync");
-	apiClient.setBasePath(helper.getProperty("api.basePath", "https://local-eam.leanix.net/demo/api/v1"));
-	apiClient.setApiKey(helper.getProperty("api.key", "XXX"));
-        
+        apiClient.addDefaultHeader("X-Api-Sync-Mode", "sync");
+        apiClient.setBasePath(helper.getProperty("api.basePath", "https://local-eam.leanix.net/demo/api/v1"));
+        apiClient.setApiKey(helper.getProperty("api.key", "XXX"));
+
         return apiClient;
     }
 }

@@ -4,10 +4,14 @@
 *.war
 *.ear
 
+.classpath
+.project
+
 *.iml
 
 *.timestamp
 /bin
 /target
 /samples/console/target/
-/samples/benchmark/target/
+/samples/benchmark/target
+.settings/

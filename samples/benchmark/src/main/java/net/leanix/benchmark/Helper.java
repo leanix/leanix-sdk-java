@@ -28,8 +28,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import net.leanix.api.models.FactSheetHasLifecycle;
+
 import org.kohsuke.randname.RandomNameGenerator;
+
+import net.leanix.api.models.FactSheetHasLifecycle;
 
 /**
  * Collection of helper methods
@@ -38,68 +40,68 @@ import org.kohsuke.randname.RandomNameGenerator;
  */
 public class Helper {
     protected RandomNameGenerator rnd;
-    
+
     public Date getRandomDate(String begin, String end) {
         long beginTime = Timestamp.valueOf(begin + " 00:00:00").getTime();
         long endTime = Timestamp.valueOf(end + " 00:58:00").getTime();
-    
+
         long diff = endTime - beginTime + 1;
         long timeBetween = beginTime + (long) (Math.random() * diff);
         return new Date(timeBetween);
     }
-    
+
     public List<FactSheetHasLifecycle> getRandomLifecycle(String start, String end) {
         List<FactSheetHasLifecycle> lcs = new ArrayList<>();
-        
+
         Date active = this.getRandomDate(start, end);
-        Calendar cal=Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
         cal.setTime(active);
         cal.add(Calendar.YEAR, 3);
         Date phaseOut = cal.getTime();
         cal.add(Calendar.YEAR, 2);
         Date endOfLife = cal.getTime();
-        
+
         FactSheetHasLifecycle fActive = new FactSheetHasLifecycle();
         fActive.setStartDate(active);
         fActive.setLifecycleStateID("3");
         lcs.add(fActive);
-        
+
         FactSheetHasLifecycle fPhaseOut = new FactSheetHasLifecycle();
         fPhaseOut.setStartDate(phaseOut);
         fPhaseOut.setLifecycleStateID("4");
         lcs.add(fPhaseOut);
-        
+
         FactSheetHasLifecycle fEndOfLife = new FactSheetHasLifecycle();
         fEndOfLife.setStartDate(endOfLife);
         fEndOfLife.setLifecycleStateID("5");
         lcs.add(fEndOfLife);
-        
+
         return lcs;
     }
-    
+
     public Helper() throws Exception {
         rnd = new RandomNameGenerator(Integer.parseInt(this.getProperty("random.seed", "0")));
     }
+
     /**
-     * Creates a random string. Current implementation returns a UUID, but this
-     * can change in the future to more meaningful string
+     * Creates a random string. Current implementation returns a UUID, but this can change in the future to more meaningful string
      * 
-     * @return 
+     * @return
      */
     public String getUniqueString() {
         return rnd.next();
     }
-    
+
     public String getUniqueText(int length) {
         String ret = null;
-        
+
         for (int i = 0; i < length; i++) {
             if (i > 0)
                 ret += " ";
-                    
+
             ret += rnd.next();
         }
-        
+
         return ret;
     }
 
@@ -109,7 +111,7 @@ public class Helper {
      * @param key
      * @param defaultValue
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     public final String getProperty(String key, String defaultValue) throws Exception {
         String value = System.getProperty(key);

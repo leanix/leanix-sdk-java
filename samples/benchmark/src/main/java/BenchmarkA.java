@@ -1,3 +1,4 @@
+
 /*
  * The MIT License (MIT)	 
  *
@@ -25,6 +26,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.util.StopWatch;
+
 import net.leanix.api.ResourcesApi;
 import net.leanix.api.ServicesApi;
 import net.leanix.api.common.ApiClient;
@@ -36,60 +40,67 @@ import net.leanix.benchmark.Helper;
 import net.leanix.mtm.api.models.Workspace;
 
 /**
- * Creates a list of services (SERVICE_COUNT) with a list of linked
- * resources (RESOURCE_PER_SERVICE_COUNT)
+ * Creates a list of services (SERVICE_COUNT) with a list of linked resources (RESOURCE_PER_SERVICE_COUNT)
  * 
  * @author andre
  */
 public class BenchmarkA {
-    
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws Exception {
+        Helper helper = new Helper();
+        String numServices = helper.getProperty("services.count", "50");
+        String numResourcesPerService = helper.getProperty("resourcesPerServices.count", "5");
+        StopWatch stopWatch = new StopWatch(
+                String.format("Benchmark A creates %s services withc %s resources/service", numServices, numResourcesPerService));
+
         try {
-            Helper h = new Helper();
 
             ApiClient apiClient = ApiClientFactory.getApiClient();
             apiClient.addDefaultHeader("X-Api-Update-Relations", "true");
 
             ServicesApi servicesApi = new ServicesApi(apiClient);
             ResourcesApi resourcesApi = new ResourcesApi(apiClient);
-            
-            Workspace w = new Workspace();
+
+            Workspace workspace = new Workspace();
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
-            w.setName("benchmarka" + format.format(new Date()));
-            
+            workspace.setName("benchmarka" + format.format(new Date()));
+
             // Todo: Create fresh workspace in MTM
-                  
+
             // Create services
-            for (int i = 0; i < Integer.parseInt(h.getProperty("services.count", "50")); i++) {
+            for (int i = 0; i < Integer.parseInt(numServices); i++) {
+                stopWatch.start("Service " + i);
                 Service s = new Service();
-                s.setName(h.getUniqueString());
-                s.setDescription(h.getUniqueText(10));
-                
+                s.setName(helper.getUniqueString());
+                s.setDescription(helper.getUniqueText(10));
+
                 s = servicesApi.createService(s);
                 System.out.println("Create SERVICE " + i + ", name = " + s.getName() + ", id = " + s.getID());
-                
+
                 // Create resources
-                for (int x = 0; x < Integer.parseInt(h.getProperty("resourcesPerServices.count", "5")); x++) {
+                for (int x = 0; x < Integer.parseInt(numResourcesPerService); x++) {
                     Resource r = new Resource();
-                    r.setName(h.getUniqueString());
-                    r.setDescription(h.getUniqueText(10));
-                    
+                    r.setName(helper.getUniqueString());
+                    r.setDescription(helper.getUniqueText(10));
+
                     ServiceHasResource shr = new ServiceHasResource();
                     shr.setServiceID(s.getID());
                     shr.setComment("Created by SDK");
-                    
+
                     List<ServiceHasResource> shrList = new ArrayList<>();
                     shrList.add(shr);
                     r.setServiceHasResources(shrList);
-                    
+
                     r = resourcesApi.createResource(r);
-                    
+
                     System.out.println("Create RESOURCE " + i + ", name = " + r.getName() + ", id = " + r.getID());
                 }
+                stopWatch.stop();
             }
-           
+
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
         }
+        System.out.println(stopWatch.prettyPrint());
     }
 }

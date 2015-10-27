@@ -1,5 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>net.leanix</groupId>
     <artifactId>leanix-sdk-java-benchmark</artifactId>
     <packaging>jar</packaging>
@@ -7,7 +9,11 @@
     <description>Benchmark of leanIX via SDK</description>
     <url>https://developer.leanix.net</url>
     <version>1.0.0</version>
-	
+
+    <properties>
+        <downloadSources>true</downloadSources>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -19,12 +25,17 @@
             </plugin>
         </plugins>
     </build>
-	
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>leanix-sdk-java</artifactId>
             <version>1.6.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.2.2.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.kohsuke</groupId>
