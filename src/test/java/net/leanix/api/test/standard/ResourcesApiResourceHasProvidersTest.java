@@ -34,29 +34,27 @@ import net.leanix.api.models.ResourceHasProvider;
 import net.leanix.api.*;
 import net.leanix.api.test.*;
 
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ResourcesApiResourceHasProvidersTest
+public class ResourcesApiResourceHasProvidersTest extends TestBase
 {
-	@ClassRule public static WorkspaceSetupRule setup = new WorkspaceSetupRule();
 	@Rule public ExpectedException thrown = ExpectedException.none();
 
 	final Logger logger = LoggerFactory.getLogger(ResourcesApiResourceHasProvidersTest.class);
 
 	protected ResourcesApi getApi() throws Exception
 	{
-		ResourcesApi api = new ResourcesApi(setup.getApiClient());
+		ResourcesApi api = getResourcesApi();
 		return api;
 	}
 
 	protected ProvidersApi getApiRelated() throws Exception
 	{
-		ProvidersApi api = new ProvidersApi(setup.getApiClient());
+		ProvidersApi api = getProvidersApi();
 		return api;
 	}	
 

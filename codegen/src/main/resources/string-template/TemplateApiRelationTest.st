@@ -42,22 +42,21 @@ import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class <classNamePlural>Api<classNameRelationPlural>Test
+public class <classNamePlural>Api<classNameRelationPlural>Test extends TestBase
 {
-	@ClassRule public static WorkspaceSetupRule setup = new WorkspaceSetupRule();
 	@Rule public ExpectedException thrown = ExpectedException.none();
 
 	final Logger logger = LoggerFactory.getLogger(<classNamePlural>Api<classNameRelationPlural>Test.class);
 
 	protected <classNamePlural>Api getApi() throws Exception
 	{
-		<classNamePlural>Api api = new <classNamePlural>Api(setup.getApiClient());
+		<classNamePlural>Api api = get<classNamePlural>Api();
 		return api;
 	}
-	
+
 	protected <classNameRefPlural>Api getApiRelated() throws Exception
 	{
-		<classNameRefPlural>Api api = new <classNameRefPlural>Api(setup.getApiClient());
+		<classNameRefPlural>Api api = get<classNameRefPlural>Api();
 		return api;
 	}	
 

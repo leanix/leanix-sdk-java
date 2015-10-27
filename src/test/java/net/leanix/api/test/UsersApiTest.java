@@ -29,23 +29,19 @@ import static org.junit.Assert.assertTrue;
 import net.leanix.api.UsersApi;
 import net.leanix.api.models.User;
 
-import org.junit.ClassRule;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class UsersApiTest
+public class UsersApiTest extends TestBase
 {
-
-	@ClassRule public static WorkspaceSetupRule setup = new WorkspaceSetupRule();
-	
 	final Logger logger = LoggerFactory.getLogger(UsersApiTest.class);
 	
 	protected UsersApi getApi() throws Exception
 	{
-		UsersApi api = new UsersApi(setup.getApiClient());
+		UsersApi api = getUsersApi();
 		return api;
 	}
 	
