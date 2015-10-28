@@ -40,6 +40,10 @@ import net.leanix.benchmark.ConfigurationProvider;
 import net.leanix.benchmark.Helper;
 import net.leanix.mtm.api.models.Workspace;
 import java.util.concurrent.ThreadLocalRandom;
+
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
+
 import net.leanix.api.models.ServiceHasBusinessCapability;
 import net.leanix.api.models.ServiceHasConsumer;
 
@@ -52,11 +56,17 @@ import net.leanix.api.models.ServiceHasConsumer;
 public class BenchmarkB {
     
     public static void main(String[] args) {
+        // determine workspace name
+        String wsName = System.getProperty("api.workspaceName");
+        if (StringUtils.isBlank(wsName)) {
+            wsName = BenchmarkA.class.getSimpleName() + 'x' + RandomStringUtils.random(4, "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+        }
+
         try {
             ConfigurationProvider configurationProvider = new ConfigurationProvider();
             Helper h = new Helper(configurationProvider.getRandomSeed());
 
-            ApiClient apiClient = ApiClientFactory.getApiClient();
+            ApiClient apiClient = ApiClientFactory.getApiClient(wsName);
             apiClient.addDefaultHeader("X-Api-Update-Relations", "true");
 
             ServicesApi servicesApi = new ServicesApi(apiClient);

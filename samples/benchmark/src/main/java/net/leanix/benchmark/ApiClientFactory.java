@@ -35,9 +35,8 @@ public class ApiClientFactory {
      * @return
      * @throws Exception
      */
-    public static ApiClient getApiClient() throws Exception {
+    public static ApiClient getApiClient(String workspaceName) throws Exception {
         String apiHostName = ConfigurationProvider.getApiHostName();
-        String workspaceName = ConfigurationProvider.getWorkspaceName();
 
         if (StringUtils.isEmpty(apiHostName)) {
             return getApiClient(ConfigurationProvider.getApiBasePath(),

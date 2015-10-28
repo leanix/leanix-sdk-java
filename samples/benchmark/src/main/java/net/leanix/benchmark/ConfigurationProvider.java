@@ -21,12 +21,27 @@ public class ConfigurationProvider {
         readSettings();
     }
 
-    public static String getApiHostName() {
-        return System.getProperty("api.hostname");
+    private void readSettings() {
+        if (!propertiesFile.exists()) {
+            return;
+        }
+        try (FileInputStream is = new FileInputStream(propertiesFile)) {
+            properties.load(is);
+        } catch (IOException e) {
+            // nothing to do
+        }
     }
 
-    public static String getWorkspaceName() {
-        return System.getProperty("api.workspaceName");
+    private void persistSettings() {
+        try (FileOutputStream os = new FileOutputStream(propertiesFile)) {
+            properties.store(os, "Created by " + getClass().getSimpleName());
+        } catch (IOException e) {
+            throw new RuntimeException("internal error during persisting properties file", e);
+        }
+    }
+
+    public static String getApiHostName() {
+        return System.getProperty("api.hostname");
     }
 
     public static String getApiBasePath() {
@@ -34,7 +49,7 @@ public class ConfigurationProvider {
     }
 
     public static String getApiKey() {
-        return Helper.getProperty("api.key", "XXX");
+        return Helper.getProperty("api.key", null);
     }
 
     public static int getServicesCount() {
@@ -60,23 +75,34 @@ public class ConfigurationProvider {
         persistSettings();
     }
 
-    private void readSettings() {
-        if (!propertiesFile.exists()) {
-            return;
-        }
-        try (FileInputStream is = new FileInputStream(propertiesFile)) {
-            properties.load(is);
-        } catch (IOException e) {
-            // nothing to do
-        }
+    public static String getApiMtmVersion() {
+        return Helper.getProperty("api.mtm.version", "v1");
     }
 
-    private void persistSettings() {
-        try (FileOutputStream os = new FileOutputStream(propertiesFile)) {
-            properties.store(os, "Created by " + getClass().getSimpleName());
-        } catch (IOException e) {
-            throw new RuntimeException("internal error during persisting properties file", e);
-        }
+    public static String createMtmApiUrl() {
+        return Helper.getProperty("api.mtm.baseurl",
+                String.format("https://%s/services/mtm/%s", getApiHostName(), getApiMtmVersion()));
+    }
+
+    public static String getTokenUrl() {
+        return Helper.getProperty("api.tokenUrl", String.format("https://%s/services/mtm/v1/oauth2/token", getApiHostName()));
+    }
+
+    public static String getVerificationUrl() {
+        return Helper.getProperty("api.verificationUrl",
+                String.format("https://%s/services/mtm/%s/oauth2/verify", getApiHostName(), getApiMtmVersion()));
+    }
+
+    public static String getClientId() {
+        return Helper.getProperty("api.clientId", "eam");
+    }
+
+    public static String getClientSecret() {
+        return Helper.getProperty("api.clientSecret", null);
+    }
+
+    public static String getApiUserEmail() {
+        return Helper.getProperty("api.userEmail", "cio@meshlab.de");
     }
 
     @Override

@@ -30,7 +30,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>leanix-sdk-java</artifactId>
-            <version>1.6.4</version>
+            <version>1.6.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>

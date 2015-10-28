@@ -31,6 +31,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @deprecated: use net.leanix.mtm.api.WorkspacesApi instead
+ *
+ */
 public class WorkspacesApi
 {
 	private ApiClient apiClient;

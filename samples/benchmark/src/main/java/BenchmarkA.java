@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.util.StopWatch;
 
 import net.leanix.api.ResourcesApi;
@@ -47,18 +46,23 @@ import net.leanix.mtm.api.models.Workspace;
  * 
  * @author andre
  */
-public class BenchmarkA {
+public class BenchmarkA extends BaseBenchmarkTests {
 
     public static void main(String[] args) throws Exception {
-        ConfigurationProvider configurationProvider = new ConfigurationProvider();
+
+        new BenchmarkA().run();
+    }
+
+    private void run() {
         int numServices = ConfigurationProvider.getServicesCount();
         int numResourcesPerService = ConfigurationProvider.getNumResourcesPerService();
         StopWatch stopWatch = new StopWatch(
-                String.format("Benchmark A creates %s services withc %s resources/service", numServices, numResourcesPerService));
+                String.format("%s creates %s services withc %s resources/service", getClass().getSimpleName(), numServices,
+                        numResourcesPerService));
 
+        /********* start test **********/
         try {
-
-            ApiClient apiClient = ApiClientFactory.getApiClient();
+            ApiClient apiClient = ApiClientFactory.getApiClient(wsName);
             apiClient.addDefaultHeader("X-Api-Update-Relations", "true");
 
             ServicesApi servicesApi = new ServicesApi(apiClient);
@@ -68,11 +72,10 @@ public class BenchmarkA {
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
             workspace.setName("benchmarka" + format.format(new Date()));
 
-            // Todo: Create fresh workspace in MTM
-            if (StringUtils.isNotEmpty(ConfigurationProvider.getWorkspaceName())) {
-                WorkspaceHelper workspaceHelper = new WorkspaceHelper(apiClient, ConfigurationProvider.getWorkspaceName());
-                boolean workspaceAlreadyExists = workspaceHelper.createWorkspace();
-            }
+            // ensure workspace is present
+            stopWatch.start("search for existing or create new workspace");
+            new WorkspaceHelper(wsName).getExistingWorkspaceOrCreateNew();
+            stopWatch.stop();
 
             // Create services
             Helper helper = new Helper(configurationProvider.getRandomSeed());
@@ -111,10 +114,13 @@ public class BenchmarkA {
             System.out.println("Exception: " + ex.getMessage());
             ex.printStackTrace();
         }
+        /********* end test **********/
+
         System.out.println(stopWatch.prettyPrint());
-        double totalTimeSeconds = stopWatch.getTotalTimeSeconds();
+        double totalTimeSeconds = getSumOfLastTasksInSeconds(stopWatch, stopWatch.getTaskCount() - 1);
         System.out.println(String.format("Complete Job processing time : %.2f s (%d:%02d)", totalTimeSeconds,
                 (int) totalTimeSeconds / 60, (int) totalTimeSeconds % 60));
         System.out.println(String.format("Average Time / FS            : %.3f s", totalTimeSeconds / numServices));
     }
+
 }
