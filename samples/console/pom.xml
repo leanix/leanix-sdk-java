@@ -1,31 +1,33 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.leanix</groupId>
-	<artifactId>leanix-sdk-java</artifactId>
-	<packaging>jar</packaging>
-	<name>leanIX Java SDK Samples</name>
-	<description>SDK for Java to access leanIX REST API</description>
-	<url>https://developer.leanix.net</url>
-	<version>1.0.0</version>
-	
-	<build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-	
-	<dependencies>
-	 <dependency>
-	  <groupId>${project.groupId}</groupId>
-	  <artifactId>leanix-sdk-java</artifactId>
-	  <version>1.6.1-SNAPSHOT</version>
-	 </dependency>
-	</dependencies>
-	
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>net.leanix</groupId>
+    <artifactId>leanix-sdk-java</artifactId>
+    <packaging>jar</packaging>
+    <name>leanIX Java SDK Samples</name>
+    <description>SDK for Java to access leanIX REST API</description>
+    <url>https://developer.leanix.net</url>
+    <version>1.0.0</version>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>leanix-sdk-java</artifactId>
+            <version>1.6.4</version>
+        </dependency>
+    </dependencies>
+
 </project>

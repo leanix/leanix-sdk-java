@@ -4,9 +4,15 @@
 *.war
 *.ear
 
+.classpath
+.project
+.benchmark.properties
+
 *.iml
 
 *.timestamp
 /bin
 /target
 /samples/console/target/
+/samples/benchmark/target
+.settings/
