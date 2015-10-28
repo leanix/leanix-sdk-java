@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.util.StopWatch;
 import org.springframework.util.StopWatch.TaskInfo;
 
@@ -16,6 +17,10 @@ public abstract class BaseBenchmarkTests {
 
     public BaseBenchmarkTests() {
         super();
+
+        SLF4JBridgeHandler.removeHandlersForRootLogger();
+        SLF4JBridgeHandler.install();
+
         wsName = System.getProperty("api.workspaceName");
         if (StringUtils.isBlank(wsName)) {
             wsName = BenchmarkA.class.getSimpleName() + 'x' + RandomStringUtils.random(4, "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ");
