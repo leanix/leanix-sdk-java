@@ -36,6 +36,7 @@ import net.leanix.api.models.Resource;
 import net.leanix.api.models.Service;
 import net.leanix.api.models.ServiceHasResource;
 import net.leanix.benchmark.ApiClientFactory;
+import net.leanix.benchmark.ConfigurationProvider;
 import net.leanix.benchmark.Helper;
 import net.leanix.mtm.api.models.Workspace;
 import java.util.concurrent.ThreadLocalRandom;
@@ -52,7 +53,8 @@ public class BenchmarkB {
     
     public static void main(String[] args) {
         try {
-            Helper h = new Helper();
+            ConfigurationProvider configurationProvider = new ConfigurationProvider();
+            Helper h = new Helper(configurationProvider.getRandomSeed());
 
             ApiClient apiClient = ApiClientFactory.getApiClient();
             apiClient.addDefaultHeader("X-Api-Update-Relations", "true");

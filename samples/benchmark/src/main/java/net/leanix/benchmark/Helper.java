@@ -79,8 +79,8 @@ public class Helper {
         return lcs;
     }
 
-    public Helper() throws Exception {
-        rnd = new RandomNameGenerator(Integer.parseInt(this.getProperty("random.seed", "0")));
+    public Helper(int seed) throws Exception {
+        rnd = new RandomNameGenerator(seed);
     }
 
     /**
@@ -113,10 +113,10 @@ public class Helper {
      * @return
      * @throws Exception
      */
-    public final String getProperty(String key, String defaultValue) throws Exception {
+    public static String getProperty(String key, String defaultValue) {
         String value = System.getProperty(key);
         if (value == null && defaultValue == null) {
-            throw new Exception("Property " + key + " not set and no default given");
+            throw new IllegalArgumentException("Property " + key + " not set and no default given");
         }
 
         if (value == null) {
@@ -124,5 +124,13 @@ public class Helper {
         }
 
         return value;
+    }
+
+    public static int getIntProperty(String key, int defaultValue) {
+        try {
+            return Integer.parseInt(getProperty(key, "" + defaultValue));
+        } catch (Exception e) {
+            throw new RuntimeException("internal error", e);
+        }
     }
 }

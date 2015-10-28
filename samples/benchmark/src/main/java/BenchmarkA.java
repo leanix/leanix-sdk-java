@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.util.StopWatch;
 
 import net.leanix.api.ResourcesApi;
@@ -36,7 +37,9 @@ import net.leanix.api.models.Resource;
 import net.leanix.api.models.Service;
 import net.leanix.api.models.ServiceHasResource;
 import net.leanix.benchmark.ApiClientFactory;
+import net.leanix.benchmark.ConfigurationProvider;
 import net.leanix.benchmark.Helper;
+import net.leanix.benchmark.WorkspaceHelper;
 import net.leanix.mtm.api.models.Workspace;
 
 /**
@@ -47,9 +50,9 @@ import net.leanix.mtm.api.models.Workspace;
 public class BenchmarkA {
 
     public static void main(String[] args) throws Exception {
-        Helper helper = new Helper();
-        String numServices = helper.getProperty("services.count", "50");
-        String numResourcesPerService = helper.getProperty("resourcesPerServices.count", "5");
+        ConfigurationProvider configurationProvider = new ConfigurationProvider();
+        int numServices = ConfigurationProvider.getServicesCount();
+        int numResourcesPerService = ConfigurationProvider.getNumResourcesPerService();
         StopWatch stopWatch = new StopWatch(
                 String.format("Benchmark A creates %s services withc %s resources/service", numServices, numResourcesPerService));
 
@@ -66,25 +69,31 @@ public class BenchmarkA {
             workspace.setName("benchmarka" + format.format(new Date()));
 
             // Todo: Create fresh workspace in MTM
+            if (StringUtils.isNotEmpty(ConfigurationProvider.getWorkspaceName())) {
+                WorkspaceHelper workspaceHelper = new WorkspaceHelper(apiClient, ConfigurationProvider.getWorkspaceName());
+                boolean workspaceAlreadyExists = workspaceHelper.createWorkspace();
+            }
 
             // Create services
-            for (int i = 0; i < Integer.parseInt(numServices); i++) {
+            Helper helper = new Helper(configurationProvider.getRandomSeed());
+            for (int i = 0; i < numServices; i++) {
                 stopWatch.start("Service " + i);
-                Service s = new Service();
-                s.setName(helper.getUniqueString());
-                s.setDescription(helper.getUniqueText(10));
+                Service service = new Service();
+                service.setName(helper.getUniqueString());
+                service.setDescription(helper.getUniqueText(10));
 
-                s = servicesApi.createService(s);
-                System.out.println("Create SERVICE " + i + ", name = " + s.getName() + ", id = " + s.getID());
+                service = servicesApi.createService(service);
+                configurationProvider.increaseSeed();
+                System.out.println("Create SERVICE " + i + ", name = " + service.getName() + ", id = " + service.getID());
 
                 // Create resources
-                for (int x = 0; x < Integer.parseInt(numResourcesPerService); x++) {
+                for (int x = 0; x < numResourcesPerService; x++) {
                     Resource r = new Resource();
                     r.setName(helper.getUniqueString());
                     r.setDescription(helper.getUniqueText(10));
 
                     ServiceHasResource shr = new ServiceHasResource();
-                    shr.setServiceID(s.getID());
+                    shr.setServiceID(service.getID());
                     shr.setComment("Created by SDK");
 
                     List<ServiceHasResource> shrList = new ArrayList<>();
@@ -100,7 +109,12 @@ public class BenchmarkA {
 
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
+            ex.printStackTrace();
         }
         System.out.println(stopWatch.prettyPrint());
+        double totalTimeSeconds = stopWatch.getTotalTimeSeconds();
+        System.out.println(String.format("Complete Job processing time : %.2f s (%d:%02d)", totalTimeSeconds,
+                (int) totalTimeSeconds / 60, (int) totalTimeSeconds % 60));
+        System.out.println(String.format("Average Time / FS            : %.3f s", totalTimeSeconds / numServices));
     }
 }
