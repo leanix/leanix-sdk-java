@@ -32,23 +32,21 @@ import net.leanix.api.models.ResourceCapability;
 import net.leanix.api.*;
 import net.leanix.api.test.*;
 
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ResourceCapabilitiesApiTest
+public class ResourceCapabilitiesApiTest extends TestBase
 {
-	@ClassRule public static WorkspaceSetupRule setup = new WorkspaceSetupRule();
 	@Rule public ExpectedException thrown = ExpectedException.none();
 
 	final Logger logger = LoggerFactory.getLogger(ResourceCapabilitiesApiTest.class);
 
 	protected ResourceCapabilitiesApi getApi() throws Exception
 	{
-		ResourceCapabilitiesApi api = new ResourceCapabilitiesApi(setup.getApiClient());
+		ResourceCapabilitiesApi api = getResourceCapabilitiesApi();
 		return api;
 	}
 

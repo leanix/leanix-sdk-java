@@ -40,19 +40,18 @@ import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class <classNamePlural>ApiTest
+public class <classNamePlural>ApiTest extends TestBase
 {
-	@ClassRule public static WorkspaceSetupRule setup = new WorkspaceSetupRule();
 	@Rule public ExpectedException thrown = ExpectedException.none();
 	
 	final Logger logger = LoggerFactory.getLogger(<classNamePlural>ApiTest.class);
-	
+
 	protected <classNamePlural>Api getApi() throws Exception
 	{
-		<classNamePlural>Api api = new <classNamePlural>Api(setup.getApiClient());
+		<classNamePlural>Api api = get<classNamePlural>Api();
 		return api;
 	}
-	
+
 	protected <className> newModel()
 	{
 		<className> model = new <className>();

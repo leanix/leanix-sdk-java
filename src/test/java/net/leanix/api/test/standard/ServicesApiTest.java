@@ -32,23 +32,21 @@ import net.leanix.api.models.Service;
 import net.leanix.api.*;
 import net.leanix.api.test.*;
 
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ServicesApiTest
+public class ServicesApiTest extends TestBase
 {
-	@ClassRule public static WorkspaceSetupRule setup = new WorkspaceSetupRule();
 	@Rule public ExpectedException thrown = ExpectedException.none();
 
 	final Logger logger = LoggerFactory.getLogger(ServicesApiTest.class);
 
 	protected ServicesApi getApi() throws Exception
 	{
-		ServicesApi api = new ServicesApi(setup.getApiClient());
+		ServicesApi api = getServicesApi();
 		return api;
 	}
 
