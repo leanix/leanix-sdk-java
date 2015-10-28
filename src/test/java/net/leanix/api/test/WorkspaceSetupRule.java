@@ -26,6 +26,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Creates a workspace with a permission for testing.
+ * Created workspace and corresponding EAM API client is stored as an instance member variable,
+ * so it cannot be used for concurrent tests in different workspaces!
+ */
 public class WorkspaceSetupRule extends ExternalResource
 {
     private final Logger logger = LoggerFactory.getLogger(WorkspaceSetupRule.class);
@@ -40,14 +45,14 @@ public class WorkspaceSetupRule extends ExternalResource
      */
     private static final String CONTRACT_DISPLAY_NAME = "leanix eam REGULAR";
 
-    protected final Client mtmApiClient = ClientFactory.create(createMtmApiUrl(), getTokenUrl(), getVerificationUrl(), getClientId(), getClientSecret());//"adm@leanix.net", "superadminpw");
+    protected final Client mtmApiClient = ClientFactory.create(createMtmApiUrl(), getTokenUrl(), getVerificationUrl(), getClientId(), getClientSecret());
     protected final AccountsApi accountsApi = new AccountsApi(mtmApiClient);
 
+    // this is workspace dependent!
+    protected Workspace workspace;
     protected ApiClient leanixApiClient;
 
     protected String apiSetup = "professional-v1";
-
-	protected Workspace workspace;
 
 	protected String getProperty(String key, String defaultValue)
 	{
@@ -66,9 +71,14 @@ public class WorkspaceSetupRule extends ExternalResource
 		return this.getProperty(key, null);
 	}
 
+    protected String createApiUrl(String workspace)
+    {
+        return this.getProperty("api.baseurl") + "/" + workspace + "/api/" + this.getProperty("api.version", "v1");
+    }
+
 	protected String createMtmApiUrl()
 	{
-		return this.getProperty("api.baseurl") + "/services/mtm/" + this.getProperty("api.version", "v1");
+		return this.getProperty("api.mtm.baseurl") + "/services/mtm/" + this.getProperty("api.mtm.version", "v1");
 	}
 
     protected String getTokenUrl() {
@@ -96,6 +106,25 @@ public class WorkspaceSetupRule extends ExternalResource
 		return getProperty("api.userEmail");
 	}
 
+    protected ApiClient createLeanixApiClient(String workspaceName)
+    {
+        ApiClient apiClient = new ApiClient();
+        apiClient.addDefaultHeader("X-Api-Sync-Mode", "sync");
+        apiClient.setBasePath(createApiUrl(workspaceName));
+        apiClient.setApiKey(getApiKey());
+
+        return apiClient;
+    }
+
+    public ApiClient getLeanixApiClient()
+    {
+        return leanixApiClient;
+    }
+
+    public Client getMtmApiClient()
+    {
+        return mtmApiClient;
+    }
 
 	@Override
 	protected void before() throws Throwable
@@ -171,7 +200,7 @@ public class WorkspaceSetupRule extends ExternalResource
 
 		SimpleDateFormat format = new SimpleDateFormat("yyyy'A'MM'A'dd'T'HH'A'mm'A'ss");
 		String newWorkspaceName = "testjava" + format.format(new Date());
-		logger.info("creating new test workspace {} using contract {}", newWorkspaceName, contractId);
+		logger.debug("creating new test workspace {} using contract {}", newWorkspaceName, contractId);
 
         Contract contract = new Contract();
         contract.setId(contractId);
@@ -188,7 +217,7 @@ public class WorkspaceSetupRule extends ExternalResource
 		WorkspaceResponse response = workspacesApi.createWorkspace(newWorkspace);
 		Workspace workspace = response.getData();
 
-		logger.info("workspace {} created, has ID {}", workspace.getName(), workspace.getId());
+		logger.debug("workspace {} created, has ID {}", workspace.getName(), workspace.getId());
 
 		return workspace;
 	}
@@ -211,11 +240,11 @@ public class WorkspaceSetupRule extends ExternalResource
         permission.setWorkspace(workspace);
 		permission.setUser(user);
 
-        logger.info("add {} {} permission to workspace for the user", permission.getStatus(), permission.getRole());
+        logger.debug("add {} {} permission to workspace for the user", permission.getStatus(), permission.getRole());
 
 		permissionsApi.setPermission(permission);
 
-        logger.info("permission added");
+        logger.debug("permission added");
     }
 
 	protected void deleteWorkspace(Workspace workspace) throws Exception
@@ -229,37 +258,11 @@ public class WorkspaceSetupRule extends ExternalResource
 		try
 		{
 			workspacesApi.deleteWorkspace(workspace.getId());
-			logger.info("Workspace deleted = " + workspace.getId());
+			logger.debug("Workspace deleted = " + workspace.getId());
 		}
 		catch (ApiException e)
 		{
-			logger.error("Unable to delete workspace with ID = " + workspace.getId());
-			e.printStackTrace();
+			logger.error("Unable to delete workspace with ID = " + workspace.getId(), e);
 		}
 	}
-
-    protected String createApiUrl(String workspace)
-    {
-        return this.getProperty("api.baseurl") + "/" + workspace + "/api/" + this.getProperty("api.version", "v1");
-    }
-
-    protected ApiClient createLeanixApiClient(String workspace)
-    {
-        ApiClient apiClient = new ApiClient();
-        apiClient.addDefaultHeader("X-Api-Sync-Mode", "sync");
-        apiClient.setBasePath(this.createApiUrl(workspace));
-        apiClient.setApiKey(this.getApiKey());
-
-        return apiClient;
-    }
-
-	public ApiClient getLeanixApiClient()
-	{
-		return leanixApiClient;
-	}
-
-    public Client getMtmApiClient()
-    {
-        return mtmApiClient;
-    }
 }
