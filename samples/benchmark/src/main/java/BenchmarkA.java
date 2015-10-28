@@ -49,7 +49,6 @@ import net.leanix.mtm.api.models.Workspace;
 public class BenchmarkA extends BaseBenchmarkTests {
 
     public static void main(String[] args) throws Exception {
-
         new BenchmarkA().run();
     }
 
@@ -60,7 +59,7 @@ public class BenchmarkA extends BaseBenchmarkTests {
                 String.format("%s creates %s services withc %s resources/service", getClass().getSimpleName(), numServices,
                         numResourcesPerService));
 
-        /********* start test **********/
+        /*************************** start test **********************************/
         try {
             ApiClient apiClient = ApiClientFactory.getApiClient(wsName);
             apiClient.addDefaultHeader("X-Api-Update-Relations", "true");
@@ -114,7 +113,7 @@ public class BenchmarkA extends BaseBenchmarkTests {
             System.out.println("Exception: " + ex.getMessage());
             ex.printStackTrace();
         }
-        /********* end test **********/
+        /*************************** test ends **********************************/
 
         System.out.println(stopWatch.prettyPrint());
         double totalTimeSeconds = getSumOfLastTasksInSeconds(stopWatch, stopWatch.getTaskCount() - 1);
