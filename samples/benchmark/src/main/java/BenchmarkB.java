@@ -1,3 +1,4 @@
+
 /*
  * The MIT License (MIT)	 
  *
@@ -21,10 +22,12 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.springframework.util.StopWatch;
+
 import net.leanix.api.BusinessCapabilitiesApi;
 import net.leanix.api.ConsumersApi;
 import net.leanix.api.ResourcesApi;
@@ -34,67 +37,80 @@ import net.leanix.api.models.BusinessCapability;
 import net.leanix.api.models.Consumer;
 import net.leanix.api.models.Resource;
 import net.leanix.api.models.Service;
-import net.leanix.api.models.ServiceHasResource;
-import net.leanix.benchmark.ApiClientFactory;
-import net.leanix.benchmark.Helper;
-import net.leanix.mtm.api.models.Workspace;
-import java.util.concurrent.ThreadLocalRandom;
 import net.leanix.api.models.ServiceHasBusinessCapability;
 import net.leanix.api.models.ServiceHasConsumer;
+import net.leanix.api.models.ServiceHasResource;
+import net.leanix.benchmark.ApiClientFactory;
+import net.leanix.benchmark.ConfigurationProvider;
+import net.leanix.benchmark.Helper;
+import net.leanix.benchmark.WorkspaceHelper;
 
 /**
- * Creates a list of services (SERVICE_COUNT) with a list of linked
- * resources (RESOURCE_PER_SERVICE_COUNT)
+ * Creates a list of services (SERVICE_COUNT) with a list of linked resources (RESOURCE_PER_SERVICE_COUNT)
  * 
  * @author andre
  */
-public class BenchmarkB {
-    
-    public static void main(String[] args) {
-        try {
-            Helper h = new Helper();
+public class BenchmarkB extends BaseBenchmarkTests {
 
-            ApiClient apiClient = ApiClientFactory.getApiClient();
+    public static void main(String[] args) {
+        new BenchmarkB().run();
+    }
+
+    private void run() {
+        int numServices = ConfigurationProvider.getServicesCount();
+        int numResourcesPerService = ConfigurationProvider.getNumResourcesPerService();
+        StopWatch stopWatch = new StopWatch(
+                String.format("%s creates %s services withc %s resources/service", getClass().getSimpleName(), numServices,
+                        numResourcesPerService));
+
+        /*************************** start test **********************************/
+        try {
+            ApiClient apiClient = ApiClientFactory.getApiClient(wsName);
             apiClient.addDefaultHeader("X-Api-Update-Relations", "true");
 
             ServicesApi servicesApi = new ServicesApi(apiClient);
             ResourcesApi resourcesApi = new ResourcesApi(apiClient);
             ConsumersApi consumersApi = new ConsumersApi(apiClient);
             BusinessCapabilitiesApi businessCapabilitiesApi = new BusinessCapabilitiesApi(apiClient);
-            
-            Workspace w = new Workspace();
-            SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
-            w.setName("benchmarka" + format.format(new Date()));
-            
-            // Todo: Create fresh workspace in MTM
-            
+
+            // ensure workspace is present
+            stopWatch.start("search for existing or create new workspace");
+            new WorkspaceHelper(wsName).getExistingWorkspaceOrCreateNew();
+            stopWatch.stop();
+
             // Add consumers
+            Helper h = new Helper(configurationProvider.getRandomSeed());
             List<Consumer> consumers = new ArrayList<>();
-            for (int i = 0; i < Integer.parseInt(h.getProperty("consumers.count", "20")); i++) {
+            stopWatch.start("adding Consumers " + Helper.getProperty("consumers.count", "20"));
+            for (int i = 0; i < Integer.parseInt(Helper.getProperty("consumers.count", "20")); i++) {
                 Consumer c = new Consumer();
                 c.setName(h.getUniqueString());
                 c.setDescription(h.getUniqueText(10));
                 c = consumersApi.createConsumer(c);
                 consumers.add(c);
             }
-            
+            stopWatch.stop();
+
             // Add business capability
             List<BusinessCapability> bcs = new ArrayList<>();
-            for (int i = 0; i < Integer.parseInt(h.getProperty("businessCapabilities.count", "8")); i++) {
+            stopWatch.start("adding BusinessCapabilities " + Helper.getProperty("businessCapabilities.count", "8"));
+            for (int i = 0; i < Integer.parseInt(Helper.getProperty("businessCapabilities.count", "8")); i++) {
                 BusinessCapability bc = new BusinessCapability();
                 bc.setName(h.getUniqueString());
                 bc.setDescription(h.getUniqueText(10));
                 bc = businessCapabilitiesApi.createBusinessCapability(bc);
                 bcs.add(bc);
             }
-            
+            stopWatch.stop();
+
             // Create services
-            for (int i = 0; i < Integer.parseInt(h.getProperty("services.count", "50")); i++) {
+            for (int i = 0; i < numServices; i++) {
+                stopWatch.start("Service " + i);
                 Service s = new Service();
                 s.setName(h.getUniqueString());
                 s.setDescription(h.getUniqueText(10));
                 s.setFactSheetHasLifecycles(h.getRandomLifecycle("2010-01-10", "2020-01-01"));
-                
+
                 if (consumers.size() > 0) {
                     Consumer cur = consumers.get(ThreadLocalRandom.current().nextInt(0, consumers.size() - 1));
                     ServiceHasConsumer shc = new ServiceHasConsumer();
@@ -104,7 +120,7 @@ public class BenchmarkB {
                     shcList.add(shc);
                     s.setServiceHasConsumers(shcList);
                 }
-                
+
                 if (bcs.size() > 0) {
                     BusinessCapability cur = bcs.get(ThreadLocalRandom.current().nextInt(0, bcs.size() - 1));
                     ServiceHasBusinessCapability shb = new ServiceHasBusinessCapability();
@@ -114,33 +130,41 @@ public class BenchmarkB {
                     shbList.add(shb);
                     s.setServiceHasBusinessCapabilities(shbList);
                 }
-                
+
                 s = servicesApi.createService(s);
                 System.out.println("Create SERVICE " + i + ", name = " + s.getName() + ", id = " + s.getID());
-                
+
                 // Create resources
-                for (int x = 0; x < Integer.parseInt(h.getProperty("resourcesPerServices.count", "5")); x++) {
+                for (int x = 0; x < numResourcesPerService; x++) {
                     Resource r = new Resource();
                     r.setName(h.getUniqueString());
                     r.setDescription(h.getUniqueText(10));
                     r.setFactSheetHasLifecycles(h.getRandomLifecycle("2012-01-10", "2020-01-01"));
-                    
+
                     ServiceHasResource shr = new ServiceHasResource();
                     shr.setServiceID(s.getID());
                     shr.setComment("Created by SDK");
-                    
+
                     List<ServiceHasResource> shrList = new ArrayList<>();
                     shrList.add(shr);
                     r.setServiceHasResources(shrList);
-                    
+
                     r = resourcesApi.createResource(r);
-                    
+
                     System.out.println("Create RESOURCE " + i + ", name = " + r.getName() + ", id = " + r.getID());
                 }
+                stopWatch.stop();
             }
-           
+
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
         }
+        /*************************** test ends **********************************/
+
+        System.out.println(stopWatch.prettyPrint());
+        double totalTimeSeconds = getSumOfLastTasksInSeconds(stopWatch, stopWatch.getTaskCount() - 3);
+        System.out.println(String.format("Complete Job processing time : %.2f s (%d:%02d)", totalTimeSeconds,
+                (int) totalTimeSeconds / 60, (int) totalTimeSeconds % 60));
+        System.out.println(String.format("Average Time / FS            : %.3f s", totalTimeSeconds / numServices));
     }
 }

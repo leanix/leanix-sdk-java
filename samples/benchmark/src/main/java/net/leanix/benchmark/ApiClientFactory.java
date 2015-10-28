@@ -22,6 +22,8 @@
  */
 package net.leanix.benchmark;
 
+import org.springframework.util.StringUtils;
+
 import net.leanix.api.common.ApiClient;
 
 public class ApiClientFactory {
@@ -33,13 +35,22 @@ public class ApiClientFactory {
      * @return
      * @throws Exception
      */
-    public static ApiClient getApiClient() throws Exception {
-        Helper helper = new Helper();
+    public static ApiClient getApiClient(String workspaceName) throws Exception {
+        String apiHostName = ConfigurationProvider.getApiHostName();
 
+        if (StringUtils.isEmpty(apiHostName)) {
+            return getApiClient(ConfigurationProvider.getApiBasePath(),
+                    ConfigurationProvider.getApiKey());
+        }
+        return getApiClient(String.format("https://%s/%s/api/v1", apiHostName, workspaceName),
+                ConfigurationProvider.getApiKey());
+    }
+
+    public static ApiClient getApiClient(String basePath, String apiKey) throws Exception {
         ApiClient apiClient = new ApiClient();
         apiClient.addDefaultHeader("X-Api-Sync-Mode", "sync");
-        apiClient.setBasePath(helper.getProperty("api.basePath", "https://local-eam.leanix.net/demo/api/v1"));
-        apiClient.setApiKey(helper.getProperty("api.key", "XXX"));
+        apiClient.setBasePath(basePath);
+        apiClient.setApiKey(apiKey);
 
         return apiClient;
     }
