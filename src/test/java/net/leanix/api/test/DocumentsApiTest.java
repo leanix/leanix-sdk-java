@@ -31,7 +31,6 @@ import net.leanix.api.DocumentsApi;
 import net.leanix.api.common.ValidationException;
 import net.leanix.api.models.Document;
 
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -40,16 +39,15 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class DocumentsApiTest
+public class DocumentsApiTest extends TestBase
 {
-	@ClassRule public static WorkspaceSetupRule setup = new WorkspaceSetupRule();
 	@Rule public ExpectedException thrown = ExpectedException.none();
 
 	final Logger logger = LoggerFactory.getLogger(DocumentsApiTest.class);
 
 	protected DocumentsApi getApi() throws Exception
 	{
-		DocumentsApi api = new DocumentsApi(setup.getApiClient());
+		DocumentsApi api = getDocumentsApi();
 		return api;
 	}
 

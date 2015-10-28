@@ -29,34 +29,31 @@ import java.util.List;
 
 import net.leanix.api.common.*;
 import net.leanix.api.models.Service;
-import net.leanix.api.models.Service;
 import net.leanix.api.models.ServiceHasInterface;
 import net.leanix.api.*;
 import net.leanix.api.test.*;
 
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ServicesApiServiceHasInterfacesTest
+public class ServicesApiServiceHasInterfacesTest extends TestBase
 {
-	@ClassRule public static WorkspaceSetupRule setup = new WorkspaceSetupRule();
 	@Rule public ExpectedException thrown = ExpectedException.none();
 
 	final Logger logger = LoggerFactory.getLogger(ServicesApiServiceHasInterfacesTest.class);
 
 	protected ServicesApi getApi() throws Exception
 	{
-		ServicesApi api = new ServicesApi(setup.getApiClient());
+		ServicesApi api = getServicesApi();
 		return api;
 	}
 
 	protected ServicesApi getApiRelated() throws Exception
 	{
-		ServicesApi api = new ServicesApi(setup.getApiClient());
+		ServicesApi api = getServicesApi();
 		return api;
 	}	
 
