@@ -30,7 +30,8 @@ If you'd prefer to build the SDK yourself, it's as simple as running
 $ mvn package
 ```
 
-You'll find `leanix-sdk-java-1.2.1.jar` in the target directory after the build completes. This single JAR contains everything needed to use the API.
+You'll find `leanix-sdk-java-1.6.5.jar`, together with a sources jar and a javadoc jar in the target directory after the build completes.
+In target/lib you will find the required libraries to use the SDK.
 
 ## Testing ##
 
@@ -38,7 +39,16 @@ You'll find `leanix-sdk-java-1.2.1.jar` in the target directory after the build 
 The SDK contains units tests. They can be executed as follows:
 
 ```bash
-$ mvn test -Dapi.key=<Your-Api-Key-Here> -Dapi.baseurl=https://app.leanix.net
+$ mvn test \\
+    -Dapi.baseurl=https://app.leanix.net \\
+    -Dapi.mtm.baseurl=https://svc.leanix.net \\
+    -Dapi.tokenUrl=https://svc.leanix.net/services/mtm/v1/oauth2/token \\
+    -Dapi.verificationUrl=https://svc.leanix.net/services/mtm/v1/oauth2/verify \\
+    -Dapi.clientId=<client application to generate workspace and permissions> \\
+    -Dapi.clientSecret=<secret for client application> \\
+    -Dapi.userEmail=<user to use for tests> \\
+    -Dapi.key=<api key of user to use for tests> \\
+    -Djava.util.logging.config.file=./target/test-classes/logging.properties
 ```
 
 ## Usage ##
