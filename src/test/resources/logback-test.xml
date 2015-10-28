@@ -14,9 +14,9 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT" />
     </root>
 
-    <logger name="com.sun.jersey.api.client.filter" level="WARN"/>
+    <logger name="com.sun.jersey.api.client.filter" level="INFO"/>
 </configuration>
