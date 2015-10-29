@@ -11,4 +11,9 @@ public class FakeTest {
     public void test2() throws InterruptedException {
         Thread.sleep(2000);
     }
+
+    @Test
+    public void test3() {
+        throw new RuntimeException();
+    }
 }
