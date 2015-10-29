@@ -31,4 +31,9 @@ public class TestReportGenerator {
         System.out.println("output file: " + file.getName());
         jaxbMarshaller.marshal(testSuite, System.out);
     }
+
+    @Test
+    public void testThatTakesALittleTime() throws InterruptedException {
+        Thread.sleep(2500);
+    }
 }
