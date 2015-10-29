@@ -14,11 +14,10 @@ public class TestReportGenerator {
     @Test
     public void testJaxb() throws JAXBException {
 
-        ReportBuilder reportBuilder = new ReportBuilder();
-        reportBuilder.withName("FakeTest-rwe");
+        ReportBuilder reportBuilder = new ReportBuilder().withName("FakeTest-rwe");
         reportBuilder.addSuccessfulTestResult("testRwe", 22.5);
-        reportBuilder.addErrorTestResult("testRwe", 22.5, "java.lang.RuntimeException");
-        
+        reportBuilder.addErrorTestResult("testRwe", 10.7, "java.lang.RuntimeException");
+
         TestSuite testSuite = reportBuilder.build();
 
         File file = new File("target/TEST-benchmarkreport.xml");
@@ -29,6 +28,7 @@ public class TestReportGenerator {
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
         jaxbMarshaller.marshal(testSuite, file);
+        System.out.println("output file: " + file.getName());
         jaxbMarshaller.marshal(testSuite, System.out);
     }
 }

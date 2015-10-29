@@ -11,6 +11,7 @@ public class ReportBuilder {
 
     public ReportBuilder addSuccessfulTestResult(String testName, double duration) {
         testSuite.testcases.add(new TestCase(duration, testName, testSuite.name));
+        testSuite.tests++;
         testSuite.time += duration;
         return this;
     }
@@ -24,6 +25,7 @@ public class ReportBuilder {
         TestCase testCase = new TestCase(duration, testName, testSuite.name);
         testCase.error = new Error(errorType);
         testSuite.testcases.add(testCase);
+        testSuite.tests++;
         testSuite.time += duration;
         return this;
     }
