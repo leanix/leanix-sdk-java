@@ -1,6 +1,11 @@
-import java.util.Arrays;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -9,6 +14,8 @@ import org.springframework.util.StopWatch;
 import org.springframework.util.StopWatch.TaskInfo;
 
 import net.leanix.benchmark.ConfigurationProvider;
+import net.leanix.benchmark.performance.ReportBuilder;
+import net.leanix.benchmark.performance.TestSuite;
 
 public abstract class BaseBenchmarkTests {
 
@@ -30,13 +37,42 @@ public abstract class BaseBenchmarkTests {
     }
 
     protected double getSumOfLastTasksInSeconds(StopWatch stopWatch, int count) {
-        List<TaskInfo> tasks = Arrays.asList(stopWatch.getTaskInfo());
         long sum = 0;
-        for (int i = 0; i < count; i++) {
-            sum += tasks.get(stopWatch.getTaskCount() - i - 1).getTimeMillis();
+        for (TaskInfo taskInfo : getLastTasks(stopWatch, count)) {
+            sum += taskInfo.getTimeMillis();
         }
 
         return TimeUnit.MILLISECONDS.toSeconds(sum);
     }
 
+    protected List<TaskInfo> getLastTasks(StopWatch stopWatch, int count) {
+        List<TaskInfo> tasks = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            tasks.add(stopWatch.getTaskInfo()[stopWatch.getTaskCount() - i - 1]);
+        }
+        return tasks;
+    }
+
+    protected void writeBenchmarkJUnitResultFile(Class<? extends BaseBenchmarkTests> benchmarkClass, List<TaskInfo> taskInfos)
+            throws JAXBException {
+        File file = new File(String.format("target/TEST-BENCHMARK_%s.xml", benchmarkClass.getSimpleName()));
+        ReportBuilder reportBuilder = new ReportBuilder().withName(benchmarkClass.getSimpleName());
+
+        for (TaskInfo time : taskInfos) {
+            reportBuilder.addSuccessfulTestResult(time.getTaskName(), time.getTimeSeconds());
+        }
+
+        TestSuite testSuite = reportBuilder.build();
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(testSuite.getClass());
+        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+        // output pretty printed
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        jaxbMarshaller.marshal(testSuite, file);
+        // System.out.println("output file: " + file.getName());
+        // jaxbMarshaller.marshal(testSuite, System.out);
+
+    }
 }

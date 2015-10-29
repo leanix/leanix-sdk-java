@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
+
 import org.springframework.util.StopWatch;
 
 import net.leanix.api.ResourcesApi;
@@ -52,7 +54,7 @@ public class BenchmarkA extends BaseBenchmarkTests {
         new BenchmarkA().run();
     }
 
-    private void run() {
+    private void run() throws JAXBException {
         int numServices = ConfigurationProvider.getServicesCount();
         int numResourcesPerService = ConfigurationProvider.getNumResourcesPerService();
         StopWatch stopWatch = new StopWatch(
@@ -114,12 +116,18 @@ public class BenchmarkA extends BaseBenchmarkTests {
             ex.printStackTrace();
         }
         /*************************** test ends **********************************/
-
+        // do some output to stdout
         System.out.println(stopWatch.prettyPrint());
-        double totalTimeSeconds = getSumOfLastTasksInSeconds(stopWatch, stopWatch.getTaskCount() - 1);
-        System.out.println(String.format("Complete Job processing time : %.2f s (%d:%02d)", totalTimeSeconds,
+        double totalTimeSeconds = stopWatch.getTotalTimeSeconds();
+        System.out.println(String.format("Complete Time of Run (+WS Setup) : %.2f s (%d:%02d)", totalTimeSeconds,
                 (int) totalTimeSeconds / 60, (int) totalTimeSeconds % 60));
-        System.out.println(String.format("Average Time / FS            : %.3f s", totalTimeSeconds / numServices));
+        double timeTestCase = getSumOfLastTasksInSeconds(stopWatch, stopWatch.getTaskCount() - 1);
+        System.out.println(String.format("Complete Job processing time     : %.2f s (%d:%02d)", timeTestCase,
+                (int) timeTestCase / 60, (int) timeTestCase % 60));
+        System.out.println(String.format("Average Time / FS                : %.3f s", timeTestCase / numServices));
+
+        // write junit result file used in jenkin's performance plugin
+        writeBenchmarkJUnitResultFile(getClass(), getLastTasks(stopWatch, stopWatch.getTaskCount() - 1));
     }
 
 }
