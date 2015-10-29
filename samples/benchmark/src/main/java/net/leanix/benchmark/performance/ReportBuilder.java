@@ -1,5 +1,12 @@
 package net.leanix.benchmark.performance;
 
+/**
+ * The schema of outgoing junit TEST-<testname>.xml file is based on surefire's output and this documentation here:
+ * http://stackoverflow.com/questions/3362304/where-can-i-find-the-dtd-or-xml-schema-of-surefire-generated-xml-test-testname
+ * 
+ * @author ralfwehner
+ *
+ */
 public class ReportBuilder {
 
     private final TestSuite testSuite = new TestSuite();

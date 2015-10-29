@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="testsuite")
+@XmlRootElement(name = "testsuite")
 public class TestSuite {
 
     @XmlAttribute
@@ -23,7 +23,7 @@ public class TestSuite {
     @XmlAttribute
     int tests = 0;
 
-    @XmlElement
+    @XmlElement(name = "testcase")
     List<TestCase> testcases = new ArrayList<>();
 
     public void addTestCase(TestCase testCase) {
