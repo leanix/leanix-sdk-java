@@ -58,7 +58,7 @@ public class WorkspaceHelper {
     public boolean getExistingWorkspaceOrCreateNew() throws net.leanix.dropkit.api.ApiException, ApiException {
         WorkspaceListResponse workspaceListResponse = workspacesApi.getWorkspaces(null, null, null, null);
         for (Workspace workspace : workspaceListResponse.getData()) {
-            System.out.println(String.format("Found workspace: %s", workspace.getName()));
+            // System.out.println(String.format("Found workspace: %s", workspace.getName()));
             if (workspace.getName().equals(workspaceName)) {
                 return true;
             }
@@ -99,7 +99,7 @@ public class WorkspaceHelper {
 
     private void addUserToWorkspace(Workspace workspace, String email) throws ApiException, net.leanix.dropkit.api.ApiException {
         UsersApi usersApi = new UsersApi(mtmApiClient);
-        System.out.println(String.format("looking user %s up", email));
+        System.out.println(String.format("looking for user %s", email));
         UserListResponse response = usersApi.getUsers(email, null, null, null, null);
         if (response.getData().size() != 1) {
             throw new RuntimeException("user " + email + " not found.");

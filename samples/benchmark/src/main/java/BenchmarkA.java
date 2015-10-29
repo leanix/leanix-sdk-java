@@ -28,6 +28,7 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 
 import org.springframework.util.StopWatch;
+import org.springframework.util.StopWatch.TaskInfo;
 
 import net.leanix.api.ResourcesApi;
 import net.leanix.api.ServicesApi;
@@ -38,6 +39,8 @@ import net.leanix.api.models.ServiceHasResource;
 import net.leanix.benchmark.ApiClientFactory;
 import net.leanix.benchmark.ConfigurationProvider;
 import net.leanix.benchmark.Helper;
+import net.leanix.benchmark.performance.ReportBuilder;
+import net.leanix.benchmark.performance.TestSuite;
 
 /**
  * Creates a list of services (SERVICE_COUNT) with a list of linked resources (RESOURCE_PER_SERVICE_COUNT)
@@ -109,7 +112,7 @@ public class BenchmarkA extends BaseBenchmarkTests {
             System.out.println("Exception: " + ex.getMessage());
             ex.printStackTrace();
         }
-        
+
         // do some output to stdout
         System.out.println(stopWatch.prettyPrint());
         double totalTimeSeconds = stopWatch.getTotalTimeSeconds();
@@ -121,7 +124,13 @@ public class BenchmarkA extends BaseBenchmarkTests {
         System.out.println(String.format("Average Time / FS                : %.3f s", timeTestCase / numServices));
 
         // write junit result file used in jenkin's performance plugin
-        writeBenchmarkJUnitResultFile(getClass(), getLastTasks(stopWatch, stopWatch.getTaskCount() - 1));
+        // TestSuite testSuite = createTestSuiteObjectBasedOnTaskInfo(getClass(),
+        // getLastTasks(stopWatch, stopWatch.getTaskCount() - 1));
+        ReportBuilder reportBuilder = new ReportBuilder().withName(getClass().getSimpleName());
+        TestSuite testSuite = reportBuilder
+                .addSuccessfulTestResult(String.format("Average time for %d FS", numServices), timeTestCase / numServices).build();
+
+        writeBenchmarkJUnitResultFile(getClass(), testSuite);
     }
 
 }

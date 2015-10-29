@@ -45,7 +45,8 @@ import net.leanix.api.models.ServiceHasResource;
 import net.leanix.benchmark.ApiClientFactory;
 import net.leanix.benchmark.ConfigurationProvider;
 import net.leanix.benchmark.Helper;
-import net.leanix.benchmark.WorkspaceHelper;
+import net.leanix.benchmark.performance.ReportBuilder;
+import net.leanix.benchmark.performance.TestSuite;
 
 /**
  * Creates a list of services (SERVICE_COUNT) with a list of linked resources (RESOURCE_PER_SERVICE_COUNT)
@@ -174,6 +175,12 @@ public class BenchmarkB extends BaseBenchmarkTests {
         System.out.println(String.format("Average Time / FS                : %.3f s", timeTestCase / numServices));
 
         // write junit result file used in jenkin's performance plugin
-        writeBenchmarkJUnitResultFile(getClass(), getLastTasks(stopWatch, stopWatch.getTaskCount() - 3));
+        // TestSuite testSuite = createTestSuiteObjectBasedOnTaskInfo(getClass(),
+        // getLastTasks(stopWatch, stopWatch.getTaskCount() - 3));
+        ReportBuilder reportBuilder = new ReportBuilder().withName(getClass().getSimpleName());
+        TestSuite testSuite = reportBuilder
+                .addSuccessfulTestResult(String.format("Average time for %d FS", numServices), timeTestCase / numServices).build();
+
+        writeBenchmarkJUnitResultFile(getClass(), testSuite);
     }
 }

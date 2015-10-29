@@ -66,7 +66,7 @@ public abstract class BaseBenchmarkTests {
             sum += taskInfo.getTimeMillis();
         }
 
-        return TimeUnit.MILLISECONDS.toSeconds(sum);
+        return sum / 1000.0;
     }
 
     protected List<TaskInfo> getLastTasks(StopWatch stopWatch, int count) {
@@ -77,16 +77,9 @@ public abstract class BaseBenchmarkTests {
         return tasks;
     }
 
-    protected void writeBenchmarkJUnitResultFile(Class<? extends BaseBenchmarkTests> benchmarkClass, List<TaskInfo> taskInfos)
+    protected void writeBenchmarkJUnitResultFile(Class<? extends BaseBenchmarkTests> benchmarkClass, TestSuite testSuite)
             throws JAXBException {
         File file = new File(String.format("target/TEST-BENCHMARK_%s.xml", benchmarkClass.getSimpleName()));
-        ReportBuilder reportBuilder = new ReportBuilder().withName(benchmarkClass.getSimpleName());
-
-        for (TaskInfo time : taskInfos) {
-            reportBuilder.addSuccessfulTestResult(time.getTaskName(), time.getTimeSeconds());
-        }
-
-        TestSuite testSuite = reportBuilder.build();
 
         JAXBContext jaxbContext = JAXBContext.newInstance(testSuite.getClass());
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -98,5 +91,16 @@ public abstract class BaseBenchmarkTests {
         // System.out.println("output file: " + file.getName());
         // jaxbMarshaller.marshal(testSuite, System.out);
 
+    }
+
+    protected TestSuite createTestSuiteObjectBasedOnTaskInfo(Class<? extends BaseBenchmarkTests> benchmarkClass,
+            List<TaskInfo> taskInfos) {
+        ReportBuilder reportBuilder = new ReportBuilder().withName(benchmarkClass.getSimpleName());
+
+        for (TaskInfo taskInfo : taskInfos) {
+            reportBuilder.addSuccessfulTestResult(taskInfo.getTaskName(), taskInfo.getTimeSeconds());
+        }
+
+        return reportBuilder.build();
     }
 }
