@@ -25,4 +25,9 @@ public class TestSuite {
 
     @XmlElement
     List<TestCase> testcases = new ArrayList<>();
+
+    public void addTestCase(TestCase testCase) {
+        testcases.add(testCase);
+        tests++;
+    }
 }

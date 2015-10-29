@@ -15,8 +15,8 @@ public class TestReportGenerator {
     public void testJaxb() throws JAXBException {
 
         ReportBuilder reportBuilder = new ReportBuilder().withName("FakeTest-rwe");
-        reportBuilder.addSuccessfulTestResult("testRwe", 22.5);
-        reportBuilder.addErrorTestResult("testRwe", 10.7, "java.lang.RuntimeException");
+        reportBuilder.addSuccessfulTestResult("testRweSuccess", 22.5);
+        reportBuilder.addErrorTestResult("testRweError", 10.7, "java.lang.RuntimeException");
 
         TestSuite testSuite = reportBuilder.build();
 
