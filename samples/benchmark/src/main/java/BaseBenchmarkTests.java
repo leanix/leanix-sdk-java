@@ -14,13 +14,37 @@ import org.springframework.util.StopWatch;
 import org.springframework.util.StopWatch.TaskInfo;
 
 import net.leanix.benchmark.ConfigurationProvider;
+import net.leanix.benchmark.WorkspaceHelper;
 import net.leanix.benchmark.performance.ReportBuilder;
 import net.leanix.benchmark.performance.TestSuite;
+import net.leanix.dropkit.api.ApiException;
 
 public abstract class BaseBenchmarkTests {
 
+    private static final String API_WORKSPACE_NAME = "api.workspaceName";
+
     protected String wsName;
+
     protected ConfigurationProvider configurationProvider;
+
+    public abstract void runBenchmarkOnWorkspace(StopWatch stopWatch) throws JAXBException;
+
+    protected void run(StopWatch stopWatch)
+            throws ApiException, net.leanix.api.common.ApiException, JAXBException {
+
+        // ensure workspace is present
+        stopWatch.start("search for existing or create new workspace");
+        new WorkspaceHelper(wsName).getExistingWorkspaceOrCreateNew();
+        stopWatch.stop();
+
+        // run the concreate tests on new / existing WS
+        runBenchmarkOnWorkspace(stopWatch);
+
+        // cleanup WS, if not specified before
+        if (StringUtils.isBlank(System.getProperty(API_WORKSPACE_NAME))) {
+            new WorkspaceHelper(wsName).deleteWorkspace();
+        }
+    }
 
     public BaseBenchmarkTests() {
         super();
@@ -28,7 +52,7 @@ public abstract class BaseBenchmarkTests {
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
 
-        wsName = System.getProperty("api.workspaceName");
+        wsName = System.getProperty(API_WORKSPACE_NAME);
         if (StringUtils.isBlank(wsName)) {
             wsName = BenchmarkA.class.getSimpleName() + 'x' + RandomStringUtils.random(4, "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ");
         }

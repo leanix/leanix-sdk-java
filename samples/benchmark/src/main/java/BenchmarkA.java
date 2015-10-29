@@ -22,9 +22,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.JAXBException;
@@ -40,8 +38,6 @@ import net.leanix.api.models.ServiceHasResource;
 import net.leanix.benchmark.ApiClientFactory;
 import net.leanix.benchmark.ConfigurationProvider;
 import net.leanix.benchmark.Helper;
-import net.leanix.benchmark.WorkspaceHelper;
-import net.leanix.mtm.api.models.Workspace;
 
 /**
  * Creates a list of services (SERVICE_COUNT) with a list of linked resources (RESOURCE_PER_SERVICE_COUNT)
@@ -50,33 +46,31 @@ import net.leanix.mtm.api.models.Workspace;
  */
 public class BenchmarkA extends BaseBenchmarkTests {
 
+    int numServices = ConfigurationProvider.getServicesCount();
+    int numResourcesPerService = ConfigurationProvider.getNumResourcesPerService();
+    final StopWatch stopWatch;
+
     public static void main(String[] args) throws Exception {
-        new BenchmarkA().run();
+        BenchmarkA instance = new BenchmarkA();
+        instance.run(instance.stopWatch);
     }
 
-    private void run() throws JAXBException {
-        int numServices = ConfigurationProvider.getServicesCount();
-        int numResourcesPerService = ConfigurationProvider.getNumResourcesPerService();
-        StopWatch stopWatch = new StopWatch(
+    public BenchmarkA() {
+        super();
+        stopWatch = new StopWatch(
                 String.format("%s creates %s services withc %s resources/service", getClass().getSimpleName(), numServices,
                         numResourcesPerService));
+    }
 
-        /*************************** start test **********************************/
+    @Override
+    public void runBenchmarkOnWorkspace(StopWatch stopWatch) throws JAXBException {
+
         try {
             ApiClient apiClient = ApiClientFactory.getApiClient(wsName);
             apiClient.addDefaultHeader("X-Api-Update-Relations", "true");
 
             ServicesApi servicesApi = new ServicesApi(apiClient);
             ResourcesApi resourcesApi = new ResourcesApi(apiClient);
-
-            Workspace workspace = new Workspace();
-            SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
-            workspace.setName("benchmarka" + format.format(new Date()));
-
-            // ensure workspace is present
-            stopWatch.start("search for existing or create new workspace");
-            new WorkspaceHelper(wsName).getExistingWorkspaceOrCreateNew();
-            stopWatch.stop();
 
             // Create services
             Helper helper = new Helper(configurationProvider.getRandomSeed());
@@ -115,7 +109,7 @@ public class BenchmarkA extends BaseBenchmarkTests {
             System.out.println("Exception: " + ex.getMessage());
             ex.printStackTrace();
         }
-        /*************************** test ends **********************************/
+        
         // do some output to stdout
         System.out.println(stopWatch.prettyPrint());
         double totalTimeSeconds = stopWatch.getTotalTimeSeconds();

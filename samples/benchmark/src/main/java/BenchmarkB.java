@@ -54,18 +54,24 @@ import net.leanix.benchmark.WorkspaceHelper;
  */
 public class BenchmarkB extends BaseBenchmarkTests {
 
-    public static void main(String[] args) throws JAXBException {
-        new BenchmarkB().run();
+    int numServices = ConfigurationProvider.getServicesCount();
+    int numResourcesPerService = ConfigurationProvider.getNumResourcesPerService();
+    final StopWatch stopWatch;
+
+    public static void main(String[] args) throws Exception {
+        BenchmarkB instance = new BenchmarkB();
+        instance.run(instance.stopWatch);
     }
 
-    private void run() throws JAXBException {
-        int numServices = ConfigurationProvider.getServicesCount();
-        int numResourcesPerService = ConfigurationProvider.getNumResourcesPerService();
-        StopWatch stopWatch = new StopWatch(
+    public BenchmarkB() {
+        super();
+        stopWatch = new StopWatch(
                 String.format("%s creates %s services withc %s resources/service", getClass().getSimpleName(), numServices,
                         numResourcesPerService));
+    }
 
-        /*************************** start test **********************************/
+    @Override
+    public void runBenchmarkOnWorkspace(StopWatch stopWatch) throws JAXBException {
         try {
             ApiClient apiClient = ApiClientFactory.getApiClient(wsName);
             apiClient.addDefaultHeader("X-Api-Update-Relations", "true");
@@ -74,11 +80,6 @@ public class BenchmarkB extends BaseBenchmarkTests {
             ResourcesApi resourcesApi = new ResourcesApi(apiClient);
             ConsumersApi consumersApi = new ConsumersApi(apiClient);
             BusinessCapabilitiesApi businessCapabilitiesApi = new BusinessCapabilitiesApi(apiClient);
-
-            // ensure workspace is present
-            stopWatch.start("search for existing or create new workspace");
-            new WorkspaceHelper(wsName).getExistingWorkspaceOrCreateNew();
-            stopWatch.stop();
 
             // Add consumers
             Helper h = new Helper(configurationProvider.getRandomSeed());
@@ -161,7 +162,6 @@ public class BenchmarkB extends BaseBenchmarkTests {
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
         }
-        /*************************** test ends **********************************/
 
         // do some output to stdout
         System.out.println(stopWatch.prettyPrint());
@@ -175,6 +175,5 @@ public class BenchmarkB extends BaseBenchmarkTests {
 
         // write junit result file used in jenkin's performance plugin
         writeBenchmarkJUnitResultFile(getClass(), getLastTasks(stopWatch, stopWatch.getTaskCount() - 3));
-
     }
 }

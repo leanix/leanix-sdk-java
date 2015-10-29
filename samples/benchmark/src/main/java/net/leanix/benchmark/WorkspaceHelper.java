@@ -65,7 +65,6 @@ public class WorkspaceHelper {
         }
 
         // create a new workspace with required name
-
         Account account = lookupAccount(ACCOUNT_NAME);
         Contract contract = lookupContract(account.getId(), CONTRACT_DISPLAY_NAME);
 
@@ -79,11 +78,23 @@ public class WorkspaceHelper {
         WorkspaceResponse response = workspacesApi.createWorkspace(newWorkspace);
         Workspace workspace = response.getData();
 
-        System.out.println(String.format("workspace '%s' created, has ID %s", workspace.getName(), workspace.getId()));
+        System.out.println(String.format("Workspace '%s' created, has ID %s", workspace.getName(), workspace.getId()));
 
         addUserToWorkspace(workspace, ConfigurationProvider.getApiUserEmail());
 
         return false;
+    }
+
+    public void deleteWorkspace() throws net.leanix.dropkit.api.ApiException {
+
+        WorkspaceListResponse workspaceListResponse = workspacesApi.getWorkspaces(workspaceName, null, null, null);
+        Workspace workspace = workspaceListResponse.getData().get(0);
+        workspace.setStatus("BLOCKED");
+        workspacesApi.updateWorkspace(workspace.getId(), workspace);
+
+        // mtmt
+        workspacesApi.deleteWorkspace(workspace.getId());
+        System.out.println(String.format("Workspace '%s' deleted.", workspace.getName()));
     }
 
     private void addUserToWorkspace(Workspace workspace, String email) throws ApiException, net.leanix.dropkit.api.ApiException {
