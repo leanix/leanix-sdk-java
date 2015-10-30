@@ -45,7 +45,7 @@ public class WorkspaceSetupRule extends ExternalResource
      */
     private static final String CONTRACT_DISPLAY_NAME = "leanix eam REGULAR";
 
-    protected final Client mtmApiClient = ClientFactory.create(createMtmApiUrl(), getTokenUrl(), getVerificationUrl(), getClientId(), getClientSecret());
+    protected final Client mtmApiClient = ClientFactory.create(createMtmApiUrl(), getTokenUrl(), getVerificationUrl(), getClientId(), getClientSecret(), false);
     protected final AccountsApi accountsApi = new AccountsApi(mtmApiClient);
 
     // this is workspace dependent!
@@ -109,6 +109,7 @@ public class WorkspaceSetupRule extends ExternalResource
     protected ApiClient createLeanixApiClient(String workspaceName)
     {
         ApiClient apiClient = new ApiClient();
+        apiClient.setEnableHttpLogging(false);
         apiClient.addDefaultHeader("X-Api-Sync-Mode", "sync");
         apiClient.setBasePath(createApiUrl(workspaceName));
         apiClient.setApiKey(getApiKey());
@@ -139,24 +140,11 @@ public class WorkspaceSetupRule extends ExternalResource
 	}
 
 	// cannot delete workspaces due to referential integrity constraints already immediately after creation of the workspace
-	/*
 	@Override
 	protected void after()
 	{
-		try
-		{
-			if (this.cleanUpWorkspace)
-			{
-				this.deleteWorkspace(this.workspace);
-			}
-		}
-		catch (Exception e)
-		{
-			logger.error("Unable to delete workspace with ID = " + this.workspace.getId());
-			e.printStackTrace();
-		}
+        this.deleteWorkspace(this.workspace);
 	}
-	*/
 
     protected Account lookupAccount(String accountName) throws ApiException {
         AccountListResponse response = accountsApi.getAccounts(accountName, null, null, null);
@@ -247,7 +235,7 @@ public class WorkspaceSetupRule extends ExternalResource
         logger.debug("permission added");
     }
 
-	protected void deleteWorkspace(Workspace workspace) throws Exception
+	protected void deleteWorkspace(Workspace workspace)
 	{
 		if (workspace == null || workspace.getId() == null)
 		{
@@ -257,12 +245,14 @@ public class WorkspaceSetupRule extends ExternalResource
 		WorkspacesApi workspacesApi = new WorkspacesApi(mtmApiClient);
 		try
 		{
+            workspace.setStatus("BLOCKED");
+            workspacesApi.updateWorkspace(workspace.getId(), workspace);
 			workspacesApi.deleteWorkspace(workspace.getId());
 			logger.debug("Workspace deleted = " + workspace.getId());
 		}
 		catch (ApiException e)
 		{
-			logger.error("Unable to delete workspace with ID = " + workspace.getId(), e);
+            throw new RuntimeException("Unable to delete workspace with ID = " + workspace.getId(), e);
 		}
 	}
 }
