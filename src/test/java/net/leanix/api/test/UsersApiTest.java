@@ -23,6 +23,7 @@
 
 package net.leanix.api.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -30,15 +31,11 @@ import net.leanix.api.UsersApi;
 import net.leanix.api.models.User;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class UsersApiTest extends TestBase
 {
-	final Logger logger = LoggerFactory.getLogger(UsersApiTest.class);
-	
 	protected UsersApi getApi() throws Exception
 	{
 		UsersApi api = getUsersApi();
@@ -51,7 +48,7 @@ public class UsersApiTest extends TestBase
 		List<User> users = this.getApi().getUsers(false);
 		
 		// Only 1 user should be in the database after the workspace was created
-		assertTrue(users.size() == 1);
+		assertEquals(1, users.size());
 	}
 	
 	@Test
