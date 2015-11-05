@@ -75,7 +75,7 @@ public class WorkspaceHelper {
         newWorkspace.setFeatureBundleId(apiSetup);
         newWorkspace.setName(workspaceName);
 
-        WorkspaceResponse response = workspacesApi.createWorkspace(newWorkspace);
+        WorkspaceResponse response = workspacesApi.createWorkspace(newWorkspace, null);
         Workspace workspace = response.getData();
 
         System.out.println(String.format("Workspace '%s' created, has ID %s", workspace.getName(), workspace.getId()));
@@ -90,7 +90,7 @@ public class WorkspaceHelper {
         WorkspaceListResponse workspaceListResponse = workspacesApi.getWorkspaces(workspaceName, null, null, null);
         Workspace workspace = workspaceListResponse.getData().get(0);
         workspace.setStatus("BLOCKED");
-        workspacesApi.updateWorkspace(workspace.getId(), workspace);
+        workspacesApi.updateWorkspace(workspace.getId(), workspace, null);
 
         // mtmt
         workspacesApi.deleteWorkspace(workspace.getId());
@@ -119,7 +119,7 @@ public class WorkspaceHelper {
                 String.format("try to add %s %s permission to workspace for the user...", permission.getStatus(),
                         permission.getRole()));
 
-        permissionsApi.setPermission(permission);
+        permissionsApi.setPermission(permission, "sync");
 
         System.out.println("permission added");
     }
