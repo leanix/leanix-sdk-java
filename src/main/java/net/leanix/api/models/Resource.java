@@ -30,12 +30,15 @@ import java.io.Serializable;
 import java.util.*;
 import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.ResourceHasProvider;
+import net.leanix.api.models.FactSheetHasRequires;
 import net.leanix.api.models.FactSheetHasPredecessor;
 import net.leanix.api.models.ServiceHasResource;
 import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.FactSheetHasChild;
 import net.leanix.api.models.UserSubscription;
+import net.leanix.api.models.ProjectHasResource;
 import net.leanix.api.models.FactSheetHasSuccessor;
+import net.leanix.api.models.FactSheetHasRequiredby;
 import net.leanix.api.models.ResourceHasResourceCapability;
 import net.leanix.api.models.FactSheetHasParent;
 public class Resource implements Serializable
@@ -89,11 +92,17 @@ public class Resource implements Serializable
 	/*  */
 	private List<FactSheetHasSuccessor> factSheetHasSuccessors = new ArrayList<FactSheetHasSuccessor>();
 	/*  */
+	private List<FactSheetHasRequires> factSheetHasRequires = new ArrayList<FactSheetHasRequires>();
+	/*  */
+	private List<FactSheetHasRequiredby> factSheetHasRequiredby = new ArrayList<FactSheetHasRequiredby>();
+	/*  */
 	private List<ResourceHasProvider> resourceHasProviders = new ArrayList<ResourceHasProvider>();
 	/*  */
 	private List<ResourceHasResourceCapability> resourceHasResourceCapabilities = new ArrayList<ResourceHasResourceCapability>();
 	/*  */
 	private List<ServiceHasResource> serviceHasResources = new ArrayList<ServiceHasResource>();
+	/*  */
+	private List<ProjectHasResource> projectHasResources = new ArrayList<ProjectHasResource>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -382,6 +391,30 @@ public class Resource implements Serializable
 		this.factSheetHasSuccessors = factSheetHasSuccessors;
 	}
 
+	@JsonProperty("factSheetHasRequires")
+	public List<FactSheetHasRequires> getFactSheetHasRequires()
+	{
+		return factSheetHasRequires;
+	}
+	
+	@JsonProperty("factSheetHasRequires")
+	public void setFactSheetHasRequires(List<FactSheetHasRequires> factSheetHasRequires)
+	{
+		this.factSheetHasRequires = factSheetHasRequires;
+	}
+
+	@JsonProperty("factSheetHasRequiredby")
+	public List<FactSheetHasRequiredby> getFactSheetHasRequiredby()
+	{
+		return factSheetHasRequiredby;
+	}
+	
+	@JsonProperty("factSheetHasRequiredby")
+	public void setFactSheetHasRequiredby(List<FactSheetHasRequiredby> factSheetHasRequiredby)
+	{
+		this.factSheetHasRequiredby = factSheetHasRequiredby;
+	}
+
 	@JsonProperty("resourceHasProviders")
 	public List<ResourceHasProvider> getResourceHasProviders()
 	{
@@ -418,6 +451,18 @@ public class Resource implements Serializable
 		this.serviceHasResources = serviceHasResources;
 	}
 
+	@JsonProperty("projectHasResources")
+	public List<ProjectHasResource> getProjectHasResources()
+	{
+		return projectHasResources;
+	}
+	
+	@JsonProperty("projectHasResources")
+	public void setProjectHasResources(List<ProjectHasResource> projectHasResources)
+	{
+		this.projectHasResources = projectHasResources;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -447,9 +492,12 @@ public class Resource implements Serializable
 		sb.append("  userSubscriptions: ").append(userSubscriptions).append("\n");
 		sb.append("  factSheetHasPredecessors: ").append(factSheetHasPredecessors).append("\n");
 		sb.append("  factSheetHasSuccessors: ").append(factSheetHasSuccessors).append("\n");
+		sb.append("  factSheetHasRequires: ").append(factSheetHasRequires).append("\n");
+		sb.append("  factSheetHasRequiredby: ").append(factSheetHasRequiredby).append("\n");
 		sb.append("  resourceHasProviders: ").append(resourceHasProviders).append("\n");
 		sb.append("  resourceHasResourceCapabilities: ").append(resourceHasResourceCapabilities).append("\n");
 		sb.append("  serviceHasResources: ").append(serviceHasResources).append("\n");
+		sb.append("  projectHasResources: ").append(projectHasResources).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

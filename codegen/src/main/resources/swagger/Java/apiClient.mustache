@@ -1,18 +1,18 @@
 /*
-* The MIT License (MIT)	 
+* The MIT License (MIT)
 *
-* Copyright (c) 2014 LeanIX GmbH
-* 
+* Copyright (c) 2015 LeanIX GmbH
+*
 * Permission is hereby granted, free of charge, to any person obtaining a copy of
 * this software and associated documentation files (the "Software"), to deal in
 * the Software without restriction, including without limitation the rights to
 * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
 * the Software, and to permit persons to whom the Software is furnished to do so,
 * subject to the following conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be included in all
 * copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
 * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -23,32 +23,50 @@
 
 package {{invokerPackage}};
 
-import com.fasterxml.jackson.core.JsonGenerator.Feature;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
+import com.fasterxml.jackson.databind.JavaType;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.api.client.WebResource.Builder;
+import com.sun.jersey.api.client.filter.LoggingFilter;
 
-import javax.ws.rs.core.Response.Status.Family;
-import javax.ws.rs.core.MediaType;
-
-import java.util.Map;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.io.IOException;
+import java.util.Map;
 
 public class ApiClient
 {
-	private Map<String, Client> hostMap = new HashMap<String, Client>();
+	private Client cachedJerseyClient = null;
+	private boolean enableHttpLogging;
+
 	private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
 	private String basePath;
-	
+
+	/**
+	 * Enables/disables HTTP traffic logging by Jersey via java util logging.
+	 * Removes the cached Jersey client so a correctly configure new one will be created on
+	 * the next call to invokeAPI().
+	 *
+	 * @param flag
+	 */
+	public void setEnableHttpLogging(boolean flag) {
+		this.cachedJerseyClient = null;
+		this.enableHttpLogging = flag;
+	}
+
+	public boolean isEnableHttpLogging() {
+		return enableHttpLogging;
+	}
+
+	/**
+	 * Sets a new base path configuration (destination) for this client.
+	 * Removes the cached Jersey client so a correctly configure new one will be created on
+	 * the next call to invokeAPI().
+	 * <p>
+	 * Please consider using multiple ApiClient instances instead, each one having a fixed
+	 * configuration. Creating Jersey clients is expensive.
+	 * @param basePath
+	 */
 	public void setBasePath(String basePath)
 	{
 		this.basePath = basePath;
@@ -119,8 +137,7 @@ public class ApiClient
 
 	public String invokeAPI(String path, String method, Map<String, String> queryParams, Object body, Map<String, String> headerParams) throws ApiException
 	{
-		String host = this.basePath;
-		Client client = getClient(host);
+		Client client = getClient();
 
 		StringBuilder b = new StringBuilder();
 		
@@ -138,7 +155,7 @@ public class ApiClient
 		}
 		String querystring = b.toString();
 
-		Builder builder = client.resource(host + path + querystring).accept("application/json");
+		Builder builder = client.resource(basePath + path + querystring).accept("application/json");
 		for(String key : headerParams.keySet())
 		{
 			builder.header(key, headerParams.get(key));
@@ -200,14 +217,17 @@ public class ApiClient
 		}
 	}
 
-	private Client getClient(String host)
-	{
-		if(!hostMap.containsKey(host))
-		{
-			Client client = Client.create();
-			client.addFilter(new LoggingFilter());
-			hostMap.put(host, client);
+	private Client getClient() {
+		Client client = cachedJerseyClient;
+
+		if (client == null) {
+			client = Client.create();
+			if (enableHttpLogging) {
+				client.addFilter(new LoggingFilter());
+			}
+			cachedJerseyClient = client;
 		}
-		return hostMap.get(host);
+		return client;
 	}
 }
+

@@ -34,6 +34,7 @@ import net.leanix.api.models.ServiceHasProcess;
 import net.leanix.api.*;
 import net.leanix.api.test.*;
 
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
