@@ -84,7 +84,7 @@ public class WorkspaceSetupRule extends ExternalResource
 
     protected Client createMtmApiClient()
     {
-        Client client = ClientFactory.create(createMtmApiUrl(), getTokenUrl(), getVerificationUrl(), getClientId(), getClientSecret(), true);
+        Client client = ClientFactory.create(createMtmApiUrl(), getTokenUrl(), getVerificationUrl(), getClientId(), getClientSecret(), false);
         // may add a header here via client.addDefaultHeader("test-hdr", "val1");
         return client;
     }
