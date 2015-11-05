@@ -27,14 +27,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-public class InterfaceTechnology implements Serializable
+public class FactSheetHasIfaceProvider implements Serializable
 {
 	/*  */
 	private String ID = null;
 	/*  */
-	private String name = null;
+	private String factSheetID = null;
 	/*  */
-	private String resourceID = null;
+	private String ifaceID = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -47,38 +47,38 @@ public class InterfaceTechnology implements Serializable
 		this.ID = ID;
 	}
 
-	@JsonProperty("name")
-	public String getName()
+	@JsonProperty("factSheetID")
+	public String getFactSheetID()
 	{
-		return name;
+		return factSheetID;
 	}
 	
-	@JsonProperty("name")
-	public void setName(String name)
+	@JsonProperty("factSheetID")
+	public void setFactSheetID(String factSheetID)
 	{
-		this.name = name;
+		this.factSheetID = factSheetID;
 	}
 
-	@JsonProperty("resourceID")
-	public String getResourceID()
+	@JsonProperty("ifaceID")
+	public String getIfaceID()
 	{
-		return resourceID;
+		return ifaceID;
 	}
 	
-	@JsonProperty("resourceID")
-	public void setResourceID(String resourceID)
+	@JsonProperty("ifaceID")
+	public void setIfaceID(String ifaceID)
 	{
-		this.resourceID = resourceID;
+		this.ifaceID = ifaceID;
 	}
 
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("class InterfaceTechnology {\n");
+		sb.append("class FactSheetHasIfaceProvider {\n");
 		sb.append("  ID: ").append(ID).append("\n");
-		sb.append("  name: ").append(name).append("\n");
-		sb.append("  resourceID: ").append(resourceID).append("\n");
+		sb.append("  factSheetID: ").append(factSheetID).append("\n");
+		sb.append("  ifaceID: ").append(ifaceID).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

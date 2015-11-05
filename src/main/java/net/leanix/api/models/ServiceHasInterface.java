@@ -55,6 +55,8 @@ public class ServiceHasInterface implements Serializable
 	/*  */
 	private String link = null;
 	/*  */
+	private String ifaceID = null;
+	/*  */
 	private InterfaceTechnology interfaceTechnology = null;
 	/*  */
 	private List<BusinessObject> businessObjects = new ArrayList<BusinessObject>();
@@ -190,6 +192,18 @@ public class ServiceHasInterface implements Serializable
 		this.link = link;
 	}
 
+	@JsonProperty("ifaceID")
+	public String getIfaceID()
+	{
+		return ifaceID;
+	}
+	
+	@JsonProperty("ifaceID")
+	public void setIfaceID(String ifaceID)
+	{
+		this.ifaceID = ifaceID;
+	}
+
 	@JsonProperty("interfaceTechnology")
 	public InterfaceTechnology getInterfaceTechnology()
 	{
@@ -230,6 +244,7 @@ public class ServiceHasInterface implements Serializable
 		sb.append("  reference: ").append(reference).append("\n");
 		sb.append("  visibilityID: ").append(visibilityID).append("\n");
 		sb.append("  link: ").append(link).append("\n");
+		sb.append("  ifaceID: ").append(ifaceID).append("\n");
 		sb.append("  interfaceTechnology: ").append(interfaceTechnology).append("\n");
 		sb.append("  businessObjects: ").append(businessObjects).append("\n");
 		sb.append("}\n");

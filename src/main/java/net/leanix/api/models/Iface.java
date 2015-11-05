@@ -35,6 +35,8 @@ import net.leanix.api.models.IfaceHasBusinessObject;
 import net.leanix.api.models.FactSheetHasPredecessor;
 import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.FactSheetHasChild;
+import net.leanix.api.models.FactSheetHasIfaceProvider;
+import net.leanix.api.models.FactSheetHasIfaceConsumer;
 import net.leanix.api.models.UserSubscription;
 import net.leanix.api.models.FactSheetHasSuccessor;
 import net.leanix.api.models.FactSheetHasRequiredby;
@@ -89,6 +91,10 @@ public class Iface implements Serializable
 	private List<FactSheetHasRequires> factSheetHasRequires = new ArrayList<FactSheetHasRequires>();
 	/*  */
 	private List<FactSheetHasRequiredby> factSheetHasRequiredby = new ArrayList<FactSheetHasRequiredby>();
+	/*  */
+	private List<FactSheetHasIfaceProvider> factSheetHasIfaceProviders = new ArrayList<FactSheetHasIfaceProvider>();
+	/*  */
+	private List<FactSheetHasIfaceConsumer> factSheetHasIfaceConsumers = new ArrayList<FactSheetHasIfaceConsumer>();
 	/*  */
 	private List<IfaceHasBusinessObject> ifaceHasBusinessObjects = new ArrayList<IfaceHasBusinessObject>();
 	/*  */
@@ -381,6 +387,30 @@ public class Iface implements Serializable
 		this.factSheetHasRequiredby = factSheetHasRequiredby;
 	}
 
+	@JsonProperty("factSheetHasIfaceProviders")
+	public List<FactSheetHasIfaceProvider> getFactSheetHasIfaceProviders()
+	{
+		return factSheetHasIfaceProviders;
+	}
+	
+	@JsonProperty("factSheetHasIfaceProviders")
+	public void setFactSheetHasIfaceProviders(List<FactSheetHasIfaceProvider> factSheetHasIfaceProviders)
+	{
+		this.factSheetHasIfaceProviders = factSheetHasIfaceProviders;
+	}
+
+	@JsonProperty("factSheetHasIfaceConsumers")
+	public List<FactSheetHasIfaceConsumer> getFactSheetHasIfaceConsumers()
+	{
+		return factSheetHasIfaceConsumers;
+	}
+	
+	@JsonProperty("factSheetHasIfaceConsumers")
+	public void setFactSheetHasIfaceConsumers(List<FactSheetHasIfaceConsumer> factSheetHasIfaceConsumers)
+	{
+		this.factSheetHasIfaceConsumers = factSheetHasIfaceConsumers;
+	}
+
 	@JsonProperty("ifaceHasBusinessObjects")
 	public List<IfaceHasBusinessObject> getIfaceHasBusinessObjects()
 	{
@@ -434,6 +464,8 @@ public class Iface implements Serializable
 		sb.append("  factSheetHasSuccessors: ").append(factSheetHasSuccessors).append("\n");
 		sb.append("  factSheetHasRequires: ").append(factSheetHasRequires).append("\n");
 		sb.append("  factSheetHasRequiredby: ").append(factSheetHasRequiredby).append("\n");
+		sb.append("  factSheetHasIfaceProviders: ").append(factSheetHasIfaceProviders).append("\n");
+		sb.append("  factSheetHasIfaceConsumers: ").append(factSheetHasIfaceConsumers).append("\n");
 		sb.append("  ifaceHasBusinessObjects: ").append(ifaceHasBusinessObjects).append("\n");
 		sb.append("  ifaceHasResources: ").append(ifaceHasResources).append("\n");
 		sb.append("}\n");

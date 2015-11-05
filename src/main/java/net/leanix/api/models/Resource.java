@@ -28,9 +28,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 import java.util.*;
+import net.leanix.api.models.IfaceHasResource;
 import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.ResourceHasProvider;
 import net.leanix.api.models.FactSheetHasRequires;
+import net.leanix.api.models.ResourceHasConsumer;
 import net.leanix.api.models.FactSheetHasPredecessor;
 import net.leanix.api.models.ServiceHasResource;
 import net.leanix.api.models.FactSheetHasLifecycle;
@@ -103,6 +105,10 @@ public class Resource implements Serializable
 	private List<ServiceHasResource> serviceHasResources = new ArrayList<ServiceHasResource>();
 	/*  */
 	private List<ProjectHasResource> projectHasResources = new ArrayList<ProjectHasResource>();
+	/*  */
+	private List<ResourceHasConsumer> resourceHasConsumers = new ArrayList<ResourceHasConsumer>();
+	/*  */
+	private List<IfaceHasResource> ifaceHasResources = new ArrayList<IfaceHasResource>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -463,6 +469,30 @@ public class Resource implements Serializable
 		this.projectHasResources = projectHasResources;
 	}
 
+	@JsonProperty("resourceHasConsumers")
+	public List<ResourceHasConsumer> getResourceHasConsumers()
+	{
+		return resourceHasConsumers;
+	}
+	
+	@JsonProperty("resourceHasConsumers")
+	public void setResourceHasConsumers(List<ResourceHasConsumer> resourceHasConsumers)
+	{
+		this.resourceHasConsumers = resourceHasConsumers;
+	}
+
+	@JsonProperty("ifaceHasResources")
+	public List<IfaceHasResource> getIfaceHasResources()
+	{
+		return ifaceHasResources;
+	}
+	
+	@JsonProperty("ifaceHasResources")
+	public void setIfaceHasResources(List<IfaceHasResource> ifaceHasResources)
+	{
+		this.ifaceHasResources = ifaceHasResources;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -498,6 +528,8 @@ public class Resource implements Serializable
 		sb.append("  resourceHasResourceCapabilities: ").append(resourceHasResourceCapabilities).append("\n");
 		sb.append("  serviceHasResources: ").append(serviceHasResources).append("\n");
 		sb.append("  projectHasResources: ").append(projectHasResources).append("\n");
+		sb.append("  resourceHasConsumers: ").append(resourceHasConsumers).append("\n");
+		sb.append("  ifaceHasResources: ").append(ifaceHasResources).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

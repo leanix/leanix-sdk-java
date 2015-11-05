@@ -15,5 +15,11 @@ public class BusinessObjectsApiTestController extends BaseApiFactSheetTestContro
         ));	
 
         return result;
-    }  
+    }
+
+    public Map<String, Object> getPropertiesIfaceHasBusinessObjects()
+    {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        return result;
+    }
 }

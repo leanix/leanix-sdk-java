@@ -36,7 +36,9 @@ import net.leanix.api.models.ServiceHasResource;
 import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.FactSheetHasChild;
 import net.leanix.api.models.ServiceHasProject;
+import net.leanix.api.models.FactSheetHasIfaceProvider;
 import net.leanix.api.models.ServiceHasInterface;
+import net.leanix.api.models.FactSheetHasIfaceConsumer;
 import net.leanix.api.models.UserSubscription;
 import net.leanix.api.models.ServiceHasProcess;
 import net.leanix.api.models.ServiceHasConsumer;
@@ -116,6 +118,10 @@ public class Service implements Serializable
 	private List<ServiceHasProject> serviceHasProjects = new ArrayList<ServiceHasProject>();
 	/*  */
 	private List<ServiceHasResource> serviceHasResources = new ArrayList<ServiceHasResource>();
+	/*  */
+	private List<FactSheetHasIfaceProvider> factSheetHasIfaceProviders = new ArrayList<FactSheetHasIfaceProvider>();
+	/*  */
+	private List<FactSheetHasIfaceConsumer> factSheetHasIfaceConsumers = new ArrayList<FactSheetHasIfaceConsumer>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -536,6 +542,30 @@ public class Service implements Serializable
 		this.serviceHasResources = serviceHasResources;
 	}
 
+	@JsonProperty("factSheetHasIfaceProviders")
+	public List<FactSheetHasIfaceProvider> getFactSheetHasIfaceProviders()
+	{
+		return factSheetHasIfaceProviders;
+	}
+	
+	@JsonProperty("factSheetHasIfaceProviders")
+	public void setFactSheetHasIfaceProviders(List<FactSheetHasIfaceProvider> factSheetHasIfaceProviders)
+	{
+		this.factSheetHasIfaceProviders = factSheetHasIfaceProviders;
+	}
+
+	@JsonProperty("factSheetHasIfaceConsumers")
+	public List<FactSheetHasIfaceConsumer> getFactSheetHasIfaceConsumers()
+	{
+		return factSheetHasIfaceConsumers;
+	}
+	
+	@JsonProperty("factSheetHasIfaceConsumers")
+	public void setFactSheetHasIfaceConsumers(List<FactSheetHasIfaceConsumer> factSheetHasIfaceConsumers)
+	{
+		this.factSheetHasIfaceConsumers = factSheetHasIfaceConsumers;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -576,6 +606,8 @@ public class Service implements Serializable
 		sb.append("  serviceHasInterfaces: ").append(serviceHasInterfaces).append("\n");
 		sb.append("  serviceHasProjects: ").append(serviceHasProjects).append("\n");
 		sb.append("  serviceHasResources: ").append(serviceHasResources).append("\n");
+		sb.append("  factSheetHasIfaceProviders: ").append(factSheetHasIfaceProviders).append("\n");
+		sb.append("  factSheetHasIfaceConsumers: ").append(factSheetHasIfaceConsumers).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

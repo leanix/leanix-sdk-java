@@ -30,6 +30,7 @@ import java.io.Serializable;
 import java.util.*;
 import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.FactSheetHasRequires;
+import net.leanix.api.models.ResourceHasConsumer;
 import net.leanix.api.models.FactSheetHasPredecessor;
 import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.FactSheetHasChild;
@@ -86,6 +87,8 @@ public class Consumer implements Serializable
 	private List<FactSheetHasRequiredby> factSheetHasRequiredby = new ArrayList<FactSheetHasRequiredby>();
 	/*  */
 	private List<ServiceHasConsumer> serviceHasConsumers = new ArrayList<ServiceHasConsumer>();
+	/*  */
+	private List<ResourceHasConsumer> resourceHasConsumers = new ArrayList<ResourceHasConsumer>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -362,6 +365,18 @@ public class Consumer implements Serializable
 		this.serviceHasConsumers = serviceHasConsumers;
 	}
 
+	@JsonProperty("resourceHasConsumers")
+	public List<ResourceHasConsumer> getResourceHasConsumers()
+	{
+		return resourceHasConsumers;
+	}
+	
+	@JsonProperty("resourceHasConsumers")
+	public void setResourceHasConsumers(List<ResourceHasConsumer> resourceHasConsumers)
+	{
+		this.resourceHasConsumers = resourceHasConsumers;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -390,6 +405,7 @@ public class Consumer implements Serializable
 		sb.append("  factSheetHasRequires: ").append(factSheetHasRequires).append("\n");
 		sb.append("  factSheetHasRequiredby: ").append(factSheetHasRequiredby).append("\n");
 		sb.append("  serviceHasConsumers: ").append(serviceHasConsumers).append("\n");
+		sb.append("  resourceHasConsumers: ").append(resourceHasConsumers).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

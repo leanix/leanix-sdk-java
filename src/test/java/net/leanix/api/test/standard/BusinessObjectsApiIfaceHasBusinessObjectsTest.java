@@ -28,9 +28,9 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import net.leanix.api.common.*;
-import net.leanix.api.models.Service;
+import net.leanix.api.models.BusinessObject;
 import net.leanix.api.models.Iface;
-import net.leanix.api.models.ServiceHasInterface;
+import net.leanix.api.models.IfaceHasBusinessObject;
 import net.leanix.api.*;
 import net.leanix.api.test.*;
 
@@ -41,15 +41,15 @@ import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ServicesApiServiceHasInterfacesTest extends TestBase
+public class BusinessObjectsApiIfaceHasBusinessObjectsTest extends TestBase
 {
 	@Rule public ExpectedException thrown = ExpectedException.none();
 
-	final Logger logger = LoggerFactory.getLogger(ServicesApiServiceHasInterfacesTest.class);
+	final Logger logger = LoggerFactory.getLogger(BusinessObjectsApiIfaceHasBusinessObjectsTest.class);
 
-	protected ServicesApi getApi() throws Exception
+	protected BusinessObjectsApi getApi() throws Exception
 	{
-		ServicesApi api = getServicesApi();
+		BusinessObjectsApi api = getBusinessObjectsApi();
 		return api;
 	}
 
@@ -59,9 +59,9 @@ public class ServicesApiServiceHasInterfacesTest extends TestBase
 		return api;
 	}	
 
-	protected Service newModel()
+	protected BusinessObject newModel()
 	{
-		return new Service();
+		return new BusinessObject();
 	}
 
 	protected Iface newModelRelated()
@@ -69,51 +69,49 @@ public class ServicesApiServiceHasInterfacesTest extends TestBase
 		return new Iface();
 	}
 
-	protected void setAttributes(ServiceHasInterface model)
-	{
-		// Attributes
-		model.setInterfaceDirectionID("1");
-	}
-
-	protected void changeAttributes(ServiceHasInterface model)
+	protected void setAttributes(IfaceHasBusinessObject model)
 	{
 		// Attributes
 	}
 
-	protected void assertEqual(ServiceHasInterface a, ServiceHasInterface b)
+	protected void changeAttributes(IfaceHasBusinessObject model)
+	{
+		// Attributes
+	}
+
+	protected void assertEqual(IfaceHasBusinessObject a, IfaceHasBusinessObject b)
 	{
 		assertEquals(a.getID(), b.getID());
-		assertEquals(a.getServiceID(), b.getServiceID());
+		assertEquals(a.getBusinessObjectID(), b.getBusinessObjectID());
 		assertEquals(a.getIfaceID(), b.getIfaceID());
 
 		// Further attributes		
-		assertEquals(a.getInterfaceDirectionID(), b.getInterfaceDirectionID());
 	}
 
-	protected Service createNewModel(String namePart) throws ApiException, Exception
+	protected BusinessObject createNewModel(String namePart) throws ApiException, Exception
 	{
-		Service model = this.newModel();
-		model.setName("Service ServiceHasInterface" + namePart);
+		BusinessObject model = this.newModel();
+		model.setName("BusinessObject IfaceHasBusinessObject" + namePart);
 
 
-		Service newModel = this.getApi().createService(model);
+		BusinessObject newModel = this.getApi().createBusinessObject(model);
 		return newModel;
 	}
 
 	protected Iface createNewModelRelated(String namePart) throws ApiException, Exception
 	{
 		Iface model = this.newModelRelated();
-		model.setName("Iface ServiceHasInterface" + namePart);
+		model.setName("Iface IfaceHasBusinessObject" + namePart);
 
 
 		Iface newModel = this.getApiRelated().createIface(model);
 		return newModel;
 	}	
 
-	protected ServiceHasInterface newRelationModel(Service model, Iface refModel)
+	protected IfaceHasBusinessObject newRelationModel(BusinessObject model, Iface refModel)
 	{
-		ServiceHasInterface relationModel = new ServiceHasInterface();
-		relationModel.setServiceID(model.getID());
+		IfaceHasBusinessObject relationModel = new IfaceHasBusinessObject();
+		relationModel.setBusinessObjectID(model.getID());
 		relationModel.setIfaceID(refModel.getID());
 
 		this.setAttributes(relationModel);
@@ -121,14 +119,14 @@ public class ServicesApiServiceHasInterfacesTest extends TestBase
 		return relationModel;
 	}
 
-	protected ServiceHasInterface createNewRelationModel(String namePart) throws ApiException, Exception
+	protected IfaceHasBusinessObject createNewRelationModel(String namePart) throws ApiException, Exception
 	{
-		Service model = this.createNewModel(namePart + "A");
+		BusinessObject model = this.createNewModel(namePart + "A");
 		Iface modelRelated = this.createNewModelRelated(namePart + "B");
 
-		ServiceHasInterface relationModel = this.newRelationModel(model, modelRelated);
+		IfaceHasBusinessObject relationModel = this.newRelationModel(model, modelRelated);
 
-		ServiceHasInterface newRelationModel = this.getApi().createServiceHasInterface(model.getID(), relationModel);
+		IfaceHasBusinessObject newRelationModel = this.getApi().createIfaceHasBusinessObject(model.getID(), relationModel);
 
 		return newRelationModel;
 	}
@@ -136,12 +134,12 @@ public class ServicesApiServiceHasInterfacesTest extends TestBase
 	@Test
 	public void testCreateAndGet() throws Exception
 	{	
-		ServiceHasInterface newRelationModel = this.createNewRelationModel("CreateAndGet");
+		IfaceHasBusinessObject newRelationModel = this.createNewRelationModel("CreateAndGet");
 
 		assertNotNull(newRelationModel);
 		assertNotNull(newRelationModel.getID());
 
-		ServiceHasInterface newGetModel = this.getApi().getServiceHasInterface(newRelationModel.getServiceID(), newRelationModel.getID());
+		IfaceHasBusinessObject newGetModel = this.getApi().getIfaceHasBusinessObject(newRelationModel.getBusinessObjectID(), newRelationModel.getID());
 		assertNotNull(newGetModel);
 		assertNotNull(newGetModel.getID());
 
@@ -151,11 +149,11 @@ public class ServicesApiServiceHasInterfacesTest extends TestBase
 	@Test
 	public void testUpdate() throws Exception
 	{	
-		ServiceHasInterface newRelationModel = this.createNewRelationModel("Update");
+		IfaceHasBusinessObject newRelationModel = this.createNewRelationModel("Update");
 
 		this.changeAttributes(newRelationModel);
 
-		ServiceHasInterface updatedModel = this.getApi().updateServiceHasInterface(newRelationModel.getServiceID(), newRelationModel.getID(), newRelationModel);
+		IfaceHasBusinessObject updatedModel = this.getApi().updateIfaceHasBusinessObject(newRelationModel.getBusinessObjectID(), newRelationModel.getID(), newRelationModel);
 
 		assertNotNull(updatedModel);
 		assertEqual(newRelationModel, updatedModel);
@@ -164,15 +162,15 @@ public class ServicesApiServiceHasInterfacesTest extends TestBase
 	@Test
 	public void testDelete() throws Exception
 	{	
-		ServiceHasInterface newRelationModel = this.createNewRelationModel("Delete");
+		IfaceHasBusinessObject newRelationModel = this.createNewRelationModel("Delete");
 
 		assertNotNull(newRelationModel);
 
-		this.getApi().deleteServiceHasInterface(newRelationModel.getServiceID(), newRelationModel.getID());
+		this.getApi().deleteIfaceHasBusinessObject(newRelationModel.getBusinessObjectID(), newRelationModel.getID());
 
-		List<ServiceHasInterface> models = this.getApi().getServiceHasInterfaces(newRelationModel.getServiceID());
+		List<IfaceHasBusinessObject> models = this.getApi().getIfaceHasBusinessObjects(newRelationModel.getBusinessObjectID());
 		boolean found = false;
-		for (ServiceHasInterface s : models)
+		for (IfaceHasBusinessObject s : models)
 		{
 			if (newRelationModel.getID().equals(s.getID()))
 				found = true;	

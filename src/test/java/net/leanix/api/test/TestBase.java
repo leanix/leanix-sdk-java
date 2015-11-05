@@ -4,6 +4,7 @@ import net.leanix.api.BusinessCapabilitiesApi;
 import net.leanix.api.BusinessObjectsApi;
 import net.leanix.api.ConsumersApi;
 import net.leanix.api.DocumentsApi;
+import net.leanix.api.IfacesApi;
 import net.leanix.api.ProcessesApi;
 import net.leanix.api.ProjectsApi;
 import net.leanix.api.ProvidersApi;
@@ -55,5 +56,9 @@ public class TestBase extends NotSuiteBasedTestBase {
 
     protected UsersApi getUsersApi() {
         return new UsersApi(getApiClient());
+    }
+
+    protected IfacesApi getIfacesApi() {
+        return new IfacesApi(getApiClient());
     }
 }
