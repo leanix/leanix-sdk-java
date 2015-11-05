@@ -35,6 +35,7 @@ public class WorkspaceSetupRule extends ExternalResource
 {
     private final Logger logger = LoggerFactory.getLogger(WorkspaceSetupRule.class);
 
+    private static final String SYNC_HEADER = "X-Api-Sync-Mode";
     /**
      * account to use when creating a workspace
      */
@@ -45,7 +46,7 @@ public class WorkspaceSetupRule extends ExternalResource
      */
     private static final String CONTRACT_DISPLAY_NAME = "leanix eam REGULAR";
 
-    protected final Client mtmApiClient = ClientFactory.create(createMtmApiUrl(), getTokenUrl(), getVerificationUrl(), getClientId(), getClientSecret(), false);
+    protected final Client mtmApiClient = createMtmApiClient();
     protected final AccountsApi accountsApi = new AccountsApi(mtmApiClient);
 
     // this is workspace dependent!
@@ -81,6 +82,13 @@ public class WorkspaceSetupRule extends ExternalResource
 		return this.getProperty("api.mtm.baseurl") + "/services/mtm/" + this.getProperty("api.mtm.version", "v1");
 	}
 
+    protected Client createMtmApiClient()
+    {
+        Client client = ClientFactory.create(createMtmApiUrl(), getTokenUrl(), getVerificationUrl(), getClientId(), getClientSecret(), true);
+        // may add a header here via client.addDefaultHeader("test-hdr", "val1");
+        return client;
+    }
+
     protected String getTokenUrl() {
         return getProperty("api.tokenUrl");
     }
@@ -110,7 +118,7 @@ public class WorkspaceSetupRule extends ExternalResource
     {
         ApiClient apiClient = new ApiClient();
         apiClient.setEnableHttpLogging(false);
-        apiClient.addDefaultHeader("X-Api-Sync-Mode", "sync");
+        apiClient.addDefaultHeader(SYNC_HEADER, "sync");
         apiClient.setBasePath(createApiUrl(workspaceName));
         apiClient.setApiKey(getApiKey());
 
@@ -202,7 +210,7 @@ public class WorkspaceSetupRule extends ExternalResource
 		newWorkspace.setFeatureBundleId(this.apiSetup);
 		newWorkspace.setName(newWorkspaceName);
 
-		WorkspaceResponse response = workspacesApi.createWorkspace(newWorkspace);
+		WorkspaceResponse response = workspacesApi.createWorkspace(newWorkspace, null);
 		Workspace workspace = response.getData();
 
 		logger.debug("workspace {} created, has ID {}", workspace.getName(), workspace.getId());
@@ -230,7 +238,7 @@ public class WorkspaceSetupRule extends ExternalResource
 
         logger.debug("add {} {} permission to workspace for the user", permission.getStatus(), permission.getRole());
 
-		permissionsApi.setPermission(permission);
+		permissionsApi.setPermission(permission, "sync");
 
         logger.debug("permission added");
     }
@@ -246,7 +254,7 @@ public class WorkspaceSetupRule extends ExternalResource
 		try
 		{
             workspace.setStatus("BLOCKED");
-            workspacesApi.updateWorkspace(workspace.getId(), workspace);
+            workspacesApi.updateWorkspace(workspace.getId(), workspace, null);
 			workspacesApi.deleteWorkspace(workspace.getId());
 			logger.debug("Workspace deleted = " + workspace.getId());
 		}

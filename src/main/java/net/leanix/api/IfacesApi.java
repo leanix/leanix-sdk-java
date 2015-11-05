@@ -25,15 +25,15 @@ package net.leanix.api;
 
 import net.leanix.api.common.ApiException;
 import net.leanix.api.common.ApiClient;
+import net.leanix.api.models.IfaceHasResource;
 import net.leanix.api.models.FactSheetHasDocument;
-import net.leanix.api.models.ResourceHasProvider;
 import net.leanix.api.models.FactSheetHasPredecessor;
 import net.leanix.api.models.FactSheetHasRequires;
+import net.leanix.api.models.IfaceHasBusinessObject;
 import net.leanix.api.models.FactSheetHasChild;
 import net.leanix.api.models.FactSheetHasLifecycle;
+import net.leanix.api.models.Iface;
 import net.leanix.api.models.UserSubscription;
-import net.leanix.api.models.Provider;
-import net.leanix.api.models.ProjectHasProvider;
 import net.leanix.api.models.FactSheetHasSuccessor;
 import net.leanix.api.models.FactSheetHasRequiredby;
 import net.leanix.api.models.FactSheetHasParent;
@@ -41,11 +41,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProvidersApi
+public class IfacesApi
 {
 	private ApiClient apiClient;
 	
-	public ProvidersApi(ApiClient client)
+	public IfacesApi(ApiClient client)
 	{
 		this.apiClient = client;
 	}
@@ -60,10 +60,10 @@ public class ProvidersApi
 		return this.apiClient;
 	}
 
-	public List<Provider> getProviders (Boolean relations, String filter) throws ApiException
+	public List<Iface> getIfaces (Boolean relations, String filter) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers".replaceAll("\\{format\\}","json");
+		String path = "/ifaces".replaceAll("\\{format\\}","json");
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -78,7 +78,7 @@ public class ProvidersApi
 			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
 			if (response != null)
 			{
-				return (List<Provider>) ApiClient.deserialize(response, "Array", Provider.class);
+				return (List<Iface>) ApiClient.deserialize(response, "Array", Iface.class);
 			}
 			else
 			{
@@ -97,10 +97,10 @@ public class ProvidersApi
 			}
 		}
 	}
-	public Provider createProvider (Provider body) throws ApiException
+	public Iface createIface (Iface body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers".replaceAll("\\{format\\}","json");
+		String path = "/ifaces".replaceAll("\\{format\\}","json");
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -111,7 +111,7 @@ public class ProvidersApi
 			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
 			if (response != null)
 			{
-				return (Provider) ApiClient.deserialize(response, "", Provider.class);
+				return (Iface) ApiClient.deserialize(response, "", Iface.class);
 			}
 			else
 			{
@@ -130,10 +130,10 @@ public class ProvidersApi
 			}
 		}
 	}
-	public Provider getProvider (String ID, Boolean relations) throws ApiException
+	public Iface getIface (String ID, Boolean relations) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -151,7 +151,7 @@ public class ProvidersApi
 			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
 			if (response != null)
 			{
-				return (Provider) ApiClient.deserialize(response, "", Provider.class);
+				return (Iface) ApiClient.deserialize(response, "", Iface.class);
 			}
 			else
 			{
@@ -170,10 +170,10 @@ public class ProvidersApi
 			}
 		}
 	}
-	public Provider updateProvider (String ID, Provider body) throws ApiException
+	public Iface updateIface (String ID, Iface body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -189,7 +189,7 @@ public class ProvidersApi
 			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
 			if (response != null)
 			{
-				return (Provider) ApiClient.deserialize(response, "", Provider.class);
+				return (Iface) ApiClient.deserialize(response, "", Iface.class);
 			}
 			else
 			{
@@ -208,10 +208,10 @@ public class ProvidersApi
 			}
 		}
 	}
-	public void deleteProvider (String ID) throws ApiException
+	public void deleteIface (String ID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -249,7 +249,7 @@ public class ProvidersApi
 	public List<FactSheetHasParent> getFactSheetHasParents (String ID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasParents".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasParents".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -287,7 +287,7 @@ public class ProvidersApi
 	public FactSheetHasParent createFactSheetHasParent (String ID, FactSheetHasParent body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasParents".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasParents".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -325,7 +325,7 @@ public class ProvidersApi
 	public FactSheetHasParent getFactSheetHasParent (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasParents/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasParents/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -363,7 +363,7 @@ public class ProvidersApi
 	public FactSheetHasParent updateFactSheetHasParent (String ID, String relationID, FactSheetHasParent body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasParents/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasParents/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -401,7 +401,7 @@ public class ProvidersApi
 	public void deleteFactSheetHasParent (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasParents/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasParents/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -439,7 +439,7 @@ public class ProvidersApi
 	public List<FactSheetHasChild> getFactSheetHasChildren (String ID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasChildren".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasChildren".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -477,7 +477,7 @@ public class ProvidersApi
 	public FactSheetHasChild createFactSheetHasChild (String ID, FactSheetHasChild body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasChildren".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasChildren".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -515,7 +515,7 @@ public class ProvidersApi
 	public FactSheetHasChild getFactSheetHasChild (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasChildren/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasChildren/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -553,7 +553,7 @@ public class ProvidersApi
 	public FactSheetHasChild updateFactSheetHasChild (String ID, String relationID, FactSheetHasChild body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasChildren/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasChildren/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -591,7 +591,7 @@ public class ProvidersApi
 	public void deleteFactSheetHasChild (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasChildren/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasChildren/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -629,7 +629,7 @@ public class ProvidersApi
 	public List<FactSheetHasDocument> getFactSheetHasDocuments (String ID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasDocuments".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasDocuments".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -667,7 +667,7 @@ public class ProvidersApi
 	public FactSheetHasDocument createFactSheetHasDocument (String ID, FactSheetHasDocument body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasDocuments".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasDocuments".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -705,7 +705,7 @@ public class ProvidersApi
 	public FactSheetHasDocument getFactSheetHasDocument (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasDocuments/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasDocuments/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -743,7 +743,7 @@ public class ProvidersApi
 	public FactSheetHasDocument updateFactSheetHasDocument (String ID, String relationID, FactSheetHasDocument body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasDocuments/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasDocuments/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -781,7 +781,7 @@ public class ProvidersApi
 	public void deleteFactSheetHasDocument (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasDocuments/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasDocuments/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -819,7 +819,7 @@ public class ProvidersApi
 	public List<FactSheetHasLifecycle> getFactSheetHasLifecycles (String ID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasLifecycles".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasLifecycles".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -857,7 +857,7 @@ public class ProvidersApi
 	public FactSheetHasLifecycle createFactSheetHasLifecycle (String ID, FactSheetHasLifecycle body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasLifecycles".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasLifecycles".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -895,7 +895,7 @@ public class ProvidersApi
 	public FactSheetHasLifecycle getFactSheetHasLifecycle (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasLifecycles/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasLifecycles/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -933,7 +933,7 @@ public class ProvidersApi
 	public FactSheetHasLifecycle updateFactSheetHasLifecycle (String ID, String relationID, FactSheetHasLifecycle body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasLifecycles/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasLifecycles/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -971,7 +971,7 @@ public class ProvidersApi
 	public void deleteFactSheetHasLifecycle (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasLifecycles/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasLifecycles/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1009,7 +1009,7 @@ public class ProvidersApi
 	public List<UserSubscription> getUserSubscriptions (String ID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/userSubscriptions".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/userSubscriptions".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1047,7 +1047,7 @@ public class ProvidersApi
 	public UserSubscription createUserSubscription (String ID, UserSubscription body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/userSubscriptions".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/userSubscriptions".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1085,7 +1085,7 @@ public class ProvidersApi
 	public UserSubscription getUserSubscription (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/userSubscriptions/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/userSubscriptions/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1123,7 +1123,7 @@ public class ProvidersApi
 	public UserSubscription updateUserSubscription (String ID, String relationID, UserSubscription body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/userSubscriptions/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/userSubscriptions/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1161,7 +1161,7 @@ public class ProvidersApi
 	public void deleteUserSubscription (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/userSubscriptions/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/userSubscriptions/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1199,7 +1199,7 @@ public class ProvidersApi
 	public List<FactSheetHasPredecessor> getFactSheetHasPredecessors (String ID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasPredecessors".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasPredecessors".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1237,7 +1237,7 @@ public class ProvidersApi
 	public FactSheetHasPredecessor createFactSheetHasPredecessor (String ID, FactSheetHasPredecessor body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasPredecessors".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasPredecessors".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1275,7 +1275,7 @@ public class ProvidersApi
 	public FactSheetHasPredecessor getFactSheetHasPredecessor (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasPredecessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasPredecessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1313,7 +1313,7 @@ public class ProvidersApi
 	public FactSheetHasPredecessor updateFactSheetHasPredecessor (String ID, String relationID, FactSheetHasPredecessor body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasPredecessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasPredecessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1351,7 +1351,7 @@ public class ProvidersApi
 	public void deleteFactSheetHasPredecessor (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasPredecessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasPredecessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1389,7 +1389,7 @@ public class ProvidersApi
 	public List<FactSheetHasSuccessor> getFactSheetHasSuccessors (String ID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasSuccessors".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasSuccessors".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1427,7 +1427,7 @@ public class ProvidersApi
 	public FactSheetHasSuccessor createFactSheetHasSuccessor (String ID, FactSheetHasSuccessor body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasSuccessors".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasSuccessors".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1465,7 +1465,7 @@ public class ProvidersApi
 	public FactSheetHasSuccessor getFactSheetHasSuccessor (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasSuccessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasSuccessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1503,7 +1503,7 @@ public class ProvidersApi
 	public FactSheetHasSuccessor updateFactSheetHasSuccessor (String ID, String relationID, FactSheetHasSuccessor body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasSuccessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasSuccessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1541,7 +1541,7 @@ public class ProvidersApi
 	public void deleteFactSheetHasSuccessor (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasSuccessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasSuccessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1579,7 +1579,7 @@ public class ProvidersApi
 	public List<FactSheetHasRequires> getFactSheetHasRequires (String ID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasRequires".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasRequires".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1617,7 +1617,7 @@ public class ProvidersApi
 	public FactSheetHasRequires createFactSheetHasRequires (String ID, FactSheetHasRequires body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasRequires".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasRequires".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1655,7 +1655,7 @@ public class ProvidersApi
 	public FactSheetHasRequires getFactSheetHasRequires (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasRequires/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasRequires/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1693,7 +1693,7 @@ public class ProvidersApi
 	public FactSheetHasRequires updateFactSheetHasRequires (String ID, String relationID, FactSheetHasRequires body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasRequires/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasRequires/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1731,7 +1731,7 @@ public class ProvidersApi
 	public void deleteFactSheetHasRequires (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasRequires/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasRequires/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1769,7 +1769,7 @@ public class ProvidersApi
 	public List<FactSheetHasRequiredby> getFactSheetHasRequiredby (String ID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasRequiredby".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasRequiredby".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1807,7 +1807,7 @@ public class ProvidersApi
 	public FactSheetHasRequiredby createFactSheetHasRequiredby (String ID, FactSheetHasRequiredby body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasRequiredby".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasRequiredby".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1845,7 +1845,7 @@ public class ProvidersApi
 	public FactSheetHasRequiredby getFactSheetHasRequiredby (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasRequiredby/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasRequiredby/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1883,7 +1883,7 @@ public class ProvidersApi
 	public FactSheetHasRequiredby updateFactSheetHasRequiredby (String ID, String relationID, FactSheetHasRequiredby body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasRequiredby/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasRequiredby/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1921,7 +1921,7 @@ public class ProvidersApi
 	public void deleteFactSheetHasRequiredby (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/factSheetHasRequiredby/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/factSheetHasRequiredby/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1956,10 +1956,10 @@ public class ProvidersApi
 			}
 		}
 	}
-	public List<ResourceHasProvider> getResourceHasProviders (String ID) throws ApiException
+	public List<IfaceHasBusinessObject> getIfaceHasBusinessObjects (String ID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/resourceHasProviders".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/ifaceHasBusinessObjects".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -1975,7 +1975,7 @@ public class ProvidersApi
 			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
 			if (response != null)
 			{
-				return (List<ResourceHasProvider>) ApiClient.deserialize(response, "Array", ResourceHasProvider.class);
+				return (List<IfaceHasBusinessObject>) ApiClient.deserialize(response, "Array", IfaceHasBusinessObject.class);
 			}
 			else
 			{
@@ -1994,10 +1994,10 @@ public class ProvidersApi
 			}
 		}
 	}
-	public ResourceHasProvider createResourceHasProvider (String ID, ResourceHasProvider body) throws ApiException
+	public IfaceHasBusinessObject createIfaceHasBusinessObject (String ID, IfaceHasBusinessObject body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/resourceHasProviders".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/ifaceHasBusinessObjects".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -2013,7 +2013,7 @@ public class ProvidersApi
 			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
 			if (response != null)
 			{
-				return (ResourceHasProvider) ApiClient.deserialize(response, "", ResourceHasProvider.class);
+				return (IfaceHasBusinessObject) ApiClient.deserialize(response, "", IfaceHasBusinessObject.class);
 			}
 			else
 			{
@@ -2032,10 +2032,10 @@ public class ProvidersApi
 			}
 		}
 	}
-	public ResourceHasProvider getResourceHasProvider (String ID, String relationID) throws ApiException
+	public IfaceHasBusinessObject getIfaceHasBusinessObject (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/resourceHasProviders/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/ifaceHasBusinessObjects/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -2051,7 +2051,7 @@ public class ProvidersApi
 			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
 			if (response != null)
 			{
-				return (ResourceHasProvider) ApiClient.deserialize(response, "", ResourceHasProvider.class);
+				return (IfaceHasBusinessObject) ApiClient.deserialize(response, "", IfaceHasBusinessObject.class);
 			}
 			else
 			{
@@ -2070,10 +2070,10 @@ public class ProvidersApi
 			}
 		}
 	}
-	public ResourceHasProvider updateResourceHasProvider (String ID, String relationID, ResourceHasProvider body) throws ApiException
+	public IfaceHasBusinessObject updateIfaceHasBusinessObject (String ID, String relationID, IfaceHasBusinessObject body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/resourceHasProviders/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/ifaceHasBusinessObjects/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -2089,7 +2089,7 @@ public class ProvidersApi
 			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
 			if (response != null)
 			{
-				return (ResourceHasProvider) ApiClient.deserialize(response, "", ResourceHasProvider.class);
+				return (IfaceHasBusinessObject) ApiClient.deserialize(response, "", IfaceHasBusinessObject.class);
 			}
 			else
 			{
@@ -2108,10 +2108,10 @@ public class ProvidersApi
 			}
 		}
 	}
-	public void deleteResourceHasProvider (String ID, String relationID) throws ApiException
+	public void deleteIfaceHasBusinessObject (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/resourceHasProviders/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/ifaceHasBusinessObjects/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -2146,10 +2146,10 @@ public class ProvidersApi
 			}
 		}
 	}
-	public List<ProjectHasProvider> getProjectHasProviders (String ID) throws ApiException
+	public List<IfaceHasResource> getIfaceHasResources (String ID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/projectHasProviders".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/ifaceHasResources".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -2165,7 +2165,7 @@ public class ProvidersApi
 			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
 			if (response != null)
 			{
-				return (List<ProjectHasProvider>) ApiClient.deserialize(response, "Array", ProjectHasProvider.class);
+				return (List<IfaceHasResource>) ApiClient.deserialize(response, "Array", IfaceHasResource.class);
 			}
 			else
 			{
@@ -2184,10 +2184,10 @@ public class ProvidersApi
 			}
 		}
 	}
-	public ProjectHasProvider createProjectHasProvider (String ID, ProjectHasProvider body) throws ApiException
+	public IfaceHasResource createIfaceHasResource (String ID, IfaceHasResource body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/projectHasProviders".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+		String path = "/ifaces/{ID}/ifaceHasResources".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -2203,7 +2203,7 @@ public class ProvidersApi
 			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
 			if (response != null)
 			{
-				return (ProjectHasProvider) ApiClient.deserialize(response, "", ProjectHasProvider.class);
+				return (IfaceHasResource) ApiClient.deserialize(response, "", IfaceHasResource.class);
 			}
 			else
 			{
@@ -2222,10 +2222,10 @@ public class ProvidersApi
 			}
 		}
 	}
-	public ProjectHasProvider getProjectHasProvider (String ID, String relationID) throws ApiException
+	public IfaceHasResource getIfaceHasResource (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/projectHasProviders/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/ifaceHasResources/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -2241,7 +2241,7 @@ public class ProvidersApi
 			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
 			if (response != null)
 			{
-				return (ProjectHasProvider) ApiClient.deserialize(response, "", ProjectHasProvider.class);
+				return (IfaceHasResource) ApiClient.deserialize(response, "", IfaceHasResource.class);
 			}
 			else
 			{
@@ -2260,10 +2260,10 @@ public class ProvidersApi
 			}
 		}
 	}
-	public ProjectHasProvider updateProjectHasProvider (String ID, String relationID, ProjectHasProvider body) throws ApiException
+	public IfaceHasResource updateIfaceHasResource (String ID, String relationID, IfaceHasResource body) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/projectHasProviders/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/ifaceHasResources/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();
@@ -2279,7 +2279,7 @@ public class ProvidersApi
 			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
 			if (response != null)
 			{
-				return (ProjectHasProvider) ApiClient.deserialize(response, "", ProjectHasProvider.class);
+				return (IfaceHasResource) ApiClient.deserialize(response, "", IfaceHasResource.class);
 			}
 			else
 			{
@@ -2298,10 +2298,10 @@ public class ProvidersApi
 			}
 		}
 	}
-	public void deleteProjectHasProvider (String ID, String relationID) throws ApiException
+	public void deleteIfaceHasResource (String ID, String relationID) throws ApiException
 	{
 		// create path and map variables
-		String path = "/providers/{ID}/projectHasProviders/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+		String path = "/ifaces/{ID}/ifaceHasResources/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
 		// query params
 		Map<String, String> queryParams = new HashMap<String, String>();

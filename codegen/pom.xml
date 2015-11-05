@@ -692,7 +692,7 @@
 		<scala-lang-version>2.9.1-1</scala-lang-version>
 		<swagger-codegen-version>2.0.13</swagger-codegen-version>
 		<maven-antrun-plugin-version>1.7</maven-antrun-plugin-version>
-		<leanix-rest-api-url>https://local-dev.leanix.net/demo/api/v1</leanix-rest-api-url>
+		<leanix-rest-api-url>https://test-app.leanix.net/dildemo/api/v1</leanix-rest-api-url>
 		<slf4j-version>1.6.1</slf4j-version>
 		<slf4j-simple-version>1.7.6</slf4j-simple-version>
 		<junit-version>4.11</junit-version>

@@ -29,10 +29,12 @@ import java.util.List;
 
 import net.leanix.api.common.*;
 import net.leanix.api.models.Service;
+import net.leanix.api.models.Service;
 import net.leanix.api.models.ServiceHasInterface;
 import net.leanix.api.*;
 import net.leanix.api.test.*;
 
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

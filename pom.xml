@@ -71,7 +71,7 @@
         <dependency>
             <groupId>net.leanix</groupId>
             <artifactId>leanix-mtm-sdk-java</artifactId>
-            <version>1.1.0</version>
+            <version>1.1.1-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
 

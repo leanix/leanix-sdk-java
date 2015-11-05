@@ -28,11 +28,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 import java.util.*;
-import net.leanix.api.models.ServiceHasBusinessCapability;
-import net.leanix.api.models.ProjectHasBusinessCapability;
+import net.leanix.api.models.IfaceHasResource;
 import net.leanix.api.models.FactSheetHasDocument;
-import net.leanix.api.models.ProcessHasBusinessCapability;
 import net.leanix.api.models.FactSheetHasRequires;
+import net.leanix.api.models.IfaceHasBusinessObject;
 import net.leanix.api.models.FactSheetHasPredecessor;
 import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.FactSheetHasChild;
@@ -40,7 +39,7 @@ import net.leanix.api.models.UserSubscription;
 import net.leanix.api.models.FactSheetHasSuccessor;
 import net.leanix.api.models.FactSheetHasRequiredby;
 import net.leanix.api.models.FactSheetHasParent;
-public class BusinessCapability implements Serializable
+public class Iface implements Serializable
 {
 	/*  */
 	private String ID = null;
@@ -58,6 +57,12 @@ public class BusinessCapability implements Serializable
 	private String alias = null;
 	/*  */
 	private String description = null;
+	/*  */
+	private String interfaceTypeID = null;
+	/*  */
+	private String interfaceFrequencyID = null;
+	/*  */
+	private String interfaceDirectionID = null;
 	/*  */
 	private String objectStatusID = null;
 	/*  */
@@ -85,11 +90,9 @@ public class BusinessCapability implements Serializable
 	/*  */
 	private List<FactSheetHasRequiredby> factSheetHasRequiredby = new ArrayList<FactSheetHasRequiredby>();
 	/*  */
-	private List<ServiceHasBusinessCapability> serviceHasBusinessCapabilities = new ArrayList<ServiceHasBusinessCapability>();
+	private List<IfaceHasBusinessObject> ifaceHasBusinessObjects = new ArrayList<IfaceHasBusinessObject>();
 	/*  */
-	private List<ProcessHasBusinessCapability> processHasBusinessCapabilities = new ArrayList<ProcessHasBusinessCapability>();
-	/*  */
-	private List<ProjectHasBusinessCapability> projectHasBusinessCapabilities = new ArrayList<ProjectHasBusinessCapability>();
+	private List<IfaceHasResource> ifaceHasResources = new ArrayList<IfaceHasResource>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -184,6 +187,42 @@ public class BusinessCapability implements Serializable
 	public void setDescription(String description)
 	{
 		this.description = description;
+	}
+
+	@JsonProperty("interfaceTypeID")
+	public String getInterfaceTypeID()
+	{
+		return interfaceTypeID;
+	}
+	
+	@JsonProperty("interfaceTypeID")
+	public void setInterfaceTypeID(String interfaceTypeID)
+	{
+		this.interfaceTypeID = interfaceTypeID;
+	}
+
+	@JsonProperty("interfaceFrequencyID")
+	public String getInterfaceFrequencyID()
+	{
+		return interfaceFrequencyID;
+	}
+	
+	@JsonProperty("interfaceFrequencyID")
+	public void setInterfaceFrequencyID(String interfaceFrequencyID)
+	{
+		this.interfaceFrequencyID = interfaceFrequencyID;
+	}
+
+	@JsonProperty("interfaceDirectionID")
+	public String getInterfaceDirectionID()
+	{
+		return interfaceDirectionID;
+	}
+	
+	@JsonProperty("interfaceDirectionID")
+	public void setInterfaceDirectionID(String interfaceDirectionID)
+	{
+		this.interfaceDirectionID = interfaceDirectionID;
 	}
 
 	@JsonProperty("objectStatusID")
@@ -342,47 +381,35 @@ public class BusinessCapability implements Serializable
 		this.factSheetHasRequiredby = factSheetHasRequiredby;
 	}
 
-	@JsonProperty("serviceHasBusinessCapabilities")
-	public List<ServiceHasBusinessCapability> getServiceHasBusinessCapabilities()
+	@JsonProperty("ifaceHasBusinessObjects")
+	public List<IfaceHasBusinessObject> getIfaceHasBusinessObjects()
 	{
-		return serviceHasBusinessCapabilities;
+		return ifaceHasBusinessObjects;
 	}
 	
-	@JsonProperty("serviceHasBusinessCapabilities")
-	public void setServiceHasBusinessCapabilities(List<ServiceHasBusinessCapability> serviceHasBusinessCapabilities)
+	@JsonProperty("ifaceHasBusinessObjects")
+	public void setIfaceHasBusinessObjects(List<IfaceHasBusinessObject> ifaceHasBusinessObjects)
 	{
-		this.serviceHasBusinessCapabilities = serviceHasBusinessCapabilities;
+		this.ifaceHasBusinessObjects = ifaceHasBusinessObjects;
 	}
 
-	@JsonProperty("processHasBusinessCapabilities")
-	public List<ProcessHasBusinessCapability> getProcessHasBusinessCapabilities()
+	@JsonProperty("ifaceHasResources")
+	public List<IfaceHasResource> getIfaceHasResources()
 	{
-		return processHasBusinessCapabilities;
+		return ifaceHasResources;
 	}
 	
-	@JsonProperty("processHasBusinessCapabilities")
-	public void setProcessHasBusinessCapabilities(List<ProcessHasBusinessCapability> processHasBusinessCapabilities)
+	@JsonProperty("ifaceHasResources")
+	public void setIfaceHasResources(List<IfaceHasResource> ifaceHasResources)
 	{
-		this.processHasBusinessCapabilities = processHasBusinessCapabilities;
-	}
-
-	@JsonProperty("projectHasBusinessCapabilities")
-	public List<ProjectHasBusinessCapability> getProjectHasBusinessCapabilities()
-	{
-		return projectHasBusinessCapabilities;
-	}
-	
-	@JsonProperty("projectHasBusinessCapabilities")
-	public void setProjectHasBusinessCapabilities(List<ProjectHasBusinessCapability> projectHasBusinessCapabilities)
-	{
-		this.projectHasBusinessCapabilities = projectHasBusinessCapabilities;
+		this.ifaceHasResources = ifaceHasResources;
 	}
 
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("class BusinessCapability {\n");
+		sb.append("class Iface {\n");
 		sb.append("  ID: ").append(ID).append("\n");
 		sb.append("  displayName: ").append(displayName).append("\n");
 		sb.append("  parentID: ").append(parentID).append("\n");
@@ -391,6 +418,9 @@ public class BusinessCapability implements Serializable
 		sb.append("  reference: ").append(reference).append("\n");
 		sb.append("  alias: ").append(alias).append("\n");
 		sb.append("  description: ").append(description).append("\n");
+		sb.append("  interfaceTypeID: ").append(interfaceTypeID).append("\n");
+		sb.append("  interfaceFrequencyID: ").append(interfaceFrequencyID).append("\n");
+		sb.append("  interfaceDirectionID: ").append(interfaceDirectionID).append("\n");
 		sb.append("  objectStatusID: ").append(objectStatusID).append("\n");
 		sb.append("  tags: ").append(tags).append("\n");
 		sb.append("  fullName: ").append(fullName).append("\n");
@@ -404,9 +434,8 @@ public class BusinessCapability implements Serializable
 		sb.append("  factSheetHasSuccessors: ").append(factSheetHasSuccessors).append("\n");
 		sb.append("  factSheetHasRequires: ").append(factSheetHasRequires).append("\n");
 		sb.append("  factSheetHasRequiredby: ").append(factSheetHasRequiredby).append("\n");
-		sb.append("  serviceHasBusinessCapabilities: ").append(serviceHasBusinessCapabilities).append("\n");
-		sb.append("  processHasBusinessCapabilities: ").append(processHasBusinessCapabilities).append("\n");
-		sb.append("  projectHasBusinessCapabilities: ").append(projectHasBusinessCapabilities).append("\n");
+		sb.append("  ifaceHasBusinessObjects: ").append(ifaceHasBusinessObjects).append("\n");
+		sb.append("  ifaceHasResources: ").append(ifaceHasResources).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}
