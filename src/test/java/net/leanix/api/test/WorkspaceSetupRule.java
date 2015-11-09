@@ -238,7 +238,7 @@ public class WorkspaceSetupRule extends ExternalResource
 
         logger.debug("add {} {} permission to workspace for the user", permission.getStatus(), permission.getRole());
 
-		permissionsApi.setPermission(permission, "sync");
+		permissionsApi.setPermission(permission, true);
 
         logger.debug("permission added");
     }
