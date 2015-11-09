@@ -119,7 +119,7 @@ public class WorkspaceHelper {
                 String.format("try to add %s %s permission to workspace for the user...", permission.getStatus(),
                         permission.getRole()));
 
-        permissionsApi.setPermission(permission, "sync");
+        permissionsApi.setPermission(permission, true);
 
         System.out.println("permission added");
     }
