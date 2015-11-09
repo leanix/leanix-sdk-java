@@ -745,26 +745,7 @@
                                 <method>getPropertiesServiceHasConsumers</method>
                             </controller>                            
                         </template>
-                        
-                        <template>
-                            <directory>${template-dir-tests}</directory>
-                            <name>TemplateApiRelationTest</name>
-                            <target>${target-dir-tests}/ServicesApiServiceHasInterfacesTest.java</target>
-                            <properties>
-                                <className>Service</className>
-                                <classNamePlural>Services</classNamePlural>
-                                <classNameRef>Service</classNameRef>
-                                <attributeRef>ServiceRef</attributeRef>
-                                <classNameRefPlural>Services</classNameRefPlural> 
-								<classNameRelation>ServiceHasInterface</classNameRelation>
-                                <classNameRelationPlural>ServiceHasInterfaces</classNameRelationPlural>   
-                            </properties>
-                            <controller>
-                                <className>net.leanix.api.codegen.ServicesApiTestController</className>
-                                <method>getPropertiesServiceHasInterfaces</method>
-                            </controller>                            
-                        </template>                        
-                        
+
                         <template>
                             <directory>${template-dir-tests}</directory>
                             <name>TemplateApiRelationTest</name>
@@ -818,25 +799,6 @@
                                 <method>getPropertiesServiceHasResources</method>
                             </controller>                            
                         </template>
-
-                        <template>
-                            <directory>${template-dir-tests}</directory>
-                            <name>TemplateApiRelationTest</name>
-                            <target>${target-dir-tests}/ServicesApiServiceHasInterfacesTest.java</target>
-                            <properties>
-                                <className>Service</className>
-                                <classNamePlural>Services</classNamePlural>
-                                <classNameRef>Iface</classNameRef>
-                                <classNameRefPlural>Ifaces</classNameRefPlural>
-                                <classNameRelation>ServiceHasInterface</classNameRelation>
-                                <classNameRelationPlural>ServiceHasInterfaces</classNameRelationPlural>
-                            </properties>
-                            <controller>
-                                <className>net.leanix.api.codegen.ServicesApiTestController</className>
-                                <method>getPropertiesServiceHasInterfaces</method>
-                            </controller>
-                        </template>
-
 
                         <!--
                         <template>
