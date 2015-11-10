@@ -20,7 +20,7 @@ The easiest way to incorporate the SDK into your Java project is to use Maven. I
 <dependency>
     <groupId>net.leanix</groupId>
     <artifactId>leanix-sdk-java</artifactId>
-    <version>1.2.1</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
@@ -30,13 +30,16 @@ If you'd prefer to build the SDK yourself, it's as simple as running
 $ mvn package
 ```
 
-You'll find `leanix-sdk-java-1.6.5.jar`, together with a sources jar and a javadoc jar in the target directory after the build completes.
+You'll find `leanix-sdk-java-2.0.0.jar`, together with a sources jar and a javadoc jar in the target directory after the build completes.
 In target/lib you will find the required libraries to use the SDK.
 
 ## Testing ##
 
 
-The SDK contains units tests. They can be executed as follows:
+The SDK contains units tests, but note: to operate on a defined data stock,
+each test creates a fresh workspace and deletes it afterwards.
+
+The tests can be executed as follows:
 
 ```bash
 $ mvn test \\
@@ -120,4 +123,4 @@ This API made use of the swagger-* libraries which help you to describe REST API
 
 ## Copyright and license ##
 
-Copyright 2014 LeanIX GmbH under [the MIT license](LICENSE).
+Copyright 2015 LeanIX GmbH under [the MIT license](LICENSE).
