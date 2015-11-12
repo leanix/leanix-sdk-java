@@ -162,6 +162,10 @@ public class BenchmarkB extends BaseBenchmarkTests {
 
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
+            ReportBuilder reportBuilder = new ReportBuilder().forTestClass(getClass());
+            TestSuite testSuite = reportBuilder.addErrorTestResult("runBenchmarkOnWorkspace", 0, ex).build();
+            writeBenchmarkJUnitResultFile(getClass(), testSuite);
+            return;
         }
 
         // do some output to stdout
@@ -177,7 +181,7 @@ public class BenchmarkB extends BaseBenchmarkTests {
         // write junit result file used in jenkin's performance plugin
         // TestSuite testSuite = createTestSuiteObjectBasedOnTaskInfo(getClass(),
         // getLastTasks(stopWatch, stopWatch.getTaskCount() - 3));
-        ReportBuilder reportBuilder = new ReportBuilder().withName(getClass().getSimpleName());
+        ReportBuilder reportBuilder = new ReportBuilder().forTestClass(getClass());
         TestSuite testSuite = reportBuilder
                 .addSuccessfulTestResult(String.format("Average time for %d FS", numServices), timeTestCase / numServices).build();
 

@@ -95,7 +95,7 @@ public abstract class BaseBenchmarkTests {
 
     protected TestSuite createTestSuiteObjectBasedOnTaskInfo(Class<? extends BaseBenchmarkTests> benchmarkClass,
             List<TaskInfo> taskInfos) {
-        ReportBuilder reportBuilder = new ReportBuilder().withName(benchmarkClass.getSimpleName());
+        ReportBuilder reportBuilder = new ReportBuilder().forTestClass(benchmarkClass);
 
         for (TaskInfo taskInfo : taskInfos) {
             reportBuilder.addSuccessfulTestResult(taskInfo.getTaskName(), taskInfo.getTimeSeconds());

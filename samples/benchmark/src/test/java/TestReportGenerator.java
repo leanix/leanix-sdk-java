@@ -14,9 +14,9 @@ public class TestReportGenerator {
     @Test
     public void testJaxb() throws JAXBException {
 
-        ReportBuilder reportBuilder = new ReportBuilder().withName("FakeTestRwe");
+        ReportBuilder reportBuilder = new ReportBuilder().forTestClass(getClass());
         reportBuilder.addSuccessfulTestResult("testRweSuccess", 22.5);
-        reportBuilder.addErrorTestResult("testRweError", 10.7, "java.lang.RuntimeException");
+        reportBuilder.addErrorTestResult("testRweError", 10.7, new java.lang.RuntimeException("message"));
 
         TestSuite testSuite = reportBuilder.build();
 
@@ -30,6 +30,31 @@ public class TestReportGenerator {
         jaxbMarshaller.marshal(testSuite, file);
         System.out.println("output file: " + file.getName());
         jaxbMarshaller.marshal(testSuite, System.out);
+    }
+
+    @Test
+    public void testJaxb_onlyFail() throws JAXBException {
+
+        try {
+            @SuppressWarnings("unused")
+            int i = 5 / 0;
+        } catch (Exception e) {
+            ReportBuilder reportBuilder = new ReportBuilder().forTestClass(getClass());
+            reportBuilder.addErrorTestResult("testJaxb_onlyFail", 1.0, e);
+
+            TestSuite testSuite = reportBuilder.build();
+
+            File file = new File("target/TEST-benchmarkreport_2.xml");
+            JAXBContext jaxbContext = JAXBContext.newInstance(testSuite.getClass());
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+            // output pretty printed
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            jaxbMarshaller.marshal(testSuite, file);
+            System.out.println("output file: " + file.getName());
+            jaxbMarshaller.marshal(testSuite, System.out);
+        }
     }
 
     @Test

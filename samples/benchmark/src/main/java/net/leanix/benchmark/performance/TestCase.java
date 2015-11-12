@@ -17,9 +17,9 @@ public class TestCase {
     @XmlElement
     Error error;
 
-    public TestCase(double duration, String testName, String testSuiteName) {
+    public TestCase(Class<?> testClass, String testName, double duration) {
         time = duration;
-        classname = testSuiteName;
+        classname = testClass.getSimpleName();
         name = testName;
     }
 

@@ -10,14 +10,16 @@ package net.leanix.benchmark.performance;
 public class ReportBuilder {
 
     private final TestSuite testSuite = new TestSuite();
+    private Class<?> testClass;
 
-    public ReportBuilder withName(String name) {
-        testSuite.name = name;
+    public ReportBuilder forTestClass(Class<?> testClass) {
+        this.testClass = testClass;
+        testSuite.name = testClass.getSimpleName();
         return this;
     }
 
     public ReportBuilder addSuccessfulTestResult(String testName, double duration) {
-        testSuite.addTestCase(new TestCase(duration, testName, testSuite.name));
+        testSuite.addTestCase(new TestCase(testClass, testName, duration));
         testSuite.time += duration;
         return this;
     }
@@ -27,9 +29,16 @@ public class ReportBuilder {
         return testSuite;
     }
 
-    public ReportBuilder addErrorTestResult(String testName, double duration, String errorType) {
-        TestCase testCase = new TestCase(duration, testName, testSuite.name);
-        testCase.error = new Error(errorType);
+    /**
+     * @param testName
+     *            The name of the test method
+     * @param duration
+     * @param ex
+     * @return
+     */
+    public ReportBuilder addErrorTestResult(String testName, double duration, Exception ex) {
+        TestCase testCase = new TestCase(testClass, testName, duration);
+        testCase.error = new Error(ex);
         testSuite.addTestCase(testCase);
         testSuite.errors++;
         testSuite.time += duration;
