@@ -279,7 +279,7 @@ public class BenchmarkC extends BaseBenchmarkTests {
         double timeTestCase = getSumOfLastTasksInSeconds(stopWatch, stopWatch.getTaskCount() - 1);
         System.out.println(String.format("Complete Job processing time     : %.2f s (%d:%02d)", timeTestCase,
                 (int) timeTestCase / 60, (int) timeTestCase % 60));
-        System.out.println(String.format("Average Time / FS                : %.3f s", timeTestCase / numServices));
+        System.out.println(String.format("Average Time of test for / %d FS : %.3f s", numServices, timeTestCase / numServices));
 
         // write junit result file used in jenkin's performance plugin
         // TestSuite testSuite = createTestSuiteObjectBasedOnTaskInfo(getClass(),
