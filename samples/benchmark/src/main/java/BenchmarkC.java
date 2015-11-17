@@ -23,6 +23,7 @@
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -31,16 +32,30 @@ import javax.xml.bind.JAXBException;
 import org.springframework.util.StopWatch;
 
 import net.leanix.api.BusinessCapabilitiesApi;
+import net.leanix.api.BusinessObjectsApi;
 import net.leanix.api.ConsumersApi;
+import net.leanix.api.IfacesApi;
+import net.leanix.api.ProcessesApi;
+import net.leanix.api.ProjectsApi;
 import net.leanix.api.ResourcesApi;
 import net.leanix.api.ServicesApi;
 import net.leanix.api.common.ApiClient;
 import net.leanix.api.models.BusinessCapability;
+import net.leanix.api.models.BusinessObject;
 import net.leanix.api.models.Consumer;
+import net.leanix.api.models.DataObject;
+import net.leanix.api.models.FactSheetHasIfaceProvider;
+import net.leanix.api.models.Iface;
+import net.leanix.api.models.IfaceHasBusinessObject;
+import net.leanix.api.models.Process;
+import net.leanix.api.models.Project;
 import net.leanix.api.models.Resource;
 import net.leanix.api.models.Service;
 import net.leanix.api.models.ServiceHasBusinessCapability;
 import net.leanix.api.models.ServiceHasConsumer;
+import net.leanix.api.models.ServiceHasInterface;
+import net.leanix.api.models.ServiceHasProcess;
+import net.leanix.api.models.ServiceHasProject;
 import net.leanix.api.models.ServiceHasResource;
 import net.leanix.benchmark.ApiClientFactory;
 import net.leanix.benchmark.ConfigurationProvider;
@@ -53,18 +68,18 @@ import net.leanix.benchmark.performance.TestSuite;
  * 
  * @author andre
  */
-public class BenchmarkB extends BaseBenchmarkTests {
+public class BenchmarkC extends BaseBenchmarkTests {
 
     int numServices = ConfigurationProvider.getServicesCount();
     int numResourcesPerService = ConfigurationProvider.getNumResourcesPerService();
     final StopWatch stopWatch;
 
     public static void main(String[] args) throws Exception {
-        BenchmarkB instance = new BenchmarkB();
+        BenchmarkC instance = new BenchmarkC();
         instance.run(instance.stopWatch);
     }
 
-    public BenchmarkB() {
+    public BenchmarkC() {
         super();
         stopWatch = new StopWatch(
                 String.format("%s creates %s services withc %s resources/service", getClass().getSimpleName(), numServices,
@@ -83,6 +98,10 @@ public class BenchmarkB extends BaseBenchmarkTests {
             ResourcesApi resourcesApi = new ResourcesApi(apiClient);
             ConsumersApi consumersApi = new ConsumersApi(apiClient);
             BusinessCapabilitiesApi businessCapabilitiesApi = new BusinessCapabilitiesApi(apiClient);
+            ProcessesApi processApi = new ProcessesApi(apiClient);
+            ProjectsApi projectApi = new ProjectsApi(apiClient);
+            BusinessObjectsApi businessObjectApi = new BusinessObjectsApi(apiClient);
+            IfacesApi ifacesApi = new IfacesApi(apiClient);
 
             // Add consumers (User Group)
             Helper h = new Helper(configurationProvider.getRandomSeed());
@@ -111,7 +130,66 @@ public class BenchmarkB extends BaseBenchmarkTests {
             }
             stopWatch.stop();
 
-            // Create services (application)
+            // Add Processes
+            List<Process> processes = new ArrayList<>();
+            stopWatch.start("adding Processes " + Helper.getProperty("processes.count", "8"));
+            for (int i = 0; i < Integer.parseInt(Helper.getProperty("processes.count", "8")); i++) {
+                Process process = new Process();
+                process.setName(h.getUniqueString());
+                process.setDescription(h.getUniqueText(10));
+                process = processApi.createProcess(process);
+                System.out.println(String.format("Create PROCESS %d, name = %s, id = %s", i, process.getName(), process.getID()));
+                processes.add(process);
+            }
+            stopWatch.stop();
+
+            // Add Projects
+            List<Project> projects = new ArrayList<>();
+            stopWatch.start("adding Projects " + Helper.getProperty("projects.count", "8"));
+            for (int i = 0; i < Integer.parseInt(Helper.getProperty("projects.count", "8")); i++) {
+                Project project = new Project();
+                project.setName(h.getUniqueString());
+                project.setDescription(h.getUniqueText(10));
+                project = projectApi.createProject(project);
+                System.out.println(String.format("Create PROJECT %d, name = %s, id = %s", i, project.getName(), project.getID()));
+                projects.add(project);
+            }
+            stopWatch.stop();
+
+            // Add Business Objects (Data Objects)
+            List<BusinessObject> businessObjects = new ArrayList<>();
+            stopWatch.start("adding Data Objects " + Helper.getProperty("businessobjects.count", "6"));
+            for (int i = 0; i < Integer.parseInt(Helper.getProperty("businessobjects.count", "6")); i++) {
+                BusinessObject businessObject = new BusinessObject();
+                businessObject.setName("Data Object " + h.getUniqueString());
+                businessObject.setDescription(h.getUniqueText(40));
+                businessObject = businessObjectApi.createBusinessObject(businessObject);
+                System.out.println(String.format("Create DATA OBJECT %d, name = %s, id = %s", i, businessObject.getName(),
+                        businessObject.getID()));
+                businessObjects.add(businessObject);
+            }
+            stopWatch.stop();
+
+            // Add Interfaces assigned with business objects
+            List<Iface> interfaces = new ArrayList<>();
+            stopWatch.start("adding Interfaces " + Helper.getProperty("iface.count", "8"));
+            for (int i = 0; i < Integer.parseInt(Helper.getProperty("iface.count", "8")); i++) {
+                Iface iface = new Iface();
+                iface.setName("IFace " + h.getUniqueString());
+                iface.setDescription(h.getUniqueText(40));
+                IfaceHasBusinessObject ifaceHasBusinessObject = new IfaceHasBusinessObject();
+                ifaceHasBusinessObject.setBusinessObjectID(
+                        businessObjects.get(ThreadLocalRandom.current().nextInt(0, businessObjects.size() - 1)).getID());
+                iface.setIfaceHasBusinessObjects(Arrays.asList(ifaceHasBusinessObject));
+                iface.setInterfaceDirectionID("1");
+
+                iface = ifacesApi.createIface(iface);
+                System.out.println(String.format("Create INTERFACE %d, name = %s, id = %s", i, iface.getName(), iface.getID()));
+                interfaces.add(iface);
+            }
+            stopWatch.stop();
+
+            // Create services
             for (int i = 0; i < numServices; i++) {
                 stopWatch.start("Service " + i);
                 Service s = new Service();
@@ -119,7 +197,6 @@ public class BenchmarkB extends BaseBenchmarkTests {
                 s.setDescription(h.getUniqueText(10));
                 s.setFactSheetHasLifecycles(h.getRandomLifecycle("2010-01-10", "2020-01-01"));
 
-                // assign with user groups
                 if (consumers.size() > 0) {
                     Consumer cur = consumers.get(ThreadLocalRandom.current().nextInt(0, consumers.size() - 1));
                     ServiceHasConsumer shc = new ServiceHasConsumer();
@@ -130,7 +207,6 @@ public class BenchmarkB extends BaseBenchmarkTests {
                     s.setServiceHasConsumers(shcList);
                 }
 
-                // assign with business capabilities
                 if (bcs.size() > 0) {
                     BusinessCapability cur = bcs.get(ThreadLocalRandom.current().nextInt(0, bcs.size() - 1));
                     ServiceHasBusinessCapability shb = new ServiceHasBusinessCapability();
@@ -141,10 +217,31 @@ public class BenchmarkB extends BaseBenchmarkTests {
                     s.setServiceHasBusinessCapabilities(shbList);
                 }
 
+                if (processes.size() > 0) {
+                    Process process = processes.get(ThreadLocalRandom.current().nextInt(0, processes.size() - 1));
+                    ServiceHasProcess shp = new ServiceHasProcess();
+                    shp.setProcessID(process.getID());
+                    s.setServiceHasProcesses(Arrays.asList(shp));
+                }
+
+                if (projects.size() > 0) {
+                    Project project = projects.get(ThreadLocalRandom.current().nextInt(0, projects.size() - 1));
+                    ServiceHasProject shp = new ServiceHasProject();
+                    shp.setProjectID(project.getID());
+                    s.setServiceHasProjects(Arrays.asList(shp));
+                }
+
+                if (interfaces.size() > 0) {
+                    Iface iface = interfaces.get(ThreadLocalRandom.current().nextInt(0, interfaces.size() - 1));
+                    FactSheetHasIfaceProvider factSheetHasIfaceProvider = new FactSheetHasIfaceProvider();
+                    factSheetHasIfaceProvider.setIfaceID(iface.getID());
+                    s.setFactSheetHasIfaceProviders(Arrays.asList(factSheetHasIfaceProvider));
+                }
+
                 s = servicesApi.createService(s);
                 System.out.println("Create SERVICE " + i + ", name = " + s.getName() + ", id = " + s.getID());
 
-                // Create resources
+                // Create resources (IT Components)
                 for (int x = 0; x < numResourcesPerService; x++) {
                     Resource r = new Resource();
                     r.setName(h.getUniqueString());

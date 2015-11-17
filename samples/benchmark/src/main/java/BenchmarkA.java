@@ -71,6 +71,8 @@ public class BenchmarkA extends BaseBenchmarkTests {
         try {
             ApiClient apiClient = ApiClientFactory.getApiClient(wsName);
             apiClient.addDefaultHeader("X-Api-Update-Relations", "true");
+            // allow asynchronous job run
+            apiClient.addDefaultHeader("X-Api-Synchronous", "false");
 
             ServicesApi servicesApi = new ServicesApi(apiClient);
             ResourcesApi resourcesApi = new ResourcesApi(apiClient);
