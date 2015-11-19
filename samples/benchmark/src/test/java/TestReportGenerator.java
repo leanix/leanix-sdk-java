@@ -15,7 +15,7 @@ public class TestReportGenerator {
     public void testJaxb() throws JAXBException {
 
         ReportBuilder reportBuilder = new ReportBuilder().forTestClass(getClass());
-        reportBuilder.addSuccessfulTestResult("testRweSuccess", 22.5);
+        reportBuilder.addSuccessfulTestResult("testRweSuccess", 22.6666666666);
         reportBuilder.addErrorTestResult("testRweError", 10.7, new java.lang.RuntimeException("message"));
 
         TestSuite testSuite = reportBuilder.build();

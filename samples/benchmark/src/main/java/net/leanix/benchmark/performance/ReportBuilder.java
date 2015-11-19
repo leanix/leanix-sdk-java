@@ -26,6 +26,11 @@ public class ReportBuilder {
 
     public TestSuite build() {
         testSuite.tests = testSuite.testcases.size();
+        // round the times
+        testSuite.time = Math.round(testSuite.time * 100.0) / 100.0;
+        for (TestCase testCase : testSuite.testcases) {
+            testCase.time = Math.round(testCase.time * 100.0) / 100.0;
+        }
         return testSuite;
     }
 
