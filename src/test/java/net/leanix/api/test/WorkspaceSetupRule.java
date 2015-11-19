@@ -35,7 +35,7 @@ public class WorkspaceSetupRule extends ExternalResource
 {
     private final Logger logger = LoggerFactory.getLogger(WorkspaceSetupRule.class);
 
-    private static final String SYNC_HEADER = "X-Api-Sync-Mode";
+    private static final String SYNC_HEADER = "X-Api-Synchronous";
     /**
      * account to use when creating a workspace
      */
@@ -118,7 +118,7 @@ public class WorkspaceSetupRule extends ExternalResource
     {
         ApiClient apiClient = new ApiClient();
         apiClient.setEnableHttpLogging(false);
-        apiClient.addDefaultHeader(SYNC_HEADER, "sync");
+        apiClient.addDefaultHeader(SYNC_HEADER, "true");
         apiClient.setBasePath(createApiUrl(workspaceName));
         apiClient.setApiKey(getApiKey());
 
