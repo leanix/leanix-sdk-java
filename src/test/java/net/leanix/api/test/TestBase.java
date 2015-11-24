@@ -34,6 +34,7 @@ import net.leanix.api.ProvidersApi;
 import net.leanix.api.ResourceCapabilitiesApi;
 import net.leanix.api.ResourcesApi;
 import net.leanix.api.ServicesApi;
+import net.leanix.api.UserRoleDetailsApi;
 import net.leanix.api.UsersApi;
 
 public class TestBase extends NotSuiteBasedTestBase {
@@ -84,5 +85,9 @@ public class TestBase extends NotSuiteBasedTestBase {
 
     protected IfacesApi getIfacesApi() {
         return new IfacesApi(getApiClient());
+    }
+    
+    protected UserRoleDetailsApi getUserRoleDetailApi() {
+        return new UserRoleDetailsApi(getApiClient());
     }
 }
