@@ -174,11 +174,25 @@ public class WorkspaceSetupRule extends ExternalResource {
         if (accountsFound == null) {
             throw new RuntimeException("no accounts list returned, status was " + response.getStatus());
         }
-        if (accountsFound.size() != 1) {
-            throw new RuntimeException("no unique account " + accountName + " found, found " + accountsFound.size() + " matches");
+        
+        if (accountsFound.size() == 0)
+            throw new RuntimeException("No accounts retrieved matching name " + accountName);
+        
+        Account searchedAccount = null;
+        
+        for (Account accountFound : accountsFound)
+        {
+            if (accountFound.getName().equals(accountName))
+            {
+                searchedAccount = accountFound;
+                break;
+            }
         }
+        
+        if (searchedAccount == null)
+            throw new RuntimeException("No account found with name " + accountName);
 
-        return accountsFound.get(0);
+        return searchedAccount;
     }
 
     protected Contract lookupContract(String accountId, String contractName) throws ApiException {
