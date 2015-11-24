@@ -31,6 +31,8 @@ import java.util.*;
 import net.leanix.api.models.UserSubscription;
 public class User implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
 	/*  */
 	private String ID = null;
 	/*  */
