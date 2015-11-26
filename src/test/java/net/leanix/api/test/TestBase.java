@@ -23,6 +23,7 @@
 
 package net.leanix.api.test;
 
+import net.leanix.api.ActivitiesApi;
 import net.leanix.api.BusinessCapabilitiesApi;
 import net.leanix.api.BusinessObjectsApi;
 import net.leanix.api.ConsumersApi;
@@ -38,6 +39,10 @@ import net.leanix.api.UserRoleDetailsApi;
 import net.leanix.api.UsersApi;
 
 public class TestBase extends NotSuiteBasedTestBase {
+    
+    protected ActivitiesApi getActivitiesApi() {
+        return new ActivitiesApi(getApiClient());
+    }
 
     protected ServicesApi getServicesApi() {
         return new ServicesApi(getApiClient());
