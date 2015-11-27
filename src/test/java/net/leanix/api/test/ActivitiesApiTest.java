@@ -115,11 +115,8 @@ public class ActivitiesApiTest extends TestBase {
 
         for (Activity activity : activities.getData()) {
             String factSheetName = activity.getFactSheet().getName();
-            System.out.println("found activity for: " + factSheetName);
-            System.out.println(" -- event type: " + activity.getEventType());
             if (nameList.contains(factSheetName)) {
                 resultList.add(activity);
-                System.out.println("filtered activity for: " + factSheetName);
             }
         }
 
