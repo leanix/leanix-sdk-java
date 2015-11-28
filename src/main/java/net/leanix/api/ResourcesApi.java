@@ -1580,7 +1580,7 @@ public class ResourcesApi
 			}
 		}
 	}
-	public List<FactSheetHasRequires> getFactSheetHasRequires (String ID) throws ApiException
+	public List<FactSheetHasRequires> getFactSheetHasRequiresAll (String ID) throws ApiException
 	{
 		// create path and map variables
 		String path = "/resources/{ID}/factSheetHasRequires".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
@@ -1770,7 +1770,7 @@ public class ResourcesApi
 			}
 		}
 	}
-	public List<FactSheetHasRequiredby> getFactSheetHasRequiredby (String ID) throws ApiException
+	public List<FactSheetHasRequiredby> getFactSheetHasRequiredByAll (String ID) throws ApiException
 	{
 		// create path and map variables
 		String path = "/resources/{ID}/factSheetHasRequiredby".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
