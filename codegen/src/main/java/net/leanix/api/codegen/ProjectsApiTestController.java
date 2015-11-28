@@ -24,5 +24,11 @@ public class ProjectsApiTestController extends BaseApiFactSheetTestController
         ));	
 
         return result;
-    }     
+    }
+
+    public Map<String, Object> getPropertiesProjectHasResources()
+    {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        return result;
+    }
 }

@@ -58,14 +58,13 @@ public class WorkspaceHelper {
     public boolean getExistingWorkspaceOrCreateNew() throws net.leanix.dropkit.api.ApiException, ApiException {
         WorkspaceListResponse workspaceListResponse = workspacesApi.getWorkspaces(null, null, null, null);
         for (Workspace workspace : workspaceListResponse.getData()) {
-            System.out.println(String.format("Found workspace: %s", workspace.getName()));
+            // System.out.println(String.format("Found workspace: %s", workspace.getName()));
             if (workspace.getName().equals(workspaceName)) {
                 return true;
             }
         }
 
         // create a new workspace with required name
-
         Account account = lookupAccount(ACCOUNT_NAME);
         Contract contract = lookupContract(account.getId(), CONTRACT_DISPLAY_NAME);
 
@@ -76,19 +75,31 @@ public class WorkspaceHelper {
         newWorkspace.setFeatureBundleId(apiSetup);
         newWorkspace.setName(workspaceName);
 
-        WorkspaceResponse response = workspacesApi.createWorkspace(newWorkspace);
+        WorkspaceResponse response = workspacesApi.createWorkspace(newWorkspace, null);
         Workspace workspace = response.getData();
 
-        System.out.println(String.format("workspace '%s' created, has ID %s", workspace.getName(), workspace.getId()));
+        System.out.println(String.format("Workspace '%s' created, has ID %s", workspace.getName(), workspace.getId()));
 
         addUserToWorkspace(workspace, ConfigurationProvider.getApiUserEmail());
 
         return false;
     }
 
+    public void deleteWorkspace() throws net.leanix.dropkit.api.ApiException {
+
+        WorkspaceListResponse workspaceListResponse = workspacesApi.getWorkspaces(workspaceName, null, null, null);
+        Workspace workspace = workspaceListResponse.getData().get(0);
+        workspace.setStatus("BLOCKED");
+        workspacesApi.updateWorkspace(workspace.getId(), workspace, null);
+
+        // mtmt
+        workspacesApi.deleteWorkspace(workspace.getId());
+        System.out.println(String.format("Workspace '%s' deleted.", workspace.getName()));
+    }
+
     private void addUserToWorkspace(Workspace workspace, String email) throws ApiException, net.leanix.dropkit.api.ApiException {
         UsersApi usersApi = new UsersApi(mtmApiClient);
-        System.out.println(String.format("looking user %s up", email));
+        System.out.println(String.format("looking for user %s", email));
         UserListResponse response = usersApi.getUsers(email, null, null, null, null);
         if (response.getData().size() != 1) {
             throw new RuntimeException("user " + email + " not found.");
@@ -108,7 +119,7 @@ public class WorkspaceHelper {
                 String.format("try to add %s %s permission to workspace for the user...", permission.getStatus(),
                         permission.getRole()));
 
-        permissionsApi.setPermission(permission);
+        permissionsApi.setPermission(permission, true);
 
         System.out.println("permission added");
     }

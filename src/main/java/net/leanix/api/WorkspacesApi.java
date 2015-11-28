@@ -35,6 +35,7 @@ import java.util.Map;
  * @deprecated: use net.leanix.mtm.api.WorkspacesApi instead
  *
  */
+@Deprecated
 public class WorkspacesApi
 {
 	private ApiClient apiClient;

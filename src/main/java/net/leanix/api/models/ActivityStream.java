@@ -32,6 +32,8 @@ import java.util.*;
 import net.leanix.api.models.Activity;
 public class ActivityStream implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
 	/*  */
 	private Date update = null;
 	/*  */

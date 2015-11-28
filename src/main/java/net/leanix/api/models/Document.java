@@ -31,6 +31,8 @@ import java.util.*;
 import net.leanix.api.models.FactSheetHasDocument;
 public class Document implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
 	/*  */
 	private String ID = null;
 	/*  */

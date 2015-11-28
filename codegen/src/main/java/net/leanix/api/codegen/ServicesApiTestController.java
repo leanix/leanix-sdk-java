@@ -70,18 +70,7 @@ public class ServicesApiTestController extends BaseApiFactSheetTestController
         HashMap<String, Object> result = new HashMap<String, Object>();    	
         return result;
     }
-    
-    public Map<String, Object> getPropertiesServiceHasInterfaces()
-    {    
-        HashMap<String, Object> result = new HashMap<String, Object>(); 
-        
-        result.put("attributes",Arrays.asList(
-        		new TestAttribute("InterfaceDirectionID", "1", "1")
-        ));
-        
-        return result;
-    }    
-    
+
     public Map<String, Object> getPropertiesServiceHasResources()
     {
         HashMap<String, Object> result = new HashMap<String, Object>();

@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.xml.bind.JAXBException;
+
 import org.springframework.util.StopWatch;
 
 import net.leanix.api.BusinessCapabilitiesApi;
@@ -43,7 +45,8 @@ import net.leanix.api.models.ServiceHasResource;
 import net.leanix.benchmark.ApiClientFactory;
 import net.leanix.benchmark.ConfigurationProvider;
 import net.leanix.benchmark.Helper;
-import net.leanix.benchmark.WorkspaceHelper;
+import net.leanix.benchmark.performance.ReportBuilder;
+import net.leanix.benchmark.performance.TestSuite;
 
 /**
  * Creates a list of services (SERVICE_COUNT) with a list of linked resources (RESOURCE_PER_SERVICE_COUNT)
@@ -52,33 +55,36 @@ import net.leanix.benchmark.WorkspaceHelper;
  */
 public class BenchmarkB extends BaseBenchmarkTests {
 
-    public static void main(String[] args) {
-        new BenchmarkB().run();
+    int numServices = ConfigurationProvider.getServicesCount();
+    int numResourcesPerService = ConfigurationProvider.getNumResourcesPerService();
+    final StopWatch stopWatch;
+
+    public static void main(String[] args) throws Exception {
+        BenchmarkB instance = new BenchmarkB();
+        instance.run(instance.stopWatch);
     }
 
-    private void run() {
-        int numServices = ConfigurationProvider.getServicesCount();
-        int numResourcesPerService = ConfigurationProvider.getNumResourcesPerService();
-        StopWatch stopWatch = new StopWatch(
+    public BenchmarkB() {
+        super();
+        stopWatch = new StopWatch(
                 String.format("%s creates %s services withc %s resources/service", getClass().getSimpleName(), numServices,
                         numResourcesPerService));
+    }
 
-        /*************************** start test **********************************/
+    @Override
+    public void runBenchmarkOnWorkspace(StopWatch stopWatch) throws JAXBException {
         try {
             ApiClient apiClient = ApiClientFactory.getApiClient(wsName);
             apiClient.addDefaultHeader("X-Api-Update-Relations", "true");
+            // allow asynchronous job run
+            apiClient.addDefaultHeader("X-Api-Synchronous", "false");
 
             ServicesApi servicesApi = new ServicesApi(apiClient);
             ResourcesApi resourcesApi = new ResourcesApi(apiClient);
             ConsumersApi consumersApi = new ConsumersApi(apiClient);
             BusinessCapabilitiesApi businessCapabilitiesApi = new BusinessCapabilitiesApi(apiClient);
 
-            // ensure workspace is present
-            stopWatch.start("search for existing or create new workspace");
-            new WorkspaceHelper(wsName).getExistingWorkspaceOrCreateNew();
-            stopWatch.stop();
-
-            // Add consumers
+            // Add consumers (User Group)
             Helper h = new Helper(configurationProvider.getRandomSeed());
             List<Consumer> consumers = new ArrayList<>();
             stopWatch.start("adding Consumers " + Helper.getProperty("consumers.count", "20"));
@@ -87,6 +93,7 @@ public class BenchmarkB extends BaseBenchmarkTests {
                 c.setName(h.getUniqueString());
                 c.setDescription(h.getUniqueText(10));
                 c = consumersApi.createConsumer(c);
+                System.out.println(String.format("Create USER GROUP %d, name = %s, id = %s", i, c.getName(), c.getID()));
                 consumers.add(c);
             }
             stopWatch.stop();
@@ -99,11 +106,12 @@ public class BenchmarkB extends BaseBenchmarkTests {
                 bc.setName(h.getUniqueString());
                 bc.setDescription(h.getUniqueText(10));
                 bc = businessCapabilitiesApi.createBusinessCapability(bc);
+                System.out.println(String.format("Create BUS. CAPABILITY %d, name = %s, id = %s", i, bc.getName(), bc.getID()));
                 bcs.add(bc);
             }
             stopWatch.stop();
 
-            // Create services
+            // Create services (application)
             for (int i = 0; i < numServices; i++) {
                 stopWatch.start("Service " + i);
                 Service s = new Service();
@@ -111,6 +119,7 @@ public class BenchmarkB extends BaseBenchmarkTests {
                 s.setDescription(h.getUniqueText(10));
                 s.setFactSheetHasLifecycles(h.getRandomLifecycle("2010-01-10", "2020-01-01"));
 
+                // assign with user groups
                 if (consumers.size() > 0) {
                     Consumer cur = consumers.get(ThreadLocalRandom.current().nextInt(0, consumers.size() - 1));
                     ServiceHasConsumer shc = new ServiceHasConsumer();
@@ -121,6 +130,7 @@ public class BenchmarkB extends BaseBenchmarkTests {
                     s.setServiceHasConsumers(shcList);
                 }
 
+                // assign with business capabilities
                 if (bcs.size() > 0) {
                     BusinessCapability cur = bcs.get(ThreadLocalRandom.current().nextInt(0, bcs.size() - 1));
                     ServiceHasBusinessCapability shb = new ServiceHasBusinessCapability();
@@ -158,13 +168,30 @@ public class BenchmarkB extends BaseBenchmarkTests {
 
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
+            ReportBuilder reportBuilder = new ReportBuilder().forTestClass(getClass());
+            TestSuite testSuite = reportBuilder.addErrorTestResult("runBenchmarkOnWorkspace", 0, ex).build();
+            writeBenchmarkJUnitResultFile(getClass(), testSuite);
+            return;
         }
-        /*************************** test ends **********************************/
 
+        // do some output to stdout
         System.out.println(stopWatch.prettyPrint());
-        double totalTimeSeconds = getSumOfLastTasksInSeconds(stopWatch, stopWatch.getTaskCount() - 3);
-        System.out.println(String.format("Complete Job processing time : %.2f s (%d:%02d)", totalTimeSeconds,
+        double totalTimeSeconds = stopWatch.getTotalTimeSeconds();
+        System.out.println(String.format("Complete Time of Run (+WS Setup) : %.2f s (%d:%02d)", totalTimeSeconds,
                 (int) totalTimeSeconds / 60, (int) totalTimeSeconds % 60));
-        System.out.println(String.format("Average Time / FS            : %.3f s", totalTimeSeconds / numServices));
+        double timeTestCase = getSumOfLastTasksInSeconds(stopWatch, stopWatch.getTaskCount() - 1);
+        System.out.println(String.format("Complete Job processing time     : %.2f s (%d:%02d)", timeTestCase,
+                (int) timeTestCase / 60, (int) timeTestCase % 60));
+        System.out.println(String.format("Average Time / FS                : %.3f s", timeTestCase / numServices));
+
+        // write junit result file used in jenkin's performance plugin
+        // TestSuite testSuite = createTestSuiteObjectBasedOnTaskInfo(getClass(),
+        // getLastTasks(stopWatch, stopWatch.getTaskCount() - 1));
+        ReportBuilder reportBuilder = new ReportBuilder().forTestClass(getClass());
+        TestSuite testSuite = reportBuilder
+                .addSuccessfulTestResult(String.format("Average time for %d FS", numServices), timeTestCase / numServices)
+                .build();
+
+        writeBenchmarkJUnitResultFile(getClass(), testSuite);
     }
 }

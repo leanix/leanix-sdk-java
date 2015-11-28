@@ -22,12 +22,13 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
+
 import org.springframework.util.StopWatch;
+import org.springframework.util.StopWatch.TaskInfo;
 
 import net.leanix.api.ResourcesApi;
 import net.leanix.api.ServicesApi;
@@ -38,8 +39,8 @@ import net.leanix.api.models.ServiceHasResource;
 import net.leanix.benchmark.ApiClientFactory;
 import net.leanix.benchmark.ConfigurationProvider;
 import net.leanix.benchmark.Helper;
-import net.leanix.benchmark.WorkspaceHelper;
-import net.leanix.mtm.api.models.Workspace;
+import net.leanix.benchmark.performance.ReportBuilder;
+import net.leanix.benchmark.performance.TestSuite;
 
 /**
  * Creates a list of services (SERVICE_COUNT) with a list of linked resources (RESOURCE_PER_SERVICE_COUNT)
@@ -48,33 +49,33 @@ import net.leanix.mtm.api.models.Workspace;
  */
 public class BenchmarkA extends BaseBenchmarkTests {
 
+    int numServices = ConfigurationProvider.getServicesCount();
+    int numResourcesPerService = ConfigurationProvider.getNumResourcesPerService();
+    final StopWatch stopWatch;
+
     public static void main(String[] args) throws Exception {
-        new BenchmarkA().run();
+        BenchmarkA instance = new BenchmarkA();
+        instance.run(instance.stopWatch);
     }
 
-    private void run() {
-        int numServices = ConfigurationProvider.getServicesCount();
-        int numResourcesPerService = ConfigurationProvider.getNumResourcesPerService();
-        StopWatch stopWatch = new StopWatch(
+    public BenchmarkA() {
+        super();
+        stopWatch = new StopWatch(
                 String.format("%s creates %s services withc %s resources/service", getClass().getSimpleName(), numServices,
                         numResourcesPerService));
+    }
 
-        /*************************** start test **********************************/
+    @Override
+    public void runBenchmarkOnWorkspace(StopWatch stopWatch) throws JAXBException {
+
         try {
             ApiClient apiClient = ApiClientFactory.getApiClient(wsName);
             apiClient.addDefaultHeader("X-Api-Update-Relations", "true");
+            // allow asynchronous job run
+            apiClient.addDefaultHeader("X-Api-Synchronous", "false");
 
             ServicesApi servicesApi = new ServicesApi(apiClient);
             ResourcesApi resourcesApi = new ResourcesApi(apiClient);
-
-            Workspace workspace = new Workspace();
-            SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
-            workspace.setName("benchmarka" + format.format(new Date()));
-
-            // ensure workspace is present
-            stopWatch.start("search for existing or create new workspace");
-            new WorkspaceHelper(wsName).getExistingWorkspaceOrCreateNew();
-            stopWatch.stop();
 
             // Create services
             Helper helper = new Helper(configurationProvider.getRandomSeed());
@@ -112,14 +113,31 @@ public class BenchmarkA extends BaseBenchmarkTests {
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
             ex.printStackTrace();
+            ReportBuilder reportBuilder = new ReportBuilder().forTestClass(getClass());
+            TestSuite testSuite = reportBuilder.addErrorTestResult("runBenchmarkOnWorkspace", 0, ex).build();
+            writeBenchmarkJUnitResultFile(getClass(), testSuite);
+            return;
         }
-        /*************************** test ends **********************************/
 
+        // do some output to stdout
         System.out.println(stopWatch.prettyPrint());
-        double totalTimeSeconds = getSumOfLastTasksInSeconds(stopWatch, stopWatch.getTaskCount() - 1);
-        System.out.println(String.format("Complete Job processing time : %.2f s (%d:%02d)", totalTimeSeconds,
+        double totalTimeSeconds = stopWatch.getTotalTimeSeconds();
+        System.out.println(String.format("Complete Time of Run (+WS Setup) : %.2f s (%d:%02d)", totalTimeSeconds,
                 (int) totalTimeSeconds / 60, (int) totalTimeSeconds % 60));
-        System.out.println(String.format("Average Time / FS            : %.3f s", totalTimeSeconds / numServices));
+        double timeTestCase = getSumOfLastTasksInSeconds(stopWatch, stopWatch.getTaskCount() - 1);
+        System.out.println(String.format("Complete Job processing time     : %.2f s (%d:%02d)", timeTestCase,
+                (int) timeTestCase / 60, (int) timeTestCase % 60));
+        System.out.println(String.format("Average Time / FS                : %.3f s", timeTestCase / numServices));
+
+        // write junit result file used in jenkin's performance plugin
+        // TestSuite testSuite = createTestSuiteObjectBasedOnTaskInfo(getClass(),
+        // getLastTasks(stopWatch, stopWatch.getTaskCount() - 1));
+        ReportBuilder reportBuilder = new ReportBuilder().forTestClass(getClass());
+        TestSuite testSuite = reportBuilder
+                .addSuccessfulTestResult(String.format("Average time for %d FS", numServices), timeTestCase / numServices)
+                .build();
+
+        writeBenchmarkJUnitResultFile(getClass(), testSuite);
     }
 
 }

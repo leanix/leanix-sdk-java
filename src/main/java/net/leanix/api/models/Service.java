@@ -30,20 +30,26 @@ import java.io.Serializable;
 import java.util.*;
 import net.leanix.api.models.ServiceHasBusinessCapability;
 import net.leanix.api.models.FactSheetHasDocument;
+import net.leanix.api.models.FactSheetHasRequires;
 import net.leanix.api.models.FactSheetHasPredecessor;
 import net.leanix.api.models.ServiceHasResource;
 import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.FactSheetHasChild;
 import net.leanix.api.models.ServiceHasProject;
+import net.leanix.api.models.FactSheetHasIfaceProvider;
 import net.leanix.api.models.ServiceHasInterface;
+import net.leanix.api.models.FactSheetHasIfaceConsumer;
 import net.leanix.api.models.UserSubscription;
 import net.leanix.api.models.ServiceHasProcess;
 import net.leanix.api.models.ServiceHasConsumer;
 import net.leanix.api.models.FactSheetHasSuccessor;
+import net.leanix.api.models.FactSheetHasRequiredby;
 import net.leanix.api.models.ServiceHasBusinessObject;
 import net.leanix.api.models.FactSheetHasParent;
 public class Service implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
 	/*  */
 	private String ID = null;
 	/*  */
@@ -97,6 +103,10 @@ public class Service implements Serializable
 	/*  */
 	private List<FactSheetHasSuccessor> factSheetHasSuccessors = new ArrayList<FactSheetHasSuccessor>();
 	/*  */
+	private List<FactSheetHasRequires> factSheetHasRequires = new ArrayList<FactSheetHasRequires>();
+	/*  */
+	private List<FactSheetHasRequiredby> factSheetHasRequiredby = new ArrayList<FactSheetHasRequiredby>();
+	/*  */
 	private List<ServiceHasBusinessCapability> serviceHasBusinessCapabilities = new ArrayList<ServiceHasBusinessCapability>();
 	/*  */
 	private List<ServiceHasProcess> serviceHasProcesses = new ArrayList<ServiceHasProcess>();
@@ -110,6 +120,10 @@ public class Service implements Serializable
 	private List<ServiceHasProject> serviceHasProjects = new ArrayList<ServiceHasProject>();
 	/*  */
 	private List<ServiceHasResource> serviceHasResources = new ArrayList<ServiceHasResource>();
+	/*  */
+	private List<FactSheetHasIfaceProvider> factSheetHasIfaceProviders = new ArrayList<FactSheetHasIfaceProvider>();
+	/*  */
+	private List<FactSheetHasIfaceConsumer> factSheetHasIfaceConsumers = new ArrayList<FactSheetHasIfaceConsumer>();
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -422,6 +436,30 @@ public class Service implements Serializable
 		this.factSheetHasSuccessors = factSheetHasSuccessors;
 	}
 
+	@JsonProperty("factSheetHasRequires")
+	public List<FactSheetHasRequires> getFactSheetHasRequires()
+	{
+		return factSheetHasRequires;
+	}
+	
+	@JsonProperty("factSheetHasRequires")
+	public void setFactSheetHasRequires(List<FactSheetHasRequires> factSheetHasRequires)
+	{
+		this.factSheetHasRequires = factSheetHasRequires;
+	}
+
+	@JsonProperty("factSheetHasRequiredby")
+	public List<FactSheetHasRequiredby> getFactSheetHasRequiredby()
+	{
+		return factSheetHasRequiredby;
+	}
+	
+	@JsonProperty("factSheetHasRequiredby")
+	public void setFactSheetHasRequiredby(List<FactSheetHasRequiredby> factSheetHasRequiredby)
+	{
+		this.factSheetHasRequiredby = factSheetHasRequiredby;
+	}
+
 	@JsonProperty("serviceHasBusinessCapabilities")
 	public List<ServiceHasBusinessCapability> getServiceHasBusinessCapabilities()
 	{
@@ -506,6 +544,30 @@ public class Service implements Serializable
 		this.serviceHasResources = serviceHasResources;
 	}
 
+	@JsonProperty("factSheetHasIfaceProviders")
+	public List<FactSheetHasIfaceProvider> getFactSheetHasIfaceProviders()
+	{
+		return factSheetHasIfaceProviders;
+	}
+	
+	@JsonProperty("factSheetHasIfaceProviders")
+	public void setFactSheetHasIfaceProviders(List<FactSheetHasIfaceProvider> factSheetHasIfaceProviders)
+	{
+		this.factSheetHasIfaceProviders = factSheetHasIfaceProviders;
+	}
+
+	@JsonProperty("factSheetHasIfaceConsumers")
+	public List<FactSheetHasIfaceConsumer> getFactSheetHasIfaceConsumers()
+	{
+		return factSheetHasIfaceConsumers;
+	}
+	
+	@JsonProperty("factSheetHasIfaceConsumers")
+	public void setFactSheetHasIfaceConsumers(List<FactSheetHasIfaceConsumer> factSheetHasIfaceConsumers)
+	{
+		this.factSheetHasIfaceConsumers = factSheetHasIfaceConsumers;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -537,6 +599,8 @@ public class Service implements Serializable
 		sb.append("  userSubscriptions: ").append(userSubscriptions).append("\n");
 		sb.append("  factSheetHasPredecessors: ").append(factSheetHasPredecessors).append("\n");
 		sb.append("  factSheetHasSuccessors: ").append(factSheetHasSuccessors).append("\n");
+		sb.append("  factSheetHasRequires: ").append(factSheetHasRequires).append("\n");
+		sb.append("  factSheetHasRequiredby: ").append(factSheetHasRequiredby).append("\n");
 		sb.append("  serviceHasBusinessCapabilities: ").append(serviceHasBusinessCapabilities).append("\n");
 		sb.append("  serviceHasProcesses: ").append(serviceHasProcesses).append("\n");
 		sb.append("  serviceHasConsumers: ").append(serviceHasConsumers).append("\n");
@@ -544,6 +608,8 @@ public class Service implements Serializable
 		sb.append("  serviceHasInterfaces: ").append(serviceHasInterfaces).append("\n");
 		sb.append("  serviceHasProjects: ").append(serviceHasProjects).append("\n");
 		sb.append("  serviceHasResources: ").append(serviceHasResources).append("\n");
+		sb.append("  factSheetHasIfaceProviders: ").append(factSheetHasIfaceProviders).append("\n");
+		sb.append("  factSheetHasIfaceConsumers: ").append(factSheetHasIfaceConsumers).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

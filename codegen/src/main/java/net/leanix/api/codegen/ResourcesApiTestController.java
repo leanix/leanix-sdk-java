@@ -45,5 +45,28 @@ public class ResourcesApiTestController extends BaseApiFactSheetTestController
         ));        
 
         return result;
-    }    
+    }
+
+    public Map<String, Object> getPropertiesProjectHasResources()
+    {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        return result;
+    }
+
+    public Map<String, Object> getPropertiesIfaceHasResources()
+    {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        return result;
+    }
+
+    public Map<String, Object> getPropertiesResourceHasConsumers()
+    {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+
+        result.put("attributes",Arrays.asList(
+                new TestAttribute("UsageTypeID", "1", "1")
+        ));
+
+        return result;
+    }
 }

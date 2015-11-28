@@ -15,5 +15,16 @@ public class ConsumersApiTestController extends BaseApiFactSheetTestController
         ));	
 
         return result;
-    }  
+    }
+
+    public Map<String, Object> getPropertiesResourceHasConsumers()
+    {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+
+        result.put("attributes",Arrays.asList(
+                new TestAttribute("UsageTypeID", "1", "1")
+        ));
+
+        return result;
+    }
 }

@@ -29,10 +29,14 @@ import java.io.Serializable;
 
 public class InterfaceTechnology implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
 	/*  */
 	private String ID = null;
 	/*  */
 	private String name = null;
+	/*  */
+	private String resourceID = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -57,6 +61,18 @@ public class InterfaceTechnology implements Serializable
 		this.name = name;
 	}
 
+	@JsonProperty("resourceID")
+	public String getResourceID()
+	{
+		return resourceID;
+	}
+	
+	@JsonProperty("resourceID")
+	public void setResourceID(String resourceID)
+	{
+		this.resourceID = resourceID;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -64,6 +80,7 @@ public class InterfaceTechnology implements Serializable
 		sb.append("class InterfaceTechnology {\n");
 		sb.append("  ID: ").append(ID).append("\n");
 		sb.append("  name: ").append(name).append("\n");
+		sb.append("  resourceID: ").append(resourceID).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

@@ -206,7 +206,25 @@
                                 <method>getPropertiesServiceHasBusinessObjects</method>
                             </controller>                            
                         </template>
-                        
+
+                        <template>
+                            <directory>${template-dir-tests}</directory>
+                            <name>TemplateApiRelationTest</name>
+                            <target>${target-dir-tests}/BusinessObjectsApiIfaceHasBusinessObjectsTest.java</target>
+                            <properties>
+                                <className>BusinessObject</className>
+                                <classNamePlural>BusinessObjects</classNamePlural>
+                                <classNameRef>Iface</classNameRef>
+                                <classNameRefPlural>Ifaces</classNameRefPlural>
+                                <classNameRelation>IfaceHasBusinessObject</classNameRelation>
+                                <classNameRelationPlural>IfaceHasBusinessObjects</classNameRelationPlural>
+                            </properties>
+                            <controller>
+                                <className>net.leanix.api.codegen.BusinessObjectsApiTestController</className>
+                                <method>getPropertiesIfaceHasBusinessObjects</method>
+                            </controller>
+                        </template>
+
                         
                         <template>
                             <directory>${template-dir-tests}</directory>
@@ -222,7 +240,7 @@
                             </controller>                            
                         </template>
                         
-			<template>
+			            <template>
                             <directory>${template-dir-tests}</directory>
                             <name>TemplateApiRelationTest</name>
                             <target>${target-dir-tests}/ConsumersApiServiceHasConsumersTest.java</target>
@@ -238,10 +256,122 @@
                                 <className>net.leanix.api.codegen.ConsumersApiTestController</className>
                                 <method>getPropertiesServiceHasConsumers</method>
                             </controller>                            
-                        </template>                        
-                        
-                        
-			<template>
+                        </template>
+
+                        <template>
+                            <directory>${template-dir-tests}</directory>
+                            <name>TemplateApiRelationTest</name>
+                            <target>${target-dir-tests}/ConsumersApiResourceHasConsumersTest.java</target>
+                            <properties>
+                                <className>Consumer</className>
+                                <classNamePlural>Consumers</classNamePlural>
+                                <classNameRef>Resource</classNameRef>
+                                <classNameRefPlural>Resources</classNameRefPlural>
+                                <classNameRelation>ResourceHasConsumer</classNameRelation>
+                                <classNameRelationPlural>ResourceHasConsumers</classNameRelationPlural>
+                            </properties>
+                            <controller>
+                                <className>net.leanix.api.codegen.ConsumersApiTestController</className>
+                                <method>getPropertiesResourceHasConsumers</method>
+                            </controller>
+                        </template>
+
+
+
+                        <template>
+                            <directory>${template-dir-tests}</directory>
+                            <name>TemplateApiTest</name>
+                            <target>${target-dir-tests}/IfacesApiTest.java</target>
+                            <properties>
+                                <className>Iface</className>
+                                <classNamePlural>Ifaces</classNamePlural>
+                            </properties>
+                            <controller>
+                                <className>net.leanix.api.codegen.IfacesApiTestController</className>
+                                <method>getProperties</method>
+                            </controller>
+                        </template>
+
+                        <template>
+                            <directory>${template-dir-tests}</directory>
+                            <name>TemplateApiRelationTest</name>
+                            <target>${target-dir-tests}/IfacesApiIfaceHasBusinessObjectsTest.java</target>
+                            <properties>
+                                <className>Iface</className>
+                                <classNamePlural>Ifaces</classNamePlural>
+                                <classNameRef>BusinessObject</classNameRef>
+                                <classNameRefPlural>BusinessObjects</classNameRefPlural>
+                                <classNameRelation>IfaceHasBusinessObject</classNameRelation>
+                                <classNameRelationPlural>IfaceHasBusinessObjects</classNameRelationPlural>
+                            </properties>
+                            <controller>
+                                <className>net.leanix.api.codegen.IfacesApiTestController</className>
+                                <method>getPropertiesIfaceHasBusinessObjects</method>
+                            </controller>
+                        </template>
+
+                        <template>
+                            <directory>${template-dir-tests}</directory>
+                            <name>TemplateApiRelationTest</name>
+                            <target>${target-dir-tests}/IfacesApiIfaceHasResourcesTest.java</target>
+                            <properties>
+                                <className>Iface</className>
+                                <classNamePlural>Ifaces</classNamePlural>
+                                <classNameRef>Resource</classNameRef>
+                                <classNameRefPlural>Resources</classNameRefPlural>
+                                <classNameRelation>IfaceHasResource</classNameRelation>
+                                <classNameRelationPlural>IfaceHasResources</classNameRelationPlural>
+                            </properties>
+                            <controller>
+                                <className>net.leanix.api.codegen.IfacesApiTestController</className>
+                                <method>getPropertiesIfaceHasResources</method>
+                            </controller>
+                        </template>
+
+                        <!-- cannot test the following two
+                             because the generic classNameRef "FactSheet"
+                             clashes with the "Service" that is really used!
+
+                        <template>
+                            <directory>${template-dir-tests}</directory>
+                            <name>TemplateApiRelationTest</name>
+                            <target>${target-dir-tests}/IfacesApiFactSheetHasIfaceProvidersTest.java</target>
+                            <properties>
+                                <className>Iface</className>
+                                <classNamePlural>Ifaces</classNamePlural>
+                                <classNameRef>Service</classNameRef>
+                                <classNameRefPlural>Services</classNameRefPlural>
+                                <classNameRelation>FactSheetHasIfaceProvider</classNameRelation>
+                                <classNameRelationPlural>FactSheetHasIfaceProviders</classNameRelationPlural>
+                            </properties>
+                            <controller>
+                                <className>net.leanix.api.codegen.IfacesApiTestController</className>
+                                <method>getPropertiesFactSheetHasIfaceProviders</method>
+                            </controller>
+                        </template>
+
+                        <template>
+                            <directory>${template-dir-tests}</directory>
+                            <name>TemplateApiRelationTest</name>
+                            <target>${target-dir-tests}/IfacesApiFactSheetHasIfaceConsumersTest.java</target>
+                            <properties>
+                                <className>Iface</className>
+                                <classNamePlural>Ifaces</classNamePlural>
+                                <classNameRef>Service</classNameRef>
+                                <classNameRefPlural>Services</classNameRefPlural>
+                                <classNameRelation>FactSheetHasIfaceConsumer</classNameRelation>
+                                <classNameRelationPlural>FactSheetHasIfaceConsumers</classNameRelationPlural>
+                            </properties>
+                            <controller>
+                                <className>net.leanix.api.codegen.IfacesApiTestController</className>
+                                <method>getPropertiesFactSheetHasIfaceConsumers</method>
+                            </controller>
+                        </template>
+
+                        -->
+
+
+			            <template>
                             <directory>${template-dir-tests}</directory>
                             <name>TemplateApiTest</name>
                             <target>${target-dir-tests}/ProcessesApiTest.java</target>
@@ -304,7 +434,7 @@
                                 <className>net.leanix.api.codegen.ProjectsApiTestController</className>
                                 <method>getPropertiesServiceHasProjects</method>
                             </controller>                            
-                        </template> 
+                        </template>
                         
                         <template>
                             <directory>${template-dir-tests}</directory>
@@ -323,7 +453,25 @@
                                 <method>getPropertiesProjectHasProviders</method>
                             </controller>                            
                         </template>
-                        
+
+                        <template>
+                            <directory>${template-dir-tests}</directory>
+                            <name>TemplateApiRelationTest</name>
+                            <target>${target-dir-tests}/ProjectsApiProjectHasResourcesTest.java</target>
+                            <properties>
+                                <className>Project</className>
+                                <classNamePlural>Projects</classNamePlural>
+                                <classNameRef>Resource</classNameRef>
+                                <classNameRefPlural>Resources</classNameRefPlural>
+                                <classNameRelation>ProjectHasResource</classNameRelation>
+                                <classNameRelationPlural>ProjectHasResources</classNameRelationPlural>
+                            </properties>
+                            <controller>
+                                <className>net.leanix.api.codegen.ProjectsApiTestController</className>
+                                <method>getPropertiesProjectHasResources</method>
+                            </controller>
+                        </template>
+
                         
                         
                         <template>
@@ -421,7 +569,61 @@
                                 <method>getProperties</method>
                             </controller>                             
                         </template>
-                        
+
+                        <template>
+                            <directory>${template-dir-tests}</directory>
+                            <name>TemplateApiRelationTest</name>
+                            <target>${target-dir-tests}/ResourcesApiResourceHasConsumersTest.java</target>
+                            <properties>
+                                <className>Resource</className>
+                                <classNamePlural>Resources</classNamePlural>
+                                <classNameRef>Consumer</classNameRef>
+                                <classNameRefPlural>Consumers</classNameRefPlural>
+                                <classNameRelation>ResourceHasConsumer</classNameRelation>
+                                <classNameRelationPlural>ResourceHasConsumers</classNameRelationPlural>
+                            </properties>
+                            <controller>
+                                <className>net.leanix.api.codegen.ResourcesApiTestController</className>
+                                <method>getPropertiesResourceHasConsumers</method>
+                            </controller>
+                        </template>
+
+                        <template>
+                            <directory>${template-dir-tests}</directory>
+                            <name>TemplateApiRelationTest</name>
+                            <target>${target-dir-tests}/ResourcesApiIfaceHasResourcesTest.java</target>
+                            <properties>
+                                <className>Resource</className>
+                                <classNamePlural>Resources</classNamePlural>
+                                <classNameRef>Iface</classNameRef>
+                                <classNameRefPlural>Ifaces</classNameRefPlural>
+                                <classNameRelation>IfaceHasResource</classNameRelation>
+                                <classNameRelationPlural>IfaceHasResources</classNameRelationPlural>
+                            </properties>
+                            <controller>
+                                <className>net.leanix.api.codegen.ResourcesApiTestController</className>
+                                <method>getPropertiesIfaceHasResources</method>
+                            </controller>
+                        </template>
+
+                        <template>
+                            <directory>${template-dir-tests}</directory>
+                            <name>TemplateApiRelationTest</name>
+                            <target>${target-dir-tests}/ResourcesApiProjectHasResourcesTest.java</target>
+                            <properties>
+                                <className>Resource</className>
+                                <classNamePlural>Resources</classNamePlural>
+                                <classNameRef>Project</classNameRef>
+                                <classNameRefPlural>Projects</classNameRefPlural>
+                                <classNameRelation>ProjectHasResource</classNameRelation>
+                                <classNameRelationPlural>ProjectHasResources</classNameRelationPlural>
+                            </properties>
+                            <controller>
+                                <className>net.leanix.api.codegen.ResourcesApiTestController</className>
+                                <method>getPropertiesProjectHasResources</method>
+                            </controller>
+                        </template>
+
                         <template>
                             <directory>${template-dir-tests}</directory>
                             <name>TemplateApiRelationTest</name>
@@ -475,7 +677,7 @@
                                 <method>getPropertiesServiceHasResources</method>
                             </controller>                            
                         </template>
-                        
+
                         <template>
                             <directory>${template-dir-tests}</directory>
                             <name>TemplateApiTest</name>
@@ -543,26 +745,7 @@
                                 <method>getPropertiesServiceHasConsumers</method>
                             </controller>                            
                         </template>
-                        
-                        <template>
-                            <directory>${template-dir-tests}</directory>
-                            <name>TemplateApiRelationTest</name>
-                            <target>${target-dir-tests}/ServicesApiServiceHasInterfacesTest.java</target>
-                            <properties>
-                                <className>Service</className>
-                                <classNamePlural>Services</classNamePlural>
-                                <classNameRef>Service</classNameRef>
-                                <attributeRef>ServiceRef</attributeRef>
-                                <classNameRefPlural>Services</classNameRefPlural> 
-								<classNameRelation>ServiceHasInterface</classNameRelation>
-                                <classNameRelationPlural>ServiceHasInterfaces</classNameRelationPlural>   
-                            </properties>
-                            <controller>
-                                <className>net.leanix.api.codegen.ServicesApiTestController</className>
-                                <method>getPropertiesServiceHasInterfaces</method>
-                            </controller>                            
-                        </template>                        
-                        
+
                         <template>
                             <directory>${template-dir-tests}</directory>
                             <name>TemplateApiRelationTest</name>
@@ -615,8 +798,8 @@
                                 <className>net.leanix.api.codegen.ServicesApiTestController</className>
                                 <method>getPropertiesServiceHasResources</method>
                             </controller>                            
-                        </template>      
-                        
+                        </template>
+
                         <!--
                         <template>
                             <directory>${template-dir-tests}</directory>
@@ -631,8 +814,8 @@
                                 <method>getProperties</method>
                             </controller>                            
                         </template>   
-                        -->            
-                                                                               
+                        -->
+
                     </templates>
                 </configuration>
                 <executions>
@@ -692,7 +875,7 @@
 		<scala-lang-version>2.9.1-1</scala-lang-version>
 		<swagger-codegen-version>2.0.13</swagger-codegen-version>
 		<maven-antrun-plugin-version>1.7</maven-antrun-plugin-version>
-		<leanix-rest-api-url>https://local-dev.leanix.net/demo/api/v1</leanix-rest-api-url>
+		<leanix-rest-api-url>https://local-eam.leanix.net/demo/api/v1</leanix-rest-api-url>
 		<slf4j-version>1.6.1</slf4j-version>
 		<slf4j-simple-version>1.7.6</slf4j-simple-version>
 		<junit-version>4.11</junit-version>

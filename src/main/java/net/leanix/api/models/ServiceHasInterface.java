@@ -32,6 +32,8 @@ import net.leanix.api.models.BusinessObject;
 import net.leanix.api.models.InterfaceTechnology;
 public class ServiceHasInterface implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
 	/*  */
 	private String ID = null;
 	/*  */
@@ -54,6 +56,8 @@ public class ServiceHasInterface implements Serializable
 	private String visibilityID = null;
 	/*  */
 	private String link = null;
+	/*  */
+	private String ifaceID = null;
 	/*  */
 	private InterfaceTechnology interfaceTechnology = null;
 	/*  */
@@ -190,6 +194,18 @@ public class ServiceHasInterface implements Serializable
 		this.link = link;
 	}
 
+	@JsonProperty("ifaceID")
+	public String getIfaceID()
+	{
+		return ifaceID;
+	}
+	
+	@JsonProperty("ifaceID")
+	public void setIfaceID(String ifaceID)
+	{
+		this.ifaceID = ifaceID;
+	}
+
 	@JsonProperty("interfaceTechnology")
 	public InterfaceTechnology getInterfaceTechnology()
 	{
@@ -230,6 +246,7 @@ public class ServiceHasInterface implements Serializable
 		sb.append("  reference: ").append(reference).append("\n");
 		sb.append("  visibilityID: ").append(visibilityID).append("\n");
 		sb.append("  link: ").append(link).append("\n");
+		sb.append("  ifaceID: ").append(ifaceID).append("\n");
 		sb.append("  interfaceTechnology: ").append(interfaceTechnology).append("\n");
 		sb.append("  businessObjects: ").append(businessObjects).append("\n");
 		sb.append("}\n");
