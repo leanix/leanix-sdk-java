@@ -185,8 +185,8 @@ public class BenchmarkC extends BaseBenchmarkTests {
 
             // Add Interfaces assigned with business objects
             List<Iface> interfaces = new ArrayList<>();
-            stopWatch.start("adding Interfaces " + Helper.getProperty("iface.count", "8"));
-            for (int i = 0; i < Integer.parseInt(Helper.getProperty("iface.count", "8")); i++) {
+            stopWatch.start("adding Interfaces " + numServices);
+            for (int i = 0; i < numServices; i++) {
                 Iface iface = new Iface();
                 iface.setName("IFace " + h.getUniqueString());
                 iface.setDescription(h.getUniqueText(40));
@@ -243,9 +243,9 @@ public class BenchmarkC extends BaseBenchmarkTests {
                     shp.setProjectID(project.getID());
                     s.setServiceHasProjects(Arrays.asList(shp));
                 }
-
+                // TODO rwe:
                 if (interfaces.size() > 0) {
-                    Iface iface = interfaces.get(ThreadLocalRandom.current().nextInt(0, interfaces.size() - 1));
+                    Iface iface = interfaces.get(i);
                     FactSheetHasIfaceProvider factSheetHasIfaceProvider = new FactSheetHasIfaceProvider();
                     factSheetHasIfaceProvider.setIfaceID(iface.getID());
                     s.setFactSheetHasIfaceProviders(Arrays.asList(factSheetHasIfaceProvider));
