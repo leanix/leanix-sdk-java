@@ -28,7 +28,6 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 
 import org.springframework.util.StopWatch;
-import org.springframework.util.StopWatch.TaskInfo;
 
 import net.leanix.api.ResourcesApi;
 import net.leanix.api.ServicesApi;

@@ -1,7 +1,6 @@
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -30,7 +29,7 @@ public abstract class BaseBenchmarkTests {
     public abstract void runBenchmarkOnWorkspace(StopWatch stopWatch) throws JAXBException;
 
     protected void run(StopWatch stopWatch)
-            throws ApiException, net.leanix.api.common.ApiException, JAXBException {
+            throws ApiException, net.leanix.api.common.ApiException, JAXBException, InterruptedException {
 
         // ensure workspace is present
         stopWatch.start("search for existing or create new workspace");
@@ -42,6 +41,8 @@ public abstract class BaseBenchmarkTests {
 
         // cleanup WS, if not specified before
         if (StringUtils.isBlank(System.getProperty(API_WORKSPACE_NAME))) {
+            // Wait a little bit to give jobs time to end
+            Thread.sleep(5000);
             new WorkspaceHelper(wsName).deleteWorkspace();
         }
     }
