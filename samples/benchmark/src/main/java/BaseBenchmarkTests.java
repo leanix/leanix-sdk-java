@@ -6,8 +6,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.util.StopWatch;
 import org.springframework.util.StopWatch.TaskInfo;
@@ -20,6 +22,8 @@ import net.leanix.dropkit.api.ApiException;
 
 public abstract class BaseBenchmarkTests {
 
+    private static final Logger LOG = LoggerFactory.getLogger(BaseBenchmarkTests.class);
+    
     private static final String API_WORKSPACE_NAME = "api.workspaceName";
 
     protected String wsName;
@@ -88,6 +92,7 @@ public abstract class BaseBenchmarkTests {
         // output pretty printed
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
+        LOG.info("Writing benchmark results into file {}.", file.getAbsolutePath());
         jaxbMarshaller.marshal(testSuite, file);
         // System.out.println("output file: " + file.getName());
         // jaxbMarshaller.marshal(testSuite, System.out);

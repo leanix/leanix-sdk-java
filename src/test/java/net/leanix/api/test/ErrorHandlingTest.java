@@ -23,28 +23,23 @@
  */
 package net.leanix.api.test;
 
+import static net.leanix.api.test.helpers.ActivityAssertionHelper.*;
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import org.junit.Assert;
+import org.junit.Test;
+
 import net.leanix.api.common.ApiException;
-import net.leanix.api.models.Activity;
 import net.leanix.api.models.ActivityStream;
 import net.leanix.api.models.BusinessCapability;
-import net.leanix.api.models.FactSheetHasChild;
-import net.leanix.api.models.FactSheetHasIfaceProvider;
-import net.leanix.api.models.FactSheetHasParent;
-import net.leanix.api.models.Iface;
 import net.leanix.api.models.Project;
 import net.leanix.api.models.Service;
 import net.leanix.api.models.ServiceHasBusinessCapability;
 import net.leanix.api.models.ServiceHasProcess;
 import net.leanix.api.models.ServiceHasProject;
-import net.leanix.api.test.helpers.ActivityAssertionHelper;
-import static net.leanix.api.test.helpers.ActivityAssertionHelper.assertActivitiesWithEventType;
-import org.junit.Assert;
-import static org.junit.Assert.assertEquals;
-import org.junit.Ignore;
-import org.junit.Test;
 
 /**
  *
@@ -123,7 +118,7 @@ public class ErrorHandlingTest extends TestBase {
             Assert.assertTrue("Exception occurred", exceptionOccurred);
         }
 
-        refreshSearchIndexForService(service);
+        refreshSearchIndexForService(service.getID());
 
         this.getApiClient().addDefaultHeader("X-Api-Update-Relations", "false");
 
@@ -141,13 +136,13 @@ public class ErrorHandlingTest extends TestBase {
      * @param service
      * @throws ApiException
      */
-    private void refreshSearchIndexForService(Service service) throws ApiException {
+    private void refreshSearchIndexForService(String serviceId) throws ApiException {
         // Updating business capability related to service to trigger search object refresh
         BusinessCapability busCap = new BusinessCapability();
         busCap.setName("Test Capability");
         List<ServiceHasBusinessCapability> busCapList = new ArrayList<>();
         ServiceHasBusinessCapability busCapRelation = new ServiceHasBusinessCapability();
-        busCapRelation.setServiceID(service.getID());
+        busCapRelation.setServiceID(serviceId);
         busCapRelation.setSupportTypeID("2");
         busCapList.add(busCapRelation);
 
