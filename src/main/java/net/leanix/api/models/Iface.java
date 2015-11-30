@@ -43,6 +43,8 @@ import net.leanix.api.models.FactSheetHasRequiredby;
 import net.leanix.api.models.FactSheetHasParent;
 public class Iface implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
 	/*  */
 	private String ID = null;
 	/*  */
@@ -51,6 +53,8 @@ public class Iface implements Serializable
 	private String parentID = null;
 	/*  */
 	private Long level = null;
+	/*  */
+	private String release = null;
 	/*  */
 	private String name = null;
 	/*  */
@@ -145,6 +149,18 @@ public class Iface implements Serializable
 	public void setLevel(Long level)
 	{
 		this.level = level;
+	}
+
+	@JsonProperty("release")
+	public String getRelease()
+	{
+		return release;
+	}
+	
+	@JsonProperty("release")
+	public void setRelease(String release)
+	{
+		this.release = release;
 	}
 
 	@JsonProperty("name")
@@ -444,6 +460,7 @@ public class Iface implements Serializable
 		sb.append("  displayName: ").append(displayName).append("\n");
 		sb.append("  parentID: ").append(parentID).append("\n");
 		sb.append("  level: ").append(level).append("\n");
+		sb.append("  release: ").append(release).append("\n");
 		sb.append("  name: ").append(name).append("\n");
 		sb.append("  reference: ").append(reference).append("\n");
 		sb.append("  alias: ").append(alias).append("\n");

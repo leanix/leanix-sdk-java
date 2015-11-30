@@ -27,16 +27,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-public class IfaceHasResource implements Serializable
+public class UserRoleDetail implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
 	/*  */
 	private String ID = null;
 	/*  */
-	private String ifaceID = null;
+	private String name = null;
 	/*  */
-	private String resourceID = null;
+	private String description = null;
+	/*  */
+	private String subscriptionTypeID = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -49,38 +51,51 @@ public class IfaceHasResource implements Serializable
 		this.ID = ID;
 	}
 
-	@JsonProperty("ifaceID")
-	public String getIfaceID()
+	@JsonProperty("name")
+	public String getName()
 	{
-		return ifaceID;
+		return name;
 	}
 	
-	@JsonProperty("ifaceID")
-	public void setIfaceID(String ifaceID)
+	@JsonProperty("name")
+	public void setName(String name)
 	{
-		this.ifaceID = ifaceID;
+		this.name = name;
 	}
 
-	@JsonProperty("resourceID")
-	public String getResourceID()
+	@JsonProperty("description")
+	public String getDescription()
 	{
-		return resourceID;
+		return description;
 	}
 	
-	@JsonProperty("resourceID")
-	public void setResourceID(String resourceID)
+	@JsonProperty("description")
+	public void setDescription(String description)
 	{
-		this.resourceID = resourceID;
+		this.description = description;
+	}
+
+	@JsonProperty("subscriptionTypeID")
+	public String getSubscriptionTypeID()
+	{
+		return subscriptionTypeID;
+	}
+	
+	@JsonProperty("subscriptionTypeID")
+	public void setSubscriptionTypeID(String subscriptionTypeID)
+	{
+		this.subscriptionTypeID = subscriptionTypeID;
 	}
 
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("class IfaceHasResource {\n");
+		sb.append("class UserRoleDetail {\n");
 		sb.append("  ID: ").append(ID).append("\n");
-		sb.append("  ifaceID: ").append(ifaceID).append("\n");
-		sb.append("  resourceID: ").append(resourceID).append("\n");
+		sb.append("  name: ").append(name).append("\n");
+		sb.append("  description: ").append(description).append("\n");
+		sb.append("  subscriptionTypeID: ").append(subscriptionTypeID).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

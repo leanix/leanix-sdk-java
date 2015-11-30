@@ -1,17 +1,40 @@
+/*
+ * The MIT License (MIT)	 
+ *
+ * Copyright (c) 2015 LeanIX GmbH
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package net.leanix.api.test;
 
 import org.junit.Ignore;
 import org.junit.runners.Suite;
 
 /**
- * This class can be augmented to perform tests in many test classes,
- * but these need to be listed manually below in @Suite.SuiteClasses.
- * These classes must then inherit from SuiteBasedTestBase instead of NotSuiteBasedTestBase.
- * To run all test classes in this suite, list them below and change class TestBase to inherit form SuiteBasedTestBase.
- * Then, one workspace will be created for all tests instead of one workspace per test class.
+ * This class can be augmented to perform tests in many test classes, but these
+ * need to be listed manually below in @Suite.SuiteClasses. These classes must
+ * then inherit from SuiteBasedTestBase instead of NotSuiteBasedTestBase. To run
+ * all test classes in this suite, list them below and change class TestBase to
+ * inherit form SuiteBasedTestBase. Then, one workspace will be created for all
+ * tests instead of one workspace per test class.
  */
-@Suite.SuiteClasses({
-    // unfinished / undesired
+@Suite.SuiteClasses({ // unfinished / undesired
 })
 @Ignore
 public class AllSuite extends SuiteBase {

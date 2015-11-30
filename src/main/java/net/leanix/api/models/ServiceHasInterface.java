@@ -32,6 +32,8 @@ import net.leanix.api.models.BusinessObject;
 import net.leanix.api.models.InterfaceTechnology;
 public class ServiceHasInterface implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
 	/*  */
 	private String ID = null;
 	/*  */
