@@ -23,15 +23,19 @@
  */
 package net.leanix.api.test;
 
-import static net.leanix.api.test.helpers.ActivityAssertionHelper.*;
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Test;
+import org.junit.After;
+import org.junit.Before;
 
+import net.leanix.api.ActivitiesApi;
+import static net.leanix.api.test.helpers.ActivityAssertionHelper.*;
+import net.leanix.api.BusinessCapabilitiesApi;
+import net.leanix.api.ProjectsApi;
+import net.leanix.api.ServicesApi;
 import net.leanix.api.common.ApiException;
 import net.leanix.api.models.ActivityStream;
 import net.leanix.api.models.BusinessCapability;
@@ -45,7 +49,25 @@ import net.leanix.api.models.ServiceHasProject;
  *
  * @author patrick
  */
-public class ErrorHandlingTest extends TestBase {
+public class ErrorHandlingTest {
+
+    public static WorkspaceSetupRule workspaceSetupRule = new WorkspaceSetupRule();
+    private ProjectsApi projectsApi;
+    private ServicesApi servicesApi;
+    private ActivitiesApi activitiesApi;
+
+    @Before
+    public void setUp() throws Throwable {
+        workspaceSetupRule.before();
+        projectsApi = new ProjectsApi(workspaceSetupRule.getLeanixApiClient());
+        servicesApi = new ServicesApi(workspaceSetupRule.getLeanixApiClient());
+        activitiesApi = new ActivitiesApi(workspaceSetupRule.getLeanixApiClient());
+    }
+
+    @After
+    public void tearDown() {
+        workspaceSetupRule.after();
+    }
 
     @Test
     public void createServiceDoesNotCreateServiceOnError() throws Exception {
@@ -56,7 +78,7 @@ public class ErrorHandlingTest extends TestBase {
 
         Project project = new Project();
         project.setName("Project A2");
-        project = this.getProjectsApi().createProject(project);
+        project = projectsApi.createProject(project);
 
         List<ServiceHasProject> projectList = new ArrayList<>();
         ServiceHasProject projectRelation = new ServiceHasProject();
@@ -73,18 +95,18 @@ public class ErrorHandlingTest extends TestBase {
         service.setServiceHasProcesses(processList);
 
         try {
-            service = this.getServicesApi().createService(service);
+            service = servicesApi.createService(service);
         } catch (Exception e) {
             exceptionOccurred = true;
         }
 
-        Assert.assertTrue("Exception occurred", exceptionOccurred);
-        Assert.assertNull(service.getID());
+        assertTrue("Exception occurred", exceptionOccurred);
+        assertNull(service.getID());
 
-        List<Service> services = this.getServicesApi().getServices(Boolean.TRUE, "ApplicationA");
+        List<Service> services = servicesApi.getServices(Boolean.TRUE, "ApplicationA");
         assertEquals("Created services", 0, services.size());
 
-        ActivityStream activities = getActivitiesApi().getActivities(null, null, null, null, null, 0);
+        ActivityStream activities = activitiesApi.getActivities(null, null, null, null, null, 0);
         assertActivitiesWithEventType(activities.getData(), "OBJECT_CREATE", 1);
     }
 
@@ -95,9 +117,9 @@ public class ErrorHandlingTest extends TestBase {
         Service service = new Service();
         service.setName("Test Service");
         service.setRelease("1.0");
-        service = this.getServicesApi().createService(service);
+        service = servicesApi.createService(service);
 
-        Assert.assertNotNull(service);
+        assertNotNull(service);
 
         List<ServiceHasProcess> processList = new ArrayList<>();
         ServiceHasProcess wrongProcessRelation = new ServiceHasProcess();
@@ -105,27 +127,27 @@ public class ErrorHandlingTest extends TestBase {
         wrongProcessRelation.setProcessID("01234567890");
         processList.add(wrongProcessRelation);
 
-        this.getApiClient().addDefaultHeader("X-Api-Update-Relations", "true");
+        workspaceSetupRule.getLeanixApiClient().addDefaultHeader("X-Api-Update-Relations", "true");
 
         service.setRelease("2.0");
         service.setServiceHasProcesses(processList);
 
         try {
-            this.getServicesApi().updateService(service.getID(), service);
+            servicesApi.updateService(service.getID(), service);
         } catch (ApiException e) {
             exceptionOccurred = true;
         } finally {
-            Assert.assertTrue("Exception occurred", exceptionOccurred);
+            assertTrue("Exception occurred", exceptionOccurred);
         }
 
         refreshSearchIndexForService(service.getID());
 
-        this.getApiClient().addDefaultHeader("X-Api-Update-Relations", "false");
+        workspaceSetupRule.getLeanixApiClient().addDefaultHeader("X-Api-Update-Relations", "false");
 
-        List<Service> services = this.getServicesApi().getServices(Boolean.TRUE, "Test%20Service");
+        List<Service> services = servicesApi.getServices(Boolean.TRUE, "Test%20Service");
         assertEquals("Release was not updated", "1.0", services.get(0).getRelease());
 
-        ActivityStream activities = getActivitiesApi().getActivities(null, null, null, null, null, 0);
+        ActivityStream activities = activitiesApi.getActivities(null, null, null, null, null, 0);
         assertActivitiesWithEventType(activities.getData(), "OBJECT_UPDATED", 0);
     }
 
@@ -148,6 +170,7 @@ public class ErrorHandlingTest extends TestBase {
 
         busCap.setServiceHasBusinessCapabilities(busCapList);
 
-        this.getBusinessCapabilitiesApi().createBusinessCapability(busCap);
+        BusinessCapabilitiesApi busCapApi = new BusinessCapabilitiesApi(workspaceSetupRule.getLeanixApiClient());
+        busCapApi.createBusinessCapability(busCap);
     }
 }
