@@ -52,6 +52,15 @@ $ mvn test \\
     -Dapi.userEmail=<user to use for tests> \\
     -Dapi.key=<api key of user to use for tests> \\
     -Djava.util.logging.config.file=./target/test-classes/logging.properties
+
+# E.G.: When running on development environment with virtual hostname 'boot2docker.leanix.net':
+mvn test \\
+  -Dapi.baseurl=https://boot2docker.leanix.net -Dapi.mtm.baseurl=https://boot2docker.leanix.net \\
+  -Dapi.tokenUrl=https://boot2docker.leanix.net/services/mtm/v1/oauth2/token \\
+  -Dapi.verificationUrl=https://boot2docker.leanix.net/services/mtm/v1/oauth2/verify \\
+  -Dapi.clientId=eam -Dapi.clientSecret=ldtP4b9o3K6IkKm3SolA_eam \\
+  -Dapi.userEmail=cio@meshlab.de -Dapi.key=2699925a1ea24d2c931045fb716750ad \\
+  -Djava.util.logging.config.file=./target/test-classes/logging.properties
 ```
 
 ## Usage ##
@@ -78,6 +87,13 @@ for (Service cur : services)
 {
 	System.out.println(cur);
 }
+```
+### Using a proxy
+In case that you need to use a proxy to access leanix you can setup a http proxy by setting two System Properties:
+
+```
+-Dhttp.proxyHost=<proxy hostname>
+-Dhttp.proxyPort=<proxy port> (default is 80)
 ```
 
 ## Updating ##
