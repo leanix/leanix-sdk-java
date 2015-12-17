@@ -37,23 +37,23 @@ import net.leanix.api.ConsumersApi;
 import net.leanix.api.IfacesApi;
 import net.leanix.api.ProcessesApi;
 import net.leanix.api.ProjectsApi;
+import net.leanix.api.ProvidersApi;
 import net.leanix.api.ResourcesApi;
 import net.leanix.api.ServicesApi;
 import net.leanix.api.common.ApiClient;
 import net.leanix.api.models.BusinessCapability;
 import net.leanix.api.models.BusinessObject;
 import net.leanix.api.models.Consumer;
-import net.leanix.api.models.DataObject;
 import net.leanix.api.models.FactSheetHasIfaceProvider;
 import net.leanix.api.models.Iface;
 import net.leanix.api.models.IfaceHasBusinessObject;
 import net.leanix.api.models.Process;
 import net.leanix.api.models.Project;
+import net.leanix.api.models.Provider;
 import net.leanix.api.models.Resource;
 import net.leanix.api.models.Service;
 import net.leanix.api.models.ServiceHasBusinessCapability;
 import net.leanix.api.models.ServiceHasConsumer;
-import net.leanix.api.models.ServiceHasInterface;
 import net.leanix.api.models.ServiceHasProcess;
 import net.leanix.api.models.ServiceHasProject;
 import net.leanix.api.models.ServiceHasResource;
@@ -103,17 +103,30 @@ public class BenchmarkC extends BaseBenchmarkTests {
             BusinessObjectsApi businessObjectApi = new BusinessObjectsApi(apiClient);
             IfacesApi ifacesApi = new IfacesApi(apiClient);
 
-            // Add consumers (User Group)
             Helper h = new Helper(configurationProvider.getRandomSeed());
+            // Add consumers (User Group)
             List<Consumer> consumers = new ArrayList<>();
-            stopWatch.start("adding Consumers " + Helper.getProperty("consumers.count", "20"));
-            for (int i = 0; i < Integer.parseInt(Helper.getProperty("consumers.count", "20")); i++) {
+            stopWatch.start("adding Consumers " + Helper.getProperty("consumers.count", "10"));
+            for (int i = 0; i < Integer.parseInt(Helper.getProperty("consumers.count", "10")); i++) {
                 Consumer c = new Consumer();
                 c.setName(h.getUniqueString());
                 c.setDescription(h.getUniqueText(10));
                 c = consumersApi.createConsumer(c);
                 System.out.println(String.format("Create USER GROUP %d, name = %s, id = %s", i, c.getName(), c.getID()));
                 consumers.add(c);
+            }
+            stopWatch.stop();
+
+            // Add provider
+            List<Provider> providers = new ArrayList<>();
+            stopWatch.start("adding Provider " + Helper.getProperty("provider.count", "2"));
+            for (int i = 0; i < Integer.parseInt(Helper.getProperty("provider.count", "2")); i++) {
+                Provider model = new Provider();
+                model.setName("Provider " + h.getUniqueString());
+                model.setDescription(h.getUniqueText(40));
+                model = new ProvidersApi(apiClient).createProvider(model);
+                System.out.println(String.format("Create PROVIDER %d, name = %s, id = %s", i, model.getName(), model.getID()));
+                providers.add(model);
             }
             stopWatch.stop();
 
@@ -172,8 +185,8 @@ public class BenchmarkC extends BaseBenchmarkTests {
 
             // Add Interfaces assigned with business objects
             List<Iface> interfaces = new ArrayList<>();
-            stopWatch.start("adding Interfaces " + Helper.getProperty("iface.count", "8"));
-            for (int i = 0; i < Integer.parseInt(Helper.getProperty("iface.count", "8")); i++) {
+            stopWatch.start("adding Interfaces " + numServices);
+            for (int i = 0; i < numServices; i++) {
                 Iface iface = new Iface();
                 iface.setName("IFace " + h.getUniqueString());
                 iface.setDescription(h.getUniqueText(40));
@@ -230,9 +243,9 @@ public class BenchmarkC extends BaseBenchmarkTests {
                     shp.setProjectID(project.getID());
                     s.setServiceHasProjects(Arrays.asList(shp));
                 }
-
+                // TODO rwe:
                 if (interfaces.size() > 0) {
-                    Iface iface = interfaces.get(ThreadLocalRandom.current().nextInt(0, interfaces.size() - 1));
+                    Iface iface = interfaces.get(i);
                     FactSheetHasIfaceProvider factSheetHasIfaceProvider = new FactSheetHasIfaceProvider();
                     factSheetHasIfaceProvider.setIfaceID(iface.getID());
                     s.setFactSheetHasIfaceProviders(Arrays.asList(factSheetHasIfaceProvider));

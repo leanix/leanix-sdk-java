@@ -23,16 +23,23 @@
 
 package net.leanix.api.common;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.fasterxml.jackson.databind.JavaType;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource.Builder;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.client.filter.LoggingFilter;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.sun.jersey.client.urlconnection.HttpURLConnectionFactory;
+import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
 
 public class ApiClient
 {
@@ -217,18 +224,39 @@ public class ApiClient
 		}
 	}
 
-	private Client getClient() {
-		Client client = cachedJerseyClient;
+    private Client getClient() {
+        Client client = cachedJerseyClient;
 
-		if (client == null) {
-			client = Client.create();
-			if (enableHttpLogging) {
-				client.addFilter(new LoggingFilter());
-			}
-			cachedJerseyClient = client;
-		}
-		return client;
-	}
+        if (client == null) {
+            client = new Client(
+                    new URLConnectionClientHandler(
+                            new HttpURLConnectionFactory() {
+                                Proxy p = null;
+
+                                @Override
+                                public HttpURLConnection getHttpURLConnection(URL url) throws IOException {
+                                    if (p == null) {
+                                        if (System.getProperties().containsKey("http.proxyHost")) {
+                                            p = new Proxy(Proxy.Type.HTTP,
+                                                    new InetSocketAddress(
+                                                            System.getProperty("http.proxyHost"),
+                                                            Integer.getInteger("http.proxyPort", 80)));
+                                        } else {
+                                            p = Proxy.NO_PROXY;
+                                        }
+                                    }
+                                    return (HttpURLConnection) url.openConnection(p);
+                                }
+                            }),
+                    new DefaultClientConfig());
+
+            if (enableHttpLogging) {
+                client.addFilter(new LoggingFilter());
+            }
+            cachedJerseyClient = client;
+        }
+        return client;
+    }
 }
 
 
