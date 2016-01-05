@@ -26,6 +26,9 @@ import net.leanix.api.common.ApiClient;
 import net.leanix.dropkit.api.ApiException;
 import net.leanix.dropkit.api.Client;
 import net.leanix.dropkit.api.ClientFactory;
+import net.leanix.dropkit.oauth.ClientCredentialAccessTokenFactory;
+import net.leanix.dropkit.oauth.FlowException;
+import net.leanix.dropkit.oauth.OAuth2ClientConfig;
 import net.leanix.mtm.api.AccountsApi;
 import net.leanix.mtm.api.PermissionsApi;
 import net.leanix.mtm.api.UsersApi;
@@ -102,18 +105,24 @@ public class WorkspaceSetupRule extends ExternalResource {
         return this.getProperty("api.mtm.baseurl") + "/services/mtm/" + this.getProperty("api.mtm.version", "v1");
     }
 
+    protected OAuth2ClientConfig getClientConfig() {
+        OAuth2ClientConfig config = new OAuth2ClientConfig();
+        config.setBaseUrl(createMtmApiUrl());
+        config.setTokenUrl(getTokenUrl());
+        config.setClientId(getClientId());
+        config.setClientSecret(getClientSecret());
+
+        return config;
+    }
+
     protected Client createMtmApiClient() {
-        Client client = ClientFactory.create(createMtmApiUrl(), getTokenUrl(), getVerificationUrl(), getClientId(), getClientSecret(), false);
+        Client client = ClientFactory.create(this.getClientConfig(), false);
         // may add a header here via client.addDefaultHeader("test-hdr", "val1");
         return client;
     }
 
     protected String getTokenUrl() {
         return getProperty("api.tokenUrl");
-    }
-
-    protected String getVerificationUrl() {
-        return this.getProperty("api.verificationUrl");
     }
 
     protected String getClientId() {
@@ -132,12 +141,15 @@ public class WorkspaceSetupRule extends ExternalResource {
         return getProperty("api.userEmail");
     }
 
-    protected ApiClient createLeanixApiClient(String workspaceName) {
+    protected ApiClient createLeanixApiClient(String workspaceName) throws FlowException {
         ApiClient apiClient = new ApiClient();
         apiClient.setEnableHttpLogging(false);
         apiClient.addDefaultHeader(SYNC_HEADER, "true");
         apiClient.setBasePath(createApiUrl(workspaceName));
         apiClient.setApiKey(getApiKey());
+
+        //ClientCredentialAccessTokenFactory factory = ClientCredentialAccessTokenFactory.create(this.getClientConfig());
+        //apiClient.addDefaultHeader("Authorization", "Bearer " + factory.getAccessToken());
 
         return apiClient;
     }
