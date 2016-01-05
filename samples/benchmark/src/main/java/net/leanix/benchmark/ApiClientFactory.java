@@ -35,18 +35,16 @@ public class ApiClientFactory {
      * @return
      * @throws Exception
      */
-    public static ApiClient getApiClient(String workspaceName) throws Exception {
+    public static ApiClient getApiClient(String workspaceName, String apiKey) throws Exception {
         String apiHostName = ConfigurationProvider.getApiHostName();
 
         if (StringUtils.isEmpty(apiHostName)) {
-            return getApiClient(ConfigurationProvider.getApiBasePath(),
-                    ConfigurationProvider.getApiKey());
+            return getApiClientHelper(ConfigurationProvider.getApiBasePath(), apiKey);
         }
-        return getApiClient(String.format("https://%s/%s/api/v1", apiHostName, workspaceName),
-                ConfigurationProvider.getApiKey());
+        return getApiClientHelper(String.format("https://%s/%s/api/v1", apiHostName, workspaceName), apiKey);
     }
 
-    public static ApiClient getApiClient(String basePath, String apiKey) throws Exception {
+    private static ApiClient getApiClientHelper(String basePath, String apiKey) throws Exception {
         ApiClient apiClient = new ApiClient();
         apiClient.addDefaultHeader("X-Api-Sync-Mode", "sync");
         apiClient.setBasePath(basePath);

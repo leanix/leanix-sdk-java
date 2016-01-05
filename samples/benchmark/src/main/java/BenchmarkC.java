@@ -89,7 +89,7 @@ public class BenchmarkC extends BaseBenchmarkTests {
     @Override
     public void runBenchmarkOnWorkspace(StopWatch stopWatch) throws JAXBException {
         try {
-            ApiClient apiClient = ApiClientFactory.getApiClient(wsName);
+            ApiClient apiClient = ApiClientFactory.getApiClient(wsName, apiKey);
             apiClient.addDefaultHeader("X-Api-Update-Relations", "true");
             // allow asynchronous job run
             apiClient.addDefaultHeader("X-Api-Synchronous", "false");

@@ -1,1 +1,6 @@
-./benchmark-a2.sh local-eam.leanix.net 55b7b4453a5845ed8370ab3a806e63f7 muiyai6eewax6exei5Da ${1:-10} ${2:-5}
+#!/bin/bash
+
+mvn exec:java -Dexec.mainClass=${1:-BenchmarkA} -Dapi.hostname=local-eam.leanix.net -Dapi.clientSecret=mlka4C2mYr0zqyOecLqN \
+-Dservices.count=10 \
+-DresourcesPerServices.count=5
+

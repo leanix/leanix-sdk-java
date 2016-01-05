@@ -1,5 +1,7 @@
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -28,6 +30,8 @@ public abstract class BaseBenchmarkTests {
 
     protected String wsName;
 
+    protected String apiKey;
+
     protected ConfigurationProvider configurationProvider;
 
     public abstract void runBenchmarkOnWorkspace(StopWatch stopWatch) throws JAXBException;
@@ -35,20 +39,20 @@ public abstract class BaseBenchmarkTests {
     protected void run(StopWatch stopWatch)
             throws ApiException, net.leanix.api.common.ApiException, JAXBException, InterruptedException {
 
+        SimpleDateFormat format = new SimpleDateFormat("yyyy'A'MM'A'dd'T'HH'A'mm'A'ss");
+        wsName = BenchmarkA.class.getSimpleName() + format.format(new Date());
+
         // ensure workspace is present
-        stopWatch.start("search for existing or create new workspace");
-        new WorkspaceHelper(wsName).getExistingWorkspaceOrCreateNew();
+        stopWatch.start("Initialize new workspace");
+        apiKey = new WorkspaceHelper(wsName).initialize();
         stopWatch.stop();
 
         // run the concreate tests on new / existing WS
         runBenchmarkOnWorkspace(stopWatch);
 
-        // cleanup WS, if not specified before
-        if (StringUtils.isBlank(System.getProperty(API_WORKSPACE_NAME))) {
-            // Wait a little bit to give jobs time to end
-            Thread.sleep(5000);
-            new WorkspaceHelper(wsName).deleteWorkspace();
-        }
+        // Wait a little bit to give jobs time to end
+        Thread.sleep(5000);
+        new WorkspaceHelper(wsName).deleteWorkspace();
     }
 
     public BaseBenchmarkTests() {
@@ -58,9 +62,7 @@ public abstract class BaseBenchmarkTests {
         SLF4JBridgeHandler.install();
 
         wsName = System.getProperty(API_WORKSPACE_NAME);
-        if (StringUtils.isBlank(wsName)) {
-            wsName = BenchmarkA.class.getSimpleName() + 'x' + RandomStringUtils.random(4, "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-        }
+
 
         configurationProvider = new ConfigurationProvider();
     }

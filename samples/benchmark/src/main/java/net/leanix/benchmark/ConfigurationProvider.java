@@ -41,19 +41,15 @@ public class ConfigurationProvider {
     }
 
     public static String getApiHostName() {
-        return System.getProperty("api.hostname");
+        return System.getProperty("api.hostname", "local-eam.leanix.net");
     }
 
     public static String getApiBasePath() {
         return Helper.getProperty("api.basePath", "https://local-eam.leanix.net/demo/api/v1");
     }
 
-    public static String getApiKey() {
-        return Helper.getProperty("api.key", null);
-    }
-
     public static int getServicesCount() {
-        return Helper.getIntProperty("services.count", 50);
+        return Helper.getIntProperty("services.count", 5);
     }
 
     public static int getNumResourcesPerService() {
@@ -88,21 +84,12 @@ public class ConfigurationProvider {
         return Helper.getProperty("api.tokenUrl", String.format("https://%s/services/mtm/v1/oauth2/token", getApiHostName()));
     }
 
-    public static String getVerificationUrl() {
-        return Helper.getProperty("api.verificationUrl",
-                String.format("https://%s/services/mtm/%s/oauth2/verify", getApiHostName(), getApiMtmVersion()));
-    }
-
     public static String getClientId() {
         return Helper.getProperty("api.clientId", "eam");
     }
 
     public static String getClientSecret() {
         return Helper.getProperty("api.clientSecret", null);
-    }
-
-    public static String getApiUserEmail() {
-        return Helper.getProperty("api.userEmail", "cio@meshlab.de");
     }
 
     @Override

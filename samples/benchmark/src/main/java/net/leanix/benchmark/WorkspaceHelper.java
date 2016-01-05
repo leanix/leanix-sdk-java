@@ -1,24 +1,20 @@
 package net.leanix.benchmark;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import net.leanix.api.common.ApiException;
 import net.leanix.dropkit.api.Client;
 import net.leanix.dropkit.api.ClientFactory;
+import net.leanix.dropkit.oauth.OAuth2ClientConfig;
 import net.leanix.mtm.api.AccountsApi;
 import net.leanix.mtm.api.PermissionsApi;
 import net.leanix.mtm.api.UsersApi;
 import net.leanix.mtm.api.WorkspacesApi;
-import net.leanix.mtm.api.models.Account;
-import net.leanix.mtm.api.models.AccountListResponse;
-import net.leanix.mtm.api.models.Contract;
-import net.leanix.mtm.api.models.ContractListResponse;
-import net.leanix.mtm.api.models.Permission;
-import net.leanix.mtm.api.models.User;
-import net.leanix.mtm.api.models.UserListResponse;
-import net.leanix.mtm.api.models.Workspace;
-import net.leanix.mtm.api.models.WorkspaceListResponse;
-import net.leanix.mtm.api.models.WorkspaceResponse;
+import net.leanix.mtm.api.models.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WorkspaceHelper {
 
@@ -38,31 +34,32 @@ public class WorkspaceHelper {
     private final WorkspacesApi workspacesApi;
     private final AccountsApi accountsApi;
 
+    private static final Logger logger = LoggerFactory.getLogger(WorkspaceHelper.class);
+
     public WorkspaceHelper(String workspaceName) {
         super();
         this.workspaceName = workspaceName;
-        mtmApiClient = ClientFactory.create(ConfigurationProvider.createMtmApiUrl(), ConfigurationProvider.getTokenUrl(),
-                ConfigurationProvider.getVerificationUrl(), ConfigurationProvider.getClientId(),
-                ConfigurationProvider.getClientSecret());
+        mtmApiClient = ClientFactory.create(this.getClientConfig());
         workspacesApi = new WorkspacesApi(mtmApiClient);
         accountsApi = new AccountsApi(mtmApiClient);
     }
 
+    protected OAuth2ClientConfig getClientConfig() {
+        OAuth2ClientConfig config = new OAuth2ClientConfig();
+        config.setBaseUrl(ConfigurationProvider.createMtmApiUrl());
+        config.setTokenUrl(ConfigurationProvider.getTokenUrl());
+        config.setClientId(ConfigurationProvider.getClientId());
+        config.setClientSecret(ConfigurationProvider.getClientSecret());
+
+        return config;
+    }
+
     /**
-     * Creates a new workspace or takes care that an old one with name {@linkplain #workspaceName} already exists.
-     * 
-     * @return <code>true</code> if the workspace already exists
+     * Initializes environment and returns apiKey
      * @throws net.leanix.dropkit.api.ApiException
      * @throws ApiException
      */
-    public boolean getExistingWorkspaceOrCreateNew() throws net.leanix.dropkit.api.ApiException, ApiException {
-        WorkspaceListResponse workspaceListResponse = workspacesApi.getWorkspaces(null, null, null, null);
-        for (Workspace workspace : workspaceListResponse.getData()) {
-            // System.out.println(String.format("Found workspace: %s", workspace.getName()));
-            if (workspace.getName().equals(workspaceName)) {
-                return true;
-            }
-        }
+    public String initialize() throws net.leanix.dropkit.api.ApiException, ApiException {
 
         // create a new workspace with required name
         Account account = lookupAccount(ACCOUNT_NAME);
@@ -78,11 +75,9 @@ public class WorkspaceHelper {
         WorkspaceResponse response = workspacesApi.createWorkspace(newWorkspace, null);
         Workspace workspace = response.getData();
 
-        System.out.println(String.format("Workspace '%s' created, has ID %s", workspace.getName(), workspace.getId()));
+        logger.info(String.format("Workspace '%s' created, has ID %s", workspace.getName(), workspace.getId()));
 
-        addUserToWorkspace(workspace, ConfigurationProvider.getApiUserEmail());
-
-        return false;
+        return addUserToWorkspace(account, workspace);
     }
 
     public void deleteWorkspace() throws net.leanix.dropkit.api.ApiException {
@@ -97,15 +92,24 @@ public class WorkspaceHelper {
         System.out.println(String.format("Workspace '%s' deleted.", workspace.getName()));
     }
 
-    private void addUserToWorkspace(Workspace workspace, String email) throws ApiException, net.leanix.dropkit.api.ApiException {
+    protected String addUserToWorkspace(Account account, Workspace workspace) throws net.leanix.dropkit.api.ApiException {
         UsersApi usersApi = new UsersApi(mtmApiClient);
-        System.out.println(String.format("looking for user %s", email));
-        UserListResponse response = usersApi.getUsers(email, null, null, null, null);
-        if (response.getData().size() != 1) {
-            throw new RuntimeException("user " + email + " not found.");
-        }
 
-        User user = response.getData().get(0);
+        User u = new User();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy'A'MM'A'dd'T'HH'A'mm'A'ss");
+        u.setEmail("testjavauser" + format.format(new Date()) + "@meshlab.com");
+        u.setUserName(u.getEmail());
+        u.setFirstName("Test");
+        u.setLastName("Java User");
+        u.setRole("ACCOUNTUSER");
+        u.setStatus("ACTIVE");
+        AuthenticatedUserAccount authAccount = new AuthenticatedUserAccount();
+        authAccount.setId(account.getId());
+        u.setAccount(authAccount);
+
+        UserResponse userResponse = usersApi.createUser("", u);
+
+        User user = userResponse.getData();
 
         PermissionsApi permissionsApi = new PermissionsApi(mtmApiClient);
 
@@ -115,13 +119,13 @@ public class WorkspaceHelper {
         permission.setWorkspace(workspace);
         permission.setUser(user);
 
-        System.out.println(
-                String.format("try to add %s %s permission to workspace for the user...", permission.getStatus(),
-                        permission.getRole()));
+        logger.debug("add {} {} permission to workspace for the user", permission.getStatus(), permission.getRole());
 
         permissionsApi.setPermission(permission, true);
 
-        System.out.println("permission added");
+        logger.debug("permission added");
+
+        return user.getApiKey();
     }
 
     protected Account lookupAccount(String accountName) throws ApiException, net.leanix.dropkit.api.ApiException {
