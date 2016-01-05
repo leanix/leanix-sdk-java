@@ -43,23 +43,18 @@ The tests can be executed as follows:
 
 ```bash
 $ mvn test \\
-    -Dapi.baseurl=https://app.leanix.net \\
-    -Dapi.mtm.baseurl=https://svc.leanix.net \\
-    -Dapi.tokenUrl=https://svc.leanix.net/services/mtm/v1/oauth2/token \\
-    -Dapi.verificationUrl=https://svc.leanix.net/services/mtm/v1/oauth2/verify \\
+    -Dapi.baseurl=https://local-eam.leanix.net \\
+    -Dapi.mtm.baseurl=https://local-svc.leanix.net \\
+    -Dapi.tokenUrl=https://local-svc.leanix.net/services/mtm/v1/oauth2/token \\
     -Dapi.clientId=<client application to generate workspace and permissions> \\
     -Dapi.clientSecret=<secret for client application> \\
-    -Dapi.userEmail=<user to use for tests> \\
-    -Dapi.key=<api key of user to use for tests> \\
     -Djava.util.logging.config.file=./target/test-classes/logging.properties
 
 # E.G.: When running on development environment with virtual hostname 'boot2docker.leanix.net':
 mvn test \\
   -Dapi.baseurl=https://boot2docker.leanix.net -Dapi.mtm.baseurl=https://boot2docker.leanix.net \\
   -Dapi.tokenUrl=https://boot2docker.leanix.net/services/mtm/v1/oauth2/token \\
-  -Dapi.verificationUrl=https://boot2docker.leanix.net/services/mtm/v1/oauth2/verify \\
   -Dapi.clientId=eam -Dapi.clientSecret=ldtP4b9o3K6IkKm3SolA_eam \\
-  -Dapi.userEmail=cio@meshlab.de -Dapi.key=2699925a1ea24d2c931045fb716750ad \\
   -Djava.util.logging.config.file=./target/test-classes/logging.properties
 ```
 
@@ -83,8 +78,7 @@ You can then use the API class to execute functions. For each Fact Sheet in lean
 ```java
 ServicesApi servicesApi = new ServicesApi(client);
 List<Service> services = servicesApi.getServices(false, "design");
-for (Service cur : services)
-{
+for (Service cur : services) {
 	System.out.println(cur);
 }
 ```
