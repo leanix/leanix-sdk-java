@@ -26,19 +26,14 @@ import net.leanix.api.common.ApiClient;
 import net.leanix.dropkit.api.ApiException;
 import net.leanix.dropkit.api.Client;
 import net.leanix.dropkit.api.ClientFactory;
+import net.leanix.dropkit.oauth.ClientCredentialAccessTokenFactory;
+import net.leanix.dropkit.oauth.FlowException;
+import net.leanix.dropkit.oauth.OAuth2ClientConfig;
 import net.leanix.mtm.api.AccountsApi;
 import net.leanix.mtm.api.PermissionsApi;
 import net.leanix.mtm.api.UsersApi;
 import net.leanix.mtm.api.WorkspacesApi;
-import net.leanix.mtm.api.models.Account;
-import net.leanix.mtm.api.models.AccountListResponse;
-import net.leanix.mtm.api.models.Contract;
-import net.leanix.mtm.api.models.ContractListResponse;
-import net.leanix.mtm.api.models.Permission;
-import net.leanix.mtm.api.models.User;
-import net.leanix.mtm.api.models.UserListResponse;
-import net.leanix.mtm.api.models.Workspace;
-import net.leanix.mtm.api.models.WorkspaceResponse;
+import net.leanix.mtm.api.models.*;
 
 import org.junit.rules.ExternalResource;
 import org.slf4j.Logger;
@@ -102,18 +97,24 @@ public class WorkspaceSetupRule extends ExternalResource {
         return this.getProperty("api.mtm.baseurl") + "/services/mtm/" + this.getProperty("api.mtm.version", "v1");
     }
 
+    protected OAuth2ClientConfig getClientConfig() {
+        OAuth2ClientConfig config = new OAuth2ClientConfig();
+        config.setBaseUrl(createMtmApiUrl());
+        config.setTokenUrl(getTokenUrl());
+        config.setClientId(getClientId());
+        config.setClientSecret(getClientSecret());
+
+        return config;
+    }
+
     protected Client createMtmApiClient() {
-        Client client = ClientFactory.create(createMtmApiUrl(), getTokenUrl(), getVerificationUrl(), getClientId(), getClientSecret(), false);
+        Client client = ClientFactory.create(this.getClientConfig(), false);
         // may add a header here via client.addDefaultHeader("test-hdr", "val1");
         return client;
     }
 
     protected String getTokenUrl() {
         return getProperty("api.tokenUrl");
-    }
-
-    protected String getVerificationUrl() {
-        return this.getProperty("api.verificationUrl");
     }
 
     protected String getClientId() {
@@ -124,20 +125,12 @@ public class WorkspaceSetupRule extends ExternalResource {
         return getProperty("api.clientSecret");
     }
 
-    protected String getApiKey() {
-        return getProperty("api.key");
-    }
-
-    protected String getUserEmail() {
-        return getProperty("api.userEmail");
-    }
-
-    protected ApiClient createLeanixApiClient(String workspaceName) {
+    protected ApiClient createLeanixApiClient(String workspaceName, String apiKey) throws FlowException {
         ApiClient apiClient = new ApiClient();
         apiClient.setEnableHttpLogging(false);
         apiClient.addDefaultHeader(SYNC_HEADER, "true");
         apiClient.setBasePath(createApiUrl(workspaceName));
-        apiClient.setApiKey(getApiKey());
+        apiClient.setApiKey(apiKey);
 
         return apiClient;
     }
@@ -156,9 +149,9 @@ public class WorkspaceSetupRule extends ExternalResource {
         Contract contract = lookupContract(account.getId(), CONTRACT_DISPLAY_NAME);
         this.workspace = createNewWorkspace(contract.getId());
 
-        addUserToWorkspace(workspace, getUserEmail());
+        String apiKey = addUserToWorkspace(account, workspace);
 
-        this.leanixApiClient = createLeanixApiClient(workspace.getName());
+        this.leanixApiClient = createLeanixApiClient(workspace.getName(), apiKey);
     }
 
     // cannot delete workspaces due to referential integrity constraints already immediately after creation of the workspace
@@ -244,15 +237,24 @@ public class WorkspaceSetupRule extends ExternalResource {
         return workspace;
     }
 
-    protected void addUserToWorkspace(Workspace workspace, String email) throws ApiException {
+    protected String addUserToWorkspace(Account account, Workspace workspace) throws ApiException {
         UsersApi usersApi = new UsersApi(mtmApiClient);
-        logger.info("looking user {} up", email);
-        UserListResponse response = usersApi.getUsers(email, null, null, null, null);
-        if (response.getData().size() != 1) {
-            throw new RuntimeException("user " + email + " not found.");
-        }
 
-        User user = response.getData().get(0);
+        User u = new User();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy'A'MM'A'dd'T'HH'A'mm'A'ss");
+        u.setEmail("testjavauser" + format.format(new Date()) + "@meshlab.com");
+        u.setUserName(u.getEmail());
+        u.setFirstName("Test");
+        u.setLastName("Java User");
+        u.setRole("ACCOUNTUSER");
+        u.setStatus("ACTIVE");
+        AuthenticatedUserAccount authAccount = new AuthenticatedUserAccount();
+        authAccount.setId(account.getId());
+        u.setAccount(authAccount);
+
+        UserResponse userResponse = usersApi.createUser("", u);
+
+        User user = userResponse.getData();
 
         PermissionsApi permissionsApi = new PermissionsApi(mtmApiClient);
 
@@ -267,6 +269,8 @@ public class WorkspaceSetupRule extends ExternalResource {
         permissionsApi.setPermission(permission, true);
 
         logger.debug("permission added");
+
+        return user.getApiKey();
     }
 
     protected void deleteWorkspace(Workspace workspace) {
