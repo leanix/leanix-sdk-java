@@ -52,7 +52,7 @@ public class Project implements Serializable
 	/*  */
 	private String parentID = null;
 	/*  */
-	private String level = null;
+	private Long level = null;
 	/*  */
 	private String name = null;
 	/*  */
@@ -72,9 +72,9 @@ public class Project implements Serializable
 	/*  */
 	private String projectRiskDescription = null;
 	/*  */
-	private String budgetOpex = null;
+	private Double budgetOpex = null;
 	/*  */
-	private String budgetCapex = null;
+	private Double budgetCapex = null;
 	/*  */
 	private String costComment = null;
 	/*  */
@@ -154,13 +154,13 @@ public class Project implements Serializable
 	}
 
 	@JsonProperty("level")
-	public String getLevel()
+	public Long getLevel()
 	{
 		return level;
 	}
 	
 	@JsonProperty("level")
-	public void setLevel(String level)
+	public void setLevel(Long level)
 	{
 		this.level = level;
 	}
@@ -274,25 +274,25 @@ public class Project implements Serializable
 	}
 
 	@JsonProperty("budgetOpex")
-	public String getBudgetOpex()
+	public Double getBudgetOpex()
 	{
 		return budgetOpex;
 	}
 	
 	@JsonProperty("budgetOpex")
-	public void setBudgetOpex(String budgetOpex)
+	public void setBudgetOpex(Double budgetOpex)
 	{
 		this.budgetOpex = budgetOpex;
 	}
 
 	@JsonProperty("budgetCapex")
-	public String getBudgetCapex()
+	public Double getBudgetCapex()
 	{
 		return budgetCapex;
 	}
 	
 	@JsonProperty("budgetCapex")
-	public void setBudgetCapex(String budgetCapex)
+	public void setBudgetCapex(Double budgetCapex)
 	{
 		this.budgetCapex = budgetCapex;
 	}
