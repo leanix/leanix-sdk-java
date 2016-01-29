@@ -39,6 +39,8 @@ public class ServiceHasProcess implements Serializable
 	private String processID = null;
 	/*  */
 	private String constraints = null;
+	/*  */
+	private String constraintsBackup = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -87,6 +89,18 @@ public class ServiceHasProcess implements Serializable
 		this.constraints = constraints;
 	}
 
+	@JsonProperty("constraintsBackup")
+	public String getConstraintsBackup()
+	{
+		return constraintsBackup;
+	}
+	
+	@JsonProperty("constraintsBackup")
+	public void setConstraintsBackup(String constraintsBackup)
+	{
+		this.constraintsBackup = constraintsBackup;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -96,6 +110,7 @@ public class ServiceHasProcess implements Serializable
 		sb.append("  serviceID: ").append(serviceID).append("\n");
 		sb.append("  processID: ").append(processID).append("\n");
 		sb.append("  constraints: ").append(constraints).append("\n");
+		sb.append("  constraintsBackup: ").append(constraintsBackup).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}
