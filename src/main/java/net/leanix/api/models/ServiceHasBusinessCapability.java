@@ -47,6 +47,8 @@ public class ServiceHasBusinessCapability implements Serializable
 	private String supportTypeID = null;
 	/*  */
 	private String constraints = null;
+	/*  */
+	private String constraintsBackup = null;
 	@JsonProperty("ID")
 	public String getID()
 	{
@@ -143,6 +145,18 @@ public class ServiceHasBusinessCapability implements Serializable
 		this.constraints = constraints;
 	}
 
+	@JsonProperty("constraintsBackup")
+	public String getConstraintsBackup()
+	{
+		return constraintsBackup;
+	}
+	
+	@JsonProperty("constraintsBackup")
+	public void setConstraintsBackup(String constraintsBackup)
+	{
+		this.constraintsBackup = constraintsBackup;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -156,6 +170,7 @@ public class ServiceHasBusinessCapability implements Serializable
 		sb.append("  comment: ").append(comment).append("\n");
 		sb.append("  supportTypeID: ").append(supportTypeID).append("\n");
 		sb.append("  constraints: ").append(constraints).append("\n");
+		sb.append("  constraintsBackup: ").append(constraintsBackup).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}
