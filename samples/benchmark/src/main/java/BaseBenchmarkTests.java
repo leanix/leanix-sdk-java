@@ -27,6 +27,7 @@ public abstract class BaseBenchmarkTests {
     private static final Logger LOG = LoggerFactory.getLogger(BaseBenchmarkTests.class);
     
     private static final String API_WORKSPACE_NAME = "api.workspaceName";
+    private static final String KEEP_WORKSPACE = "keepWorkspace";
 
     protected String wsName;
 
@@ -51,8 +52,9 @@ public abstract class BaseBenchmarkTests {
         runBenchmarkOnWorkspace(stopWatch);
 
         // Wait a little bit to give jobs time to end
-        Thread.sleep(5000);
-        new WorkspaceHelper(wsName).deleteWorkspace();
+        Thread.sleep(10000);
+        if ("y".equals(System.getProperty(KEEP_WORKSPACE).toLowerCase().substring(1)));
+            new WorkspaceHelper(wsName).deleteWorkspace();
     }
 
     public BaseBenchmarkTests() {
