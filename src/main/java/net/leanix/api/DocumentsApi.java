@@ -50,7 +50,7 @@ public class DocumentsApi
 		return this.apiClient;
 	}
 
-	public List<Document> getDocuments (Boolean relations, String filter) throws ApiException
+	public List<Document> getDocuments (Boolean relations, String filter, String referenceSystem) throws ApiException
 	{
 		// create path and map variables
 		String path = "/documents".replaceAll("\\{format\\}","json");
@@ -63,6 +63,8 @@ public class DocumentsApi
 			queryParams.put("relations", String.valueOf(relations));
 		if(!"null".equals(String.valueOf(filter)))
 			queryParams.put("filter", String.valueOf(filter));
+		if(!"null".equals(String.valueOf(referenceSystem)))
+			queryParams.put("referenceSystem", String.valueOf(referenceSystem));
 		try
 		{
 			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
