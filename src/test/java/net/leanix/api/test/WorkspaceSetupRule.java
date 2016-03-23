@@ -22,26 +22,35 @@
  */
 package net.leanix.api.test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.rules.ExternalResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.leanix.api.common.ApiClient;
 import net.leanix.dropkit.api.ApiException;
 import net.leanix.dropkit.api.Client;
 import net.leanix.dropkit.api.ClientFactory;
-import net.leanix.dropkit.oauth.ClientCredentialAccessTokenFactory;
 import net.leanix.dropkit.oauth.FlowException;
 import net.leanix.dropkit.oauth.OAuth2ClientConfig;
 import net.leanix.mtm.api.AccountsApi;
 import net.leanix.mtm.api.PermissionsApi;
 import net.leanix.mtm.api.UsersApi;
 import net.leanix.mtm.api.WorkspacesApi;
-import net.leanix.mtm.api.models.*;
-
-import org.junit.rules.ExternalResource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import net.leanix.mtm.api.models.Account;
+import net.leanix.mtm.api.models.AccountListResponse;
+import net.leanix.mtm.api.models.AuthenticatedUserAccount;
+import net.leanix.mtm.api.models.Contract;
+import net.leanix.mtm.api.models.ContractListResponse;
+import net.leanix.mtm.api.models.Permission;
+import net.leanix.mtm.api.models.User;
+import net.leanix.mtm.api.models.UserResponse;
+import net.leanix.mtm.api.models.Workspace;
+import net.leanix.mtm.api.models.WorkspaceResponse;
 
 /**
  * Creates a workspace with a permission for testing. Created workspace and
@@ -242,7 +251,7 @@ public class WorkspaceSetupRule extends ExternalResource {
 
         User u = new User();
         SimpleDateFormat format = new SimpleDateFormat("yyyy'A'MM'A'dd'T'HH'A'mm'A'ss");
-        u.setEmail("testjavauser" + format.format(new Date()) + "@meshlab.com");
+        u.setEmail(String.format("testjavauser-%s-%s@meshlab.com", format.format(new Date()), RandomStringUtils.randomAlphanumeric(4)));
         u.setUserName(u.getEmail());
         u.setFirstName("Test");
         u.setLastName("Java User");
