@@ -130,7 +130,7 @@ public class DocumentsApiTest extends TestBase {
         }
 
         int foundCount = 0;
-        List<Document> models = this.getApi().getDocuments(false, null);
+        List<Document> models = this.getApi().getDocuments(false, null, null);
         for (Document s : models) {
             logger.info(s.getName());
             if (s.getName().startsWith("GetModels")) {
@@ -151,7 +151,7 @@ public class DocumentsApiTest extends TestBase {
 
         this.getApi().deleteDocument(newModel.getID());
 
-        List<Document> models = this.getApi().getDocuments(false, null);
+        List<Document> models = this.getApi().getDocuments(false, null, null);
         boolean found = false;
         for (Document s : models) {
             if (s.getID().equals(newModel.getID())) {
