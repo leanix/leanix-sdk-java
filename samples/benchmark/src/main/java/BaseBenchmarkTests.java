@@ -8,19 +8,17 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.util.StopWatch;
 import org.springframework.util.StopWatch.TaskInfo;
 
+import net.leanix.api.common.ApiException;
 import net.leanix.benchmark.ConfigurationProvider;
 import net.leanix.benchmark.WorkspaceHelper;
 import net.leanix.benchmark.performance.ReportBuilder;
 import net.leanix.benchmark.performance.TestSuite;
-import net.leanix.dropkit.api.ApiException;
 
 public abstract class BaseBenchmarkTests {
 
@@ -38,7 +36,8 @@ public abstract class BaseBenchmarkTests {
     public abstract void runBenchmarkOnWorkspace(StopWatch stopWatch) throws JAXBException;
 
     protected void run(StopWatch stopWatch)
-            throws ApiException, net.leanix.api.common.ApiException, JAXBException, InterruptedException {
+            throws ApiException, net.leanix.api.common.ApiException, JAXBException, InterruptedException,
+            net.leanix.dropkit.apiclient.ApiException {
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy'A'MM'A'dd'T'HH'A'mm'A'ss");
         wsName = BenchmarkA.class.getSimpleName() + format.format(new Date());
