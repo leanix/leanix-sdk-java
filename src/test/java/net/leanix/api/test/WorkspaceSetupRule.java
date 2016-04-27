@@ -34,6 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.leanix.api.common.ApiClient;
+import net.leanix.api.common.ApiClientBuilder;
 import net.leanix.dropkit.apiclient.ApiException;
 import net.leanix.mtm.api.AccountsApi;
 import net.leanix.mtm.api.PermissionsApi;
@@ -53,13 +54,14 @@ import net.leanix.mtm.api.models.Workspace.TypeEnum;
 import net.leanix.mtm.api.models.WorkspaceResponse;
 
 /**
- * Creates a workspace with a permission for testing. Created workspace and
- * corresponding EAM API client is stored as an instance member variable, so it
- * cannot be used for concurrent tests in different workspaces!
+ * Creates a workspace with a permission for testing. Created workspace and corresponding EAM API client is stored as an instance member
+ * variable, so it cannot be used for concurrent tests in different workspaces!
  */
 public class WorkspaceSetupRule extends ExternalResource {
 
     private final Logger logger = LoggerFactory.getLogger(WorkspaceSetupRule.class);
+
+    private static final String SYNC_HEADER = "X-Api-Synchronous";
 
     /**
      * account to use when creating a workspace
@@ -102,11 +104,11 @@ public class WorkspaceSetupRule extends ExternalResource {
     }
 
     protected String getApiHostName() {
-        return getProperty("api.hostname");
+        return getProperty("api.hostname", null);
     }
 
-    protected String getTokenUrl() {
-        return getProperty("api.tokenUrl");
+    protected String getApiMtmHostName() {
+        return getProperty("api.mtm.hostname");
     }
 
     protected String getClientId() {
@@ -117,36 +119,40 @@ public class WorkspaceSetupRule extends ExternalResource {
         return getProperty("api.clientSecret");
     }
 
+    protected String getPersonalAccessToken() {
+        return getProperty("api.pat");
+    }
+
     protected net.leanix.dropkit.apiclient.ApiClient createMtmApiClient() {
         net.leanix.dropkit.apiclient.ApiClientBuilder builder = new net.leanix.dropkit.apiclient.ApiClientBuilder()
-                              .withBasePath(String.format("https://%s/services/metrics/v1", getApiHostName()))
-                              .withTokenProviderHost(getApiHostName())
-                              .withClientCredentials(getClientId(), getClientSecret())
-                              .withDebugging(true);
-        
-        if(StringUtils.isNotEmpty(getTokenUrl())){
-            builder.withOAuth2TokenUrl(URI.create(getTokenUrl()));
+                .withBasePath(String.format("https://%s/services/mtm/v1", getApiHostName()))
+                .withTokenProviderHost(getApiHostName())
+                //.withPersonalAccessToken(getPersonalAccessToken())
+                .withClientCredentials(getClientId(), getClientSecret())
+                .withDebugging(true);
+
+        if (StringUtils.isNotEmpty(getApiMtmHostName())) {
+            builder.withTokenProviderHost(getApiMtmHostName());
         }
+
         net.leanix.dropkit.apiclient.ApiClient apiClient = builder.build();
         return apiClient;
     }
 
-    protected ApiClient createLeanixApiClient(String workspaceName, String apiKey)  {
+    protected ApiClient createLeanixApiClient(String workspaceName, String apiKey) {
         ApiClientBuilder apiClientBuilder = new ApiClientBuilder()
                 .withBasePath(getApiUrl(workspaceName))
                 .withApiKey(apiKey);
 
-        return apiClientBuilder.build();
+        ApiClient apiClient = apiClientBuilder.build();
+        apiClient.addDefaultHeader(SYNC_HEADER, "true");
+        return apiClient;
     }
 
     public ApiClient getLeanixApiClient() {
         return leanixApiClient;
     }
 
-//    public Client getMtmApiClient() {
-//        return mtmApiClient;
-//    }
-//
     @Override
     protected void before() throws Throwable {
         Account account = lookupAccount(ACCOUNT_NAME);
@@ -164,7 +170,7 @@ public class WorkspaceSetupRule extends ExternalResource {
         this.deleteWorkspace(this.workspace);
     }
 
-    protected Account lookupAccount(String accountName) throws ApiException  {
+    protected Account lookupAccount(String accountName) throws ApiException {
         AccountListResponse response = accountsApi.getAccounts(accountName, null, null, null);
         List<Account> accountsFound = response.getData();
         if (accountsFound == null) {
@@ -191,7 +197,7 @@ public class WorkspaceSetupRule extends ExternalResource {
         return searchedAccount;
     }
 
-    protected Contract lookupContract(String accountId, String contractName) throws ApiException  {
+    protected Contract lookupContract(String accountId, String contractName) throws ApiException {
         ContractListResponse response = accountsApi.getContracts(accountId, null, null, null);
         List<Contract> contractsFound = response.getData();
         if (contractsFound == null) {
@@ -202,7 +208,8 @@ public class WorkspaceSetupRule extends ExternalResource {
         for (Contract crsContract : contractsFound) {
             if (crsContract.getDisplayName() != null && crsContract.getDisplayName().startsWith(contractName)) {
                 if (found != null) {
-                    throw new RuntimeException("multiple contracts found with display name '" + contractName + "' for account " + accountId);
+                    throw new RuntimeException(
+                            "multiple contracts found with display name '" + contractName + "' for account " + accountId);
                 }
                 found = crsContract;
             }
@@ -246,7 +253,8 @@ public class WorkspaceSetupRule extends ExternalResource {
 
         User u = new User();
         SimpleDateFormat format = new SimpleDateFormat("yyyy'A'MM'A'dd'T'HH'A'mm'A'ss");
-        u.setEmail(String.format("testjavauser-%s-%s@meshlab.com", format.format(new Date()), RandomStringUtils.randomAlphanumeric(4)));
+        u.setEmail(String.format("testjavauser-%s-%s@meshlab.com", format.format(new Date()),
+                RandomStringUtils.randomAlphanumeric(4)));
         u.setUserName(u.getEmail());
         u.setFirstName("Test");
         u.setLastName("Java User");

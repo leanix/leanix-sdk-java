@@ -1,8 +1,6 @@
-package net.leanix.api.test;
+package net.leanix.api.common;
 
 import java.net.URI;
-
-import net.leanix.api.common.ApiClient;
 
 /**
  * Convenient Builder classed which helps to create and setup a new {@linkplain ApiClient} instance.
@@ -31,7 +29,7 @@ public class ApiClientBuilder {
     private String clientSecret;
 
     private String personalAccessToken;
-    
+
     private String apiKey;
 
     private boolean debugging = false;
@@ -45,10 +43,10 @@ public class ApiClientBuilder {
 
         apiClient.setDebugging(debugging);
         if (personalAccessToken != null && !personalAccessToken.isEmpty()) {
-;//            apiClient.setPersonalAccessToken(personalAccessToken, oauth2TokenUri);
+            apiClient.setPersonalAccessToken(personalAccessToken, oauth2TokenUri);
         } else if (clientId != null && clientSecret != null) {
-;//            apiClient.setClientCredentials(clientId, clientSecret, oauth2TokenUri);
-        } else if(apiKey != null){
+            apiClient.setClientCredentials(clientId, clientSecret, oauth2TokenUri);
+        } else if (apiKey != null) {
             apiClient.setApiKey(apiKey);
         }
         apiClient.setBasePath(basePath);
@@ -119,7 +117,7 @@ public class ApiClientBuilder {
     }
 
     public ApiClientBuilder withApiKey(String apiKey) {
-        // TODO Auto-generated method stub
-        return null;
+        this.apiKey = apiKey;
+        return this;
     }
 }

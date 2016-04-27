@@ -91,7 +91,6 @@ public class ApiClient {
     // Setup authentications (key: authentication name, value: authentication).
     authentications = new HashMap<String, Authentication>();
     authentications.put("token", new ClientCredentialRefreshingOAuth());
-    authentications.put("apiKey", new ApiKeyAuth("header", "Api-Key"));
     // Prevent the authentications from being modified.
     authentications = Collections.unmodifiableMap(authentications);
   }
@@ -598,7 +597,7 @@ public class ApiClient {
    * @return The response body in type of string
    */
   public <T> T invokeAPI(String path, String method, List<Pair> queryParams, Object body, Map<String, String> headerParams, Map<String, Object> formParams, String accept, String contentType, String[] authNames, GenericType<T> returnType) throws ApiException {
-    updateParamsForAuth(new String[]{"token", "apiKey"}/*authNames*/, queryParams, headerParams);
+    updateParamsForAuth(new String[]{"token"}/*authNames*/, queryParams, headerParams);
 
     // Not using `.target(this.basePath).path(path)` below,
     // to support (constant) query string in `path`, e.g. "/posts?draft=1"

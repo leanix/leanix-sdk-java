@@ -78,7 +78,7 @@
             <version>1.6.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -170,8 +170,9 @@
                                         <copy todir="src" overwrite="true">
                                             <fileset dir="target/generated-sources/swagger/src" includes="**" />
                                         </copy>
-                                        <!-- <copy todir="src/main" overwrite="true"> <fileset dir="target/adapted-sources" includes="**" 
-                                            /> </copy> -->
+                                        <copy todir="src/main/java" overwrite="true">
+                                            <fileset dir="src/main/resources/codegen-templates" includes="**" />
+                                        </copy>
                                     </target>
                                 </configuration>
                                 <goals>
