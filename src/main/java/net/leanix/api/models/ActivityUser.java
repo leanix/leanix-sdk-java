@@ -1,72 +1,114 @@
-/*
-* The MIT License (MIT)	 
-*
-* Copyright (c) 2014 LeanIX GmbH
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy of
-* this software and associated documentation files (the "Software"), to deal in
-* the Software without restriction, including without limitation the rights to
-* use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-* the Software, and to permit persons to whom the Software is furnished to do so,
-* subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-* FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-* COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-* IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-* CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 package net.leanix.api.models;
 
+import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
 
-public class ActivityUser implements Serializable
-{
-    private String ID;
-    private String fullName;
-    private String email;
+
+
+
+
+public class ActivityUser   {
+  
+  private String ID = null;
+  private String fullName = null;
+  private String email = null;
+
+  
+  /**
+   **/
+  public ActivityUser ID(String ID) {
+    this.ID = ID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("ID")
+  public String getID() {
+    return ID;
+  }
+  public void setID(String ID) {
+    this.ID = ID;
+  }
+
+  
+  /**
+   **/
+  public ActivityUser fullName(String fullName) {
+    this.fullName = fullName;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("fullName")
+  public String getFullName() {
+    return fullName;
+  }
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
+  }
+
+  
+  /**
+   **/
+  public ActivityUser email(String email) {
+    this.email = email;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("email")
+  public String getEmail() {
+    return email;
+  }
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ActivityUser activityUser = (ActivityUser) o;
+    return Objects.equals(this.ID, activityUser.ID) &&
+        Objects.equals(this.fullName, activityUser.fullName) &&
+        Objects.equals(this.email, activityUser.email);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(ID, fullName, email);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ActivityUser {\n");
     
-    @JsonProperty("ID")
-    public String getID()
-    {
-        return ID;
-    }
+    sb.append("    ID: ").append(toIndentedString(ID)).append("\n");
+    sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-    @JsonProperty("ID")
-    public void setID(String ID)
-    {
-        this.ID = ID;
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
     }
-
-    @JsonProperty("fullName")
-    public String getFullName()
-    {
-        return fullName;
-    }
-
-    @JsonProperty("fullName")
-    public void setFullName(String fullName)
-    {
-        this.fullName = fullName;
-    }
-
-    @JsonProperty("email")
-    public String getEmail()
-    {
-        return email;
-    }
-
-    @JsonProperty("email")
-    public void setEmail(String email)
-    {
-        this.email = email;
-    }
+    return o.toString().replace("\n", "\n    ");
+  }
 }
 

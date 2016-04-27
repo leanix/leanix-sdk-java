@@ -1,237 +1,270 @@
-/*
-* The MIT License (MIT)	 
-*
-* Copyright (c) 2014 LeanIX GmbH
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy of
-* this software and associated documentation files (the "Software"), to deal in
-* the Software without restriction, including without limitation the rights to
-* use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-* the Software, and to permit persons to whom the Software is furnished to do so,
-* subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-* FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-* COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-* IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-* CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 package net.leanix.api;
 
 import net.leanix.api.common.ApiException;
 import net.leanix.api.common.ApiClient;
+import net.leanix.api.common.Configuration;
+import net.leanix.api.common.Pair;
+
+import javax.ws.rs.core.GenericType;
+
 import net.leanix.api.models.UserRoleDetail;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserRoleDetailsApi
-{
-	private ApiClient apiClient;
-	
-	public UserRoleDetailsApi(ApiClient client)
-	{
-		this.apiClient = client;
-	}
-	
-	public void setClient(ApiClient client)
-	{
-		this.apiClient = client;
-	}
 
-	public ApiClient getClient()
-	{
-		return this.apiClient;
-	}
+public class UserRoleDetailsApi {
+  private ApiClient apiClient;
 
-	public List<UserRoleDetail> getUserRoleDetails (Boolean relations) throws ApiException
-	{
-		// create path and map variables
-		String path = "/userRoleDetails".replaceAll("\\{format\\}","json");
+  public UserRoleDetailsApi() {
+    this(Configuration.getDefaultApiClient());
+  }
 
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
+  public UserRoleDetailsApi(ApiClient apiClient) {
+    this.apiClient = apiClient;
+  }
 
-		if(!"null".equals(String.valueOf(relations)))
-			queryParams.put("relations", String.valueOf(relations));
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<UserRoleDetail>) ApiClient.deserialize(response, "Array", UserRoleDetail.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public UserRoleDetail createUserRoleDetail (UserRoleDetail body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/userRoleDetails".replaceAll("\\{format\\}","json");
+  public ApiClient getApiClient() {
+    return apiClient;
+  }
 
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
+  public void setApiClient(ApiClient apiClient) {
+    this.apiClient = apiClient;
+  }
 
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (UserRoleDetail) ApiClient.deserialize(response, "", UserRoleDetail.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public UserRoleDetail getUserRoleDetail (String ID, Boolean relations) throws ApiException
-	{
-		// create path and map variables
-		String path = "/userRoleDetails/{ID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+  
+  /**
+   * Create a new UserRoleDetail
+   * 
+   * @param body Message-Body (optional)
+   * @return UserRoleDetail
+   * @throws ApiException if fails to make API call
+   */
+  public UserRoleDetail createUserRoleDetail(UserRoleDetail body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // create path and map variables
+    String localVarPath = "/userRoleDetails".replaceAll("\\{format\\}","json");
 
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		if(!"null".equals(String.valueOf(relations)))
-			queryParams.put("relations", String.valueOf(relations));
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (UserRoleDetail) ApiClient.deserialize(response, "", UserRoleDetail.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public UserRoleDetail updateUserRoleDetail (String ID, UserRoleDetail body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/userRoleDetails/{ID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+    
 
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
+    
 
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (UserRoleDetail) ApiClient.deserialize(response, "", UserRoleDetail.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteUserRoleDetail (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/userRoleDetails/{ID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+    
 
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	}
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<UserRoleDetail> localVarReturnType = new GenericType<UserRoleDetail>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Delete a UserRoleDetail by a given ID
+   * 
+   * @param ID Unique ID (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteUserRoleDetail(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteUserRoleDetail");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/userRoleDetails/{ID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Read a UserRoleDetail by a given ID
+   * 
+   * @param ID Unique ID (required)
+   * @param relations If set to true, all relations of the Fact Sheet are fetched as well. Fetching all relations can be slower. Default: false. (optional, default to false)
+   * @return UserRoleDetail
+   * @throws ApiException if fails to make API call
+   */
+  public UserRoleDetail getUserRoleDetail(String ID, Boolean relations) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getUserRoleDetail");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/userRoleDetails/{ID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "relations", relations));
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<UserRoleDetail> localVarReturnType = new GenericType<UserRoleDetail>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all user role details
+   * 
+   * @param relations If set to true, all relations of the Fact Sheet are fetched as well. Fetching all relations can be slower. Default: false. (optional, default to false)
+   * @return List<UserRoleDetail>
+   * @throws ApiException if fails to make API call
+   */
+  public List<UserRoleDetail> getUserRoleDetails(Boolean relations) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/userRoleDetails".replaceAll("\\{format\\}","json");
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "relations", relations));
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<UserRoleDetail>> localVarReturnType = new GenericType<List<UserRoleDetail>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update a UserRoleDetail by a given ID
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return UserRoleDetail
+   * @throws ApiException if fails to make API call
+   */
+  public UserRoleDetail updateUserRoleDetail(String ID, UserRoleDetail body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateUserRoleDetail");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/userRoleDetails/{ID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<UserRoleDetail> localVarReturnType = new GenericType<UserRoleDetail>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+}

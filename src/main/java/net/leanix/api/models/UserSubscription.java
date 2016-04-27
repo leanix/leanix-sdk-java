@@ -1,119 +1,156 @@
-/*
-* The MIT License (MIT)	 
-*
-* Copyright (c) 2014 LeanIX GmbH
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy of
-* this software and associated documentation files (the "Software"), to deal in
-* the Software without restriction, including without limitation the rights to
-* use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-* the Software, and to permit persons to whom the Software is furnished to do so,
-* subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-* FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-* COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-* IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-* CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 package net.leanix.api.models;
 
+import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.io.Serializable;
 
-import java.util.*;
-public class UserSubscription implements Serializable
-{
-    private static final long serialVersionUID = 1L;
 
-	/*  */
-	private String ID = null;
-	/*  */
-	private String factSheetID = null;
-	/*  */
-	private String userID = null;
-	/*  */
-	private String subscriptionTypeID = null;
-	/*  */
-	private List<String> roleDetails = new ArrayList<String>();
-	@JsonProperty("ID")
-	public String getID()
-	{
-		return ID;
-	}
-	
-	@JsonProperty("ID")
-	public void setID(String ID)
-	{
-		this.ID = ID;
-	}
 
-	@JsonProperty("factSheetID")
-	public String getFactSheetID()
-	{
-		return factSheetID;
-	}
-	
-	@JsonProperty("factSheetID")
-	public void setFactSheetID(String factSheetID)
-	{
-		this.factSheetID = factSheetID;
-	}
 
-	@JsonProperty("userID")
-	public String getUserID()
-	{
-		return userID;
-	}
-	
-	@JsonProperty("userID")
-	public void setUserID(String userID)
-	{
-		this.userID = userID;
-	}
 
-	@JsonProperty("subscriptionTypeID")
-	public String getSubscriptionTypeID()
-	{
-		return subscriptionTypeID;
-	}
-	
-	@JsonProperty("subscriptionTypeID")
-	public void setSubscriptionTypeID(String subscriptionTypeID)
-	{
-		this.subscriptionTypeID = subscriptionTypeID;
-	}
+public class UserSubscription   {
+  
+  private String ID = null;
+  private String factSheetID = null;
+  private String userID = null;
+  private String subscriptionTypeID = null;
+  private List<String> roleDetails = new ArrayList<String>();
 
-	@JsonProperty("roleDetails")
-	public List<String> getRoleDetails()
-	{
-		return roleDetails;
-	}
-	
-	@JsonProperty("roleDetails")
-	public void setRoleDetails(List<String> roleDetails)
-	{
-		this.roleDetails = roleDetails;
-	}
+  
+  /**
+   **/
+  public UserSubscription ID(String ID) {
+    this.ID = ID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("ID")
+  public String getID() {
+    return ID;
+  }
+  public void setID(String ID) {
+    this.ID = ID;
+  }
 
-	@Override
-	public String toString()
-	{
-		StringBuilder sb = new StringBuilder();
-		sb.append("class UserSubscription {\n");
-		sb.append("  ID: ").append(ID).append("\n");
-		sb.append("  factSheetID: ").append(factSheetID).append("\n");
-		sb.append("  userID: ").append(userID).append("\n");
-		sb.append("  subscriptionTypeID: ").append(subscriptionTypeID).append("\n");
-		sb.append("  roleDetails: ").append(roleDetails).append("\n");
-		sb.append("}\n");
-		return sb.toString();
-	}
+  
+  /**
+   **/
+  public UserSubscription factSheetID(String factSheetID) {
+    this.factSheetID = factSheetID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("factSheetID")
+  public String getFactSheetID() {
+    return factSheetID;
+  }
+  public void setFactSheetID(String factSheetID) {
+    this.factSheetID = factSheetID;
+  }
+
+  
+  /**
+   **/
+  public UserSubscription userID(String userID) {
+    this.userID = userID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("userID")
+  public String getUserID() {
+    return userID;
+  }
+  public void setUserID(String userID) {
+    this.userID = userID;
+  }
+
+  
+  /**
+   **/
+  public UserSubscription subscriptionTypeID(String subscriptionTypeID) {
+    this.subscriptionTypeID = subscriptionTypeID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("subscriptionTypeID")
+  public String getSubscriptionTypeID() {
+    return subscriptionTypeID;
+  }
+  public void setSubscriptionTypeID(String subscriptionTypeID) {
+    this.subscriptionTypeID = subscriptionTypeID;
+  }
+
+  
+  /**
+   **/
+  public UserSubscription roleDetails(List<String> roleDetails) {
+    this.roleDetails = roleDetails;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("roleDetails")
+  public List<String> getRoleDetails() {
+    return roleDetails;
+  }
+  public void setRoleDetails(List<String> roleDetails) {
+    this.roleDetails = roleDetails;
+  }
+
+  
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    UserSubscription userSubscription = (UserSubscription) o;
+    return Objects.equals(this.ID, userSubscription.ID) &&
+        Objects.equals(this.factSheetID, userSubscription.factSheetID) &&
+        Objects.equals(this.userID, userSubscription.userID) &&
+        Objects.equals(this.subscriptionTypeID, userSubscription.subscriptionTypeID) &&
+        Objects.equals(this.roleDetails, userSubscription.roleDetails);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(ID, factSheetID, userID, subscriptionTypeID, roleDetails);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class UserSubscription {\n");
+    
+    sb.append("    ID: ").append(toIndentedString(ID)).append("\n");
+    sb.append("    factSheetID: ").append(toIndentedString(factSheetID)).append("\n");
+    sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
+    sb.append("    subscriptionTypeID: ").append(toIndentedString(subscriptionTypeID)).append("\n");
+    sb.append("    roleDetails: ").append(toIndentedString(roleDetails)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 }
 

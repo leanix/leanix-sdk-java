@@ -23,13 +23,9 @@
 
 package net.leanix.api.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
-import net.leanix.api.DocumentsApi;
-import net.leanix.api.common.ValidationException;
-import net.leanix.api.models.Document;
+import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,7 +33,9 @@ import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
+import net.leanix.api.DocumentsApi;
+import net.leanix.api.common.ApiException;
+import net.leanix.api.models.Document;
 
 public class DocumentsApiTest extends TestBase {
 
@@ -93,14 +91,14 @@ public class DocumentsApiTest extends TestBase {
     @Test
     public void testCreateFailNoName() throws Exception {
         // We expect an exception
-        thrown.expect(ValidationException.class);
+        thrown.expect(ApiException.class);
         Document model = this.newModel();
         this.getApi().createDocument(model);
     }
 
     @Test
     public void testCreateFailName() throws Exception {
-        thrown.expect(ValidationException.class);
+        thrown.expect(ApiException.class);
         Document model = this.newModel();
         model.setName("<html>");
         this.getApi().createDocument(model);

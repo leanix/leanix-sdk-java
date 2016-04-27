@@ -1,262 +1,687 @@
-/*
-* The MIT License (MIT)
-*
-* Copyright (c) 2015 LeanIX GmbH
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy of
-* this software and associated documentation files (the "Software"), to deal in
-* the Software without restriction, including without limitation the rights to
-* use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-* the Software, and to permit persons to whom the Software is furnished to do so,
-* subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-* FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-* COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-* IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-* CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 package net.leanix.api.common;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientProperties;
+import org.glassfish.jersey.filter.LoggingFilter;
+import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.media.multipart.FormDataBodyPart;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.MultiPart;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
+
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
-import java.net.URL;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource.Builder;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.api.client.filter.LoggingFilter;
-import com.sun.jersey.client.urlconnection.HttpURLConnectionFactory;
-import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
+import java.net.URLEncoder;
 
-public class ApiClient
-{
-	private Client cachedJerseyClient = null;
-	private boolean enableHttpLogging;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 
-	private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
-	private String basePath;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-	/**
-	 * Enables/disables HTTP traffic logging by Jersey via java util logging.
-	 * Removes the cached Jersey client so a correctly configure new one will be created on
-	 * the next call to invokeAPI().
-	 *
-	 * @param flag
-	 */
-	public void setEnableHttpLogging(boolean flag) {
-		this.cachedJerseyClient = null;
-		this.enableHttpLogging = flag;
-	}
+import net.leanix.api.common.auth.Authentication;
+import net.leanix.api.common.auth.HttpBasicAuth;
+import net.leanix.api.common.auth.ApiKeyAuth;
+import net.leanix.api.common.auth.OAuth;
 
-	public boolean isEnableHttpLogging() {
-		return enableHttpLogging;
-	}
 
-	/**
-	 * Sets a new base path configuration (destination) for this client.
-	 * Removes the cached Jersey client so a correctly configure new one will be created on
-	 * the next call to invokeAPI().
-	 * <p>
-	 * Please consider using multiple ApiClient instances instead, each one having a fixed
-	 * configuration. Creating Jersey clients is expensive.
-	 * @param basePath
-	 */
-	public void setBasePath(String basePath)
-	{
-		this.basePath = basePath;
-	}
-		
-	public String getBasePath()
-	{
-		return basePath;
-	}
-	
-	public void setApiKey(String apiKey)
-	{
-		this.addDefaultHeader("Api-Key", apiKey);
-	}
-	
-	public void addDefaultHeader(String key, String value)
-	{
-		defaultHeaderMap.put(key, value);
-	}
+public class ApiClient {
+  private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
+  private String basePath = "https://local-eam.leanix.net/demo/api/v1";
+  private boolean debugging = false;
+  private int connectionTimeout = 0;
 
-	public String escapeString(String str)
-	{
-		return str;
-	}
+  private Client httpClient;
+  private JSON json;
+  private String tempFolderPath = null;
 
-	public static Object deserialize(String json, String containerType, Class cls) throws ApiException
-	{
-		try
-		{
-			if("List".equals(containerType) || "Array".equals(containerType))
-			{
-				JavaType typeInfo = JsonUtil.getJsonMapper().getTypeFactory().constructCollectionType(List.class, cls);
-				List response = (List<?>) JsonUtil.getJsonMapper().readValue(json, typeInfo);
-				return response;
-			}
-			else if(String.class.equals(cls))
-			{
-				if(json != null && json.startsWith("\"") && json.endsWith("\"") && json.length() > 1)
-					return json.substring(1, json.length() - 2);
-				else 
-					return json;
-			}
-			else
-			{
-				return JsonUtil.getJsonMapper().readValue(json, cls);
-			}
-		}
-		catch (IOException e)
-		{
-			throw new ApiException(500, e.getMessage());
-		}
-	}
+  private Map<String, Authentication> authentications;
 
-	public static String serialize(Object obj) throws ApiException
-	{
-		try
-		{
-			if (obj != null) 
-				return JsonUtil.getJsonMapper().writeValueAsString(obj);
-			else 
-				return null;
-		}
-		catch (Exception e)
-		{
-			throw new ApiException(500, e.getMessage());
-		}
-	}
+  private int statusCode;
+  private Map<String, List<String>> responseHeaders;
 
-	public String invokeAPI(String path, String method, Map<String, String> queryParams, Object body, Map<String, String> headerParams) throws ApiException
-	{
-		Client client = getClient();
+  private DateFormat dateFormat;
 
-		StringBuilder b = new StringBuilder();
-		
-		for(String key : queryParams.keySet())
-		{
-			String value = queryParams.get(key);
-			if (value != null)
-			{
-				if(b.toString().length() == 0)
-					b.append("?");
-				else
-					b.append("&");
-				b.append(escapeString(key)).append("=").append(escapeString(value));
-			}
-		}
-		String querystring = b.toString();
+  public ApiClient() {
+    json = new JSON();
+    httpClient = buildHttpClient(debugging);
 
-		Builder builder = client.resource(basePath + path + querystring).accept("application/json");
-		for(String key : headerParams.keySet())
-		{
-			builder.header(key, headerParams.get(key));
-		}
-		
-		for(String key : defaultHeaderMap.keySet())
-		{
-			if(!headerParams.containsKey(key))
-			{
-				builder.header(key, defaultHeaderMap.get(key));
-			}
-		}
-		ClientResponse response = null;
+    // Use RFC3339 format for date and datetime.
+    // See http://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
+    this.dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
-		if("GET".equals(method))
-		{
-			response = (ClientResponse) builder.get(ClientResponse.class);
-		}
-		else if ("POST".equals(method))
-		{
-			if(body == null)
-				response = builder.post(ClientResponse.class, serialize(body));
-			else
-				response = builder.type("application/json").post(ClientResponse.class, serialize(body));
-		}
-		else if ("PUT".equals(method))
-		{
-			if(body == null)
-				response = builder.put(ClientResponse.class, serialize(body));
-			else
-				response = builder.type("application/json").put(ClientResponse.class, serialize(body));
-		}
-		else if ("DELETE".equals(method))
-		{
-			if(body == null)
-				response = builder.delete(ClientResponse.class, serialize(body));
-			else
-				response = builder.type("application/json").delete(ClientResponse.class, serialize(body));
-		}
-		else
-		{
-			throw new ApiException(500, "unknown method type " + method);
-		}
+    // Use UTC as the default time zone.
+    this.dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-		if(response.getStatus() == 200)
-		{
-			return (String) response.getEntity(String.class);
-		}
-        else if (response.getStatus() == 422)
-        {
-            Response resp = null;
-            resp = (Response) ApiClient.deserialize((String) response.getEntity(String.class), "", Response.class);
-            
-            throw new ValidationException(resp);
-        }
-		else
-		{
-			throw new ApiException(response.getStatus(), response.getEntity(String.class));      
-		}
-	}
+    this.json.setDateFormat((DateFormat) dateFormat.clone());
 
-    private Client getClient() {
-        Client client = cachedJerseyClient;
+    // Set default User-Agent.
+    setUserAgent("Swagger-Codegen/1.0.0/java");
 
-        if (client == null) {
-            client = new Client(
-                    new URLConnectionClientHandler(
-                            new HttpURLConnectionFactory() {
-                                Proxy p = null;
+    // Setup authentications (key: authentication name, value: authentication).
+    authentications = new HashMap<String, Authentication>();
+    // Prevent the authentications from being modified.
+    authentications = Collections.unmodifiableMap(authentications);
+  }
 
-                                @Override
-                                public HttpURLConnection getHttpURLConnection(URL url) throws IOException {
-                                    if (p == null) {
-                                        if (System.getProperties().containsKey("http.proxyHost")) {
-                                            p = new Proxy(Proxy.Type.HTTP,
-                                                    new InetSocketAddress(
-                                                            System.getProperty("http.proxyHost"),
-                                                            Integer.getInteger("http.proxyPort", 80)));
-                                        } else {
-                                            p = Proxy.NO_PROXY;
-                                        }
-                                    }
-                                    return (HttpURLConnection) url.openConnection(p);
-                                }
-                            }),
-                    new DefaultClientConfig());
+  /**
+   * Gets the JSON instance to do JSON serialization and deserialization.
+   */
+  public JSON getJSON() {
+    return json;
+  }
 
-            if (enableHttpLogging) {
-                client.addFilter(new LoggingFilter());
-            }
-            cachedJerseyClient = client;
-        }
-        return client;
+  public String getBasePath() {
+    return basePath;
+  }
+
+  public ApiClient setBasePath(String basePath) {
+    this.basePath = basePath;
+    return this;
+  }
+
+  /**
+   * Gets the status code of the previous request
+   */
+  public int getStatusCode() {
+    return statusCode;
+  }
+
+  /**
+   * Gets the response headers of the previous request
+   */
+  public Map<String, List<String>> getResponseHeaders() {
+    return responseHeaders;
+  }
+
+  /**
+   * Get authentications (key: authentication name, value: authentication).
+   */
+  public Map<String, Authentication> getAuthentications() {
+    return authentications;
+  }
+
+  /**
+   * Get authentication for the given name.
+   *
+   * @param authName The authentication name
+   * @return The authentication, null if not found
+   */
+  public Authentication getAuthentication(String authName) {
+    return authentications.get(authName);
+  }
+
+  /**
+   * Helper method to set username for the first HTTP basic authentication.
+   */
+  public void setUsername(String username) {
+    for (Authentication auth : authentications.values()) {
+      if (auth instanceof HttpBasicAuth) {
+        ((HttpBasicAuth) auth).setUsername(username);
+        return;
+      }
     }
+    throw new RuntimeException("No HTTP basic authentication configured!");
+  }
+
+  /**
+   * Helper method to set password for the first HTTP basic authentication.
+   */
+  public void setPassword(String password) {
+    for (Authentication auth : authentications.values()) {
+      if (auth instanceof HttpBasicAuth) {
+        ((HttpBasicAuth) auth).setPassword(password);
+        return;
+      }
+    }
+    throw new RuntimeException("No HTTP basic authentication configured!");
+  }
+
+  /**
+   * Helper method to set API key value for the first API key authentication.
+   */
+  public void setApiKey(String apiKey) {
+    for (Authentication auth : authentications.values()) {
+      if (auth instanceof ApiKeyAuth) {
+        ((ApiKeyAuth) auth).setApiKey(apiKey);
+        return;
+      }
+    }
+    throw new RuntimeException("No API key authentication configured!");
+  }
+
+  /**
+   * Helper method to set API key prefix for the first API key authentication.
+   */
+  public void setApiKeyPrefix(String apiKeyPrefix) {
+    for (Authentication auth : authentications.values()) {
+      if (auth instanceof ApiKeyAuth) {
+        ((ApiKeyAuth) auth).setApiKeyPrefix(apiKeyPrefix);
+        return;
+      }
+    }
+    throw new RuntimeException("No API key authentication configured!");
+  }
+
+  /**
+   * Helper method to set access token for the first OAuth2 authentication.
+   */
+  public void setAccessToken(String accessToken) {
+    for (Authentication auth : authentications.values()) {
+      if (auth instanceof OAuth) {
+        ((OAuth) auth).setAccessToken(accessToken);
+        return;
+      }
+    }
+    throw new RuntimeException("No OAuth2 authentication configured!");
+  }
+
+  /**
+   * Set the User-Agent header's value (by adding to the default header map).
+   */
+  public ApiClient setUserAgent(String userAgent) {
+    addDefaultHeader("User-Agent", userAgent);
+    return this;
+  }
+
+  /**
+   * Add a default header.
+   *
+   * @param key The header's key
+   * @param value The header's value
+   */
+  public ApiClient addDefaultHeader(String key, String value) {
+    defaultHeaderMap.put(key, value);
+    return this;
+  }
+
+  /**
+   * Check that whether debugging is enabled for this API client.
+   */
+  public boolean isDebugging() {
+    return debugging;
+  }
+
+  /**
+   * Enable/disable debugging for this API client.
+   *
+   * @param debugging To enable (true) or disable (false) debugging
+   */
+  public ApiClient setDebugging(boolean debugging) {
+    this.debugging = debugging;
+    // Rebuild HTTP Client according to the new "debugging" value.
+    this.httpClient = buildHttpClient(debugging);
+    return this;
+  }
+
+  /**
+   * The path of temporary folder used to store downloaded files from endpoints
+   * with file response. The default value is <code>null</code>, i.e. using
+   * the system's default tempopary folder.
+   *
+   * @see https://docs.oracle.com/javase/7/docs/api/java/io/File.html#createTempFile(java.lang.String,%20java.lang.String,%20java.io.File)
+   */
+  public String getTempFolderPath() {
+    return tempFolderPath;
+  }
+
+  public ApiClient setTempFolderPath(String tempFolderPath) {
+    this.tempFolderPath = tempFolderPath;
+    return this;
+  }
+
+  /**
+   * Connect timeout (in milliseconds).
+   */
+  public int getConnectTimeout() {
+    return connectionTimeout;
+  }
+
+  /**
+   * Set the connect timeout (in milliseconds).
+   * A value of 0 means no timeout, otherwise values must be between 1 and
+   * {@link Integer#MAX_VALUE}.
+   */
+  public ApiClient setConnectTimeout(int connectionTimeout) {
+    this.connectionTimeout = connectionTimeout;
+    httpClient.property(ClientProperties.CONNECT_TIMEOUT, connectionTimeout);
+    return this;
+  }
+
+  /**
+   * Get the date format used to parse/format date parameters.
+   */
+  public DateFormat getDateFormat() {
+    return dateFormat;
+  }
+
+  /**
+   * Set the date format used to parse/format date parameters.
+   */
+  public ApiClient setDateFormat(DateFormat dateFormat) {
+    this.dateFormat = dateFormat;
+    // also set the date format for model (de)serialization with Date properties
+    this.json.setDateFormat((DateFormat) dateFormat.clone());
+    return this;
+  }
+
+  /**
+   * Parse the given string into Date object.
+   */
+  public Date parseDate(String str) {
+    try {
+      return dateFormat.parse(str);
+    } catch (java.text.ParseException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  /**
+   * Format the given Date object into string.
+   */
+  public String formatDate(Date date) {
+    return dateFormat.format(date);
+  }
+
+  /**
+   * Format the given parameter object into string.
+   */
+  public String parameterToString(Object param) {
+    if (param == null) {
+      return "";
+    } else if (param instanceof Date) {
+      return formatDate((Date) param);
+    } else if (param instanceof Collection) {
+      StringBuilder b = new StringBuilder();
+      for(Object o : (Collection)param) {
+        if(b.length() > 0) {
+          b.append(",");
+        }
+        b.append(String.valueOf(o));
+      }
+      return b.toString();
+    } else {
+      return String.valueOf(param);
+    }
+  }
+
+  /*
+    Format to {@code Pair} objects.
+  */
+  public List<Pair> parameterToPairs(String collectionFormat, String name, Object value){
+    List<Pair> params = new ArrayList<Pair>();
+
+    // preconditions
+    if (name == null || name.isEmpty() || value == null) return params;
+
+    Collection valueCollection = null;
+    if (value instanceof Collection) {
+      valueCollection = (Collection) value;
+    } else {
+      params.add(new Pair(name, parameterToString(value)));
+      return params;
+    }
+
+    if (valueCollection.isEmpty()){
+      return params;
+    }
+
+    // get the collection format
+    collectionFormat = (collectionFormat == null || collectionFormat.isEmpty() ? "csv" : collectionFormat); // default: csv
+
+    // create the params based on the collection format
+    if (collectionFormat.equals("multi")) {
+      for (Object item : valueCollection) {
+        params.add(new Pair(name, parameterToString(item)));
+      }
+
+      return params;
+    }
+
+    String delimiter = ",";
+
+    if (collectionFormat.equals("csv")) {
+      delimiter = ",";
+    } else if (collectionFormat.equals("ssv")) {
+      delimiter = " ";
+    } else if (collectionFormat.equals("tsv")) {
+      delimiter = "\t";
+    } else if (collectionFormat.equals("pipes")) {
+      delimiter = "|";
+    }
+
+    StringBuilder sb = new StringBuilder() ;
+    for (Object item : valueCollection) {
+      sb.append(delimiter);
+      sb.append(parameterToString(item));
+    }
+
+    params.add(new Pair(name, sb.substring(1)));
+
+    return params;
+  }
+
+  /**
+   * Check if the given MIME is a JSON MIME.
+   * JSON MIME examples:
+   *   application/json
+   *   application/json; charset=UTF8
+   *   APPLICATION/JSON
+   */
+  public boolean isJsonMime(String mime) {
+    return mime != null && mime.matches("(?i)application\\/json(;.*)?");
+  }
+
+  /**
+   * Select the Accept header's value from the given accepts array:
+   *   if JSON exists in the given array, use it;
+   *   otherwise use all of them (joining into a string)
+   *
+   * @param accepts The accepts array to select from
+   * @return The Accept header to use. If the given array is empty,
+   *   null will be returned (not to set the Accept header explicitly).
+   */
+  public String selectHeaderAccept(String[] accepts) {
+    if (accepts.length == 0) {
+      return null;
+    }
+    for (String accept : accepts) {
+      if (isJsonMime(accept)) {
+        return accept;
+      }
+    }
+    return StringUtil.join(accepts, ",");
+  }
+
+  /**
+   * Select the Content-Type header's value from the given array:
+   *   if JSON exists in the given array, use it;
+   *   otherwise use the first one of the array.
+   *
+   * @param contentTypes The Content-Type array to select from
+   * @return The Content-Type header to use. If the given array is empty,
+   *   JSON will be used.
+   */
+  public String selectHeaderContentType(String[] contentTypes) {
+    if (contentTypes.length == 0) {
+      return "application/json";
+    }
+    for (String contentType : contentTypes) {
+      if (isJsonMime(contentType)) {
+        return contentType;
+      }
+    }
+    return contentTypes[0];
+  }
+
+  /**
+   * Escape the given string to be used as URL query value.
+   */
+  public String escapeString(String str) {
+    try {
+      return URLEncoder.encode(str, "utf8").replaceAll("\\+", "%20");
+    } catch (UnsupportedEncodingException e) {
+      return str;
+    }
+  }
+
+  /**
+   * Serialize the given Java object into string entity according the given
+   * Content-Type (only JSON is supported for now).
+   */
+  public Entity<?> serialize(Object obj, Map<String, Object> formParams, String contentType) throws ApiException {
+    Entity<?> entity = null;
+    if (contentType.startsWith("multipart/form-data")) {
+      MultiPart multiPart = new MultiPart();
+      for (Entry<String, Object> param: formParams.entrySet()) {
+        if (param.getValue() instanceof File) {
+          File file = (File) param.getValue();
+          FormDataContentDisposition contentDisp = FormDataContentDisposition.name(param.getKey())
+              .fileName(file.getName()).size(file.length()).build();
+          multiPart.bodyPart(new FormDataBodyPart(contentDisp, file, MediaType.APPLICATION_OCTET_STREAM_TYPE));
+        } else {
+          FormDataContentDisposition contentDisp = FormDataContentDisposition.name(param.getKey()).build();
+          multiPart.bodyPart(new FormDataBodyPart(contentDisp, parameterToString(param.getValue())));
+        }
+      }
+      entity = Entity.entity(multiPart, MediaType.MULTIPART_FORM_DATA_TYPE);
+    } else if (contentType.startsWith("application/x-www-form-urlencoded")) {
+      Form form = new Form();
+      for (Entry<String, Object> param: formParams.entrySet()) {
+        form.param(param.getKey(), parameterToString(param.getValue()));
+      }
+      entity = Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE);
+    } else {
+      // We let jersey handle the serialization
+      entity = Entity.entity(obj, contentType);
+    }
+    return entity;
+  }
+
+  /**
+   * Deserialize response body to Java object according to the Content-Type.
+   */
+  public <T> T deserialize(Response response, GenericType<T> returnType) throws ApiException {
+    // Handle file downloading.
+    if (returnType.equals(File.class)) {
+      @SuppressWarnings("unchecked")
+      T file = (T) downloadFileFromResponse(response);
+      return file;
+    }
+
+    String contentType = null;
+    List<Object> contentTypes = response.getHeaders().get("Content-Type");
+    if (contentTypes != null && !contentTypes.isEmpty())
+      contentType = String.valueOf(contentTypes.get(0));
+    if (contentType == null)
+      throw new ApiException(500, "missing Content-Type in response");
+
+    return response.readEntity(returnType);
+  }
+
+  /**
+   * Download file from the given response.
+   * @throws ApiException If fail to read file content from response and write to disk
+   */
+  public File downloadFileFromResponse(Response response) throws ApiException {
+    try {
+      File file = prepareDownloadFile(response);
+      Files.copy(response.readEntity(InputStream.class), file.toPath());
+      return file;
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+  }
+
+  public File prepareDownloadFile(Response response) throws IOException {
+    String filename = null;
+    String contentDisposition = (String) response.getHeaders().getFirst("Content-Disposition");
+    if (contentDisposition != null && !"".equals(contentDisposition)) {
+      // Get filename from the Content-Disposition header.
+      Pattern pattern = Pattern.compile("filename=['\"]?([^'\"\\s]+)['\"]?");
+      Matcher matcher = pattern.matcher(contentDisposition);
+      if (matcher.find())
+        filename = matcher.group(1);
+    }
+
+    String prefix = null;
+    String suffix = null;
+    if (filename == null) {
+      prefix = "download-";
+      suffix = "";
+    } else {
+      int pos = filename.lastIndexOf(".");
+      if (pos == -1) {
+        prefix = filename + "-";
+      } else {
+        prefix = filename.substring(0, pos) + "-";
+        suffix = filename.substring(pos);
+      }
+      // File.createTempFile requires the prefix to be at least three characters long
+      if (prefix.length() < 3)
+        prefix = "download-";
+    }
+
+    if (tempFolderPath == null)
+      return File.createTempFile(prefix, suffix);
+    else
+      return File.createTempFile(prefix, suffix, new File(tempFolderPath));
+  }
+
+  /**
+   * Invoke API by sending HTTP request with the given options.
+   *
+   * @param path The sub-path of the HTTP URL
+   * @param method The request method, one of "GET", "POST", "PUT", and "DELETE"
+   * @param queryParams The query parameters
+   * @param body The request body object
+   * @param headerParams The header parameters
+   * @param formParams The form parameters
+   * @param accept The request's Accept header
+   * @param contentType The request's Content-Type header
+   * @param authNames The authentications to apply
+   * @param returnType The return type into which to deserialize the response
+   * @return The response body in type of string
+   */
+  public <T> T invokeAPI(String path, String method, List<Pair> queryParams, Object body, Map<String, String> headerParams, Map<String, Object> formParams, String accept, String contentType, String[] authNames, GenericType<T> returnType) throws ApiException {
+    updateParamsForAuth(authNames, queryParams, headerParams);
+
+    // Not using `.target(this.basePath).path(path)` below,
+    // to support (constant) query string in `path`, e.g. "/posts?draft=1"
+    WebTarget target = httpClient.target(this.basePath + path);
+
+    if (queryParams != null) {
+      for (Pair queryParam : queryParams) {
+        if (queryParam.getValue() != null) {
+          target = target.queryParam(queryParam.getName(), queryParam.getValue());
+        }
+      }
+    }
+
+    Invocation.Builder invocationBuilder = target.request().accept(accept);
+
+    for (String key : headerParams.keySet()) {
+      String value = headerParams.get(key);
+      if (value != null) {
+        invocationBuilder = invocationBuilder.header(key, value);
+      }
+    }
+
+    for (String key : defaultHeaderMap.keySet()) {
+      if (!headerParams.containsKey(key)) {
+        String value = defaultHeaderMap.get(key);
+        if (value != null) {
+          invocationBuilder = invocationBuilder.header(key, value);
+        }
+      }
+    }
+
+    Entity<?> entity = serialize(body, formParams, contentType);
+
+    Response response = null;
+
+    if ("GET".equals(method)) {
+      response = invocationBuilder.get();
+    } else if ("POST".equals(method)) {
+      response = invocationBuilder.post(entity);
+    } else if ("PUT".equals(method)) {
+      response = invocationBuilder.put(entity);
+    } else if ("DELETE".equals(method)) {
+      response = invocationBuilder.delete();
+    } else {
+      throw new ApiException(500, "unknown method type " + method);
+    }
+
+    statusCode = response.getStatusInfo().getStatusCode();
+    responseHeaders = buildResponseHeaders(response);
+
+    if (response.getStatus() == Status.NO_CONTENT.getStatusCode()) {
+      return null;
+    } else if (response.getStatusInfo().getFamily().equals(Status.Family.SUCCESSFUL)) {
+      if (returnType == null)
+        return null;
+      else
+        return deserialize(response, returnType);
+    } else {
+      String message = "error";
+      String respBody = null;
+      if (response.hasEntity()) {
+        try {
+          respBody = String.valueOf(response.readEntity(String.class));
+          message = respBody;
+        } catch (RuntimeException e) {
+          // e.printStackTrace();
+        }
+      }
+      throw new ApiException(
+        response.getStatus(),
+        message,
+        buildResponseHeaders(response),
+        respBody);
+    }
+  }
+
+  /**
+   * Build the Client used to make HTTP requests.
+   */
+  private Client buildHttpClient(boolean debugging) {
+    final ClientConfig clientConfig = new ClientConfig();
+    clientConfig.register(MultiPartFeature.class);
+    clientConfig.register(json);
+    clientConfig.register(JacksonFeature.class);
+    if (debugging) {
+      clientConfig.register(LoggingFilter.class);
+    }
+    return ClientBuilder.newClient(clientConfig);
+  }
+
+  private Map<String, List<String>> buildResponseHeaders(Response response) {
+    Map<String, List<String>> responseHeaders = new HashMap<String, List<String>>();
+    for (Entry<String, List<Object>> entry: response.getHeaders().entrySet()) {
+      List<Object> values = entry.getValue();
+      List<String> headers = new ArrayList<String>();
+      for (Object o : values) {
+        headers.add(String.valueOf(o));
+      }
+      responseHeaders.put(entry.getKey(), headers);
+    }
+    return responseHeaders;
+  }
+
+  /**
+   * Update query and header parameters based on authentication settings.
+   *
+   * @param authNames The authentications to apply
+   */
+  private void updateParamsForAuth(String[] authNames, List<Pair> queryParams, Map<String, String> headerParams) {
+    for (String authName : authNames) {
+      Authentication auth = authentications.get(authName);
+      if (auth == null) throw new RuntimeException("Authentication undefined: " + authName);
+      auth.applyToParams(queryParams, headerParams);
+    }
+  }
 }
-
-

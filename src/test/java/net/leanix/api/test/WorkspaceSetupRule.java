@@ -22,34 +22,34 @@
  */
 package net.leanix.api.test;
 
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.rules.ExternalResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.leanix.api.common.ApiClient;
-import net.leanix.dropkit.api.ApiException;
-import net.leanix.dropkit.api.Client;
-import net.leanix.dropkit.api.ClientFactory;
-import net.leanix.dropkit.oauth.FlowException;
-import net.leanix.dropkit.oauth.OAuth2ClientConfig;
+import net.leanix.dropkit.apiclient.ApiException;
 import net.leanix.mtm.api.AccountsApi;
 import net.leanix.mtm.api.PermissionsApi;
 import net.leanix.mtm.api.UsersApi;
 import net.leanix.mtm.api.WorkspacesApi;
 import net.leanix.mtm.api.models.Account;
 import net.leanix.mtm.api.models.AccountListResponse;
-import net.leanix.mtm.api.models.AuthenticatedUserAccount;
 import net.leanix.mtm.api.models.Contract;
 import net.leanix.mtm.api.models.ContractListResponse;
 import net.leanix.mtm.api.models.Permission;
 import net.leanix.mtm.api.models.User;
+import net.leanix.mtm.api.models.User.RoleEnum;
 import net.leanix.mtm.api.models.UserResponse;
 import net.leanix.mtm.api.models.Workspace;
+import net.leanix.mtm.api.models.Workspace.StatusEnum;
+import net.leanix.mtm.api.models.Workspace.TypeEnum;
 import net.leanix.mtm.api.models.WorkspaceResponse;
 
 /**
@@ -61,7 +61,6 @@ public class WorkspaceSetupRule extends ExternalResource {
 
     private final Logger logger = LoggerFactory.getLogger(WorkspaceSetupRule.class);
 
-    private static final String SYNC_HEADER = "X-Api-Synchronous";
     /**
      * account to use when creating a workspace
      */
@@ -72,7 +71,7 @@ public class WorkspaceSetupRule extends ExternalResource {
      */
     private static final String CONTRACT_DISPLAY_NAME = "leanix eam REGULAR";
 
-    protected final Client mtmApiClient = createMtmApiClient();
+    protected final net.leanix.dropkit.apiclient.ApiClient mtmApiClient = createMtmApiClient();
     protected final AccountsApi accountsApi = new AccountsApi(mtmApiClient);
 
     // this is workspace dependent!
@@ -95,31 +94,15 @@ public class WorkspaceSetupRule extends ExternalResource {
     }
 
     protected String getProperty(String key) {
-        return this.getProperty(key, null);
+        return this.getProperty(key, "");
     }
 
-    protected String createApiUrl(String workspace) {
-        return this.getProperty("api.baseurl") + "/" + workspace + "/api/" + this.getProperty("api.version", "v1");
+    protected String getApiUrl(String workspace) {
+        return String.format("https://%s/%s/api/v1", getApiHostName(), workspace);
     }
 
-    protected String createMtmApiUrl() {
-        return this.getProperty("api.mtm.baseurl") + "/services/mtm/" + this.getProperty("api.mtm.version", "v1");
-    }
-
-    protected OAuth2ClientConfig getClientConfig() {
-        OAuth2ClientConfig config = new OAuth2ClientConfig();
-        config.setBaseUrl(createMtmApiUrl());
-        config.setTokenUrl(getTokenUrl());
-        config.setClientId(getClientId());
-        config.setClientSecret(getClientSecret());
-
-        return config;
-    }
-
-    protected Client createMtmApiClient() {
-        Client client = ClientFactory.create(this.getClientConfig(), false);
-        // may add a header here via client.addDefaultHeader("test-hdr", "val1");
-        return client;
+    protected String getApiHostName() {
+        return getProperty("api.hostname");
     }
 
     protected String getTokenUrl() {
@@ -127,31 +110,43 @@ public class WorkspaceSetupRule extends ExternalResource {
     }
 
     protected String getClientId() {
-        return getProperty("api.clientId");
+        return getProperty("api.clientId", "eam");
     }
 
     protected String getClientSecret() {
         return getProperty("api.clientSecret");
     }
 
-    protected ApiClient createLeanixApiClient(String workspaceName, String apiKey) throws FlowException {
-        ApiClient apiClient = new ApiClient();
-        apiClient.setEnableHttpLogging(false);
-        apiClient.addDefaultHeader(SYNC_HEADER, "true");
-        apiClient.setBasePath(createApiUrl(workspaceName));
-        apiClient.setApiKey(apiKey);
-
+    protected net.leanix.dropkit.apiclient.ApiClient createMtmApiClient() {
+        net.leanix.dropkit.apiclient.ApiClientBuilder builder = new net.leanix.dropkit.apiclient.ApiClientBuilder()
+                              .withBasePath(String.format("https://%s/services/metrics/v1", getApiHostName()))
+                              .withTokenProviderHost(getApiHostName())
+                              .withClientCredentials(getClientId(), getClientSecret())
+                              .withDebugging(true);
+        
+        if(StringUtils.isNotEmpty(getTokenUrl())){
+            builder.withOAuth2TokenUrl(URI.create(getTokenUrl()));
+        }
+        net.leanix.dropkit.apiclient.ApiClient apiClient = builder.build();
         return apiClient;
+    }
+
+    protected ApiClient createLeanixApiClient(String workspaceName, String apiKey)  {
+        ApiClientBuilder apiClientBuilder = new ApiClientBuilder()
+                .withBasePath(getApiUrl(workspaceName))
+                .withApiKey(apiKey);
+
+        return apiClientBuilder.build();
     }
 
     public ApiClient getLeanixApiClient() {
         return leanixApiClient;
     }
 
-    public Client getMtmApiClient() {
-        return mtmApiClient;
-    }
-
+//    public Client getMtmApiClient() {
+//        return mtmApiClient;
+//    }
+//
     @Override
     protected void before() throws Throwable {
         Account account = lookupAccount(ACCOUNT_NAME);
@@ -169,7 +164,7 @@ public class WorkspaceSetupRule extends ExternalResource {
         this.deleteWorkspace(this.workspace);
     }
 
-    protected Account lookupAccount(String accountName) throws ApiException {
+    protected Account lookupAccount(String accountName) throws ApiException  {
         AccountListResponse response = accountsApi.getAccounts(accountName, null, null, null);
         List<Account> accountsFound = response.getData();
         if (accountsFound == null) {
@@ -196,7 +191,7 @@ public class WorkspaceSetupRule extends ExternalResource {
         return searchedAccount;
     }
 
-    protected Contract lookupContract(String accountId, String contractName) throws ApiException {
+    protected Contract lookupContract(String accountId, String contractName) throws ApiException  {
         ContractListResponse response = accountsApi.getContracts(accountId, null, null, null);
         List<Contract> contractsFound = response.getData();
         if (contractsFound == null) {
@@ -232,8 +227,8 @@ public class WorkspaceSetupRule extends ExternalResource {
         contract = lookupContract(account.getId(), CONTRACT_DISPLAY_NAME);
 
         Workspace newWorkspace = new Workspace();
-        newWorkspace.setStatus("ACTIVE");
-        newWorkspace.setType("DEMO");
+        newWorkspace.setStatus(StatusEnum.ACTIVE);
+        newWorkspace.setType(TypeEnum.DEMO);
         newWorkspace.setContract(contract);
         newWorkspace.setFeatureBundleId(this.apiSetup);
         newWorkspace.setName(newWorkspaceName);
@@ -255,21 +250,21 @@ public class WorkspaceSetupRule extends ExternalResource {
         u.setUserName(u.getEmail());
         u.setFirstName("Test");
         u.setLastName("Java User");
-        u.setRole("ACCOUNTUSER");
-        u.setStatus("ACTIVE");
-        AuthenticatedUserAccount authAccount = new AuthenticatedUserAccount();
+        u.setRole(RoleEnum.ACCOUNTUSER);
+        u.setStatus(net.leanix.mtm.api.models.User.StatusEnum.ACTIVE);
+        net.leanix.mtm.api.models.Account authAccount = new net.leanix.mtm.api.models.Account();
         authAccount.setId(account.getId());
         u.setAccount(authAccount);
 
-        UserResponse userResponse = usersApi.createUser("", u);
+        UserResponse userResponse = usersApi.createUser(u);
 
         User user = userResponse.getData();
 
         PermissionsApi permissionsApi = new PermissionsApi(mtmApiClient);
 
         Permission permission = new Permission();
-        permission.setStatus("ACTIVE");
-        permission.setRole("ADMIN");
+        permission.setStatus(net.leanix.mtm.api.models.Permission.StatusEnum.ACTIVE);
+        permission.setRole(net.leanix.mtm.api.models.Permission.RoleEnum.ADMIN);
         permission.setWorkspace(workspace);
         permission.setUser(user);
 
@@ -289,11 +284,11 @@ public class WorkspaceSetupRule extends ExternalResource {
 
         WorkspacesApi workspacesApi = new WorkspacesApi(mtmApiClient);
         try {
-            workspace.setStatus("BLOCKED");
+            workspace.setStatus(net.leanix.mtm.api.models.Workspace.StatusEnum.BLOCKED);
             workspacesApi.updateWorkspace(workspace.getId(), workspace, null);
             workspacesApi.deleteWorkspace(workspace.getId());
             logger.debug("Workspace deleted = " + workspace.getId());
-        } catch (ApiException e) {
+        } catch (net.leanix.dropkit.apiclient.ApiException e) {
             throw new RuntimeException("Unable to delete workspace with ID = " + workspace.getId(), e);
         }
     }
