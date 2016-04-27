@@ -52,7 +52,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- properties related to sdk code generation -->
-        <sdk-name></sdk-name>
         <leanix-dropkit-sdk-utils-version>1.0.1-SNAPSHOT</leanix-dropkit-sdk-utils-version>
         <codegenHost>local-eam.leanix.net</codegenHost>
         <swagger-inputSpec>https://${codegenHost}/demo/api/v1/api-docs/</swagger-inputSpec>
@@ -61,7 +60,7 @@
 
     <dependencies>
         <!-- <dependency> <groupId>com.sun.jersey</groupId> <artifactId>jersey-client</artifactId> </dependency> -->
-        <dependency>
+<!--         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
         </dependency>
@@ -69,7 +68,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!-- Testing -->
         <dependency>
@@ -79,7 +78,7 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
+<!--         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
@@ -118,7 +117,7 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.4</version>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 
@@ -141,7 +140,7 @@
                             <addCompileSourceRoot>false</addCompileSourceRoot>
                             <configOptions>
                                 <groupId>net.leanix</groupId>
-                                <artifactId>leanix-${sdk-name}-sdk-java</artifactId>
+                                <artifactId>leanix-sdk-java</artifactId>
                                 <invokerPackage>net.leanix.api.common</invokerPackage>
                                 <library>jersey2</library>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
@@ -170,7 +169,7 @@
                                         <copy todir="src" overwrite="true">
                                             <fileset dir="target/generated-sources/swagger/src" includes="**" />
                                         </copy>
-                                        <copy todir="src/main/java" overwrite="true">
+                                         <copy todir="src/main/java" overwrite="true">
                                             <fileset dir="src/main/resources/codegen-templates" includes="**" />
                                         </copy>
                                     </target>

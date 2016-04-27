@@ -1,11 +1,5 @@
 package net.leanix.api.common.auth;
 
-import org.glassfish.jersey.internal.util.Base64;
-
-import net.leanix.api.common.ApiException;
-import net.leanix.api.common.Pair;
-import net.leanix.api.common.auth.responses.AccessTokenResponse;
-
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.List;
@@ -14,6 +8,12 @@ import java.util.Map;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+
+import org.glassfish.jersey.internal.util.Base64;
+
+import net.leanix.api.common.ApiException;
+import net.leanix.api.common.Pair;
+import net.leanix.api.common.responses.AccessTokenResponse;
 
 public class ClientCredentialRefreshingOAuth extends OAuth {
 

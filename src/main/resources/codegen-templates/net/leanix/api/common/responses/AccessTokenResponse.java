@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package net.leanix.api.common.auth.responses;
+package net.leanix.api.common.responses;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
