@@ -1,256 +1,338 @@
-/*
-* The MIT License (MIT)	 
-*
-* Copyright (c) 2014 LeanIX GmbH
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy of
-* this software and associated documentation files (the "Software"), to deal in
-* the Software without restriction, including without limitation the rights to
-* use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-* the Software, and to permit persons to whom the Software is furnished to do so,
-* subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-* FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-* COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-* IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-* CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 package net.leanix.api.models;
 
+import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.io.Serializable;
-
-import java.util.*;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import net.leanix.api.models.BusinessObject;
 import net.leanix.api.models.InterfaceTechnology;
-public class ServiceHasInterface implements Serializable
-{
-    private static final long serialVersionUID = 1L;
 
-	/*  */
-	private String ID = null;
-	/*  */
-	private String name = null;
-	/*  */
-	private String serviceID = null;
-	/*  */
-	private String serviceRefID = null;
-	/*  */
-	private String interfaceDirectionID = null;
-	/*  */
-	private String interfaceFrequencyID = null;
-	/*  */
-	private String interfaceTypeID = null;
-	/*  */
-	private String interfaceTechnologyID = null;
-	/*  */
-	private String reference = null;
-	/*  */
-	private String visibilityID = null;
-	/*  */
-	private String link = null;
-	/*  */
-	private String ifaceID = null;
-	/*  */
-	private InterfaceTechnology interfaceTechnology = null;
-	/*  */
-	private List<BusinessObject> businessObjects = new ArrayList<BusinessObject>();
-	@JsonProperty("ID")
-	public String getID()
-	{
-		return ID;
-	}
-	
-	@JsonProperty("ID")
-	public void setID(String ID)
-	{
-		this.ID = ID;
-	}
 
-	@JsonProperty("name")
-	public String getName()
-	{
-		return name;
-	}
-	
-	@JsonProperty("name")
-	public void setName(String name)
-	{
-		this.name = name;
-	}
 
-	@JsonProperty("serviceID")
-	public String getServiceID()
-	{
-		return serviceID;
-	}
-	
-	@JsonProperty("serviceID")
-	public void setServiceID(String serviceID)
-	{
-		this.serviceID = serviceID;
-	}
 
-	@JsonProperty("serviceRefID")
-	public String getServiceRefID()
-	{
-		return serviceRefID;
-	}
-	
-	@JsonProperty("serviceRefID")
-	public void setServiceRefID(String serviceRefID)
-	{
-		this.serviceRefID = serviceRefID;
-	}
 
-	@JsonProperty("interfaceDirectionID")
-	public String getInterfaceDirectionID()
-	{
-		return interfaceDirectionID;
-	}
-	
-	@JsonProperty("interfaceDirectionID")
-	public void setInterfaceDirectionID(String interfaceDirectionID)
-	{
-		this.interfaceDirectionID = interfaceDirectionID;
-	}
 
-	@JsonProperty("interfaceFrequencyID")
-	public String getInterfaceFrequencyID()
-	{
-		return interfaceFrequencyID;
-	}
-	
-	@JsonProperty("interfaceFrequencyID")
-	public void setInterfaceFrequencyID(String interfaceFrequencyID)
-	{
-		this.interfaceFrequencyID = interfaceFrequencyID;
-	}
+public class ServiceHasInterface   {
+  
+  private String ID = null;
+  private String name = null;
+  private String serviceID = null;
+  private String serviceRefID = null;
+  private String interfaceDirectionID = null;
+  private String interfaceFrequencyID = null;
+  private String interfaceTypeID = null;
+  private String interfaceTechnologyID = null;
+  private String reference = null;
+  private String visibilityID = null;
+  private String link = null;
+  private String ifaceID = null;
+  private InterfaceTechnology interfaceTechnology = null;
+  private List<BusinessObject> businessObjects = new ArrayList<BusinessObject>();
 
-	@JsonProperty("interfaceTypeID")
-	public String getInterfaceTypeID()
-	{
-		return interfaceTypeID;
-	}
-	
-	@JsonProperty("interfaceTypeID")
-	public void setInterfaceTypeID(String interfaceTypeID)
-	{
-		this.interfaceTypeID = interfaceTypeID;
-	}
+  
+  /**
+   **/
+  public ServiceHasInterface ID(String ID) {
+    this.ID = ID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("ID")
+  public String getID() {
+    return ID;
+  }
+  public void setID(String ID) {
+    this.ID = ID;
+  }
 
-	@JsonProperty("interfaceTechnologyID")
-	public String getInterfaceTechnologyID()
-	{
-		return interfaceTechnologyID;
-	}
-	
-	@JsonProperty("interfaceTechnologyID")
-	public void setInterfaceTechnologyID(String interfaceTechnologyID)
-	{
-		this.interfaceTechnologyID = interfaceTechnologyID;
-	}
+  
+  /**
+   **/
+  public ServiceHasInterface name(String name) {
+    this.name = name;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("name")
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	@JsonProperty("reference")
-	public String getReference()
-	{
-		return reference;
-	}
-	
-	@JsonProperty("reference")
-	public void setReference(String reference)
-	{
-		this.reference = reference;
-	}
+  
+  /**
+   **/
+  public ServiceHasInterface serviceID(String serviceID) {
+    this.serviceID = serviceID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("serviceID")
+  public String getServiceID() {
+    return serviceID;
+  }
+  public void setServiceID(String serviceID) {
+    this.serviceID = serviceID;
+  }
 
-	@JsonProperty("visibilityID")
-	public String getVisibilityID()
-	{
-		return visibilityID;
-	}
-	
-	@JsonProperty("visibilityID")
-	public void setVisibilityID(String visibilityID)
-	{
-		this.visibilityID = visibilityID;
-	}
+  
+  /**
+   **/
+  public ServiceHasInterface serviceRefID(String serviceRefID) {
+    this.serviceRefID = serviceRefID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("serviceRefID")
+  public String getServiceRefID() {
+    return serviceRefID;
+  }
+  public void setServiceRefID(String serviceRefID) {
+    this.serviceRefID = serviceRefID;
+  }
 
-	@JsonProperty("link")
-	public String getLink()
-	{
-		return link;
-	}
-	
-	@JsonProperty("link")
-	public void setLink(String link)
-	{
-		this.link = link;
-	}
+  
+  /**
+   **/
+  public ServiceHasInterface interfaceDirectionID(String interfaceDirectionID) {
+    this.interfaceDirectionID = interfaceDirectionID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("interfaceDirectionID")
+  public String getInterfaceDirectionID() {
+    return interfaceDirectionID;
+  }
+  public void setInterfaceDirectionID(String interfaceDirectionID) {
+    this.interfaceDirectionID = interfaceDirectionID;
+  }
 
-	@JsonProperty("ifaceID")
-	public String getIfaceID()
-	{
-		return ifaceID;
-	}
-	
-	@JsonProperty("ifaceID")
-	public void setIfaceID(String ifaceID)
-	{
-		this.ifaceID = ifaceID;
-	}
+  
+  /**
+   **/
+  public ServiceHasInterface interfaceFrequencyID(String interfaceFrequencyID) {
+    this.interfaceFrequencyID = interfaceFrequencyID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("interfaceFrequencyID")
+  public String getInterfaceFrequencyID() {
+    return interfaceFrequencyID;
+  }
+  public void setInterfaceFrequencyID(String interfaceFrequencyID) {
+    this.interfaceFrequencyID = interfaceFrequencyID;
+  }
 
-	@JsonProperty("interfaceTechnology")
-	public InterfaceTechnology getInterfaceTechnology()
-	{
-		return interfaceTechnology;
-	}
-	
-	@JsonProperty("interfaceTechnology")
-	public void setInterfaceTechnology(InterfaceTechnology interfaceTechnology)
-	{
-		this.interfaceTechnology = interfaceTechnology;
-	}
+  
+  /**
+   **/
+  public ServiceHasInterface interfaceTypeID(String interfaceTypeID) {
+    this.interfaceTypeID = interfaceTypeID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("interfaceTypeID")
+  public String getInterfaceTypeID() {
+    return interfaceTypeID;
+  }
+  public void setInterfaceTypeID(String interfaceTypeID) {
+    this.interfaceTypeID = interfaceTypeID;
+  }
 
-	@JsonProperty("businessObjects")
-	public List<BusinessObject> getBusinessObjects()
-	{
-		return businessObjects;
-	}
-	
-	@JsonProperty("businessObjects")
-	public void setBusinessObjects(List<BusinessObject> businessObjects)
-	{
-		this.businessObjects = businessObjects;
-	}
+  
+  /**
+   **/
+  public ServiceHasInterface interfaceTechnologyID(String interfaceTechnologyID) {
+    this.interfaceTechnologyID = interfaceTechnologyID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("interfaceTechnologyID")
+  public String getInterfaceTechnologyID() {
+    return interfaceTechnologyID;
+  }
+  public void setInterfaceTechnologyID(String interfaceTechnologyID) {
+    this.interfaceTechnologyID = interfaceTechnologyID;
+  }
 
-	@Override
-	public String toString()
-	{
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ServiceHasInterface {\n");
-		sb.append("  ID: ").append(ID).append("\n");
-		sb.append("  name: ").append(name).append("\n");
-		sb.append("  serviceID: ").append(serviceID).append("\n");
-		sb.append("  serviceRefID: ").append(serviceRefID).append("\n");
-		sb.append("  interfaceDirectionID: ").append(interfaceDirectionID).append("\n");
-		sb.append("  interfaceFrequencyID: ").append(interfaceFrequencyID).append("\n");
-		sb.append("  interfaceTypeID: ").append(interfaceTypeID).append("\n");
-		sb.append("  interfaceTechnologyID: ").append(interfaceTechnologyID).append("\n");
-		sb.append("  reference: ").append(reference).append("\n");
-		sb.append("  visibilityID: ").append(visibilityID).append("\n");
-		sb.append("  link: ").append(link).append("\n");
-		sb.append("  ifaceID: ").append(ifaceID).append("\n");
-		sb.append("  interfaceTechnology: ").append(interfaceTechnology).append("\n");
-		sb.append("  businessObjects: ").append(businessObjects).append("\n");
-		sb.append("}\n");
-		return sb.toString();
-	}
+  
+  /**
+   **/
+  public ServiceHasInterface reference(String reference) {
+    this.reference = reference;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("reference")
+  public String getReference() {
+    return reference;
+  }
+  public void setReference(String reference) {
+    this.reference = reference;
+  }
+
+  
+  /**
+   **/
+  public ServiceHasInterface visibilityID(String visibilityID) {
+    this.visibilityID = visibilityID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("visibilityID")
+  public String getVisibilityID() {
+    return visibilityID;
+  }
+  public void setVisibilityID(String visibilityID) {
+    this.visibilityID = visibilityID;
+  }
+
+  
+  /**
+   **/
+  public ServiceHasInterface link(String link) {
+    this.link = link;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("link")
+  public String getLink() {
+    return link;
+  }
+  public void setLink(String link) {
+    this.link = link;
+  }
+
+  
+  /**
+   **/
+  public ServiceHasInterface ifaceID(String ifaceID) {
+    this.ifaceID = ifaceID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("ifaceID")
+  public String getIfaceID() {
+    return ifaceID;
+  }
+  public void setIfaceID(String ifaceID) {
+    this.ifaceID = ifaceID;
+  }
+
+  
+  /**
+   **/
+  public ServiceHasInterface interfaceTechnology(InterfaceTechnology interfaceTechnology) {
+    this.interfaceTechnology = interfaceTechnology;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("interfaceTechnology")
+  public InterfaceTechnology getInterfaceTechnology() {
+    return interfaceTechnology;
+  }
+  public void setInterfaceTechnology(InterfaceTechnology interfaceTechnology) {
+    this.interfaceTechnology = interfaceTechnology;
+  }
+
+  
+  /**
+   **/
+  public ServiceHasInterface businessObjects(List<BusinessObject> businessObjects) {
+    this.businessObjects = businessObjects;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("businessObjects")
+  public List<BusinessObject> getBusinessObjects() {
+    return businessObjects;
+  }
+  public void setBusinessObjects(List<BusinessObject> businessObjects) {
+    this.businessObjects = businessObjects;
+  }
+
+  
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ServiceHasInterface serviceHasInterface = (ServiceHasInterface) o;
+    return Objects.equals(this.ID, serviceHasInterface.ID) &&
+        Objects.equals(this.name, serviceHasInterface.name) &&
+        Objects.equals(this.serviceID, serviceHasInterface.serviceID) &&
+        Objects.equals(this.serviceRefID, serviceHasInterface.serviceRefID) &&
+        Objects.equals(this.interfaceDirectionID, serviceHasInterface.interfaceDirectionID) &&
+        Objects.equals(this.interfaceFrequencyID, serviceHasInterface.interfaceFrequencyID) &&
+        Objects.equals(this.interfaceTypeID, serviceHasInterface.interfaceTypeID) &&
+        Objects.equals(this.interfaceTechnologyID, serviceHasInterface.interfaceTechnologyID) &&
+        Objects.equals(this.reference, serviceHasInterface.reference) &&
+        Objects.equals(this.visibilityID, serviceHasInterface.visibilityID) &&
+        Objects.equals(this.link, serviceHasInterface.link) &&
+        Objects.equals(this.ifaceID, serviceHasInterface.ifaceID) &&
+        Objects.equals(this.interfaceTechnology, serviceHasInterface.interfaceTechnology) &&
+        Objects.equals(this.businessObjects, serviceHasInterface.businessObjects);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(ID, name, serviceID, serviceRefID, interfaceDirectionID, interfaceFrequencyID, interfaceTypeID, interfaceTechnologyID, reference, visibilityID, link, ifaceID, interfaceTechnology, businessObjects);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ServiceHasInterface {\n");
+    
+    sb.append("    ID: ").append(toIndentedString(ID)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    serviceID: ").append(toIndentedString(serviceID)).append("\n");
+    sb.append("    serviceRefID: ").append(toIndentedString(serviceRefID)).append("\n");
+    sb.append("    interfaceDirectionID: ").append(toIndentedString(interfaceDirectionID)).append("\n");
+    sb.append("    interfaceFrequencyID: ").append(toIndentedString(interfaceFrequencyID)).append("\n");
+    sb.append("    interfaceTypeID: ").append(toIndentedString(interfaceTypeID)).append("\n");
+    sb.append("    interfaceTechnologyID: ").append(toIndentedString(interfaceTechnologyID)).append("\n");
+    sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
+    sb.append("    visibilityID: ").append(toIndentedString(visibilityID)).append("\n");
+    sb.append("    link: ").append(toIndentedString(link)).append("\n");
+    sb.append("    ifaceID: ").append(toIndentedString(ifaceID)).append("\n");
+    sb.append("    interfaceTechnology: ").append(toIndentedString(interfaceTechnology)).append("\n");
+    sb.append("    businessObjects: ").append(toIndentedString(businessObjects)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 }
 

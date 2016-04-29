@@ -100,7 +100,7 @@ public class <classNamePlural>ApiTest extends TestBase
 	public void testCreateFailDuplicate() throws Exception
 	{
 		// We expect an exception
-		thrown.expect(ValidationException.class);
+		thrown.expect(ApiException.class);
 		<className> model = this.newModel();
 		model.setName("Duplicate");
 		this.getApi().create<className>(model);
@@ -112,7 +112,7 @@ public class <classNamePlural>ApiTest extends TestBase
 	public void testCreateFailNoName() throws Exception
 	{
 		// We expect an exception
-		thrown.expect(ValidationException.class);
+		thrown.expect(ApiException.class);
 		<className> model = this.newModel();
 		this.getApi().create<className>(model);
 	}
@@ -120,7 +120,7 @@ public class <classNamePlural>ApiTest extends TestBase
 	@Test
 	public void testCreateFailName() throws Exception
 	{
-		thrown.expect(ValidationException.class);
+		thrown.expect(ApiException.class);
 		<className> model = this.newModel();
 		model.setName("\<html\>");
 		this.getApi().create<className>(model);

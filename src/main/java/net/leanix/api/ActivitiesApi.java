@@ -1,98 +1,97 @@
-/*
-* The MIT License (MIT)	 
-*
-* Copyright (c) 2014 LeanIX GmbH
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy of
-* this software and associated documentation files (the "Software"), to deal in
-* the Software without restriction, including without limitation the rights to
-* use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-* the Software, and to permit persons to whom the Software is furnished to do so,
-* subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-* FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-* COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-* IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-* CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 package net.leanix.api;
 
 import net.leanix.api.common.ApiException;
 import net.leanix.api.common.ApiClient;
+import net.leanix.api.common.Configuration;
+import net.leanix.api.common.Pair;
+
+import javax.ws.rs.core.GenericType;
+
 import net.leanix.api.models.ActivityStream;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ActivitiesApi
-{
-	private ApiClient apiClient;
-	
-	public ActivitiesApi(ApiClient client)
-	{
-		this.apiClient = client;
-	}
-	
-	public void setClient(ApiClient client)
-	{
-		this.apiClient = client;
-	}
 
-	public ApiClient getClient()
-	{
-		return this.apiClient;
-	}
+public class ActivitiesApi {
+  private ApiClient apiClient;
 
-	public ActivityStream getActivities (String scope, String startDate, String endDate, String factSheetType, String eventType, Integer countOnly) throws ApiException
-	{
-		// create path and map variables
-		String path = "/activities".replaceAll("\\{format\\}","json");
+  public ActivitiesApi() {
+    this(Configuration.getDefaultApiClient());
+  }
 
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
+  public ActivitiesApi(ApiClient apiClient) {
+    this.apiClient = apiClient;
+  }
 
-		if(!"null".equals(String.valueOf(scope)))
-			queryParams.put("scope", String.valueOf(scope));
-		if(!"null".equals(String.valueOf(startDate)))
-			queryParams.put("startDate", String.valueOf(startDate));
-		if(!"null".equals(String.valueOf(endDate)))
-			queryParams.put("endDate", String.valueOf(endDate));
-		if(!"null".equals(String.valueOf(factSheetType)))
-			queryParams.put("factSheetType", String.valueOf(factSheetType));
-		if(!"null".equals(String.valueOf(eventType)))
-			queryParams.put("eventType", String.valueOf(eventType));
-		if(!"null".equals(String.valueOf(countOnly)))
-			queryParams.put("countOnly", String.valueOf(countOnly));
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (ActivityStream) ApiClient.deserialize(response, "", ActivityStream.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	}
+  public ApiClient getApiClient() {
+    return apiClient;
+  }
 
+  public void setApiClient(ApiClient apiClient) {
+    this.apiClient = apiClient;
+  }
+
+  
+  /**
+   * Get the latest activities
+   * 
+   * @param scope If set to &#39;my&#39;, only the activities related to subscribed Fact Sheet are listed for the authenticated user. (optional)
+   * @param startDate If set, only activities greater or equal the given date time are retrieved. If no start time is given, then the start time is calculated based on the last event. (optional)
+   * @param endDate If set, only activities less or equal the given date time are retrieved. If no end time is given, all activities until today are selected. (optional)
+   * @param factSheetType Type of Fact Sheet, e.g. services for Application (optional)
+   * @param eventType Event type, e.g. creation of a Fact Sheet: OBJECT_CREATE (optional)
+   * @param countOnly If set to 1, then only the count is transmitted and data is left empty (optional)
+   * @return ActivityStream
+   * @throws ApiException if fails to make API call
+   */
+  public ActivityStream getActivities(String scope, String startDate, String endDate, String factSheetType, String eventType, Integer countOnly) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/activities".replaceAll("\\{format\\}","json");
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "scope", scope));
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "startDate", startDate));
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "endDate", endDate));
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "factSheetType", factSheetType));
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "eventType", eventType));
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "countOnly", countOnly));
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<ActivityStream> localVarReturnType = new GenericType<ActivityStream>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+}
