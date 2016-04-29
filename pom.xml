@@ -86,7 +86,7 @@
             <id>performTests</id>
             <activation>
                 <property>
-                    <name>api.baseurl</name>
+                    <name>api.hostname</name>
                 </property>
             </activation>
             <build>
