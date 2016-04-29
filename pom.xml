@@ -53,7 +53,7 @@
 
         <!-- properties related to sdk code generation -->
         <leanix-dropkit-sdk-utils-version>1.0.1-SNAPSHOT</leanix-dropkit-sdk-utils-version>
-        <codegenHost>local-eam.leanix.net</codegenHost>
+        <codegenHost>test-app.leanix.net</codegenHost>
         <swagger-inputSpec>https://${codegenHost}/demo/api/v1/api-docs/</swagger-inputSpec>
 
     </properties>
@@ -70,7 +70,37 @@
 
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
+        <profile>
+            <id>performTests</id>
+            <activation>
+                <property>
+                    <name>api.baseurl</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skipTests>false</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <profile>
             <id>codegen</id>
             <build>
@@ -112,7 +142,7 @@
                         <version>1.8</version>
                         <executions>
                             <execution>
-                                <phase>generate-sources</phase>
+                                <phase>process-sources</phase>
                                 <configuration>
                                     <target>
                                         <copy todir="src" overwrite="true">
