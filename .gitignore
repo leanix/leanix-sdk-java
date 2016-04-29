@@ -8,7 +8,8 @@
 .project
 .benchmark.properties
 
-*.iml
+**/*.iml
+**/.idea
 
 *.timestamp
 /bin
