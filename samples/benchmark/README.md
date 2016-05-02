@@ -1,8 +1,22 @@
- # LeanIX EAM SDK Benchmark
+# LeanIX EAM SDK Benchmark
 
 Allows to run benchmarks via REST API
 
+## General start of a benchmark class
+
+	mvn exec:java -Dexec.mainClass=BenchmarkC \\
+		-Dapi.hostname=<host the test runs against> \\
+		-Dapi.clientSecret=<client secret of EAM> \\
+		-DkeepWorkspace=< 'y' or 'n' if you want do remain workspace after test>
+	
+	# eg:
+	mvn exec:java -Dexec.mainClass=BenchmarkC \\
+		-Dapi.hostname=boot2docker.leanix.net \\
+		-Dapi.clientSecret=ldtP4b9o3K6IkKm3SolA_eam \\
+		-DkeepWorkspace=y
+
 ## Benchmarks
+> Update the run-bench-local.sh script with your settings!
 
 ### Benchmark A
 

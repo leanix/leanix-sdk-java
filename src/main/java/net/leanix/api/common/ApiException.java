@@ -1,58 +1,69 @@
-/*
-* The MIT License (MIT)	 
-*
-* Copyright (c) 2014 LeanIX GmbH
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy of
-* this software and associated documentation files (the "Software"), to deal in
-* the Software without restriction, including without limitation the rights to
-* use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-* the Software, and to permit persons to whom the Software is furnished to do so,
-* subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-* FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-* COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-* IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-* CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 package net.leanix.api.common;
 
-public class ApiException extends Exception
-{
-	int code = 0;
-	String message = null;
+import java.util.Map;
+import java.util.List;
 
-	public ApiException() {}
 
-	public ApiException(int code, String message)
-	{
-		this.code = code;
-		this.message = message;
-	}
+public class ApiException extends Exception {
+  private int code = 0;
+  private Map<String, List<String>> responseHeaders = null;
+  private String responseBody = null;
 
-	public int getCode()
-	{
-		return code;
-	}
-	
-	public void setCode(int code)
-	{
-		this.code = code;
-	}
-	
-	public String getMessage()
-	{
-		return message;
-	}
-	
-	public void setMessage(String message)
-	{
-		this.message = message;
-	}
+  public ApiException() {}
+
+  public ApiException(Throwable throwable) {
+    super(throwable);
+  }
+
+  public ApiException(String message) {
+    super(message);
+  }
+
+  public ApiException(String message, Throwable throwable, int code, Map<String, List<String>> responseHeaders, String responseBody) {
+    super(message, throwable);
+    this.code = code;
+    this.responseHeaders = responseHeaders;
+    this.responseBody = responseBody;
+  }
+
+  public ApiException(String message, int code, Map<String, List<String>> responseHeaders, String responseBody) {
+    this(message, (Throwable) null, code, responseHeaders, responseBody);
+  }
+
+  public ApiException(String message, Throwable throwable, int code, Map<String, List<String>> responseHeaders) {
+    this(message, throwable, code, responseHeaders, null);
+  }
+
+  public ApiException(int code, Map<String, List<String>> responseHeaders, String responseBody) {
+    this((String) null, (Throwable) null, code, responseHeaders, responseBody);
+  }
+
+  public ApiException(int code, String message) {
+    super(message);
+    this.code = code;
+  }
+
+  public ApiException(int code, String message, Map<String, List<String>> responseHeaders, String responseBody) {
+    this(code, message);
+    this.responseHeaders = responseHeaders;
+    this.responseBody = responseBody;
+  }
+
+  public int getCode() {
+    return code;
+  }
+
+  /**
+   * Get the HTTP response headers.
+   */
+  public Map<String, List<String>> getResponseHeaders() {
+    return responseHeaders;
+  }
+
+  /**
+   * Get the HTTP response body.
+   */
+  public String getResponseBody() {
+    return responseBody;
+  }
 }

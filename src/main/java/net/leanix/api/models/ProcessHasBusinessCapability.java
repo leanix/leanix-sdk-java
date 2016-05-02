@@ -1,103 +1,134 @@
-/*
-* The MIT License (MIT)	 
-*
-* Copyright (c) 2014 LeanIX GmbH
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy of
-* this software and associated documentation files (the "Software"), to deal in
-* the Software without restriction, including without limitation the rights to
-* use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-* the Software, and to permit persons to whom the Software is furnished to do so,
-* subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-* FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-* COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-* IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-* CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 package net.leanix.api.models;
 
+import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
 
-public class ProcessHasBusinessCapability implements Serializable
-{
-    private static final long serialVersionUID = 1L;
 
-	/*  */
-	private String ID = null;
-	/*  */
-	private String processID = null;
-	/*  */
-	private String businessCapabilityID = null;
-	/*  */
-	private String comment = null;
-	@JsonProperty("ID")
-	public String getID()
-	{
-		return ID;
-	}
-	
-	@JsonProperty("ID")
-	public void setID(String ID)
-	{
-		this.ID = ID;
-	}
 
-	@JsonProperty("processID")
-	public String getProcessID()
-	{
-		return processID;
-	}
-	
-	@JsonProperty("processID")
-	public void setProcessID(String processID)
-	{
-		this.processID = processID;
-	}
 
-	@JsonProperty("businessCapabilityID")
-	public String getBusinessCapabilityID()
-	{
-		return businessCapabilityID;
-	}
-	
-	@JsonProperty("businessCapabilityID")
-	public void setBusinessCapabilityID(String businessCapabilityID)
-	{
-		this.businessCapabilityID = businessCapabilityID;
-	}
 
-	@JsonProperty("comment")
-	public String getComment()
-	{
-		return comment;
-	}
-	
-	@JsonProperty("comment")
-	public void setComment(String comment)
-	{
-		this.comment = comment;
-	}
+public class ProcessHasBusinessCapability   {
+  
+  private String ID = null;
+  private String processID = null;
+  private String businessCapabilityID = null;
+  private String comment = null;
 
-	@Override
-	public String toString()
-	{
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProcessHasBusinessCapability {\n");
-		sb.append("  ID: ").append(ID).append("\n");
-		sb.append("  processID: ").append(processID).append("\n");
-		sb.append("  businessCapabilityID: ").append(businessCapabilityID).append("\n");
-		sb.append("  comment: ").append(comment).append("\n");
-		sb.append("}\n");
-		return sb.toString();
-	}
+  
+  /**
+   **/
+  public ProcessHasBusinessCapability ID(String ID) {
+    this.ID = ID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("ID")
+  public String getID() {
+    return ID;
+  }
+  public void setID(String ID) {
+    this.ID = ID;
+  }
+
+  
+  /**
+   **/
+  public ProcessHasBusinessCapability processID(String processID) {
+    this.processID = processID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("processID")
+  public String getProcessID() {
+    return processID;
+  }
+  public void setProcessID(String processID) {
+    this.processID = processID;
+  }
+
+  
+  /**
+   **/
+  public ProcessHasBusinessCapability businessCapabilityID(String businessCapabilityID) {
+    this.businessCapabilityID = businessCapabilityID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("businessCapabilityID")
+  public String getBusinessCapabilityID() {
+    return businessCapabilityID;
+  }
+  public void setBusinessCapabilityID(String businessCapabilityID) {
+    this.businessCapabilityID = businessCapabilityID;
+  }
+
+  
+  /**
+   **/
+  public ProcessHasBusinessCapability comment(String comment) {
+    this.comment = comment;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("comment")
+  public String getComment() {
+    return comment;
+  }
+  public void setComment(String comment) {
+    this.comment = comment;
+  }
+
+  
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProcessHasBusinessCapability processHasBusinessCapability = (ProcessHasBusinessCapability) o;
+    return Objects.equals(this.ID, processHasBusinessCapability.ID) &&
+        Objects.equals(this.processID, processHasBusinessCapability.processID) &&
+        Objects.equals(this.businessCapabilityID, processHasBusinessCapability.businessCapabilityID) &&
+        Objects.equals(this.comment, processHasBusinessCapability.comment);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(ID, processID, businessCapabilityID, comment);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProcessHasBusinessCapability {\n");
+    
+    sb.append("    ID: ").append(toIndentedString(ID)).append("\n");
+    sb.append("    processID: ").append(toIndentedString(processID)).append("\n");
+    sb.append("    businessCapabilityID: ").append(toIndentedString(businessCapabilityID)).append("\n");
+    sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 }
 

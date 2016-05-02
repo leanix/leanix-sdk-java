@@ -1,2722 +1,3679 @@
-/*
-* The MIT License (MIT)	 
-*
-* Copyright (c) 2014 LeanIX GmbH
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy of
-* this software and associated documentation files (the "Software"), to deal in
-* the Software without restriction, including without limitation the rights to
-* use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-* the Software, and to permit persons to whom the Software is furnished to do so,
-* subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-* 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-* FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-* COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-* IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-* CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
 package net.leanix.api;
 
 import net.leanix.api.common.ApiException;
 import net.leanix.api.common.ApiClient;
-import net.leanix.api.models.IfaceHasResource;
-import net.leanix.api.models.FactSheetHasDocument;
-import net.leanix.api.models.FactSheetHasPredecessor;
-import net.leanix.api.models.FactSheetHasRequires;
-import net.leanix.api.models.IfaceHasBusinessObject;
-import net.leanix.api.models.FactSheetHasLifecycle;
+import net.leanix.api.common.Configuration;
+import net.leanix.api.common.Pair;
+
+import javax.ws.rs.core.GenericType;
+
 import net.leanix.api.models.FactSheetHasChild;
-import net.leanix.api.models.FactSheetHasIfaceProvider;
-import net.leanix.api.models.Iface;
+import net.leanix.api.models.FactSheetHasDocument;
 import net.leanix.api.models.FactSheetHasIfaceConsumer;
-import net.leanix.api.models.UserSubscription;
-import net.leanix.api.models.FactSheetHasSuccessor;
-import net.leanix.api.models.FactSheetHasRequiredby;
+import net.leanix.api.models.FactSheetHasIfaceProvider;
+import net.leanix.api.models.FactSheetHasLifecycle;
 import net.leanix.api.models.FactSheetHasParent;
+import net.leanix.api.models.FactSheetHasPredecessor;
+import net.leanix.api.models.FactSheetHasRequiredby;
+import net.leanix.api.models.FactSheetHasRequires;
+import net.leanix.api.models.FactSheetHasSuccessor;
+import net.leanix.api.models.Iface;
+import net.leanix.api.models.IfaceHasBusinessObject;
+import net.leanix.api.models.IfaceHasResource;
+import net.leanix.api.models.UserSubscription;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class IfacesApi
-{
-	private ApiClient apiClient;
-	
-	public IfacesApi(ApiClient client)
-	{
-		this.apiClient = client;
-	}
-	
-	public void setClient(ApiClient client)
-	{
-		this.apiClient = client;
-	}
-
-	public ApiClient getClient()
-	{
-		return this.apiClient;
-	}
-
-	public List<Iface> getIfaces (Boolean relations, String filter) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces".replaceAll("\\{format\\}","json");
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		if(!"null".equals(String.valueOf(relations)))
-			queryParams.put("relations", String.valueOf(relations));
-		if(!"null".equals(String.valueOf(filter)))
-			queryParams.put("filter", String.valueOf(filter));
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<Iface>) ApiClient.deserialize(response, "Array", Iface.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public Iface createIface (Iface body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces".replaceAll("\\{format\\}","json");
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (Iface) ApiClient.deserialize(response, "", Iface.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public Iface getIface (String ID, Boolean relations) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		if(!"null".equals(String.valueOf(relations)))
-			queryParams.put("relations", String.valueOf(relations));
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (Iface) ApiClient.deserialize(response, "", Iface.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public Iface updateIface (String ID, Iface body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (Iface) ApiClient.deserialize(response, "", Iface.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteIface (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<FactSheetHasParent> getFactSheetHasParents (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasParents".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<FactSheetHasParent>) ApiClient.deserialize(response, "Array", FactSheetHasParent.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasParent createFactSheetHasParent (String ID, FactSheetHasParent body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasParents".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasParent) ApiClient.deserialize(response, "", FactSheetHasParent.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasParent getFactSheetHasParent (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasParents/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasParent) ApiClient.deserialize(response, "", FactSheetHasParent.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasParent updateFactSheetHasParent (String ID, String relationID, FactSheetHasParent body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasParents/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasParent) ApiClient.deserialize(response, "", FactSheetHasParent.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteFactSheetHasParent (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasParents/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<FactSheetHasChild> getFactSheetHasChildren (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasChildren".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<FactSheetHasChild>) ApiClient.deserialize(response, "Array", FactSheetHasChild.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasChild createFactSheetHasChild (String ID, FactSheetHasChild body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasChildren".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasChild) ApiClient.deserialize(response, "", FactSheetHasChild.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasChild getFactSheetHasChild (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasChildren/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasChild) ApiClient.deserialize(response, "", FactSheetHasChild.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasChild updateFactSheetHasChild (String ID, String relationID, FactSheetHasChild body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasChildren/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasChild) ApiClient.deserialize(response, "", FactSheetHasChild.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteFactSheetHasChild (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasChildren/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<FactSheetHasDocument> getFactSheetHasDocuments (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasDocuments".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<FactSheetHasDocument>) ApiClient.deserialize(response, "Array", FactSheetHasDocument.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasDocument createFactSheetHasDocument (String ID, FactSheetHasDocument body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasDocuments".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasDocument) ApiClient.deserialize(response, "", FactSheetHasDocument.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasDocument getFactSheetHasDocument (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasDocuments/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasDocument) ApiClient.deserialize(response, "", FactSheetHasDocument.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasDocument updateFactSheetHasDocument (String ID, String relationID, FactSheetHasDocument body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasDocuments/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasDocument) ApiClient.deserialize(response, "", FactSheetHasDocument.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteFactSheetHasDocument (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasDocuments/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<FactSheetHasLifecycle> getFactSheetHasLifecycles (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasLifecycles".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<FactSheetHasLifecycle>) ApiClient.deserialize(response, "Array", FactSheetHasLifecycle.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasLifecycle createFactSheetHasLifecycle (String ID, FactSheetHasLifecycle body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasLifecycles".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasLifecycle) ApiClient.deserialize(response, "", FactSheetHasLifecycle.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasLifecycle getFactSheetHasLifecycle (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasLifecycles/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasLifecycle) ApiClient.deserialize(response, "", FactSheetHasLifecycle.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasLifecycle updateFactSheetHasLifecycle (String ID, String relationID, FactSheetHasLifecycle body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasLifecycles/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasLifecycle) ApiClient.deserialize(response, "", FactSheetHasLifecycle.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteFactSheetHasLifecycle (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasLifecycles/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<UserSubscription> getUserSubscriptions (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/userSubscriptions".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<UserSubscription>) ApiClient.deserialize(response, "Array", UserSubscription.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public UserSubscription createUserSubscription (String ID, UserSubscription body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/userSubscriptions".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (UserSubscription) ApiClient.deserialize(response, "", UserSubscription.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public UserSubscription getUserSubscription (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/userSubscriptions/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (UserSubscription) ApiClient.deserialize(response, "", UserSubscription.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public UserSubscription updateUserSubscription (String ID, String relationID, UserSubscription body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/userSubscriptions/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (UserSubscription) ApiClient.deserialize(response, "", UserSubscription.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteUserSubscription (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/userSubscriptions/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<FactSheetHasPredecessor> getFactSheetHasPredecessors (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasPredecessors".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<FactSheetHasPredecessor>) ApiClient.deserialize(response, "Array", FactSheetHasPredecessor.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasPredecessor createFactSheetHasPredecessor (String ID, FactSheetHasPredecessor body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasPredecessors".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasPredecessor) ApiClient.deserialize(response, "", FactSheetHasPredecessor.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasPredecessor getFactSheetHasPredecessor (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasPredecessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasPredecessor) ApiClient.deserialize(response, "", FactSheetHasPredecessor.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasPredecessor updateFactSheetHasPredecessor (String ID, String relationID, FactSheetHasPredecessor body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasPredecessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasPredecessor) ApiClient.deserialize(response, "", FactSheetHasPredecessor.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteFactSheetHasPredecessor (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasPredecessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<FactSheetHasSuccessor> getFactSheetHasSuccessors (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasSuccessors".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<FactSheetHasSuccessor>) ApiClient.deserialize(response, "Array", FactSheetHasSuccessor.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasSuccessor createFactSheetHasSuccessor (String ID, FactSheetHasSuccessor body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasSuccessors".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasSuccessor) ApiClient.deserialize(response, "", FactSheetHasSuccessor.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasSuccessor getFactSheetHasSuccessor (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasSuccessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasSuccessor) ApiClient.deserialize(response, "", FactSheetHasSuccessor.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasSuccessor updateFactSheetHasSuccessor (String ID, String relationID, FactSheetHasSuccessor body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasSuccessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasSuccessor) ApiClient.deserialize(response, "", FactSheetHasSuccessor.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteFactSheetHasSuccessor (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasSuccessors/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<FactSheetHasRequires> getFactSheetHasRequiresAll (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasRequires".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<FactSheetHasRequires>) ApiClient.deserialize(response, "Array", FactSheetHasRequires.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasRequires createFactSheetHasRequires (String ID, FactSheetHasRequires body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasRequires".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasRequires) ApiClient.deserialize(response, "", FactSheetHasRequires.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasRequires getFactSheetHasRequires (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasRequires/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasRequires) ApiClient.deserialize(response, "", FactSheetHasRequires.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasRequires updateFactSheetHasRequires (String ID, String relationID, FactSheetHasRequires body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasRequires/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasRequires) ApiClient.deserialize(response, "", FactSheetHasRequires.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteFactSheetHasRequires (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasRequires/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<FactSheetHasRequiredby> getFactSheetHasRequiredByAll (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasRequiredby".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<FactSheetHasRequiredby>) ApiClient.deserialize(response, "Array", FactSheetHasRequiredby.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasRequiredby createFactSheetHasRequiredby (String ID, FactSheetHasRequiredby body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasRequiredby".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasRequiredby) ApiClient.deserialize(response, "", FactSheetHasRequiredby.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasRequiredby getFactSheetHasRequiredby (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasRequiredby/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasRequiredby) ApiClient.deserialize(response, "", FactSheetHasRequiredby.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasRequiredby updateFactSheetHasRequiredby (String ID, String relationID, FactSheetHasRequiredby body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasRequiredby/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasRequiredby) ApiClient.deserialize(response, "", FactSheetHasRequiredby.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteFactSheetHasRequiredby (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasRequiredby/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<FactSheetHasIfaceProvider> getFactSheetHasIfaceProviders (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasIfaceProviders".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<FactSheetHasIfaceProvider>) ApiClient.deserialize(response, "Array", FactSheetHasIfaceProvider.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasIfaceProvider createFactSheetHasIfaceProvider (String ID, FactSheetHasIfaceProvider body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasIfaceProviders".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasIfaceProvider) ApiClient.deserialize(response, "", FactSheetHasIfaceProvider.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasIfaceProvider getFactSheetHasIfaceProvider (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasIfaceProviders/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasIfaceProvider) ApiClient.deserialize(response, "", FactSheetHasIfaceProvider.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasIfaceProvider updateFactSheetHasIfaceProvider (String ID, String relationID, FactSheetHasIfaceProvider body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasIfaceProviders/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasIfaceProvider) ApiClient.deserialize(response, "", FactSheetHasIfaceProvider.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteFactSheetHasIfaceProvider (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasIfaceProviders/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<FactSheetHasIfaceConsumer> getFactSheetHasIfaceConsumers (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasIfaceConsumers".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<FactSheetHasIfaceConsumer>) ApiClient.deserialize(response, "Array", FactSheetHasIfaceConsumer.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasIfaceConsumer createFactSheetHasIfaceConsumer (String ID, FactSheetHasIfaceConsumer body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasIfaceConsumers".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasIfaceConsumer) ApiClient.deserialize(response, "", FactSheetHasIfaceConsumer.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasIfaceConsumer getFactSheetHasIfaceConsumer (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasIfaceConsumers/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasIfaceConsumer) ApiClient.deserialize(response, "", FactSheetHasIfaceConsumer.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public FactSheetHasIfaceConsumer updateFactSheetHasIfaceConsumer (String ID, String relationID, FactSheetHasIfaceConsumer body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasIfaceConsumers/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (FactSheetHasIfaceConsumer) ApiClient.deserialize(response, "", FactSheetHasIfaceConsumer.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteFactSheetHasIfaceConsumer (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/factSheetHasIfaceConsumers/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<IfaceHasBusinessObject> getIfaceHasBusinessObjects (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/ifaceHasBusinessObjects".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<IfaceHasBusinessObject>) ApiClient.deserialize(response, "Array", IfaceHasBusinessObject.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public IfaceHasBusinessObject createIfaceHasBusinessObject (String ID, IfaceHasBusinessObject body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/ifaceHasBusinessObjects".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (IfaceHasBusinessObject) ApiClient.deserialize(response, "", IfaceHasBusinessObject.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public IfaceHasBusinessObject getIfaceHasBusinessObject (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/ifaceHasBusinessObjects/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (IfaceHasBusinessObject) ApiClient.deserialize(response, "", IfaceHasBusinessObject.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public IfaceHasBusinessObject updateIfaceHasBusinessObject (String ID, String relationID, IfaceHasBusinessObject body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/ifaceHasBusinessObjects/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (IfaceHasBusinessObject) ApiClient.deserialize(response, "", IfaceHasBusinessObject.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteIfaceHasBusinessObject (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/ifaceHasBusinessObjects/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public List<IfaceHasResource> getIfaceHasResources (String ID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/ifaceHasResources".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (List<IfaceHasResource>) ApiClient.deserialize(response, "Array", IfaceHasResource.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public IfaceHasResource createIfaceHasResource (String ID, IfaceHasResource body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/ifaceHasResources".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "POST", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (IfaceHasResource) ApiClient.deserialize(response, "", IfaceHasResource.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public IfaceHasResource getIfaceHasResource (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/ifaceHasResources/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "GET", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return (IfaceHasResource) ApiClient.deserialize(response, "", IfaceHasResource.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public IfaceHasResource updateIfaceHasResource (String ID, String relationID, IfaceHasResource body) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/ifaceHasResources/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "PUT", queryParams, body, headerParams);
-			if (response != null)
-			{
-				return (IfaceHasResource) ApiClient.deserialize(response, "", IfaceHasResource.class);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return null;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	public void deleteIfaceHasResource (String ID, String relationID) throws ApiException
-	{
-		// create path and map variables
-		String path = "/ifaces/{ID}/ifaceHasResources/{relationID}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString())).replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
-
-		// query params
-		Map<String, String> queryParams = new HashMap<String, String>();
-		Map<String, String> headerParams = new HashMap<String, String>();
-
-		// verify required params are set
-		if(ID == null || relationID == null )
-		{
-			throw new ApiException(400, "missing required params");
-		}
-		try
-		{
-			String response = apiClient.invokeAPI(path, "DELETE", queryParams, null, headerParams);
-			if (response != null)
-			{
-				return ;
-			}
-			else
-			{
-				return ;
-			}
-		}
-		catch (ApiException ex)
-		{
-			if(ex.getCode() == 404)
-			{
-				return ;
-			}
-			else
-			{
-				throw ex;
-			}
-		}
-	}
-	}
 
+public class IfacesApi {
+  private ApiClient apiClient;
+
+  public IfacesApi() {
+    this(Configuration.getDefaultApiClient());
+  }
+
+  public IfacesApi(ApiClient apiClient) {
+    this.apiClient = apiClient;
+  }
+
+  public ApiClient getApiClient() {
+    return apiClient;
+  }
+
+  public void setApiClient(ApiClient apiClient) {
+    this.apiClient = apiClient;
+  }
+
+  
+  /**
+   * Create a new relation
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasChild
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasChild createFactSheetHasChild(String ID, FactSheetHasChild body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling createFactSheetHasChild");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasChildren".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasChild> localVarReturnType = new GenericType<FactSheetHasChild>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Create a new relation
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasDocument
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasDocument createFactSheetHasDocument(String ID, FactSheetHasDocument body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling createFactSheetHasDocument");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasDocuments".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasDocument> localVarReturnType = new GenericType<FactSheetHasDocument>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Create a new relation
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasIfaceConsumer
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasIfaceConsumer createFactSheetHasIfaceConsumer(String ID, FactSheetHasIfaceConsumer body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling createFactSheetHasIfaceConsumer");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasIfaceConsumers".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasIfaceConsumer> localVarReturnType = new GenericType<FactSheetHasIfaceConsumer>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Create a new relation
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasIfaceProvider
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasIfaceProvider createFactSheetHasIfaceProvider(String ID, FactSheetHasIfaceProvider body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling createFactSheetHasIfaceProvider");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasIfaceProviders".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasIfaceProvider> localVarReturnType = new GenericType<FactSheetHasIfaceProvider>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Create a new relation
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasLifecycle
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasLifecycle createFactSheetHasLifecycle(String ID, FactSheetHasLifecycle body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling createFactSheetHasLifecycle");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasLifecycles".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasLifecycle> localVarReturnType = new GenericType<FactSheetHasLifecycle>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Create a new relation
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasParent
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasParent createFactSheetHasParent(String ID, FactSheetHasParent body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling createFactSheetHasParent");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasParents".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasParent> localVarReturnType = new GenericType<FactSheetHasParent>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Create a new relation
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasPredecessor
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasPredecessor createFactSheetHasPredecessor(String ID, FactSheetHasPredecessor body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling createFactSheetHasPredecessor");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasPredecessors".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasPredecessor> localVarReturnType = new GenericType<FactSheetHasPredecessor>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Create a new relation
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasRequiredby
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasRequiredby createFactSheetHasRequiredby(String ID, FactSheetHasRequiredby body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling createFactSheetHasRequiredby");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasRequiredby".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasRequiredby> localVarReturnType = new GenericType<FactSheetHasRequiredby>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Create a new relation
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasRequires
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasRequires createFactSheetHasRequires(String ID, FactSheetHasRequires body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling createFactSheetHasRequires");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasRequires".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasRequires> localVarReturnType = new GenericType<FactSheetHasRequires>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Create a new relation
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasSuccessor
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasSuccessor createFactSheetHasSuccessor(String ID, FactSheetHasSuccessor body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling createFactSheetHasSuccessor");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasSuccessors".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasSuccessor> localVarReturnType = new GenericType<FactSheetHasSuccessor>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Create a new Interface
+   * 
+   * @param body Message-Body (optional)
+   * @return Iface
+   * @throws ApiException if fails to make API call
+   */
+  public Iface createIface(Iface body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // create path and map variables
+    String localVarPath = "/ifaces".replaceAll("\\{format\\}","json");
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<Iface> localVarReturnType = new GenericType<Iface>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Create a new relation
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return IfaceHasBusinessObject
+   * @throws ApiException if fails to make API call
+   */
+  public IfaceHasBusinessObject createIfaceHasBusinessObject(String ID, IfaceHasBusinessObject body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling createIfaceHasBusinessObject");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/ifaceHasBusinessObjects".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<IfaceHasBusinessObject> localVarReturnType = new GenericType<IfaceHasBusinessObject>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Create a new relation
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return IfaceHasResource
+   * @throws ApiException if fails to make API call
+   */
+  public IfaceHasResource createIfaceHasResource(String ID, IfaceHasResource body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling createIfaceHasResource");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/ifaceHasResources".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<IfaceHasResource> localVarReturnType = new GenericType<IfaceHasResource>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Create a new relation
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return UserSubscription
+   * @throws ApiException if fails to make API call
+   */
+  public UserSubscription createUserSubscription(String ID, UserSubscription body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling createUserSubscription");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/userSubscriptions".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<UserSubscription> localVarReturnType = new GenericType<UserSubscription>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Delete relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteFactSheetHasChild(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteFactSheetHasChild");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling deleteFactSheetHasChild");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasChildren/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Delete relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteFactSheetHasDocument(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteFactSheetHasDocument");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling deleteFactSheetHasDocument");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasDocuments/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Delete relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteFactSheetHasIfaceConsumer(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteFactSheetHasIfaceConsumer");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling deleteFactSheetHasIfaceConsumer");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasIfaceConsumers/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Delete relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteFactSheetHasIfaceProvider(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteFactSheetHasIfaceProvider");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling deleteFactSheetHasIfaceProvider");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasIfaceProviders/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Delete relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteFactSheetHasLifecycle(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteFactSheetHasLifecycle");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling deleteFactSheetHasLifecycle");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasLifecycles/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Delete relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteFactSheetHasParent(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteFactSheetHasParent");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling deleteFactSheetHasParent");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasParents/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Delete relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteFactSheetHasPredecessor(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteFactSheetHasPredecessor");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling deleteFactSheetHasPredecessor");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasPredecessors/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Delete relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteFactSheetHasRequiredby(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteFactSheetHasRequiredby");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling deleteFactSheetHasRequiredby");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasRequiredby/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Delete relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteFactSheetHasRequires(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteFactSheetHasRequires");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling deleteFactSheetHasRequires");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasRequires/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Delete relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteFactSheetHasSuccessor(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteFactSheetHasSuccessor");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling deleteFactSheetHasSuccessor");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasSuccessors/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Delete a Interface by a given ID
+   * 
+   * @param ID Unique ID (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteIface(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteIface");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Delete relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteIfaceHasBusinessObject(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteIfaceHasBusinessObject");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling deleteIfaceHasBusinessObject");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/ifaceHasBusinessObjects/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Delete relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteIfaceHasResource(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteIfaceHasResource");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling deleteIfaceHasResource");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/ifaceHasResources/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Delete relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteUserSubscription(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteUserSubscription");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling deleteUserSubscription");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/userSubscriptions/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Read by relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @return FactSheetHasChild
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasChild getFactSheetHasChild(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasChild");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling getFactSheetHasChild");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasChildren/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasChild> localVarReturnType = new GenericType<FactSheetHasChild>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all of relation
+   * 
+   * @param ID Unique ID (required)
+   * @return List<FactSheetHasChild>
+   * @throws ApiException if fails to make API call
+   */
+  public List<FactSheetHasChild> getFactSheetHasChildren(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasChildren");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasChildren".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<FactSheetHasChild>> localVarReturnType = new GenericType<List<FactSheetHasChild>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read by relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @return FactSheetHasDocument
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasDocument getFactSheetHasDocument(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasDocument");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling getFactSheetHasDocument");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasDocuments/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasDocument> localVarReturnType = new GenericType<FactSheetHasDocument>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all of relation
+   * 
+   * @param ID Unique ID (required)
+   * @return List<FactSheetHasDocument>
+   * @throws ApiException if fails to make API call
+   */
+  public List<FactSheetHasDocument> getFactSheetHasDocuments(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasDocuments");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasDocuments".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<FactSheetHasDocument>> localVarReturnType = new GenericType<List<FactSheetHasDocument>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read by relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @return FactSheetHasIfaceConsumer
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasIfaceConsumer getFactSheetHasIfaceConsumer(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasIfaceConsumer");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling getFactSheetHasIfaceConsumer");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasIfaceConsumers/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasIfaceConsumer> localVarReturnType = new GenericType<FactSheetHasIfaceConsumer>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all of relation
+   * 
+   * @param ID Unique ID (required)
+   * @return List<FactSheetHasIfaceConsumer>
+   * @throws ApiException if fails to make API call
+   */
+  public List<FactSheetHasIfaceConsumer> getFactSheetHasIfaceConsumers(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasIfaceConsumers");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasIfaceConsumers".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<FactSheetHasIfaceConsumer>> localVarReturnType = new GenericType<List<FactSheetHasIfaceConsumer>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read by relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @return FactSheetHasIfaceProvider
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasIfaceProvider getFactSheetHasIfaceProvider(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasIfaceProvider");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling getFactSheetHasIfaceProvider");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasIfaceProviders/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasIfaceProvider> localVarReturnType = new GenericType<FactSheetHasIfaceProvider>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all of relation
+   * 
+   * @param ID Unique ID (required)
+   * @return List<FactSheetHasIfaceProvider>
+   * @throws ApiException if fails to make API call
+   */
+  public List<FactSheetHasIfaceProvider> getFactSheetHasIfaceProviders(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasIfaceProviders");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasIfaceProviders".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<FactSheetHasIfaceProvider>> localVarReturnType = new GenericType<List<FactSheetHasIfaceProvider>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read by relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @return FactSheetHasLifecycle
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasLifecycle getFactSheetHasLifecycle(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasLifecycle");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling getFactSheetHasLifecycle");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasLifecycles/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasLifecycle> localVarReturnType = new GenericType<FactSheetHasLifecycle>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all of relation
+   * 
+   * @param ID Unique ID (required)
+   * @return List<FactSheetHasLifecycle>
+   * @throws ApiException if fails to make API call
+   */
+  public List<FactSheetHasLifecycle> getFactSheetHasLifecycles(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasLifecycles");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasLifecycles".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<FactSheetHasLifecycle>> localVarReturnType = new GenericType<List<FactSheetHasLifecycle>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read by relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @return FactSheetHasParent
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasParent getFactSheetHasParent(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasParent");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling getFactSheetHasParent");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasParents/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasParent> localVarReturnType = new GenericType<FactSheetHasParent>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all of relation
+   * 
+   * @param ID Unique ID (required)
+   * @return List<FactSheetHasParent>
+   * @throws ApiException if fails to make API call
+   */
+  public List<FactSheetHasParent> getFactSheetHasParents(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasParents");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasParents".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<FactSheetHasParent>> localVarReturnType = new GenericType<List<FactSheetHasParent>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read by relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @return FactSheetHasPredecessor
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasPredecessor getFactSheetHasPredecessor(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasPredecessor");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling getFactSheetHasPredecessor");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasPredecessors/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasPredecessor> localVarReturnType = new GenericType<FactSheetHasPredecessor>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all of relation
+   * 
+   * @param ID Unique ID (required)
+   * @return List<FactSheetHasPredecessor>
+   * @throws ApiException if fails to make API call
+   */
+  public List<FactSheetHasPredecessor> getFactSheetHasPredecessors(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasPredecessors");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasPredecessors".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<FactSheetHasPredecessor>> localVarReturnType = new GenericType<List<FactSheetHasPredecessor>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all of relation
+   * 
+   * @param ID Unique ID (required)
+   * @return List<FactSheetHasRequiredby>
+   * @throws ApiException if fails to make API call
+   */
+  public List<FactSheetHasRequiredby> getFactSheetHasRequiredByAll(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasRequiredByAll");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasRequiredby".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<FactSheetHasRequiredby>> localVarReturnType = new GenericType<List<FactSheetHasRequiredby>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read by relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @return FactSheetHasRequiredby
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasRequiredby getFactSheetHasRequiredby(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasRequiredby");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling getFactSheetHasRequiredby");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasRequiredby/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasRequiredby> localVarReturnType = new GenericType<FactSheetHasRequiredby>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read by relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @return FactSheetHasRequires
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasRequires getFactSheetHasRequires(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasRequires");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling getFactSheetHasRequires");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasRequires/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasRequires> localVarReturnType = new GenericType<FactSheetHasRequires>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all of relation
+   * 
+   * @param ID Unique ID (required)
+   * @return List<FactSheetHasRequires>
+   * @throws ApiException if fails to make API call
+   */
+  public List<FactSheetHasRequires> getFactSheetHasRequiresAll(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasRequiresAll");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasRequires".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<FactSheetHasRequires>> localVarReturnType = new GenericType<List<FactSheetHasRequires>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read by relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @return FactSheetHasSuccessor
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasSuccessor getFactSheetHasSuccessor(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasSuccessor");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling getFactSheetHasSuccessor");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasSuccessors/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasSuccessor> localVarReturnType = new GenericType<FactSheetHasSuccessor>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all of relation
+   * 
+   * @param ID Unique ID (required)
+   * @return List<FactSheetHasSuccessor>
+   * @throws ApiException if fails to make API call
+   */
+  public List<FactSheetHasSuccessor> getFactSheetHasSuccessors(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getFactSheetHasSuccessors");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasSuccessors".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<FactSheetHasSuccessor>> localVarReturnType = new GenericType<List<FactSheetHasSuccessor>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read a Interface by a given ID
+   * 
+   * @param ID Unique ID (required)
+   * @param relations If set to true, all relations of the Fact Sheet are fetched as well. Fetching all relations can be slower. Default: false. (optional, default to false)
+   * @return Iface
+   * @throws ApiException if fails to make API call
+   */
+  public Iface getIface(String ID, Boolean relations) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getIface");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "relations", relations));
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<Iface> localVarReturnType = new GenericType<Iface>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read by relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @return IfaceHasBusinessObject
+   * @throws ApiException if fails to make API call
+   */
+  public IfaceHasBusinessObject getIfaceHasBusinessObject(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getIfaceHasBusinessObject");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling getIfaceHasBusinessObject");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/ifaceHasBusinessObjects/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<IfaceHasBusinessObject> localVarReturnType = new GenericType<IfaceHasBusinessObject>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all of relation
+   * 
+   * @param ID Unique ID (required)
+   * @return List<IfaceHasBusinessObject>
+   * @throws ApiException if fails to make API call
+   */
+  public List<IfaceHasBusinessObject> getIfaceHasBusinessObjects(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getIfaceHasBusinessObjects");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/ifaceHasBusinessObjects".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<IfaceHasBusinessObject>> localVarReturnType = new GenericType<List<IfaceHasBusinessObject>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read by relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @return IfaceHasResource
+   * @throws ApiException if fails to make API call
+   */
+  public IfaceHasResource getIfaceHasResource(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getIfaceHasResource");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling getIfaceHasResource");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/ifaceHasResources/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<IfaceHasResource> localVarReturnType = new GenericType<IfaceHasResource>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all of relation
+   * 
+   * @param ID Unique ID (required)
+   * @return List<IfaceHasResource>
+   * @throws ApiException if fails to make API call
+   */
+  public List<IfaceHasResource> getIfaceHasResources(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getIfaceHasResources");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/ifaceHasResources".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<IfaceHasResource>> localVarReturnType = new GenericType<List<IfaceHasResource>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all Interface
+   * 
+   * @param relations If set to true, all relations of the Fact Sheet are fetched as well. Fetching all relations can be slower. Default: false. (optional, default to false)
+   * @param filter Full-text filter (optional)
+   * @return List<Iface>
+   * @throws ApiException if fails to make API call
+   */
+  public List<Iface> getIfaces(Boolean relations, String filter) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/ifaces".replaceAll("\\{format\\}","json");
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "relations", relations));
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter", filter));
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<Iface>> localVarReturnType = new GenericType<List<Iface>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read by relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @return UserSubscription
+   * @throws ApiException if fails to make API call
+   */
+  public UserSubscription getUserSubscription(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getUserSubscription");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling getUserSubscription");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/userSubscriptions/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<UserSubscription> localVarReturnType = new GenericType<UserSubscription>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all of relation
+   * 
+   * @param ID Unique ID (required)
+   * @return List<UserSubscription>
+   * @throws ApiException if fails to make API call
+   */
+  public List<UserSubscription> getUserSubscriptions(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getUserSubscriptions");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/userSubscriptions".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<UserSubscription>> localVarReturnType = new GenericType<List<UserSubscription>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasChild
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasChild updateFactSheetHasChild(String ID, String relationID, FactSheetHasChild body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateFactSheetHasChild");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling updateFactSheetHasChild");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasChildren/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasChild> localVarReturnType = new GenericType<FactSheetHasChild>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasDocument
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasDocument updateFactSheetHasDocument(String ID, String relationID, FactSheetHasDocument body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateFactSheetHasDocument");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling updateFactSheetHasDocument");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasDocuments/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasDocument> localVarReturnType = new GenericType<FactSheetHasDocument>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasIfaceConsumer
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasIfaceConsumer updateFactSheetHasIfaceConsumer(String ID, String relationID, FactSheetHasIfaceConsumer body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateFactSheetHasIfaceConsumer");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling updateFactSheetHasIfaceConsumer");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasIfaceConsumers/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasIfaceConsumer> localVarReturnType = new GenericType<FactSheetHasIfaceConsumer>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasIfaceProvider
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasIfaceProvider updateFactSheetHasIfaceProvider(String ID, String relationID, FactSheetHasIfaceProvider body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateFactSheetHasIfaceProvider");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling updateFactSheetHasIfaceProvider");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasIfaceProviders/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasIfaceProvider> localVarReturnType = new GenericType<FactSheetHasIfaceProvider>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasLifecycle
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasLifecycle updateFactSheetHasLifecycle(String ID, String relationID, FactSheetHasLifecycle body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateFactSheetHasLifecycle");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling updateFactSheetHasLifecycle");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasLifecycles/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasLifecycle> localVarReturnType = new GenericType<FactSheetHasLifecycle>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasParent
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasParent updateFactSheetHasParent(String ID, String relationID, FactSheetHasParent body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateFactSheetHasParent");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling updateFactSheetHasParent");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasParents/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasParent> localVarReturnType = new GenericType<FactSheetHasParent>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasPredecessor
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasPredecessor updateFactSheetHasPredecessor(String ID, String relationID, FactSheetHasPredecessor body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateFactSheetHasPredecessor");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling updateFactSheetHasPredecessor");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasPredecessors/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasPredecessor> localVarReturnType = new GenericType<FactSheetHasPredecessor>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasRequiredby
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasRequiredby updateFactSheetHasRequiredby(String ID, String relationID, FactSheetHasRequiredby body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateFactSheetHasRequiredby");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling updateFactSheetHasRequiredby");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasRequiredby/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasRequiredby> localVarReturnType = new GenericType<FactSheetHasRequiredby>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasRequires
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasRequires updateFactSheetHasRequires(String ID, String relationID, FactSheetHasRequires body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateFactSheetHasRequires");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling updateFactSheetHasRequires");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasRequires/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasRequires> localVarReturnType = new GenericType<FactSheetHasRequires>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @param body Message-Body (optional)
+   * @return FactSheetHasSuccessor
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetHasSuccessor updateFactSheetHasSuccessor(String ID, String relationID, FactSheetHasSuccessor body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateFactSheetHasSuccessor");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling updateFactSheetHasSuccessor");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/factSheetHasSuccessors/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<FactSheetHasSuccessor> localVarReturnType = new GenericType<FactSheetHasSuccessor>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update a Interface by a given ID
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return Iface
+   * @throws ApiException if fails to make API call
+   */
+  public Iface updateIface(String ID, Iface body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateIface");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<Iface> localVarReturnType = new GenericType<Iface>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @param body Message-Body (optional)
+   * @return IfaceHasBusinessObject
+   * @throws ApiException if fails to make API call
+   */
+  public IfaceHasBusinessObject updateIfaceHasBusinessObject(String ID, String relationID, IfaceHasBusinessObject body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateIfaceHasBusinessObject");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling updateIfaceHasBusinessObject");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/ifaceHasBusinessObjects/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<IfaceHasBusinessObject> localVarReturnType = new GenericType<IfaceHasBusinessObject>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @param body Message-Body (optional)
+   * @return IfaceHasResource
+   * @throws ApiException if fails to make API call
+   */
+  public IfaceHasResource updateIfaceHasResource(String ID, String relationID, IfaceHasResource body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateIfaceHasResource");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling updateIfaceHasResource");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/ifaceHasResources/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<IfaceHasResource> localVarReturnType = new GenericType<IfaceHasResource>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @param body Message-Body (optional)
+   * @return UserSubscription
+   * @throws ApiException if fails to make API call
+   */
+  public UserSubscription updateUserSubscription(String ID, String relationID, UserSubscription body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateUserSubscription");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling updateUserSubscription");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/ifaces/{ID}/userSubscriptions/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<UserSubscription> localVarReturnType = new GenericType<UserSubscription>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+}

@@ -111,7 +111,7 @@ public class ServicesApiTest extends TestBase
 	public void testCreateFailDuplicate() throws Exception
 	{
 		// We expect an exception
-		thrown.expect(ValidationException.class);
+		thrown.expect(ApiException.class);
 		Service model = this.newModel();
 		model.setName("Duplicate");
 		this.getApi().createService(model);
@@ -123,7 +123,7 @@ public class ServicesApiTest extends TestBase
 	public void testCreateFailNoName() throws Exception
 	{
 		// We expect an exception
-		thrown.expect(ValidationException.class);
+		thrown.expect(ApiException.class);
 		Service model = this.newModel();
 		this.getApi().createService(model);
 	}
@@ -131,7 +131,7 @@ public class ServicesApiTest extends TestBase
 	@Test
 	public void testCreateFailName() throws Exception
 	{
-		thrown.expect(ValidationException.class);
+		thrown.expect(ApiException.class);
 		Service model = this.newModel();
 		model.setName("<html>");
 		this.getApi().createService(model);

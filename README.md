@@ -43,18 +43,17 @@ The tests can be executed as follows:
 
 ```bash
 $ mvn test \\
-    -Dapi.baseurl=https://local-eam.leanix.net \\
-    -Dapi.mtm.baseurl=https://local-svc.leanix.net \\
-    -Dapi.tokenUrl=https://local-svc.leanix.net/services/mtm/v1/oauth2/token \\
-    -Dapi.clientId=<client application to generate workspace and permissions> \\
-    -Dapi.clientSecret=<secret for client application> \\
+    -Dapi.hostname=local-eam.leanix.net \\
+    -Dapi.clientId=<clientID used generate workspace and permissions, optional, default: eam> \\
+    -Dapi.clientSecret=<secret for clientID> \\
+    -Dapi.pat=<Personal Access Token, optional, only required, when no clientID/clientSecret is used> \\
+    -Dapi.mtm.hostname=<host on which mtm is running, optional, default is: api.hostname>
     -Djava.util.logging.config.file=./target/test-classes/logging.properties
 
 # E.G.: When running on development environment with virtual hostname 'boot2docker.leanix.net':
 mvn test \\
-  -Dapi.baseurl=https://boot2docker.leanix.net -Dapi.mtm.baseurl=https://boot2docker.leanix.net \\
-  -Dapi.tokenUrl=https://boot2docker.leanix.net/services/mtm/v1/oauth2/token \\
-  -Dapi.clientId=eam -Dapi.clientSecret=ldtP4b9o3K6IkKm3SolA_eam \\
+  -Dapi.hostname=boot2docker.leanix.net \\
+  -Dapi.clientSecret=ldtP4b9o3K6IkKm3SolA_eam \\
   -Djava.util.logging.config.file=./target/test-classes/logging.properties
 ```
 
@@ -97,9 +96,13 @@ In case that you need to use a proxy to access leanix you can setup a http proxy
 To generate the SDK from the latest REST API use the following maven commands:
 
 ```bash
+$ mvn clean packge -Pcodegen
+
+# generate junit test classes
 $ cd codegen
 $ mvn package
 ```
+> Update the pom.xml properties section so specify the host where the swagger doc-api is pulled from.
 
 ### Deploy to Maven Central ###
 

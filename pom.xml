@@ -6,12 +6,12 @@
     <artifactId>leanix-sdk-java</artifactId>
     <packaging>jar</packaging>
 
-    <version>2.0.22</version>
+    <version>2.1.0</version>
 
     <parent>
         <groupId>net.leanix.poms</groupId>
         <artifactId>sdk-parent</artifactId>
-        <version>0.9.7</version>
+        <version>0.9.9</version>
         <relativePath />
     </parent>
 
@@ -48,66 +48,121 @@
 
     <properties>
         <downloadSources>true</downloadSources>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- properties related to sdk code generation -->
+        <leanix-dropkit-sdk-utils-version>1.0.1-SNAPSHOT</leanix-dropkit-sdk-utils-version>
+        <codegenHost>test-app.leanix.net</codegenHost>
+        <swagger-inputSpec>https://${codegenHost}/demo/api/v1/api-docs/</swagger-inputSpec>
+
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
 
         <!-- Testing -->
         <dependency>
             <groupId>net.leanix</groupId>
             <artifactId>leanix-mtm-sdk-java</artifactId>
-            <version>1.4.0</version>
+            <version>1.6.0</version>
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>log4j-over-slf4j</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>performTests</id>
+            <activation>
+                <property>
+                    <name>api.hostname</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skipTests>false</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>codegen</id>
+            <build>
+                <plugins>
+
+                    <!-- 1) generate api using the swagger-codegen-maven-plugin -->
+                    <plugin>
+                        <groupId>io.swagger</groupId>
+                        <artifactId>swagger-codegen-maven-plugin</artifactId>
+                        <version>2.1.6</version>
+                        <configuration>
+                            <inputSpec>${swagger-inputSpec}</inputSpec>
+                            <language>java</language>
+                            <apiPackage>net.leanix.api</apiPackage>
+                            <modelPackage>net.leanix.api.models</modelPackage>
+                            <addCompileSourceRoot>false</addCompileSourceRoot>
+                            <configOptions>
+                                <groupId>net.leanix</groupId>
+                                <artifactId>leanix-sdk-java</artifactId>
+                                <invokerPackage>net.leanix.api.common</invokerPackage>
+                                <library>jersey2</library>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                            </configOptions>
+                            <!-- used to get help from cli that describes possible configOptions -->
+                            <!--configHelp>true</configHelp -->
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- 2.) copy swagger's generated sources + adapted sources into /src/main/java folder -->
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <phase>process-sources</phase>
+                                <configuration>
+                                    <target>
+                                        <copy todir="src" overwrite="true">
+                                            <fileset dir="target/generated-sources/swagger/src" includes="**" />
+                                        </copy>
+                                         <copy todir="src/main/java" overwrite="true">
+                                            <fileset dir="src/main/resources/codegen-templates" includes="**" />
+                                        </copy>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
 </project>
 
