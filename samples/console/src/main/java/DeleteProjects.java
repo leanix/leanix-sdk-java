@@ -7,7 +7,7 @@ import java.util.List;
 /*
  * The MIT License
  *
- * Copyright 2014 andre.christ.
+ * Copyright 2016 LeanIX GmbH
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,31 +29,24 @@ import java.util.List;
  */
 
 /**
- *
  * @author andre.christ
  */
-public class DeleteProjects
-{
- 	public static void main(String[] args)
-	{
-		try
-		{
-			ApiClient client = new ApiClient();
-			client.setBasePath("https://app.leanix.net/demo/api/v1");
-			client.setApiKey("<API-KEY>");
-			
-			ProjectsApi projectsApi = new ProjectsApi(client);
-			
-			List<Project> projects = projectsApi.getProjects(true, null);
-			for (Project cur : projects)
-			{
+public class DeleteProjects {
+    public static void main(String[] args) {
+        try {
+            ApiClient client = new ApiClient();
+            client.setBasePath("https://app.leanix.net/demo/api/v1");
+            client.setApiKey("<API-KEY>");
+
+            ProjectsApi projectsApi = new ProjectsApi(client);
+
+            List<Project> projects = projectsApi.getProjects(true, null);
+            for (Project cur : projects) {
                 System.out.println(cur.getName());
                 projectsApi.deleteProject(cur.getID());
-			}
-		}
-		catch (Exception ex)
-		{
-			System.out.println("Exception: " + ex.getMessage());
-		}
-	}   
+            }
+        } catch (Exception ex) {
+            System.out.println("Exception: " + ex.getMessage());
+        }
+    }
 }
