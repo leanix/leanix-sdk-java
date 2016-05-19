@@ -4,6 +4,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.Date;
 import net.leanix.api.models.ActivityFactSheet;
 import net.leanix.api.models.ActivityUser;
 
@@ -19,7 +20,7 @@ public class Activity   {
   private String eventType = null;
   private ActivityUser user = null;
   private String title = null;
-  private String date = null;
+  private Date date = null;
   private String description = null;
 
   
@@ -110,17 +111,17 @@ public class Activity   {
   
   /**
    **/
-  public Activity date(String date) {
+  public Activity date(Date date) {
     this.date = date;
     return this;
   }
   
   @ApiModelProperty(example = "null", value = "")
   @JsonProperty("date")
-  public String getDate() {
+  public Date getDate() {
     return date;
   }
-  public void setDate(String date) {
+  public void setDate(Date date) {
     this.date = date;
   }
 
