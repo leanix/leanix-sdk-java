@@ -51,7 +51,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- properties related to sdk code generation -->
-        <leanix-dropkit-sdk-utils-version>1.0.3-SNAPSHOT</leanix-dropkit-sdk-utils-version>
+        <leanix-dropkit-sdk-utils-version>1.0.3</leanix-dropkit-sdk-utils-version>
         <codegenHost>test-app.leanix.net</codegenHost>
         <swagger-inputSpec>https://${codegenHost}/demo/api/v1/api-docs/</swagger-inputSpec>
 

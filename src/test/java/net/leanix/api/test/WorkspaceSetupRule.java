@@ -66,12 +66,12 @@ public class WorkspaceSetupRule extends ExternalResource {
     /**
      * account to use when creating a workspace
      */
-    private static final String ACCOUNT_NAME = "leanix";
+    private static final String ACCOUNT_NAME = "system";
 
     /**
      * the account's contract to use when creating a workspace
      */
-    private static String CONTRACT_DISPLAY_NAME = System.getProperty("contract.displayname", "leanix eam REGULAR");
+    private static String CONTRACT_DISPLAY_NAME = System.getProperty("contract.displayname", ACCOUNT_NAME + " eam REGULAR");
 
     protected final net.leanix.dropkit.apiclient.ApiClient mtmApiClient = createMtmApiClient();
     protected final AccountsApi accountsApi = new AccountsApi(mtmApiClient);
