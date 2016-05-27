@@ -64,14 +64,14 @@ public class WorkspaceSetupRule extends ExternalResource {
     private static final String SYNC_HEADER = "X-Api-Synchronous";
 
     /**
-     * account to use when creating a workspace
-     */
-    private static final String ACCOUNT_NAME = "system";
-
-    /**
      * the account's contract to use when creating a workspace
      */
-    private static String CONTRACT_DISPLAY_NAME = System.getProperty("contract.displayname", ACCOUNT_NAME + " eam REGULAR");
+    private static String CONTRACT_DISPLAY_NAME = System.getProperty("contract.displayname", "system eam REGULAR");
+
+    /**
+     * account to use when creating a workspace
+     */
+    private static final String ACCOUNT_NAME = CONTRACT_DISPLAY_NAME.split(" ")[0];;
 
     protected final net.leanix.dropkit.apiclient.ApiClient mtmApiClient = createMtmApiClient();
     protected final AccountsApi accountsApi = new AccountsApi(mtmApiClient);
