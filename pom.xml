@@ -63,7 +63,7 @@
         <dependency>
             <groupId>net.leanix</groupId>
             <artifactId>leanix-mtm-sdk-java</artifactId>
-            <version>1.6.1-SNAPSHOT</version>
+            <version>1.6.1</version>
             <scope>test</scope>
         </dependency>
 
