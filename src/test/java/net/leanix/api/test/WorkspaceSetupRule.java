@@ -94,6 +94,7 @@ public class WorkspaceSetupRule extends ExternalResource {
     // this is workspace dependent!
     protected Workspace workspace;
     protected ApiClient leanixApiClient;
+    protected UUID apiTokenId;
 
     protected String apiSetup = "professional-v1";
 
@@ -143,10 +144,6 @@ public class WorkspaceSetupRule extends ExternalResource {
         return getProperty("api.clientSecret");
     }
 
-    protected String getPersonalAccessToken() {
-        return getProperty("api.pat");
-    }
-
     protected net.leanix.dropkit.apiclient.ApiClient createMtmApiClient() {
         net.leanix.dropkit.apiclient.ApiClientBuilder builder = new net.leanix.dropkit.apiclient.ApiClientBuilder()
                 .withBasePath(String.format("https://%s/services/mtm/v1", getApiHostName()))
@@ -186,16 +183,17 @@ public class WorkspaceSetupRule extends ExternalResource {
         Contract contract = lookupContract(account.getId(), CONTRACT_DISPLAY_NAME);
         this.workspace = createNewWorkspace(contract.getId());
 
-        String apiKey = addUserToWorkspace(account, workspace);
+        String apiToken = addUserToWorkspace(account, workspace);
 
 
 
-        this.leanixApiClient = createLeanixApiClient(workspace.getName(), apiKey, getApiMtmHostName());
+        this.leanixApiClient = createLeanixApiClient(workspace.getName(), apiToken, getApiMtmHostName());
     }
 
     // cannot delete workspaces due to referential integrity constraints already immediately after creation of the workspace
     @Override
     protected void after() {
+        this.deleteApiToken(this.apiTokenId);
         this.deleteWorkspace(this.workspace);
     }
 
@@ -338,7 +336,19 @@ public class WorkspaceSetupRule extends ExternalResource {
             return null;
         }
         token = rp.body().getData();
+        apiTokenId = token.getId();
         return token.getToken();
+    }
+
+    protected void deleteApiToken(UUID apiTokenId) {
+        Retrofit retrofit = getRetrofit(mtmApiClient.getBasePath(), readAccessToken(mtmApiClient));
+        PersonalAccessTokenApi tokenApi = retrofit.create(PersonalAccessTokenApi.class);
+
+        try {
+            tokenApi.deletePersonalAccessToken(apiTokenId).execute();
+        } catch (IOException e) {
+            throw new RuntimeException("cannot delete api token", e);
+        }
     }
 
     private String readAccessToken(net.leanix.dropkit.apiclient.ApiClient apiClient) {

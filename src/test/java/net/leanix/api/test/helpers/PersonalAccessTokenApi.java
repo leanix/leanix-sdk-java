@@ -4,13 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.joda.time.Instant;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 import java.util.UUID;
 
 public interface PersonalAccessTokenApi {
     @POST("/services/mtm/v1/personalAccessTokens")
     public Call<PersonalAccessTokenResponse> createPersonalAccessToken(@Body PersonalAccessToken token);
+
+    @DELETE("/services/mtm/v1/personalAccessTokens/{id}")
+    public Call<Void> deletePersonalAccessToken(@Path("id") UUID id);
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PersonalAccessTokenResponse {
@@ -27,12 +32,21 @@ public interface PersonalAccessTokenApi {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PersonalAccessToken {
+        private UUID id;
         private String token;
         private UUID userId;
         private UUID workspaceId;
         private UUID creatorId;
         private Instant expiry;
         private String description;
+
+        public UUID getId() {
+            return id;
+        }
+
+        public void setId(UUID id) {
+            this.id = id;
+        }
 
         public String getToken() {
             return token;
