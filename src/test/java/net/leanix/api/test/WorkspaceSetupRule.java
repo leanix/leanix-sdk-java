@@ -163,11 +163,13 @@ public class WorkspaceSetupRule extends ExternalResource {
         return apiClient;
     }
 
-    protected ApiClient createLeanixApiClient(String workspaceName, String apiKey, String tokenProviderHost) {
+    protected ApiClient createLeanixApiClient(String workspaceName, String apiToken, String tokenProviderHost) {
+        logger.info("using api token " + apiToken);
         ApiClientBuilder apiClientBuilder = new ApiClientBuilder()
                 .withBasePath(getApiUrl(workspaceName))
-                .withPersonalAccessToken(apiKey)
-                .withTokenProviderHost(tokenProviderHost);
+                .withPersonalAccessToken(apiToken)
+                .withTokenProviderHost(tokenProviderHost)
+                .withDebugging(false);
 
         ApiClient apiClient = apiClientBuilder.build();
         apiClient.addDefaultHeader(SYNC_HEADER, "true");
