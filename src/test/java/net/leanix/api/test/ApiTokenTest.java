@@ -10,17 +10,14 @@ import org.junit.Test;
 
 import java.net.URI;
 
-/**
- * Created by dlatt on 07/06/16.
- */
 public class ApiTokenTest {
     @Test
-    @Ignore
+    @Ignore("this is only for helping in developer tests")
     public void fetchToken() throws ApiException {
         ApiClient apiClient = new ApiClientBuilder()
                 .withDebugging(true)
             .withBasePath("https://app.leanix.net/dildemo")
-            .withPersonalAccessToken("3KvNEj3hfeh9Fb4RmZmnakf7yOAR6fHgndUJ9GDC")
+            .withPersonalAccessToken("fill me in.")
             .withOAuth2TokenUrl(URI.create("https://svc.leanix.net/services/mtm/v1/oauth2/token"))
             .build();
 
