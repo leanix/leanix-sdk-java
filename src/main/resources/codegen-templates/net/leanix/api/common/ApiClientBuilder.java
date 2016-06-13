@@ -36,9 +36,6 @@ public class ApiClientBuilder {
 
     public ApiClient build() {
 
-        if (basePath == null) {
-            throw new RuntimeException("Missing to specify the base path of ApiClient!");
-        }
         ApiClient apiClient = new ApiClient();
 
         apiClient.setDebugging(debugging);
