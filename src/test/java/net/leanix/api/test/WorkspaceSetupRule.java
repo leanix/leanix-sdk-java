@@ -120,10 +120,6 @@ public class WorkspaceSetupRule extends ExternalResource {
         return value;
     }
 
-    protected String getProperty(String key) {
-        return this.getProperty(key, "");
-    }
-
     protected String getApiUrl(String workspace) {
         return String.format("https://%s/%s/api/v1", getApiHostName(), workspace);
     }
@@ -133,7 +129,7 @@ public class WorkspaceSetupRule extends ExternalResource {
     }
 
     protected String getApiMtmHostName() {
-        return getProperty("api.mtm.hostname");
+        return getProperty("api.mtm.hostname", null);
     }
 
     protected String getClientId() {
@@ -141,7 +137,7 @@ public class WorkspaceSetupRule extends ExternalResource {
     }
 
     protected String getClientSecret() {
-        return getProperty("api.clientSecret");
+        return getProperty("api.clientSecret", null);
     }
 
     protected net.leanix.dropkit.apiclient.ApiClient createMtmApiClient() {
