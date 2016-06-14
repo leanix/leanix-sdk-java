@@ -22,20 +22,11 @@
  */
 package net.leanix.api.test;
 
-import java.net.URI;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.junit.rules.ExternalResource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.leanix.api.common.ApiClient;
 import net.leanix.api.common.ApiClientBuilder;
+import net.leanix.api.test.helpers.PersonalAccessTokenApi;
 import net.leanix.dropkit.apiclient.ApiException;
+import net.leanix.dropkit.apiclient.auth.Authentication;
 import net.leanix.mtm.api.AccountsApi;
 import net.leanix.mtm.api.PermissionsApi;
 import net.leanix.mtm.api.UsersApi;
@@ -52,6 +43,30 @@ import net.leanix.mtm.api.models.Workspace;
 import net.leanix.mtm.api.models.Workspace.StatusEnum;
 import net.leanix.mtm.api.models.Workspace.TypeEnum;
 import net.leanix.mtm.api.models.WorkspaceResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.joda.time.Duration;
+import org.joda.time.Instant;
+import org.junit.rules.ExternalResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
+
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Creates a workspace with a permission for testing. Created workspace and corresponding EAM API client is stored as an instance member
@@ -79,8 +94,18 @@ public class WorkspaceSetupRule extends ExternalResource {
     // this is workspace dependent!
     protected Workspace workspace;
     protected ApiClient leanixApiClient;
+    protected UUID apiTokenId;
 
     protected String apiSetup = "professional-v1";
+
+    protected final ObjectMapper objectMapper;
+
+    public WorkspaceSetupRule() {
+        objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JodaModule());
+        //objectMapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS, false)
+        objectMapper.setDateFormat(new ISO8601DateFormat());
+    }
 
     protected String getProperty(String key, String defaultValue) {
         String value = System.getProperty(key);
@@ -95,10 +120,6 @@ public class WorkspaceSetupRule extends ExternalResource {
         return value;
     }
 
-    protected String getProperty(String key) {
-        return this.getProperty(key, "");
-    }
-
     protected String getApiUrl(String workspace) {
         return String.format("https://%s/%s/api/v1", getApiHostName(), workspace);
     }
@@ -108,7 +129,7 @@ public class WorkspaceSetupRule extends ExternalResource {
     }
 
     protected String getApiMtmHostName() {
-        return getProperty("api.mtm.hostname");
+        return getProperty("api.mtm.hostname", null);
     }
 
     protected String getClientId() {
@@ -116,11 +137,7 @@ public class WorkspaceSetupRule extends ExternalResource {
     }
 
     protected String getClientSecret() {
-        return getProperty("api.clientSecret");
-    }
-
-    protected String getPersonalAccessToken() {
-        return getProperty("api.pat");
+        return getProperty("api.clientSecret", null);
     }
 
     protected net.leanix.dropkit.apiclient.ApiClient createMtmApiClient() {
@@ -129,7 +146,7 @@ public class WorkspaceSetupRule extends ExternalResource {
                 .withTokenProviderHost(getApiHostName())
                 //.withPersonalAccessToken(getPersonalAccessToken())
                 .withClientCredentials(getClientId(), getClientSecret())
-                .withDebugging(true);
+                .withDebugging(false);
 
         if (StringUtils.isNotEmpty(getApiMtmHostName())) {
             builder.withTokenProviderHost(getApiMtmHostName());
@@ -139,10 +156,13 @@ public class WorkspaceSetupRule extends ExternalResource {
         return apiClient;
     }
 
-    protected ApiClient createLeanixApiClient(String workspaceName, String apiKey) {
+    protected ApiClient createLeanixApiClient(String workspaceName, String apiToken, String tokenProviderHost) {
+        logger.info("using api token " + apiToken);
         ApiClientBuilder apiClientBuilder = new ApiClientBuilder()
                 .withBasePath(getApiUrl(workspaceName))
-                .withApiKey(apiKey);
+                .withPersonalAccessToken(apiToken)
+                .withTokenProviderHost(tokenProviderHost)
+                .withDebugging(false);
 
         ApiClient apiClient = apiClientBuilder.build();
         apiClient.addDefaultHeader(SYNC_HEADER, "true");
@@ -159,14 +179,17 @@ public class WorkspaceSetupRule extends ExternalResource {
         Contract contract = lookupContract(account.getId(), CONTRACT_DISPLAY_NAME);
         this.workspace = createNewWorkspace(contract.getId());
 
-        String apiKey = addUserToWorkspace(account, workspace);
+        String apiToken = addUserToWorkspace(account, workspace);
 
-        this.leanixApiClient = createLeanixApiClient(workspace.getName(), apiKey);
+
+
+        this.leanixApiClient = createLeanixApiClient(workspace.getName(), apiToken, getApiMtmHostName());
     }
 
     // cannot delete workspaces due to referential integrity constraints already immediately after creation of the workspace
     @Override
     protected void after() {
+        this.deleteApiToken(this.apiTokenId);
         this.deleteWorkspace(this.workspace);
     }
 
@@ -278,12 +301,97 @@ public class WorkspaceSetupRule extends ExternalResource {
 
         logger.debug("add {} {} permission to workspace for the user", permission.getStatus(), permission.getRole());
 
-        permissionsApi.setPermission(permission, true);
+        permissionsApi.createPermission(permission, true);
 
         logger.debug("permission added");
 
-        return user.getApiKey();
+        String apiToken = createApiToken(workspace, user);
+
+        return apiToken;
     }
+
+    protected String createApiToken(Workspace workspace, User user) {
+        Retrofit retrofit = getRetrofit(mtmApiClient.getBasePath(), readAccessToken(mtmApiClient));
+        PersonalAccessTokenApi tokenApi = retrofit.create(PersonalAccessTokenApi.class);
+
+        PersonalAccessTokenApi.PersonalAccessToken token = new PersonalAccessTokenApi.PersonalAccessToken();
+        token.setUserId(UUID.fromString(user.getId()));
+        token.setWorkspaceId((UUID.fromString(workspace.getId())));
+        token.setCreatorId(UUID.fromString(user.getId()));
+        token.setExpiry(Instant.now().plus(Duration.standardMinutes(10)));
+        token.setDescription("LeanIX-SDK-Java test run API token");
+
+        retrofit2.Call<PersonalAccessTokenApi.PersonalAccessTokenResponse> tokenResponse = tokenApi.createPersonalAccessToken(token);
+        retrofit2.Response<PersonalAccessTokenApi.PersonalAccessTokenResponse> rp;
+        try {
+            rp = tokenResponse.execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (!rp.isSuccessful()) {
+            return null;
+        }
+        token = rp.body().getData();
+        apiTokenId = token.getId();
+        return token.getToken();
+    }
+
+    protected void deleteApiToken(UUID apiTokenId) {
+        Retrofit retrofit = getRetrofit(mtmApiClient.getBasePath(), readAccessToken(mtmApiClient));
+        PersonalAccessTokenApi tokenApi = retrofit.create(PersonalAccessTokenApi.class);
+
+        try {
+            tokenApi.deletePersonalAccessToken(apiTokenId).execute();
+        } catch (IOException e) {
+            throw new RuntimeException("cannot delete api token", e);
+        }
+    }
+
+    private String readAccessToken(net.leanix.dropkit.apiclient.ApiClient apiClient) {
+        Authentication auth = apiClient.getAuthentication("token");
+        String token;
+        try {
+            Field tokenField = auth.getClass().getSuperclass().getDeclaredField("accessToken");
+            tokenField.setAccessible(true);
+            token = (String) tokenField.get(auth);
+            tokenField.setAccessible(false);
+        }
+        catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
+        return token;
+    }
+
+    private Retrofit getRetrofit(String baseUrl, String accessToken) {
+
+        OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+//        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        httpClientBuilder.addInterceptor(loggingInterceptor);
+
+        final String bearer = "Bearer " + accessToken;
+
+        httpClientBuilder.addInterceptor(new Interceptor(){
+            @Override public Response intercept(Chain chain) throws IOException {
+            Request original = chain.request();
+
+            Request.Builder requestBuilder = original.newBuilder()
+                    .header("Authorization", bearer)
+                    .header("Accept", "application/json")
+                    .method(original.method(), original.body());
+
+            Request request = requestBuilder.build();
+            return chain.proceed(request);
+        }});
+
+        return new Retrofit.Builder()
+                .baseUrl(baseUrl+'/')
+//                .baseUrl("https://local-svc.leanix.net/")
+                .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+                .client(httpClientBuilder.build())
+                .build();
+    }
+
 
     protected void deleteWorkspace(Workspace workspace) {
         if (workspace == null || workspace.getId() == null) {
