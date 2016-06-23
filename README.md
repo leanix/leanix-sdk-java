@@ -1,6 +1,6 @@
 # LeanIX SDK for Java #
 
-leanIX API version v1, https://developer.leanix.net
+LeanIX API version v1, https://developer.leanix.net
 
 ## Overview ##
 This SDK contains wrapper code used to call the leanIX REST API from Java.
@@ -22,7 +22,7 @@ The host name of the token provider is normally "svc.leanix.net".
 
 ### Swagger documentation
 
-You can find the leanIX REST API documentation here https://developer.leanix.net. The documentation is interactive - if you are logged in to your workspace and the REST API is activated, you can try out every function directly from the documentation.
+You can find the leanIX REST API documentation here [https://app.leanix.net/demo/api/v1/](https://app.leanix.net/demo/api/v1/). The documentation is interactive - if you are logged in to your workspace and the REST API is activated, you can try out every function directly from the documentation.
 
 
 ## Including the SDK in your project ##
@@ -44,31 +44,34 @@ $ mvn package
 ```
 
 You'll find `leanix-sdk-java-2.1.5.jar`, together with a sources jar and a javadoc jar in the target directory after the build completes.
-In target/lib you will find the required libraries to use the SDK.
+In `target/lib` you will find the required libraries to use the SDK.
 
 ## Usage ##
 
 In order to use the SDK in your Java application, import the following packages:
+
 ```java
 import net.leanix.api.*;
 import net.leanix.api.common.*;
 import net.leanix.api.models.*;
 ```
 
-You need to instantiate a leanIX API Client. We now have a Builder class for that.
+You need to instantiate a LeanIX API Client (ApiClient) which can be easyly created using the builder class ApiClientBuilder.
 An important property of the ApiClient is the URL to the REST API of your workspace. Please replace `demo` with the name of your workspace.
 You also need to provide the API token and the hostname of the token provider here.
+
 ```java
-ApiClient client = new ApiClientBuilder()
+ApiClient apiClient = new ApiClientBuilder()
     .withBasePath("https://app.leanix.net/demo/api/v1")
     .withApiToken("NOnrUpMXEh87xbDCYkLfrBmfbzLOFznjqVqEbNMp")
     .withTokenProviderHost("svc.leanix.net"))
     .build();
 ```
 
-You can then use the API class to execute functions. For each Fact Sheet in leanIX there is one API class, e.g. for the Fact Sheet "Application" the API class is called `ServicesApi`. To print the names of all applications which match the full-text search of "design", you could do the following:
+You can then use a API class to execute functions. For each Fact Sheet in LeanIX there is one API class, e.g. for the Fact Sheet "Application" the API class is called `ServicesApi`. To print the names of all applications which match the full-text search of "design", you could do the following:
+
 ```java
-ServicesApi servicesApi = new ServicesApi(client);
+ServicesApi servicesApi = new ServicesApi(apiClient);
 List<Service> services = servicesApi.getServices(false, "design");
 for (Service cur : services) {
 	System.out.println(cur);
@@ -76,7 +79,7 @@ for (Service cur : services) {
 ```
 
 ### Using a proxy
-In case that you need to use a proxy to access leanix you can setup a http proxy by setting the standard proxy system properties:
+In case that you need to use a proxy to access LeanIX you can setup a http proxy by setting the standard proxy system properties:
 
 ```
 -Dhttp.proxyHost=<proxy hostname>
@@ -98,16 +101,23 @@ $ mvn test \\
     -Dapi.hostname=local-eam.leanix.net \\
     -Dapi.clientId=<clientID used generate workspace and permissions, optional, default: eam> \\
     -Dapi.clientSecret=<secret for clientID> \\
-    -Dapi.pat=<Personal Access Token, optional, only required, when no clientID/clientSecret is used> \\
+    -Dapi.token=<Personal Access Token, optional, only required, when no clientID/clientSecret is used> \\
     -Dapi.mtm.hostname=<host on which mtm is running, optional, default is: api.hostname>
     -Djava.util.logging.config.file=./target/test-classes/logging.properties
 
 # E.G.: When running on development environment with virtual hostname 'boot2docker.leanix.net':
-mvn test \\
+$ mvn test \\
   -Dapi.hostname=boot2docker.leanix.net \\
   -Dapi.clientSecret=ldtP4b9o3K6IkKm3SolA_eam \\
   -Djava.util.logging.config.file=./target/test-classes/logging.properties
+  
+# Using the API-Token and running against 'local-eam.leanix.net'
+# with Contract 'leanix eam REGULAR 2016-05-30'
+$ mvn test -Dapi.hostname=local-eam.leanix.net \
+    -Dapi.token=SvP6eADtbyC6PzLpSK9CmsxQcxnWEcXQxaEkxvan \
+    -Dcontract.displayname="leanix eam REGULAR 2016-05-30"
 ```
+> In case of using an API-Token for authentication, be aware that the owner of the API-Token has the role SUPERADMIN.
 
 ### Updating
 
@@ -129,7 +139,7 @@ $ mvn package
 
 Details can be read here: http://central.sonatype.org/pages/apache-maven.html
 
-Add leanIX Developer GPG key and make sure gpg is installed
+Add LeanIX Developer GPG key and make sure gpg is installed
 ```bash
 $ gpg --import private.key
 ```

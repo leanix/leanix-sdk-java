@@ -102,8 +102,8 @@ public class ApiClientBuilder {
      *
      * @param personalAccessToken
      * @return
+     * @deprecated use {@linkplain #withApiToken(String)} instead
      */
-    @Deprecated
     public ApiClientBuilder withPersonalAccessToken(String personalAccessToken) {
         this.apiToken = personalAccessToken;
         return this;
