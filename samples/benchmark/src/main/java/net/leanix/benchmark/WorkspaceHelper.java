@@ -3,11 +3,16 @@ package net.leanix.benchmark;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
+import org.joda.time.Duration;
+import org.joda.time.Instant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.leanix.api.common.ApiException;
+import net.leanix.benchmark.api.PersonalAccessTokenApiImpl;
+import net.leanix.benchmark.api.PersonalAccessTokenApiImpl.PersonalAccessTokenResponse;
 import net.leanix.mtm.api.AccountsApi;
 import net.leanix.mtm.api.PermissionsApi;
 import net.leanix.mtm.api.UsersApi;
@@ -40,6 +45,7 @@ public class WorkspaceHelper {
     private final net.leanix.dropkit.apiclient.ApiClient mtmApiClient;
     private final WorkspacesApi workspacesApi;
     private final AccountsApi accountsApi;
+    protected UUID apiTokenId;
 
     private static final Logger logger = LoggerFactory.getLogger(WorkspaceHelper.class);
 
@@ -50,7 +56,7 @@ public class WorkspaceHelper {
         net.leanix.dropkit.apiclient.ApiClientBuilder builder = new net.leanix.dropkit.apiclient.ApiClientBuilder()
                 .withBasePath(ConfigurationProvider.createMtmApiUrl())
                 .withTokenProviderHost(ConfigurationProvider.getApiHostName())
-                // .withPersonalAccessToken(getPersonalAccessToken())
+                // .withApiToken(ConfigurationProvider.getApiToken())
                 .withClientCredentials(ConfigurationProvider.getClientId(), ConfigurationProvider.getClientSecret())
                 .withDebugging(true);
 
@@ -130,11 +136,11 @@ public class WorkspaceHelper {
 
         logger.debug("add {} {} permission to workspace for the user", permission.getStatus(), permission.getRole());
 
-        permissionsApi.setPermission(permission, true);
+        permissionsApi.createPermission(permission, true);
 
-        logger.debug("permission added");
+        String apiToken = createApiToken(workspace, user);
 
-        return user.getApiKey();
+        return apiToken;
     }
 
     protected Account lookupAccount(String accountName) throws net.leanix.dropkit.apiclient.ApiException {
@@ -172,6 +178,28 @@ public class WorkspaceHelper {
         }
 
         return found;
+    }
+
+    protected String createApiToken(Workspace workspace, User user) {
+        PersonalAccessTokenApiImpl tokenApi = new PersonalAccessTokenApiImpl(mtmApiClient);
+
+        PersonalAccessTokenApiImpl.PersonalAccessToken token = new PersonalAccessTokenApiImpl.PersonalAccessToken();
+        token.setUserId(UUID.fromString(user.getId()));
+        token.setWorkspaceId((UUID.fromString(workspace.getId())));
+        token.setCreatorId(UUID.fromString(user.getId()));
+        token.setExpiry(Instant.now().plus(Duration.standardMinutes(10)));
+        token.setDescription("LeanIX-SDK-Java test run API token");
+
+        PersonalAccessTokenResponse tokenResponse;
+        try {
+            tokenResponse = tokenApi.createPersonalAccessToken(token);
+        } catch (net.leanix.dropkit.apiclient.ApiException e) {
+            logger.error("failed to create new API-Token", e);
+            return null;
+        }
+
+        apiTokenId = tokenResponse.getData().getId();
+        return tokenResponse.getData().getToken();
     }
 
 }

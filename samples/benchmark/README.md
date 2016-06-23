@@ -1,6 +1,6 @@
 # LeanIX EAM SDK Benchmark
 
-Allows to run benchmarks via REST API
+Allows to run benchmarks against LeanIX eam via REST API.
 
 ## General start of a benchmark class
 
@@ -17,14 +17,16 @@ Allows to run benchmarks via REST API
 
 ## Benchmarks
 > Update the run-bench-local.sh script with your settings!
+ 
+The benchmarks are intendet to measure the speed of LeanIX EAM system. You can configure each test to use a specified workspace during its run (api.workspaceName) and to remove or remain the test workspace after the benchmark run has finished (keepWorkspace). See `BaseBenchmarkTests`and `ConfigurationProvider`for more details how to configure the tests.
 
 ### Benchmark A
 
-Creates X Services and for each Service Y IT Components
+Creates X Services in LeanIX and for each Service Y IT Components.
 
 #### Using a dedicated workspace and seed
 	Seed = 0, Services = 100, resourceHasServices = 5
-	./benchmark-a.sh https://local-eam.leanix.net/santander1 9c6b792695ed4add953e278c0f0c7a75 0 100 5
+	./benchmark-a.sh https://local-eam.leanix.net/demo 9c6b792695ed4add953e278c0f0c7a75 0 100 5
 
 When inserting again into same workspace, make sure you increase the seed, to ensure that names stay unique
 
@@ -49,8 +51,16 @@ Lifecycles for Services and for IT Components in order to show matrix and techno
 
 ### System properties
 * -Dapi.workspaceName : used to specify a dedicated workspace to use
+* -D keepWorkspace : true, y or false, n, true means the workspace wil not deleted after run
 * -Drandom.seed : used to specify the seed used to generate random words
+* -dapi.hostname: host name, like local-eam.leanix.net
+* -Dapi.clientSecret: the client secret, like mlka4C2mYr0zqyOecLqN
+* -Dservices.count: number of services to create
+* -DresourcesPerServices.count: number of resources per services to create
+* ... See the concrete Benchmark test classes for more configuration properties.
 
 ## Results
 
-See Excel file
+The result of each test will be stored in a junit result file with filename:
+
+	/benchmark/**/TEST-BENCHMARK_*.xml
