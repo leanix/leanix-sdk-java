@@ -53,6 +53,7 @@ public class Service   {
   private String resourceType = null;
   private String completion = null;
   private String qualitySealExpiry = null;
+  private String modificationTime = null;
   private List<FactSheetHasParent> factSheetHasParents = new ArrayList<FactSheetHasParent>();
   private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
   private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
@@ -432,6 +433,23 @@ public class Service   {
   
   /**
    **/
+  public Service modificationTime(String modificationTime) {
+    this.modificationTime = modificationTime;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("modificationTime")
+  public String getModificationTime() {
+    return modificationTime;
+  }
+  public void setModificationTime(String modificationTime) {
+    this.modificationTime = modificationTime;
+  }
+
+  
+  /**
+   **/
   public Service factSheetHasParents(List<FactSheetHasParent> factSheetHasParents) {
     this.factSheetHasParents = factSheetHasParents;
     return this;
@@ -767,6 +785,7 @@ public class Service   {
         Objects.equals(this.resourceType, service.resourceType) &&
         Objects.equals(this.completion, service.completion) &&
         Objects.equals(this.qualitySealExpiry, service.qualitySealExpiry) &&
+        Objects.equals(this.modificationTime, service.modificationTime) &&
         Objects.equals(this.factSheetHasParents, service.factSheetHasParents) &&
         Objects.equals(this.factSheetHasChildren, service.factSheetHasChildren) &&
         Objects.equals(this.factSheetHasDocuments, service.factSheetHasDocuments) &&
@@ -789,7 +808,7 @@ public class Service   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(ID, displayName, parentID, level, release, name, reference, alias, description, businessCriticalityID, businessCriticalityDescription, functionalSuitabilityID, functionalSuitabilityDescription, technicalSuitabilityID, technicalSuitabilityDescription, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, serviceHasBusinessCapabilities, serviceHasProcesses, serviceHasConsumers, serviceHasBusinessObjects, serviceHasInterfaces, serviceHasProjects, serviceHasResources, factSheetHasIfaceProviders, factSheetHasIfaceConsumers);
+    return Objects.hash(ID, displayName, parentID, level, release, name, reference, alias, description, businessCriticalityID, businessCriticalityDescription, functionalSuitabilityID, functionalSuitabilityDescription, technicalSuitabilityID, technicalSuitabilityDescription, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, modificationTime, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, serviceHasBusinessCapabilities, serviceHasProcesses, serviceHasConsumers, serviceHasBusinessObjects, serviceHasInterfaces, serviceHasProjects, serviceHasResources, factSheetHasIfaceProviders, factSheetHasIfaceConsumers);
   }
 
   @Override
@@ -818,6 +837,7 @@ public class Service   {
     sb.append("    resourceType: ").append(toIndentedString(resourceType)).append("\n");
     sb.append("    completion: ").append(toIndentedString(completion)).append("\n");
     sb.append("    qualitySealExpiry: ").append(toIndentedString(qualitySealExpiry)).append("\n");
+    sb.append("    modificationTime: ").append(toIndentedString(modificationTime)).append("\n");
     sb.append("    factSheetHasParents: ").append(toIndentedString(factSheetHasParents)).append("\n");
     sb.append("    factSheetHasChildren: ").append(toIndentedString(factSheetHasChildren)).append("\n");
     sb.append("    factSheetHasDocuments: ").append(toIndentedString(factSheetHasDocuments)).append("\n");

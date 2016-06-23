@@ -22,9 +22,8 @@
  */
 package net.leanix.benchmark;
 
-import org.springframework.util.StringUtils;
-
 import net.leanix.api.common.ApiClient;
+import net.leanix.api.common.ApiClientBuilder;
 
 public class ApiClientFactory {
 
@@ -35,21 +34,15 @@ public class ApiClientFactory {
      * @return
      * @throws Exception
      */
-    public static ApiClient getApiClient(String workspaceName, String apiKey) throws Exception {
+    public static ApiClient getApiClient(String workspaceName, String apiToken) throws Exception {
         String apiHostName = ConfigurationProvider.getApiHostName();
 
-        if (StringUtils.isEmpty(apiHostName)) {
-            return getApiClientHelper(ConfigurationProvider.getApiBasePath(), apiKey);
-        }
-        return getApiClientHelper(String.format("https://%s/%s/api/v1", apiHostName, workspaceName), apiKey);
-    }
-
-    private static ApiClient getApiClientHelper(String basePath, String apiKey) throws Exception {
-        ApiClient apiClient = new ApiClient();
+        ApiClient apiClient = new ApiClientBuilder()
+                .withBasePath(String.format("https://%s/%s/api/v1", apiHostName, workspaceName))
+                .withApiToken(apiToken)
+                .withTokenProviderHost(ConfigurationProvider.getTokenProviderHostName())
+                .build();
         apiClient.addDefaultHeader("X-Api-Sync-Mode", "sync");
-        apiClient.setBasePath(basePath);
-        apiClient.setApiKey(apiKey);
-
         return apiClient;
     }
 }

@@ -41,6 +41,7 @@ public class BusinessObject   {
   private String resourceType = null;
   private String completion = null;
   private String qualitySealExpiry = null;
+  private String modificationTime = null;
   private List<FactSheetHasParent> factSheetHasParents = new ArrayList<FactSheetHasParent>();
   private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
   private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
@@ -328,6 +329,23 @@ public class BusinessObject   {
   
   /**
    **/
+  public BusinessObject modificationTime(String modificationTime) {
+    this.modificationTime = modificationTime;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("modificationTime")
+  public String getModificationTime() {
+    return modificationTime;
+  }
+  public void setModificationTime(String modificationTime) {
+    this.modificationTime = modificationTime;
+  }
+
+  
+  /**
+   **/
   public BusinessObject factSheetHasParents(List<FactSheetHasParent> factSheetHasParents) {
     this.factSheetHasParents = factSheetHasParents;
     return this;
@@ -539,6 +557,7 @@ public class BusinessObject   {
         Objects.equals(this.resourceType, businessObject.resourceType) &&
         Objects.equals(this.completion, businessObject.completion) &&
         Objects.equals(this.qualitySealExpiry, businessObject.qualitySealExpiry) &&
+        Objects.equals(this.modificationTime, businessObject.modificationTime) &&
         Objects.equals(this.factSheetHasParents, businessObject.factSheetHasParents) &&
         Objects.equals(this.factSheetHasChildren, businessObject.factSheetHasChildren) &&
         Objects.equals(this.factSheetHasDocuments, businessObject.factSheetHasDocuments) &&
@@ -554,7 +573,7 @@ public class BusinessObject   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, dataClassificationID, dataClassificationDescription, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, serviceHasBusinessObjects, ifaceHasBusinessObjects);
+    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, dataClassificationID, dataClassificationDescription, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, modificationTime, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, serviceHasBusinessObjects, ifaceHasBusinessObjects);
   }
 
   @Override
@@ -578,6 +597,7 @@ public class BusinessObject   {
     sb.append("    resourceType: ").append(toIndentedString(resourceType)).append("\n");
     sb.append("    completion: ").append(toIndentedString(completion)).append("\n");
     sb.append("    qualitySealExpiry: ").append(toIndentedString(qualitySealExpiry)).append("\n");
+    sb.append("    modificationTime: ").append(toIndentedString(modificationTime)).append("\n");
     sb.append("    factSheetHasParents: ").append(toIndentedString(factSheetHasParents)).append("\n");
     sb.append("    factSheetHasChildren: ").append(toIndentedString(factSheetHasChildren)).append("\n");
     sb.append("    factSheetHasDocuments: ").append(toIndentedString(factSheetHasDocuments)).append("\n");

@@ -44,6 +44,10 @@ public class ConfigurationProvider {
         return System.getProperty("api.hostname", "local-eam.leanix.net");
     }
 
+    public static String getTokenProviderHostName() {
+        return System.getProperty("api.mtm.hostname", getApiHostName());
+    }
+
     public static String getApiBasePath() {
         return Helper.getProperty("api.basePath", "https://local-eam.leanix.net/demo/api/v1");
     }

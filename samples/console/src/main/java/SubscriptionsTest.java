@@ -23,11 +23,10 @@
  */
 
 import net.leanix.api.ResourcesApi;
-import net.leanix.api.ServicesApi;
 import net.leanix.api.UsersApi;
 import net.leanix.api.common.ApiClient;
+import net.leanix.api.common.ApiClientBuilder;
 import net.leanix.api.models.Resource;
-import net.leanix.api.models.Service;
 import net.leanix.api.models.User;
 import net.leanix.api.models.UserSubscription;
 
@@ -39,9 +38,11 @@ import java.util.Map;
 public class SubscriptionsTest {
     public static void main(String[] args) {
         try {
-            ApiClient apiClient = new ApiClient();
-            apiClient.setBasePath("https://local-eam.leanix.net/demo/api/v1");
-            apiClient.setApiKey("fe4daf1201a2403db8494e294656207c");
+            ApiClient apiClient = new ApiClientBuilder()
+                    .withBasePath("https://app.leanix.net/demo/api/v1")
+                    .withTokenProviderHost("svc.leanix.net")
+                    .withApiToken("NOnrUpMXEh87xbDCYkLfrBmfbzLOFznjqVqEbNMp")
+                    .build();
 
             ResourcesApi resourcesApi = new ResourcesApi(apiClient);
             UsersApi usersApi = new UsersApi(apiClient);

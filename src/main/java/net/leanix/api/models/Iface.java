@@ -45,6 +45,7 @@ public class Iface   {
   private String resourceType = null;
   private String completion = null;
   private String qualitySealExpiry = null;
+  private String modificationTime = null;
   private List<FactSheetHasParent> factSheetHasParents = new ArrayList<FactSheetHasParent>();
   private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
   private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
@@ -368,6 +369,23 @@ public class Iface   {
   
   /**
    **/
+  public Iface modificationTime(String modificationTime) {
+    this.modificationTime = modificationTime;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("modificationTime")
+  public String getModificationTime() {
+    return modificationTime;
+  }
+  public void setModificationTime(String modificationTime) {
+    this.modificationTime = modificationTime;
+  }
+
+  
+  /**
+   **/
   public Iface factSheetHasParents(List<FactSheetHasParent> factSheetHasParents) {
     this.factSheetHasParents = factSheetHasParents;
     return this;
@@ -615,6 +633,7 @@ public class Iface   {
         Objects.equals(this.resourceType, iface.resourceType) &&
         Objects.equals(this.completion, iface.completion) &&
         Objects.equals(this.qualitySealExpiry, iface.qualitySealExpiry) &&
+        Objects.equals(this.modificationTime, iface.modificationTime) &&
         Objects.equals(this.factSheetHasParents, iface.factSheetHasParents) &&
         Objects.equals(this.factSheetHasChildren, iface.factSheetHasChildren) &&
         Objects.equals(this.factSheetHasDocuments, iface.factSheetHasDocuments) &&
@@ -632,7 +651,7 @@ public class Iface   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(ID, displayName, parentID, level, release, name, reference, alias, description, interfaceTypeID, interfaceFrequencyID, interfaceDirectionID, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, factSheetHasIfaceProviders, factSheetHasIfaceConsumers, ifaceHasBusinessObjects, ifaceHasResources);
+    return Objects.hash(ID, displayName, parentID, level, release, name, reference, alias, description, interfaceTypeID, interfaceFrequencyID, interfaceDirectionID, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, modificationTime, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, factSheetHasIfaceProviders, factSheetHasIfaceConsumers, ifaceHasBusinessObjects, ifaceHasResources);
   }
 
   @Override
@@ -658,6 +677,7 @@ public class Iface   {
     sb.append("    resourceType: ").append(toIndentedString(resourceType)).append("\n");
     sb.append("    completion: ").append(toIndentedString(completion)).append("\n");
     sb.append("    qualitySealExpiry: ").append(toIndentedString(qualitySealExpiry)).append("\n");
+    sb.append("    modificationTime: ").append(toIndentedString(modificationTime)).append("\n");
     sb.append("    factSheetHasParents: ").append(toIndentedString(factSheetHasParents)).append("\n");
     sb.append("    factSheetHasChildren: ").append(toIndentedString(factSheetHasChildren)).append("\n");
     sb.append("    factSheetHasDocuments: ").append(toIndentedString(factSheetHasDocuments)).append("\n");
