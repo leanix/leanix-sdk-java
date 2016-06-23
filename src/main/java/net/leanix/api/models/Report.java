@@ -37,6 +37,7 @@ public class Report   {
   private String resourceType = null;
   private String completion = null;
   private String qualitySealExpiry = null;
+  private String modificationTime = null;
   private List<FactSheetHasParent> factSheetHasParents = new ArrayList<FactSheetHasParent>();
   private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
   private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
@@ -288,6 +289,23 @@ public class Report   {
   
   /**
    **/
+  public Report modificationTime(String modificationTime) {
+    this.modificationTime = modificationTime;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("modificationTime")
+  public String getModificationTime() {
+    return modificationTime;
+  }
+  public void setModificationTime(String modificationTime) {
+    this.modificationTime = modificationTime;
+  }
+
+  
+  /**
+   **/
   public Report factSheetHasParents(List<FactSheetHasParent> factSheetHasParents) {
     this.factSheetHasParents = factSheetHasParents;
     return this;
@@ -463,6 +481,7 @@ public class Report   {
         Objects.equals(this.resourceType, report.resourceType) &&
         Objects.equals(this.completion, report.completion) &&
         Objects.equals(this.qualitySealExpiry, report.qualitySealExpiry) &&
+        Objects.equals(this.modificationTime, report.modificationTime) &&
         Objects.equals(this.factSheetHasParents, report.factSheetHasParents) &&
         Objects.equals(this.factSheetHasChildren, report.factSheetHasChildren) &&
         Objects.equals(this.factSheetHasDocuments, report.factSheetHasDocuments) &&
@@ -476,7 +495,7 @@ public class Report   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby);
+    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, modificationTime, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby);
   }
 
   @Override
@@ -498,6 +517,7 @@ public class Report   {
     sb.append("    resourceType: ").append(toIndentedString(resourceType)).append("\n");
     sb.append("    completion: ").append(toIndentedString(completion)).append("\n");
     sb.append("    qualitySealExpiry: ").append(toIndentedString(qualitySealExpiry)).append("\n");
+    sb.append("    modificationTime: ").append(toIndentedString(modificationTime)).append("\n");
     sb.append("    factSheetHasParents: ").append(toIndentedString(factSheetHasParents)).append("\n");
     sb.append("    factSheetHasChildren: ").append(toIndentedString(factSheetHasChildren)).append("\n");
     sb.append("    factSheetHasDocuments: ").append(toIndentedString(factSheetHasDocuments)).append("\n");

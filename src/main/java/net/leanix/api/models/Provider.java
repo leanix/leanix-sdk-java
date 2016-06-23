@@ -43,6 +43,7 @@ public class Provider   {
   private String resourceType = null;
   private String completion = null;
   private String qualitySealExpiry = null;
+  private String modificationTime = null;
   private List<FactSheetHasParent> factSheetHasParents = new ArrayList<FactSheetHasParent>();
   private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
   private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
@@ -364,6 +365,23 @@ public class Provider   {
   
   /**
    **/
+  public Provider modificationTime(String modificationTime) {
+    this.modificationTime = modificationTime;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("modificationTime")
+  public String getModificationTime() {
+    return modificationTime;
+  }
+  public void setModificationTime(String modificationTime) {
+    this.modificationTime = modificationTime;
+  }
+
+  
+  /**
+   **/
   public Provider factSheetHasParents(List<FactSheetHasParent> factSheetHasParents) {
     this.factSheetHasParents = factSheetHasParents;
     return this;
@@ -577,6 +595,7 @@ public class Provider   {
         Objects.equals(this.resourceType, provider.resourceType) &&
         Objects.equals(this.completion, provider.completion) &&
         Objects.equals(this.qualitySealExpiry, provider.qualitySealExpiry) &&
+        Objects.equals(this.modificationTime, provider.modificationTime) &&
         Objects.equals(this.factSheetHasParents, provider.factSheetHasParents) &&
         Objects.equals(this.factSheetHasChildren, provider.factSheetHasChildren) &&
         Objects.equals(this.factSheetHasDocuments, provider.factSheetHasDocuments) &&
@@ -592,7 +611,7 @@ public class Provider   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, providerCriticalityID, providerCriticalityDescription, providerQualityID, providerQualityDescription, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, resourceHasProviders, projectHasProviders);
+    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, providerCriticalityID, providerCriticalityDescription, providerQualityID, providerQualityDescription, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, modificationTime, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, resourceHasProviders, projectHasProviders);
   }
 
   @Override
@@ -618,6 +637,7 @@ public class Provider   {
     sb.append("    resourceType: ").append(toIndentedString(resourceType)).append("\n");
     sb.append("    completion: ").append(toIndentedString(completion)).append("\n");
     sb.append("    qualitySealExpiry: ").append(toIndentedString(qualitySealExpiry)).append("\n");
+    sb.append("    modificationTime: ").append(toIndentedString(modificationTime)).append("\n");
     sb.append("    factSheetHasParents: ").append(toIndentedString(factSheetHasParents)).append("\n");
     sb.append("    factSheetHasChildren: ").append(toIndentedString(factSheetHasChildren)).append("\n");
     sb.append("    factSheetHasDocuments: ").append(toIndentedString(factSheetHasDocuments)).append("\n");

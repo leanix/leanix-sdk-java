@@ -14,6 +14,7 @@ import net.leanix.api.models.FactSheetHasPredecessor;
 import net.leanix.api.models.FactSheetHasRequiredby;
 import net.leanix.api.models.FactSheetHasRequires;
 import net.leanix.api.models.FactSheetHasSuccessor;
+import net.leanix.api.models.ProjectHasConsumer;
 import net.leanix.api.models.ResourceHasConsumer;
 import net.leanix.api.models.ServiceHasConsumer;
 import net.leanix.api.models.UserSubscription;
@@ -40,6 +41,7 @@ public class Consumer   {
   private String resourceType = null;
   private String completion = null;
   private String qualitySealExpiry = null;
+  private String modificationTime = null;
   private List<FactSheetHasParent> factSheetHasParents = new ArrayList<FactSheetHasParent>();
   private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
   private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
@@ -51,6 +53,7 @@ public class Consumer   {
   private List<FactSheetHasRequiredby> factSheetHasRequiredby = new ArrayList<FactSheetHasRequiredby>();
   private List<ServiceHasConsumer> serviceHasConsumers = new ArrayList<ServiceHasConsumer>();
   private List<ResourceHasConsumer> resourceHasConsumers = new ArrayList<ResourceHasConsumer>();
+  private List<ProjectHasConsumer> projectHasConsumers = new ArrayList<ProjectHasConsumer>();
 
   
   /**
@@ -310,6 +313,23 @@ public class Consumer   {
   
   /**
    **/
+  public Consumer modificationTime(String modificationTime) {
+    this.modificationTime = modificationTime;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("modificationTime")
+  public String getModificationTime() {
+    return modificationTime;
+  }
+  public void setModificationTime(String modificationTime) {
+    this.modificationTime = modificationTime;
+  }
+
+  
+  /**
+   **/
   public Consumer factSheetHasParents(List<FactSheetHasParent> factSheetHasParents) {
     this.factSheetHasParents = factSheetHasParents;
     return this;
@@ -495,6 +515,23 @@ public class Consumer   {
   }
 
   
+  /**
+   **/
+  public Consumer projectHasConsumers(List<ProjectHasConsumer> projectHasConsumers) {
+    this.projectHasConsumers = projectHasConsumers;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("projectHasConsumers")
+  public List<ProjectHasConsumer> getProjectHasConsumers() {
+    return projectHasConsumers;
+  }
+  public void setProjectHasConsumers(List<ProjectHasConsumer> projectHasConsumers) {
+    this.projectHasConsumers = projectHasConsumers;
+  }
+
+  
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -520,6 +557,7 @@ public class Consumer   {
         Objects.equals(this.resourceType, consumer.resourceType) &&
         Objects.equals(this.completion, consumer.completion) &&
         Objects.equals(this.qualitySealExpiry, consumer.qualitySealExpiry) &&
+        Objects.equals(this.modificationTime, consumer.modificationTime) &&
         Objects.equals(this.factSheetHasParents, consumer.factSheetHasParents) &&
         Objects.equals(this.factSheetHasChildren, consumer.factSheetHasChildren) &&
         Objects.equals(this.factSheetHasDocuments, consumer.factSheetHasDocuments) &&
@@ -530,12 +568,13 @@ public class Consumer   {
         Objects.equals(this.factSheetHasRequires, consumer.factSheetHasRequires) &&
         Objects.equals(this.factSheetHasRequiredby, consumer.factSheetHasRequiredby) &&
         Objects.equals(this.serviceHasConsumers, consumer.serviceHasConsumers) &&
-        Objects.equals(this.resourceHasConsumers, consumer.resourceHasConsumers);
+        Objects.equals(this.resourceHasConsumers, consumer.resourceHasConsumers) &&
+        Objects.equals(this.projectHasConsumers, consumer.projectHasConsumers);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, locationID, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, serviceHasConsumers, resourceHasConsumers);
+    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, locationID, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, modificationTime, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, serviceHasConsumers, resourceHasConsumers, projectHasConsumers);
   }
 
   @Override
@@ -558,6 +597,7 @@ public class Consumer   {
     sb.append("    resourceType: ").append(toIndentedString(resourceType)).append("\n");
     sb.append("    completion: ").append(toIndentedString(completion)).append("\n");
     sb.append("    qualitySealExpiry: ").append(toIndentedString(qualitySealExpiry)).append("\n");
+    sb.append("    modificationTime: ").append(toIndentedString(modificationTime)).append("\n");
     sb.append("    factSheetHasParents: ").append(toIndentedString(factSheetHasParents)).append("\n");
     sb.append("    factSheetHasChildren: ").append(toIndentedString(factSheetHasChildren)).append("\n");
     sb.append("    factSheetHasDocuments: ").append(toIndentedString(factSheetHasDocuments)).append("\n");
@@ -569,6 +609,7 @@ public class Consumer   {
     sb.append("    factSheetHasRequiredby: ").append(toIndentedString(factSheetHasRequiredby)).append("\n");
     sb.append("    serviceHasConsumers: ").append(toIndentedString(serviceHasConsumers)).append("\n");
     sb.append("    resourceHasConsumers: ").append(toIndentedString(resourceHasConsumers)).append("\n");
+    sb.append("    projectHasConsumers: ").append(toIndentedString(projectHasConsumers)).append("\n");
     sb.append("}");
     return sb.toString();
   }
