@@ -76,15 +76,15 @@ public class ApiClient {
     /** rwe: Disable this feature, that was introduced in swagger-codegen. We want to use the ISO 8601.
      * See original templage: https://github.com/swagger-api/swagger-codegen/blob/master/modules/swagger-codegen/src/main/resources/Java/libraries/jersey2/ApiClient.mustache
 
-     // Use RFC3339 format for date and datetime.
-     // See http://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
-     this.dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+    // Use RFC3339 format for date and datetime.
+    // See http://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
+    this.dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
-     // Use UTC as the default time zone.
-     this.dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+    // Use UTC as the default time zone.
+    this.dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-     this.json.setDateFormat((DateFormat) dateFormat.clone());
-     */
+    this.json.setDateFormat((DateFormat) dateFormat.clone());
+    */
     // Set default User-Agent.
     setUserAgent("Swagger-Codegen/1.0.0/java");
 
