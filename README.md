@@ -3,7 +3,7 @@
 LeanIX API version v1, https://developer.leanix.net
 
 ## Overview ##
-This SDK contains wrapper code used to call the leanIX REST API from Java.
+This SDK contains wrapper code used to call the LeanIX REST API from Java.
 
 The SDK also contains two simple examples. The code in [samples/ServicesTest.java](samples/console/ServicesTest.java) demonstrates the basic use of the SDK to read Applications from the leanIX Inventory. The code in [samples/ProjectsTest.java](samples/console/ProjectsTest.java) demonstrates the basic use of the SDK for Projects in leanIX.
 
@@ -22,7 +22,7 @@ The host name of the token provider is normally "svc.leanix.net".
 
 ### Swagger documentation
 
-You can find the leanIX REST API documentation here [https://app.leanix.net/demo/api/v1/](https://app.leanix.net/demo/api/v1/). The documentation is interactive - if you are logged in to your workspace and the REST API is activated, you can try out every function directly from the documentation.
+You can find the LeanIX REST API documentation here [https://app.leanix.net/demo/api/v1/](https://app.leanix.net/demo/api/v1/). The documentation is interactive - if you are logged in to your workspace and the REST API is activated, you can try out every function directly from the documentation.
 
 
 ## Including the SDK in your project ##
@@ -56,7 +56,7 @@ import net.leanix.api.common.*;
 import net.leanix.api.models.*;
 ```
 
-You need to instantiate a LeanIX API Client (ApiClient) which can be easyly created using the builder class ApiClientBuilder.
+You need to instantiate a LeanIX API Client (ApiClient) which can be easily created using the builder class ApiClientBuilder.
 An important property of the ApiClient is the URL to the REST API of your workspace. Please replace `demo` with the name of your workspace.
 You also need to provide the API token and the hostname of the token provider here.
 
@@ -68,7 +68,7 @@ ApiClient apiClient = new ApiClientBuilder()
     .build();
 ```
 
-You can then use a API class to execute functions. For each Fact Sheet in LeanIX there is one API class, e.g. for the Fact Sheet "Application" the API class is called `ServicesApi`. To print the names of all applications which match the full-text search of "design", you could do the following:
+You can then use an API class to execute functions. For each Fact Sheet in LeanIX there is one API class, e.g. for the Fact Sheet "Application" the API class is called `ServicesApi`. To print the names of all applications which match the full-text search of "design", you could do the following:
 
 ```java
 ServicesApi servicesApi = new ServicesApi(apiClient);
