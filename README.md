@@ -64,7 +64,7 @@ You also need to provide the API token and the hostname of the token provider he
 ApiClient apiClient = new ApiClientBuilder()
     .withBasePath("https://app.leanix.net/demo/api/v1")
     .withApiToken("NOnrUpMXEh87xbDCYkLfrBmfbzLOFznjqVqEbNMp")
-    .withTokenProviderHost("svc.leanix.net"))
+    .withTokenProviderHost("app.leanix.net")
     .build();
 ```
 
