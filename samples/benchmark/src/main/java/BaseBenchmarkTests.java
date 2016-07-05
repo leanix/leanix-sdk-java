@@ -23,7 +23,7 @@ import net.leanix.benchmark.performance.TestSuite;
 public abstract class BaseBenchmarkTests {
 
     private static final Logger LOG = LoggerFactory.getLogger(BaseBenchmarkTests.class);
-    
+
     private static final String API_WORKSPACE_NAME = "api.workspaceName";
     private static final String KEEP_WORKSPACE = "keepWorkspace";
 
@@ -52,8 +52,9 @@ public abstract class BaseBenchmarkTests {
 
         // Wait a little bit to give jobs time to end
         Thread.sleep(10000);
-        if ("y".equals(System.getProperty(KEEP_WORKSPACE).toLowerCase().substring(1)));
-            new WorkspaceHelper(wsName).deleteWorkspace();
+        if ("y".equals(System.getProperty(KEEP_WORKSPACE, "y").toLowerCase().substring(1)))
+            ;
+        new WorkspaceHelper(wsName).deleteWorkspace();
     }
 
     public BaseBenchmarkTests() {
@@ -63,7 +64,6 @@ public abstract class BaseBenchmarkTests {
         SLF4JBridgeHandler.install();
 
         wsName = System.getProperty(API_WORKSPACE_NAME);
-
 
         configurationProvider = new ConfigurationProvider();
     }

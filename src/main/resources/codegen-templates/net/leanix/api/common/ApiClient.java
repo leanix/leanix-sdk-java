@@ -50,7 +50,7 @@ import net.leanix.api.common.auth.OAuth;
  * <ul>
  * <li>Added <code>ClientCredentialRefreshingOAuth</code> class used to fetch an JWT token with cliendID / clientSecret credetials.</li>
  * </ul>
- * 
+ *
  */
 public class ApiClient {
   private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
@@ -72,10 +72,10 @@ public class ApiClient {
   public ApiClient() {
     json = new JSON();
     httpClient = buildHttpClient(debugging);
-    
+
     /** rwe: Disable this feature, that was introduced in swagger-codegen. We want to use the ISO 8601.
      * See original templage: https://github.com/swagger-api/swagger-codegen/blob/master/modules/swagger-codegen/src/main/resources/Java/libraries/jersey2/ApiClient.mustache
-     
+
     // Use RFC3339 format for date and datetime.
     // See http://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
     this.dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
@@ -194,29 +194,37 @@ public class ApiClient {
     throw new RuntimeException("No API key authentication configured!");
   }
 
-    public void setClientCredentials(String clientId, String clientSecret, URI tokenUrl) {
-        for (Authentication auth : authentications.values()) {
-            if (auth instanceof ClientCredentialRefreshingOAuth) {
-                ((ClientCredentialRefreshingOAuth) auth).setClientCredentials(clientId, clientSecret, tokenUrl);
-                ((ClientCredentialRefreshingOAuth) auth).setClient(httpClient);
-                return;
-            }
-        }
-        throw new RuntimeException("No OAuth2 authentication configured!");
-    }
-
-  public void setPersonalAccessToken(String personalAccessToken, URI tokenUrl) {
-      for (Authentication auth : authentications.values()) {
-          if (auth instanceof ClientCredentialRefreshingOAuth) {
-              ((ClientCredentialRefreshingOAuth) auth).setClientCredentials("PersonalAccessToken", personalAccessToken, tokenUrl);
-              ((ClientCredentialRefreshingOAuth) auth).setClient(httpClient);
-              return;
-          }
+  public void setClientCredentials(String clientId, String clientSecret, URI tokenUrl) {
+    for (Authentication auth : authentications.values()) {
+      if (auth instanceof ClientCredentialRefreshingOAuth) {
+        ((ClientCredentialRefreshingOAuth) auth).setClientCredentials(clientId, clientSecret, tokenUrl);
+        ((ClientCredentialRefreshingOAuth) auth).setClient(httpClient);
+        return;
       }
-      throw new RuntimeException("No PersonalAccessToken authentication configured!");
     }
+    throw new RuntimeException("No OAuth2 authentication configured!");
+  }
 
-/**
+  public void setApiToken(String apiToken, URI tokenUrl) {
+    for (Authentication auth : authentications.values()) {
+      if (auth instanceof ClientCredentialRefreshingOAuth) {
+        ((ClientCredentialRefreshingOAuth) auth).setClientCredentials("apitoken", apiToken, tokenUrl);
+        ((ClientCredentialRefreshingOAuth) auth).setClient(httpClient);
+        return;
+      }
+    }
+    throw new RuntimeException("No PersonalAccessToken authentication configured!");
+  }
+
+  /**
+   * only for compatibility, use setApiToken instead.
+   */
+  @Deprecated
+  public void setPersonalAccessToken(String personalAccessToken, URI tokenUrl) {
+    setApiToken(personalAccessToken, tokenUrl);
+  }
+
+  /**
    * Helper method to set access token for the first OAuth2 authentication.
    */
   public void setAccessToken(String accessToken) {
@@ -490,7 +498,7 @@ public class ApiClient {
         if (param.getValue() instanceof File) {
           File file = (File) param.getValue();
           FormDataContentDisposition contentDisp = FormDataContentDisposition.name(param.getKey())
-              .fileName(file.getName()).size(file.length()).build();
+                  .fileName(file.getName()).size(file.length()).build();
           multiPart.bodyPart(new FormDataBodyPart(contentDisp, file, MediaType.APPLICATION_OCTET_STREAM_TYPE));
         } else {
           FormDataContentDisposition contentDisp = FormDataContentDisposition.name(param.getKey()).build();
@@ -667,10 +675,10 @@ public class ApiClient {
         }
       }
       throw new ApiException(
-        response.getStatus(),
-        message,
-        buildResponseHeaders(response),
-        respBody);
+              response.getStatus(),
+              message,
+              buildResponseHeaders(response),
+              respBody);
     }
   }
 

@@ -15,6 +15,7 @@ import net.leanix.api.models.FactSheetHasRequiredby;
 import net.leanix.api.models.FactSheetHasRequires;
 import net.leanix.api.models.FactSheetHasSuccessor;
 import net.leanix.api.models.ProjectHasBusinessCapability;
+import net.leanix.api.models.ProjectHasConsumer;
 import net.leanix.api.models.ProjectHasProvider;
 import net.leanix.api.models.ProjectHasResource;
 import net.leanix.api.models.ServiceHasProject;
@@ -52,6 +53,7 @@ public class Project   {
   private String resourceType = null;
   private String completion = null;
   private String qualitySealExpiry = null;
+  private String modificationTime = null;
   private List<FactSheetHasParent> factSheetHasParents = new ArrayList<FactSheetHasParent>();
   private List<FactSheetHasChild> factSheetHasChildren = new ArrayList<FactSheetHasChild>();
   private List<FactSheetHasDocument> factSheetHasDocuments = new ArrayList<FactSheetHasDocument>();
@@ -65,6 +67,7 @@ public class Project   {
   private List<ProjectHasBusinessCapability> projectHasBusinessCapabilities = new ArrayList<ProjectHasBusinessCapability>();
   private List<ProjectHasProvider> projectHasProviders = new ArrayList<ProjectHasProvider>();
   private List<ProjectHasResource> projectHasResources = new ArrayList<ProjectHasResource>();
+  private List<ProjectHasConsumer> projectHasConsumers = new ArrayList<ProjectHasConsumer>();
 
   
   /**
@@ -494,6 +497,23 @@ public class Project   {
   
   /**
    **/
+  public Project modificationTime(String modificationTime) {
+    this.modificationTime = modificationTime;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("modificationTime")
+  public String getModificationTime() {
+    return modificationTime;
+  }
+  public void setModificationTime(String modificationTime) {
+    this.modificationTime = modificationTime;
+  }
+
+  
+  /**
+   **/
   public Project factSheetHasParents(List<FactSheetHasParent> factSheetHasParents) {
     this.factSheetHasParents = factSheetHasParents;
     return this;
@@ -713,6 +733,23 @@ public class Project   {
   }
 
   
+  /**
+   **/
+  public Project projectHasConsumers(List<ProjectHasConsumer> projectHasConsumers) {
+    this.projectHasConsumers = projectHasConsumers;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("projectHasConsumers")
+  public List<ProjectHasConsumer> getProjectHasConsumers() {
+    return projectHasConsumers;
+  }
+  public void setProjectHasConsumers(List<ProjectHasConsumer> projectHasConsumers) {
+    this.projectHasConsumers = projectHasConsumers;
+  }
+
+  
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -748,6 +785,7 @@ public class Project   {
         Objects.equals(this.resourceType, project.resourceType) &&
         Objects.equals(this.completion, project.completion) &&
         Objects.equals(this.qualitySealExpiry, project.qualitySealExpiry) &&
+        Objects.equals(this.modificationTime, project.modificationTime) &&
         Objects.equals(this.factSheetHasParents, project.factSheetHasParents) &&
         Objects.equals(this.factSheetHasChildren, project.factSheetHasChildren) &&
         Objects.equals(this.factSheetHasDocuments, project.factSheetHasDocuments) &&
@@ -760,12 +798,13 @@ public class Project   {
         Objects.equals(this.serviceHasProjects, project.serviceHasProjects) &&
         Objects.equals(this.projectHasBusinessCapabilities, project.projectHasBusinessCapabilities) &&
         Objects.equals(this.projectHasProviders, project.projectHasProviders) &&
-        Objects.equals(this.projectHasResources, project.projectHasResources);
+        Objects.equals(this.projectHasResources, project.projectHasResources) &&
+        Objects.equals(this.projectHasConsumers, project.projectHasConsumers);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, progress, businessValueID, businessValueDescription, projectRiskID, projectRiskDescription, budgetOpex, budgetCapex, costComment, netPresentValue, paybackPeriod, benefitComment, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, serviceHasProjects, projectHasBusinessCapabilities, projectHasProviders, projectHasResources);
+    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, progress, businessValueID, businessValueDescription, projectRiskID, projectRiskDescription, budgetOpex, budgetCapex, costComment, netPresentValue, paybackPeriod, benefitComment, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, modificationTime, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, serviceHasProjects, projectHasBusinessCapabilities, projectHasProviders, projectHasResources, projectHasConsumers);
   }
 
   @Override
@@ -798,6 +837,7 @@ public class Project   {
     sb.append("    resourceType: ").append(toIndentedString(resourceType)).append("\n");
     sb.append("    completion: ").append(toIndentedString(completion)).append("\n");
     sb.append("    qualitySealExpiry: ").append(toIndentedString(qualitySealExpiry)).append("\n");
+    sb.append("    modificationTime: ").append(toIndentedString(modificationTime)).append("\n");
     sb.append("    factSheetHasParents: ").append(toIndentedString(factSheetHasParents)).append("\n");
     sb.append("    factSheetHasChildren: ").append(toIndentedString(factSheetHasChildren)).append("\n");
     sb.append("    factSheetHasDocuments: ").append(toIndentedString(factSheetHasDocuments)).append("\n");
@@ -811,6 +851,7 @@ public class Project   {
     sb.append("    projectHasBusinessCapabilities: ").append(toIndentedString(projectHasBusinessCapabilities)).append("\n");
     sb.append("    projectHasProviders: ").append(toIndentedString(projectHasProviders)).append("\n");
     sb.append("    projectHasResources: ").append(toIndentedString(projectHasResources)).append("\n");
+    sb.append("    projectHasConsumers: ").append(toIndentedString(projectHasConsumers)).append("\n");
     sb.append("}");
     return sb.toString();
   }

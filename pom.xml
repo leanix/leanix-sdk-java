@@ -6,7 +6,7 @@
     <artifactId>leanix-sdk-java</artifactId>
     <packaging>jar</packaging>
 
-    <version>2.1.4</version>
+    <version>2.1.5</version>
 
     <parent>
         <groupId>net.leanix.poms</groupId>
@@ -63,7 +63,7 @@
         <dependency>
             <groupId>net.leanix</groupId>
             <artifactId>leanix-mtm-sdk-java</artifactId>
-            <version>1.6.2-SNAPSHOT</version>
+            <version>1.6.2</version>
             <scope>test</scope>
         </dependency>
 

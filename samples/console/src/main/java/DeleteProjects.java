@@ -1,5 +1,6 @@
 import net.leanix.api.ProjectsApi;
 import net.leanix.api.common.ApiClient;
+import net.leanix.api.common.ApiClientBuilder;
 import net.leanix.api.models.Project;
 
 import java.util.List;
@@ -34,11 +35,13 @@ import java.util.List;
 public class DeleteProjects {
     public static void main(String[] args) {
         try {
-            ApiClient client = new ApiClient();
-            client.setBasePath("https://app.leanix.net/demo/api/v1");
-            client.setApiKey("<API-KEY>");
+            ApiClient apiClient = new ApiClientBuilder()
+                    .withBasePath("https://app.leanix.net/demo/api/v1")
+                    .withTokenProviderHost("svc.leanix.net")
+                    .withApiToken("NOnrUpMXEh87xbDCYkLfrBmfbzLOFznjqVqEbNMp")
+                    .build();
 
-            ProjectsApi projectsApi = new ProjectsApi(client);
+            ProjectsApi projectsApi = new ProjectsApi(apiClient);
 
             List<Project> projects = projectsApi.getProjects(true, null);
             for (Project cur : projects) {
