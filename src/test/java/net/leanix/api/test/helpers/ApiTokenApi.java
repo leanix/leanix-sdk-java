@@ -1,37 +1,40 @@
 package net.leanix.api.test.helpers;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.UUID;
+
 import org.joda.time.Instant;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-import java.util.UUID;
+public interface ApiTokenApi {
 
-public interface PersonalAccessTokenApi {
-    @POST("/services/mtm/v1/personalAccessTokens")
-    public Call<PersonalAccessTokenResponse> createPersonalAccessToken(@Body PersonalAccessToken token);
+    @POST("/services/mtm/v1/apiTokens")
+    public Call<PersonalAccessTokenResponse> createApiToken(@Body ApiToken token);
 
-    @DELETE("/services/mtm/v1/personalAccessTokens/{id}")
-    public Call<Void> deletePersonalAccessToken(@Path("id") UUID id);
+    @DELETE("/services/mtm/v1/apiTokens/{id}")
+    public Call<Void> deleteApiToken(@Path("id") UUID id);
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PersonalAccessTokenResponse {
-        private PersonalAccessToken data;
+        private ApiToken data;
 
-        public PersonalAccessToken getData() {
+        public ApiToken getData() {
             return data;
         }
 
-        public void setData(PersonalAccessToken data) {
+        public void setData(ApiToken data) {
             this.data = data;
         }
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class PersonalAccessToken {
+    public static class ApiToken {
         private UUID id;
         private String token;
         private UUID userId;
@@ -97,4 +100,3 @@ public interface PersonalAccessTokenApi {
         }
     }
 }
-
