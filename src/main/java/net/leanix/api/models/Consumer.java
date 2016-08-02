@@ -34,6 +34,10 @@ public class Consumer   {
   private String reference = null;
   private String alias = null;
   private String description = null;
+  private String nickname = null;
+  private String teamID = null;
+  private String email = null;
+  private String sapID = null;
   private String locationID = null;
   private String objectStatusID = null;
   private List<String> tags = new ArrayList<String>();
@@ -189,6 +193,74 @@ public class Consumer   {
   }
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  
+  /**
+   **/
+  public Consumer nickname(String nickname) {
+    this.nickname = nickname;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("nickname")
+  public String getNickname() {
+    return nickname;
+  }
+  public void setNickname(String nickname) {
+    this.nickname = nickname;
+  }
+
+  
+  /**
+   **/
+  public Consumer teamID(String teamID) {
+    this.teamID = teamID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("teamID")
+  public String getTeamID() {
+    return teamID;
+  }
+  public void setTeamID(String teamID) {
+    this.teamID = teamID;
+  }
+
+  
+  /**
+   **/
+  public Consumer email(String email) {
+    this.email = email;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("email")
+  public String getEmail() {
+    return email;
+  }
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  
+  /**
+   **/
+  public Consumer sapID(String sapID) {
+    this.sapID = sapID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("sapID")
+  public String getSapID() {
+    return sapID;
+  }
+  public void setSapID(String sapID) {
+    this.sapID = sapID;
   }
 
   
@@ -550,6 +622,10 @@ public class Consumer   {
         Objects.equals(this.reference, consumer.reference) &&
         Objects.equals(this.alias, consumer.alias) &&
         Objects.equals(this.description, consumer.description) &&
+        Objects.equals(this.nickname, consumer.nickname) &&
+        Objects.equals(this.teamID, consumer.teamID) &&
+        Objects.equals(this.email, consumer.email) &&
+        Objects.equals(this.sapID, consumer.sapID) &&
         Objects.equals(this.locationID, consumer.locationID) &&
         Objects.equals(this.objectStatusID, consumer.objectStatusID) &&
         Objects.equals(this.tags, consumer.tags) &&
@@ -574,7 +650,7 @@ public class Consumer   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, locationID, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, modificationTime, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, serviceHasConsumers, resourceHasConsumers, projectHasConsumers);
+    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, nickname, teamID, email, sapID, locationID, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, modificationTime, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, serviceHasConsumers, resourceHasConsumers, projectHasConsumers);
   }
 
   @Override
@@ -590,6 +666,10 @@ public class Consumer   {
     sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
     sb.append("    alias: ").append(toIndentedString(alias)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    nickname: ").append(toIndentedString(nickname)).append("\n");
+    sb.append("    teamID: ").append(toIndentedString(teamID)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    sapID: ").append(toIndentedString(sapID)).append("\n");
     sb.append("    locationID: ").append(toIndentedString(locationID)).append("\n");
     sb.append("    objectStatusID: ").append(toIndentedString(objectStatusID)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
