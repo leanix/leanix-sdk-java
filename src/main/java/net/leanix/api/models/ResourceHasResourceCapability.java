@@ -19,6 +19,7 @@ public class ResourceHasResourceCapability   {
   private String comment = null;
   private String supportTypeID = null;
   private String constraints = null;
+  private String resourceClassificationID = null;
 
   
   /**
@@ -140,6 +141,23 @@ public class ResourceHasResourceCapability   {
   }
 
   
+  /**
+   **/
+  public ResourceHasResourceCapability resourceClassificationID(String resourceClassificationID) {
+    this.resourceClassificationID = resourceClassificationID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("resourceClassificationID")
+  public String getResourceClassificationID() {
+    return resourceClassificationID;
+  }
+  public void setResourceClassificationID(String resourceClassificationID) {
+    this.resourceClassificationID = resourceClassificationID;
+  }
+
+  
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -156,12 +174,13 @@ public class ResourceHasResourceCapability   {
         Objects.equals(this.isLeading, resourceHasResourceCapability.isLeading) &&
         Objects.equals(this.comment, resourceHasResourceCapability.comment) &&
         Objects.equals(this.supportTypeID, resourceHasResourceCapability.supportTypeID) &&
-        Objects.equals(this.constraints, resourceHasResourceCapability.constraints);
+        Objects.equals(this.constraints, resourceHasResourceCapability.constraints) &&
+        Objects.equals(this.resourceClassificationID, resourceHasResourceCapability.resourceClassificationID);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(ID, resourceCapabilityID, resourceID, isLeading, comment, supportTypeID, constraints);
+    return Objects.hash(ID, resourceCapabilityID, resourceID, isLeading, comment, supportTypeID, constraints, resourceClassificationID);
   }
 
   @Override
@@ -176,6 +195,7 @@ public class ResourceHasResourceCapability   {
     sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
     sb.append("    supportTypeID: ").append(toIndentedString(supportTypeID)).append("\n");
     sb.append("    constraints: ").append(toIndentedString(constraints)).append("\n");
+    sb.append("    resourceClassificationID: ").append(toIndentedString(resourceClassificationID)).append("\n");
     sb.append("}");
     return sb.toString();
   }

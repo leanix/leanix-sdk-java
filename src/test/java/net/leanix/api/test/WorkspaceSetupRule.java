@@ -43,7 +43,7 @@ import com.fasterxml.jackson.datatype.joda.JodaModule;
 
 import net.leanix.api.common.ApiClient;
 import net.leanix.api.common.ApiClientBuilder;
-import net.leanix.api.test.helpers.PersonalAccessTokenApi;
+import net.leanix.api.test.helpers.ApiTokenApi;
 import net.leanix.dropkit.apiclient.ApiException;
 import net.leanix.dropkit.apiclient.auth.Authentication;
 import net.leanix.mtm.api.AccountsApi;
@@ -315,18 +315,18 @@ public class WorkspaceSetupRule extends ExternalResource {
 
     protected String createApiToken(Workspace workspace, User user) {
         Retrofit retrofit = getRetrofit(mtmApiClient.getBasePath(), readAccessToken(mtmApiClient));
-        PersonalAccessTokenApi tokenApi = retrofit.create(PersonalAccessTokenApi.class);
+        ApiTokenApi tokenApi = retrofit.create(ApiTokenApi.class);
 
-        PersonalAccessTokenApi.PersonalAccessToken token = new PersonalAccessTokenApi.PersonalAccessToken();
+        ApiTokenApi.ApiToken token = new ApiTokenApi.ApiToken();
         token.setUserId(UUID.fromString(user.getId()));
         token.setWorkspaceId((UUID.fromString(workspace.getId())));
         token.setCreatorId(UUID.fromString(user.getId()));
         token.setExpiry(Instant.now().plus(Duration.standardMinutes(10)));
         token.setDescription("LeanIX-SDK-Java test run API token");
 
-        retrofit2.Call<PersonalAccessTokenApi.PersonalAccessTokenResponse> tokenResponse = tokenApi
-                .createPersonalAccessToken(token);
-        retrofit2.Response<PersonalAccessTokenApi.PersonalAccessTokenResponse> rp;
+        retrofit2.Call<ApiTokenApi.PersonalAccessTokenResponse> tokenResponse = tokenApi
+                .createApiToken(token);
+        retrofit2.Response<ApiTokenApi.PersonalAccessTokenResponse> rp;
         try {
             rp = tokenResponse.execute();
         } catch (IOException e) {
@@ -342,10 +342,10 @@ public class WorkspaceSetupRule extends ExternalResource {
 
     protected void deleteApiToken(UUID apiTokenId) {
         Retrofit retrofit = getRetrofit(mtmApiClient.getBasePath(), readAccessToken(mtmApiClient));
-        PersonalAccessTokenApi tokenApi = retrofit.create(PersonalAccessTokenApi.class);
+        ApiTokenApi tokenApi = retrofit.create(ApiTokenApi.class);
 
         try {
-            tokenApi.deletePersonalAccessToken(apiTokenId).execute();
+            tokenApi.deleteApiToken(apiTokenId).execute();
         } catch (IOException e) {
             throw new RuntimeException("cannot delete api token", e);
         }
