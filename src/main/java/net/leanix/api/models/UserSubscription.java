@@ -19,6 +19,7 @@ public class UserSubscription   {
   private String userID = null;
   private String subscriptionTypeID = null;
   private List<String> roleDetails = new ArrayList<String>();
+  private String userUUID = null;
 
   
   /**
@@ -106,6 +107,23 @@ public class UserSubscription   {
   }
 
   
+  /**
+   **/
+  public UserSubscription userUUID(String userUUID) {
+    this.userUUID = userUUID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("userUUID")
+  public String getUserUUID() {
+    return userUUID;
+  }
+  public void setUserUUID(String userUUID) {
+    this.userUUID = userUUID;
+  }
+
+  
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -120,12 +138,13 @@ public class UserSubscription   {
         Objects.equals(this.factSheetID, userSubscription.factSheetID) &&
         Objects.equals(this.userID, userSubscription.userID) &&
         Objects.equals(this.subscriptionTypeID, userSubscription.subscriptionTypeID) &&
-        Objects.equals(this.roleDetails, userSubscription.roleDetails);
+        Objects.equals(this.roleDetails, userSubscription.roleDetails) &&
+        Objects.equals(this.userUUID, userSubscription.userUUID);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(ID, factSheetID, userID, subscriptionTypeID, roleDetails);
+    return Objects.hash(ID, factSheetID, userID, subscriptionTypeID, roleDetails, userUUID);
   }
 
   @Override
@@ -138,6 +157,7 @@ public class UserSubscription   {
     sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
     sb.append("    subscriptionTypeID: ").append(toIndentedString(subscriptionTypeID)).append("\n");
     sb.append("    roleDetails: ").append(toIndentedString(roleDetails)).append("\n");
+    sb.append("    userUUID: ").append(toIndentedString(userUUID)).append("\n");
     sb.append("}");
     return sb.toString();
   }
