@@ -54,7 +54,7 @@ import net.leanix.api.common.auth.OAuth;
  */
 public class ApiClient {
   private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
-  private String basePath = "https://local-eam.leanix.net/demo/api/v1";
+  private String basePath = "https://test-app.leanix.net/demo/api/v1";
   private boolean debugging = false;
   private int connectionTimeout = 0;
 
@@ -91,7 +91,6 @@ public class ApiClient {
     // Setup authentications (key: authentication name, value: authentication).
     authentications = new HashMap<String, Authentication>();
     authentications.put("token", new ClientCredentialRefreshingOAuth());
-    authentications.put("apiKey", new ApiKeyAuth("header", "Api-Key"));
     // Prevent the authentications from being modified.
     authentications = Collections.unmodifiableMap(authentications);
   }
@@ -499,7 +498,7 @@ public class ApiClient {
         if (param.getValue() instanceof File) {
           File file = (File) param.getValue();
           FormDataContentDisposition contentDisp = FormDataContentDisposition.name(param.getKey())
-                  .fileName(file.getName()).size(file.length()).build();
+              .fileName(file.getName()).size(file.length()).build();
           multiPart.bodyPart(new FormDataBodyPart(contentDisp, file, MediaType.APPLICATION_OCTET_STREAM_TYPE));
         } else {
           FormDataContentDisposition contentDisp = FormDataContentDisposition.name(param.getKey()).build();
@@ -606,7 +605,7 @@ public class ApiClient {
    * @return The response body in type of string
    */
   public <T> T invokeAPI(String path, String method, List<Pair> queryParams, Object body, Map<String, String> headerParams, Map<String, Object> formParams, String accept, String contentType, String[] authNames, GenericType<T> returnType) throws ApiException {
-    updateParamsForAuth(new String[]{"token", "apiKey"}/*authNames*/, queryParams, headerParams);
+    updateParamsForAuth(new String[]{"token"}/*authNames*/, queryParams, headerParams);
 
     // Not using `.target(this.basePath).path(path)` below,
     // to support (constant) query string in `path`, e.g. "/posts?draft=1"
@@ -676,10 +675,10 @@ public class ApiClient {
         }
       }
       throw new ApiException(
-              response.getStatus(),
-              message,
-              buildResponseHeaders(response),
-              respBody);
+        response.getStatus(),
+        message,
+        buildResponseHeaders(response),
+        respBody);
     }
   }
 

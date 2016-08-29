@@ -12,7 +12,7 @@ import java.net.URI;
  * ApiClient apiClient = new ApiClientBuilder()
  *              .withBasePath(String.format("https://%s/services/metrics/v1", host))
  *              .withTokenProviderHost(host)
- *              .withPersonalAccessToken("my Personal Access Token")
+ *              .withApiToken("my API Token")
  *              .withDebugging(true).build();
  * </pre>
  * 
@@ -30,8 +30,6 @@ public class ApiClientBuilder {
 
     private String apiToken;
 
-    private String apiKey;
-
     private boolean debugging = false;
 
     public ApiClient build() {
@@ -43,8 +41,6 @@ public class ApiClientBuilder {
             apiClient.setApiToken(apiToken, oauth2TokenUri);
         } else if (clientId != null && clientSecret != null) {
             apiClient.setClientCredentials(clientId, clientSecret, oauth2TokenUri);
-        } else if (apiKey != null) {
-            apiClient.setApiKey(apiKey);
         }
         apiClient.setBasePath(basePath);
 
@@ -122,11 +118,6 @@ public class ApiClientBuilder {
 
     public ApiClientBuilder withDebugging(boolean debugging) {
         this.debugging = debugging;
-        return this;
-    }
-
-    public ApiClientBuilder withApiKey(String apiKey) {
-        this.apiKey = apiKey;
         return this;
     }
 }
