@@ -44,6 +44,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ConsumersSync {
+
     /**
      * Base path for accessing the workspace via the EAM REST API.
      */
@@ -62,27 +63,29 @@ public class ConsumersSync {
     /**
      * API token to access the workspace via the REST APIs.
      */
-    public static final String API_TOKEN = "ns4KbY9B4OFcWHL3h5VxjhTq5bdKByPQdACpgfLO";
+    public static final String API_TOKEN = "hYV54dCBcjpLvqJWSvaxRf9WYR4KPBPkRXrwwNfG";
 
     /**
-     * The subscription type to use (1 "Accountable", 2 is "Responsible", 3 is "Observer").
+     * The subscription type to use (1 "Accountable", 2 is "Responsible", 3 is
+     * "Observer").
      */
     public static String SUBSCRIPTION_TYPE_ID = "2";
 
     /**
-     * The role detail to put on the subscription.
-     *     NOTE: the role detail for the subscription type must already exist in the workspace
-     *     (could be done via the UserRoleDetails API or in the GUI)
+     * The role detail to put on the subscription. NOTE: the role detail for the
+     * subscription type must already exist in the workspace (could be done via
+     * the UserRoleDetails API or in the GUI)
      */
     public static String ROLE_DETAIL = "Survey Owner";
 
     /**
      * The workspace UUID of the workspace given in the EAM base path.
      */
-    public static String WORKSPACE_ID = "bcf8512d-eb8f-424e-87ec-b9e95838b8b6";
+    public static String WORKSPACE_ID = "6dab6894-ae16-4c92-8db7-7c80a4a3a68e";
 
     /**
-     * The email address of the user running this program (owner of the used API token).
+     * The email address of the user running this program (owner of the used API
+     * token).
      */
     public static String CURRENT_USER = "cio@meshlab.de";
 
@@ -93,13 +96,11 @@ public class ConsumersSync {
     private final WorkspacesApi workspacesApi;
     private final IdmApi idmApi;
 
-
     public ConsumersSync() {
         eamApiClient = new ApiClientBuilder()
                 .withBasePath(EAM_BASE_PATH)
                 .withTokenProviderHost(TOKEN_PROVIDER_HOST)
                 .withApiToken(API_TOKEN)
-
                 .build();
 
         mtmApiClient = new net.leanix.dropkit.apiclient.ApiClientBuilder()
@@ -112,79 +113,6 @@ public class ConsumersSync {
 
         workspacesApi = new WorkspacesApi(mtmApiClient);
         idmApi = new IdmApi(mtmApiClient);
-    }
-
-    /**
-     * Finds the subscription with the detail role. If it is not found, then null is returned
-     *
-     * @param consumer
-     * @return
-     */
-    public UserSubscription removeDetailRoleFromSubscriptions(Consumer consumer, String preserveUserUUID) throws net.leanix.api.common.ApiException {
-        List<UserSubscription> subscriptions = consumer.getUserSubscriptions();
-
-        UserSubscription preserved = null;
-        for (UserSubscription subscription : subscriptions) {
-            if (subscription.getUserUUID().equals(preserveUserUUID)
-                    && subscription.getSubscriptionTypeID().equals(SUBSCRIPTION_TYPE_ID)) {
-                // this is the subscription for the relevant user
-                preserved = subscription;
-            }
-            else {
-                List<String> details = subscription.getRoleDetails();
-                if (details.remove(ROLE_DETAIL)) {
-                    // role was present
-                    if (details.isEmpty()) {
-                        // was the only role detail, remove subscription
-                        System.out.println("\tdeleting subscription with only one role detail, user " + subscription.getUserID());
-                        consumersApi.deleteUserSubscription(consumer.getID(), subscription.getID());
-                    } else {
-                        // more role on subscription present, just update with removed role
-                        System.out.println("\tremoving role detail from subscription, user " + subscription.getUserID());
-                        consumersApi.updateUserSubscription(consumer.getID(), subscription.getID(), subscription);
-                    }
-                }
-            }
-        }
-        return preserved;
-    }
-
-    /**
-     * Fetches a user by its email address
-     *
-     * @return
-     * @throws ApiException
-     */
-    public User getUserByEmail(String email) throws ApiException {
-        PermissionListResponse permissions = workspacesApi.getPermissions(WORKSPACE_ID, "", email, "", 1, 100, "");
-
-        for (Permission p : permissions.getData()) {
-            return p.getUser();
-        }
-
-        return null;
-    }
-
-    public User inviteUser(User actingUser, String email) throws ApiException {
-        Workspace w = new Workspace();
-        w.setId(WORKSPACE_ID);
-
-        Permission p = new Permission();
-        p.setWorkspace(w);
-        p.setRole(Permission.RoleEnum.MEMBER);
-
-        User u = new User();
-        u.setEmail(email);
-
-        Invitation invitation = new Invitation();
-        invitation.setHost(actingUser);
-        invitation.setWorkspace(w);
-        invitation.setPermission(p);
-        invitation.setUser(u);
-
-        UserResponse userResponse = idmApi.invite(invitation);
-
-        return userResponse.getData();
     }
 
     public static void main(String[] args) throws Exception {
@@ -210,15 +138,13 @@ public class ConsumersSync {
             User user = getUserByEmail(consumer.getEmail());
 
             // Make sure a subscription with the give email and detail role exists
-
             // Step 1: No users exists - first needs to be created
             String preservingUserUUID;
             if (user == null) {
                 System.out.println("\tuser with email address does not exist -- inviting user");
                 preservingUserUUID = null;
                 user = inviteUser(actingUser, consumer.getEmail());
-            }
-            else {
+            } else {
                 preservingUserUUID = user.getId();
             }
 
@@ -236,16 +162,106 @@ public class ConsumersSync {
                 userSubscription.setRoleDetails(Collections.singletonList(ROLE_DETAIL));
 
                 consumersApi.createUserSubscription(consumer.getID(), userSubscription);
-            }
-            else if (!existingSubscription.getRoleDetails().contains(ROLE_DETAIL)) {
-                    System.out.println("\trole detail " + ROLE_DETAIL + " missing -- updating subscription");
-                    List<String> newRoleDetails = new ArrayList<>(existingSubscription.getRoleDetails());
-                    newRoleDetails.add(ROLE_DETAIL);
-                    existingSubscription.setRoleDetails(newRoleDetails);
+            } else if (!existingSubscription.getRoleDetails().contains(ROLE_DETAIL)) {
+                System.out.println("\trole detail " + ROLE_DETAIL + " missing -- updating subscription");
+                List<String> newRoleDetails = new ArrayList<>(existingSubscription.getRoleDetails());
+                newRoleDetails.add(ROLE_DETAIL);
+                existingSubscription.setRoleDetails(newRoleDetails);
 
-                    consumersApi.updateUserSubscription(existingSubscription.getFactSheetID(),
-                            existingSubscription.getID(), existingSubscription);
+                consumersApi.updateUserSubscription(existingSubscription.getFactSheetID(),
+                        existingSubscription.getID(), existingSubscription);
             }
         }
+    }
+
+    /**
+     * Finds the subscription with the detail role. If it is not found, then
+     * null is returned.
+     *
+     * @param consumer
+     * @param preserveUserUUID
+     *
+     * @return
+     *
+     * @throws net.leanix.api.common.ApiException
+     */
+    public UserSubscription removeDetailRoleFromSubscriptions(Consumer consumer, String preserveUserUUID) throws net.leanix.api.common.ApiException {
+        List<UserSubscription> subscriptions = consumer.getUserSubscriptions();
+
+        UserSubscription preserved = null;
+        for (UserSubscription subscription : subscriptions) {
+            if (subscription.getUserUUID().equals(preserveUserUUID)
+                    && subscription.getSubscriptionTypeID().equals(SUBSCRIPTION_TYPE_ID)) {
+                // this is the subscription for the relevant user
+                preserved = subscription;
+            } else {
+                List<String> details = subscription.getRoleDetails();
+                if (details.remove(ROLE_DETAIL)) {
+                    // role was present
+                    if (details.isEmpty()) {
+                        // was the only role detail, remove subscription
+                        System.out.println("\tdeleting subscription with only one role detail, user " + subscription.getUserID());
+                        consumersApi.deleteUserSubscription(consumer.getID(), subscription.getID());
+                    } else {
+                        // more role on subscription present, just update with removed role
+                        System.out.println("\tremoving role detail from subscription, user " + subscription.getUserID());
+                        consumersApi.updateUserSubscription(consumer.getID(), subscription.getID(), subscription);
+                    }
+                }
+            }
+        }
+        return preserved;
+    }
+
+    /**
+     * Fetches a user by its email address.
+     *
+     * @param email the email to retrieve the user by
+     *
+     * @return the user for the given email address, will be null if the user
+     * could not be found
+     *
+     * @throws ApiException
+     */
+    public User getUserByEmail(String email) throws ApiException {
+        PermissionListResponse permissions = workspacesApi.getPermissions(WORKSPACE_ID, "", email, "", 1, 100, "");
+
+        for (Permission p : permissions.getData()) {
+            return p.getUser();
+        }
+
+        return null;
+    }
+
+    /**
+     * Invites the user with the given email address.
+     *
+     * @param actingUser the user initiating the invitation request
+     * @param email the email address of the user to be invited.
+     *
+     * @return the invited user
+     *
+     * @throws ApiException
+     */
+    public User inviteUser(User actingUser, String email) throws ApiException {
+        Workspace w = new Workspace();
+        w.setId(WORKSPACE_ID);
+
+        Permission p = new Permission();
+        p.setWorkspace(w);
+        p.setRole(Permission.RoleEnum.MEMBER);
+
+        User u = new User();
+        u.setEmail(email);
+
+        Invitation invitation = new Invitation();
+        invitation.setHost(actingUser);
+        invitation.setWorkspace(w);
+        invitation.setPermission(p);
+        invitation.setUser(u);
+
+        UserResponse userResponse = idmApi.invite(invitation);
+
+        return userResponse.getData();
     }
 }
