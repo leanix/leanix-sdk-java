@@ -11,6 +11,8 @@
 **/*.iml
 **/.idea
 
+nbactions.xml
+
 *.timestamp
 /bin
 /target
