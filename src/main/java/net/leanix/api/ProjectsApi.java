@@ -18,6 +18,7 @@ import net.leanix.api.models.FactSheetHasSuccessor;
 import net.leanix.api.models.Project;
 import net.leanix.api.models.ProjectHasBusinessCapability;
 import net.leanix.api.models.ProjectHasConsumer;
+import net.leanix.api.models.ProjectHasProcess;
 import net.leanix.api.models.ProjectHasProvider;
 import net.leanix.api.models.ProjectHasResource;
 import net.leanix.api.models.ServiceHasProject;
@@ -577,6 +578,55 @@ public class ProjectsApi {
 
     
     GenericType<ProjectHasConsumer> localVarReturnType = new GenericType<ProjectHasConsumer>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Create a new relation
+   * 
+   * @param ID Unique ID (required)
+   * @param body Message-Body (optional)
+   * @return ProjectHasProcess
+   * @throws ApiException if fails to make API call
+   */
+  public ProjectHasProcess createProjectHasProcess(String ID, ProjectHasProcess body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling createProjectHasProcess");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/projects/{ID}/projectHasProcesses".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<ProjectHasProcess> localVarReturnType = new GenericType<ProjectHasProcess>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
     
   }
@@ -1322,6 +1372,59 @@ public class ProjectsApi {
     
     // create path and map variables
     String localVarPath = "/projects/{ID}/projectHasConsumers/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    
+  }
+  
+  /**
+   * Delete relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteProjectHasProcess(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling deleteProjectHasProcess");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling deleteProjectHasProcess");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/projects/{ID}/projectHasProcesses/{relationID}".replaceAll("\\{format\\}","json")
       .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
       .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
 
@@ -2651,6 +2754,109 @@ public class ProjectsApi {
    * 
    * @param ID Unique ID (required)
    * @param relationID Unique ID of the Relation (required)
+   * @return ProjectHasProcess
+   * @throws ApiException if fails to make API call
+   */
+  public ProjectHasProcess getProjectHasProcess(String ID, String relationID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getProjectHasProcess");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling getProjectHasProcess");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/projects/{ID}/projectHasProcesses/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<ProjectHasProcess> localVarReturnType = new GenericType<ProjectHasProcess>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read all of relation
+   * 
+   * @param ID Unique ID (required)
+   * @return List<ProjectHasProcess>
+   * @throws ApiException if fails to make API call
+   */
+  public List<ProjectHasProcess> getProjectHasProcesses(String ID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling getProjectHasProcesses");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/projects/{ID}/projectHasProcesses".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<ProjectHasProcess>> localVarReturnType = new GenericType<List<ProjectHasProcess>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Read by relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
    * @return ProjectHasProvider
    * @throws ApiException if fails to make API call
    */
@@ -3710,6 +3916,62 @@ public class ProjectsApi {
 
     
     GenericType<ProjectHasConsumer> localVarReturnType = new GenericType<ProjectHasConsumer>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Update relation by a given relationID
+   * 
+   * @param ID Unique ID (required)
+   * @param relationID Unique ID of the Relation (required)
+   * @param body Message-Body (optional)
+   * @return ProjectHasProcess
+   * @throws ApiException if fails to make API call
+   */
+  public ProjectHasProcess updateProjectHasProcess(String ID, String relationID, ProjectHasProcess body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'ID' is set
+    if (ID == null) {
+      throw new ApiException(400, "Missing the required parameter 'ID' when calling updateProjectHasProcess");
+    }
+    
+    // verify the required parameter 'relationID' is set
+    if (relationID == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationID' when calling updateProjectHasProcess");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/projects/{ID}/projectHasProcesses/{relationID}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "ID" + "\\}", apiClient.escapeString(ID.toString()))
+      .replaceAll("\\{" + "relationID" + "\\}", apiClient.escapeString(relationID.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<ProjectHasProcess> localVarReturnType = new GenericType<ProjectHasProcess>() {};
     return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
     
   }

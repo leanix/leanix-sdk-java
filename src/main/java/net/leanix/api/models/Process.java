@@ -15,6 +15,7 @@ import net.leanix.api.models.FactSheetHasRequiredby;
 import net.leanix.api.models.FactSheetHasRequires;
 import net.leanix.api.models.FactSheetHasSuccessor;
 import net.leanix.api.models.ProcessHasBusinessCapability;
+import net.leanix.api.models.ProjectHasProcess;
 import net.leanix.api.models.ServiceHasProcess;
 import net.leanix.api.models.UserSubscription;
 
@@ -51,6 +52,7 @@ public class Process   {
   private List<FactSheetHasRequiredby> factSheetHasRequiredby = new ArrayList<FactSheetHasRequiredby>();
   private List<ServiceHasProcess> serviceHasProcesses = new ArrayList<ServiceHasProcess>();
   private List<ProcessHasBusinessCapability> processHasBusinessCapabilities = new ArrayList<ProcessHasBusinessCapability>();
+  private List<ProjectHasProcess> projectHasProcesses = new ArrayList<ProjectHasProcess>();
 
   
   /**
@@ -495,6 +497,23 @@ public class Process   {
   }
 
   
+  /**
+   **/
+  public Process projectHasProcesses(List<ProjectHasProcess> projectHasProcesses) {
+    this.projectHasProcesses = projectHasProcesses;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("projectHasProcesses")
+  public List<ProjectHasProcess> getProjectHasProcesses() {
+    return projectHasProcesses;
+  }
+  public void setProjectHasProcesses(List<ProjectHasProcess> projectHasProcesses) {
+    this.projectHasProcesses = projectHasProcesses;
+  }
+
+  
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -530,12 +549,13 @@ public class Process   {
         Objects.equals(this.factSheetHasRequires, process.factSheetHasRequires) &&
         Objects.equals(this.factSheetHasRequiredby, process.factSheetHasRequiredby) &&
         Objects.equals(this.serviceHasProcesses, process.serviceHasProcesses) &&
-        Objects.equals(this.processHasBusinessCapabilities, process.processHasBusinessCapabilities);
+        Objects.equals(this.processHasBusinessCapabilities, process.processHasBusinessCapabilities) &&
+        Objects.equals(this.projectHasProcesses, process.projectHasProcesses);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, modificationTime, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, serviceHasProcesses, processHasBusinessCapabilities);
+    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, modificationTime, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, serviceHasProcesses, processHasBusinessCapabilities, projectHasProcesses);
   }
 
   @Override
@@ -569,6 +589,7 @@ public class Process   {
     sb.append("    factSheetHasRequiredby: ").append(toIndentedString(factSheetHasRequiredby)).append("\n");
     sb.append("    serviceHasProcesses: ").append(toIndentedString(serviceHasProcesses)).append("\n");
     sb.append("    processHasBusinessCapabilities: ").append(toIndentedString(processHasBusinessCapabilities)).append("\n");
+    sb.append("    projectHasProcesses: ").append(toIndentedString(projectHasProcesses)).append("\n");
     sb.append("}");
     return sb.toString();
   }
