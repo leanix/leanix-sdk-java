@@ -16,6 +16,7 @@ import net.leanix.api.models.FactSheetHasRequires;
 import net.leanix.api.models.FactSheetHasSuccessor;
 import net.leanix.api.models.ProjectHasBusinessCapability;
 import net.leanix.api.models.ProjectHasConsumer;
+import net.leanix.api.models.ProjectHasProcess;
 import net.leanix.api.models.ProjectHasProvider;
 import net.leanix.api.models.ProjectHasResource;
 import net.leanix.api.models.ServiceHasProject;
@@ -68,6 +69,7 @@ public class Project   {
   private List<ProjectHasProvider> projectHasProviders = new ArrayList<ProjectHasProvider>();
   private List<ProjectHasResource> projectHasResources = new ArrayList<ProjectHasResource>();
   private List<ProjectHasConsumer> projectHasConsumers = new ArrayList<ProjectHasConsumer>();
+  private List<ProjectHasProcess> projectHasProcesses = new ArrayList<ProjectHasProcess>();
 
   
   /**
@@ -750,6 +752,23 @@ public class Project   {
   }
 
   
+  /**
+   **/
+  public Project projectHasProcesses(List<ProjectHasProcess> projectHasProcesses) {
+    this.projectHasProcesses = projectHasProcesses;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("projectHasProcesses")
+  public List<ProjectHasProcess> getProjectHasProcesses() {
+    return projectHasProcesses;
+  }
+  public void setProjectHasProcesses(List<ProjectHasProcess> projectHasProcesses) {
+    this.projectHasProcesses = projectHasProcesses;
+  }
+
+  
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -799,12 +818,13 @@ public class Project   {
         Objects.equals(this.projectHasBusinessCapabilities, project.projectHasBusinessCapabilities) &&
         Objects.equals(this.projectHasProviders, project.projectHasProviders) &&
         Objects.equals(this.projectHasResources, project.projectHasResources) &&
-        Objects.equals(this.projectHasConsumers, project.projectHasConsumers);
+        Objects.equals(this.projectHasConsumers, project.projectHasConsumers) &&
+        Objects.equals(this.projectHasProcesses, project.projectHasProcesses);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, progress, businessValueID, businessValueDescription, projectRiskID, projectRiskDescription, budgetOpex, budgetCapex, costComment, netPresentValue, paybackPeriod, benefitComment, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, modificationTime, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, serviceHasProjects, projectHasBusinessCapabilities, projectHasProviders, projectHasResources, projectHasConsumers);
+    return Objects.hash(ID, displayName, parentID, level, name, reference, alias, description, progress, businessValueID, businessValueDescription, projectRiskID, projectRiskDescription, budgetOpex, budgetCapex, costComment, netPresentValue, paybackPeriod, benefitComment, objectStatusID, tags, fullName, resourceType, completion, qualitySealExpiry, modificationTime, factSheetHasParents, factSheetHasChildren, factSheetHasDocuments, factSheetHasLifecycles, userSubscriptions, factSheetHasPredecessors, factSheetHasSuccessors, factSheetHasRequires, factSheetHasRequiredby, serviceHasProjects, projectHasBusinessCapabilities, projectHasProviders, projectHasResources, projectHasConsumers, projectHasProcesses);
   }
 
   @Override
@@ -852,6 +872,7 @@ public class Project   {
     sb.append("    projectHasProviders: ").append(toIndentedString(projectHasProviders)).append("\n");
     sb.append("    projectHasResources: ").append(toIndentedString(projectHasResources)).append("\n");
     sb.append("    projectHasConsumers: ").append(toIndentedString(projectHasConsumers)).append("\n");
+    sb.append("    projectHasProcesses: ").append(toIndentedString(projectHasProcesses)).append("\n");
     sb.append("}");
     return sb.toString();
   }
