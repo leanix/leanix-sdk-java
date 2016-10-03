@@ -181,10 +181,12 @@ public class DocumentsApi {
    * @param relations If set to true, all relations of the Fact Sheet are fetched as well. Fetching all relations can be slower. Default: false. (optional, default to false)
    * @param filter Full-text filter (optional)
    * @param referenceSystem Reference system filter (optional)
+   * @param referenceID ReferenceID, e.g. Signavio ID (optional)
+   * @param factSheetID FactSheetID, e.g. LeanIX ID (optional)
    * @return List<Document>
    * @throws ApiException if fails to make API call
    */
-  public List<Document> getDocuments(Boolean relations, String filter, String referenceSystem) throws ApiException {
+  public List<Document> getDocuments(Boolean relations, String filter, String referenceSystem, String referenceID, String factSheetID) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -201,9 +203,10 @@ public class DocumentsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter", filter));
     
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "referenceSystem", referenceSystem));
-    
 
-    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "referenceID", referenceID));
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "factSheetID", factSheetID));
 
     
 

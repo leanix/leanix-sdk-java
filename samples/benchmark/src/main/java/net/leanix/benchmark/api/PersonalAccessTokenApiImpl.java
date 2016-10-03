@@ -25,7 +25,7 @@ public class PersonalAccessTokenApiImpl {
     }
 
     public PersonalAccessTokenResponse createPersonalAccessToken(PersonalAccessToken body) throws ApiException {
-        // @POST("/services/mtm/v1/personalAccessTokens")
+        // @POST("/services/mtm/v1/apiTokens")
         Object localVarPostBody = body;
 
         // verify the required parameter 'body' is set
@@ -34,7 +34,7 @@ public class PersonalAccessTokenApiImpl {
         }
 
         // create path and map variables
-        String localVarPath = "/personalAccessTokens".replaceAll("\\{format\\}", "json");
+        String localVarPath = "/apiTokens".replaceAll("\\{format\\}", "json");
 
         // query params
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -59,7 +59,7 @@ public class PersonalAccessTokenApiImpl {
     }
 
     public void deletePersonalAccessToken(UUID id) throws ApiException {
-        // @DELETE("/services/mtm/v1/personalAccessTokens/{id}")
+        // @DELETE("/services/mtm/v1/apiTokens/{id}")
         Object localVarPostBody = null;
 
         // verify the required parameter 'id' is set
@@ -68,7 +68,7 @@ public class PersonalAccessTokenApiImpl {
         }
 
         // create path and map variables
-        String localVarPath = "/personalAccessTokens/{id}".replaceAll("\\{format\\}", "json")
+        String localVarPath = "/apiTokens/{id}".replaceAll("\\{format\\}", "json")
                 .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
         // query params
