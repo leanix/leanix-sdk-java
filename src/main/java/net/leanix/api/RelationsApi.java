@@ -11,10 +11,6 @@ import net.leanix.api.models.Relation;
 import net.leanix.api.models.RelationResponse;
 import net.leanix.api.models.BasicResponse;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class RelationsApi {
@@ -36,7 +32,6 @@ public class RelationsApi {
     this.apiClient = apiClient;
   }
 
-  
   /**
    * createRelation
    * Creates the given relation
@@ -51,16 +46,13 @@ public class RelationsApi {
     String localVarPath = "/relations".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -73,12 +65,9 @@ public class RelationsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<RelationResponse> localVarReturnType = new GenericType<RelationResponse>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
   /**
    * deleteRelation
    * Deletes the given relation
@@ -99,16 +88,13 @@ public class RelationsApi {
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -121,12 +107,9 @@ public class RelationsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<BasicResponse> localVarReturnType = new GenericType<BasicResponse>() {};
     return apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
   /**
    * updateRelation
    * Updates the given relation
@@ -148,16 +131,13 @@ public class RelationsApi {
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -170,10 +150,7 @@ public class RelationsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<RelationResponse> localVarReturnType = new GenericType<RelationResponse>() {};
     return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
 }

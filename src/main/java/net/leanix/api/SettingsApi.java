@@ -11,10 +11,6 @@ import net.leanix.api.models.SettingsResponse;
 import net.leanix.api.models.BasicResponse;
 import net.leanix.api.models.WorkspaceSettings;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class SettingsApi {
@@ -36,7 +32,6 @@ public class SettingsApi {
     this.apiClient = apiClient;
   }
 
-  
   /**
    * getSettings
    * Retrieves admin settings for a workspace
@@ -50,16 +45,13 @@ public class SettingsApi {
     String localVarPath = "/settings".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -72,12 +64,9 @@ public class SettingsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<SettingsResponse> localVarReturnType = new GenericType<SettingsResponse>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
   /**
    * updateSettings
    * Updates the settings for a workspace
@@ -97,16 +86,13 @@ public class SettingsApi {
     String localVarPath = "/settings".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -119,10 +105,7 @@ public class SettingsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<BasicResponse> localVarReturnType = new GenericType<BasicResponse>() {};
     return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
 }

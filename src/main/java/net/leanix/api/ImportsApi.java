@@ -9,10 +9,6 @@ import javax.ws.rs.core.GenericType;
 
 import net.leanix.api.models.ExcelExportResponse;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class ImportsApi {
@@ -34,7 +30,6 @@ public class ImportsApi {
     this.apiClient = apiClient;
   }
 
-  
   /**
    * importExcelFile
    * Imports the Fact Sheet data in the given Excel file
@@ -48,16 +43,13 @@ public class ImportsApi {
     String localVarPath = "/imports/excel".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -70,10 +62,7 @@ public class ImportsApi {
 
     String[] localVarAuthNames = new String[] {  };
 
-    
     GenericType<ExcelExportResponse> localVarReturnType = new GenericType<ExcelExportResponse>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
 }

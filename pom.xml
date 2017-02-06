@@ -130,7 +130,7 @@
                     <plugin>
                         <groupId>io.swagger</groupId>
                         <artifactId>swagger-codegen-maven-plugin</artifactId>
-                        <version>2.1.6</version>
+                        <version>2.2.1</version>
                         <configuration>
                             <inputSpec>${swagger-inputSpec}</inputSpec>
                             <language>java</language>
@@ -142,6 +142,8 @@
                                 <artifactId>leanix-sdk-java</artifactId>
                                 <invokerPackage>net.leanix.api.common</invokerPackage>
                                 <library>jersey2</library>
+                                <fullJavaUtil>true</fullJavaUtil>
+                                <!--dateLibrary>java8</dateLibrary-->
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
                             </configOptions>
                             <!-- used to get help from cli that describes possible configOptions -->

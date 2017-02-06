@@ -9,10 +9,6 @@ import javax.ws.rs.core.GenericType;
 
 import net.leanix.api.models.JobResponse;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class JobsApi {
@@ -34,7 +30,6 @@ public class JobsApi {
     this.apiClient = apiClient;
   }
 
-  
   /**
    * cancelJob
    * Stop a running job or avoid to start a queued job.
@@ -55,16 +50,13 @@ public class JobsApi {
       .replaceAll("\\{" + "jobId" + "\\}", apiClient.escapeString(jobId.toString()));
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -77,12 +69,9 @@ public class JobsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<JobResponse> localVarReturnType = new GenericType<JobResponse>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
   /**
    * getJobStatus
    * Provides information about running or finished jobs
@@ -103,16 +92,13 @@ public class JobsApi {
       .replaceAll("\\{" + "jobId" + "\\}", apiClient.escapeString(jobId.toString()));
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -125,10 +111,7 @@ public class JobsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<JobResponse> localVarReturnType = new GenericType<JobResponse>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
 }

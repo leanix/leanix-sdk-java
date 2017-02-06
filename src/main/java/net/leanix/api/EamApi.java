@@ -10,10 +10,6 @@ import javax.ws.rs.core.GenericType;
 import net.leanix.api.models.JobResponse;
 import net.leanix.api.models.StartSyncWorkspaceRequest;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class EamApi {
@@ -35,7 +31,6 @@ public class EamApi {
     this.apiClient = apiClient;
   }
 
-  
   /**
    * createRandomWorkspace
    * Starts generation of a random workspace. This method is useful if you want to setup a large workspace in order to get an impression of pathfinder&#39;s performance on large workspaces.
@@ -51,20 +46,15 @@ public class EamApi {
     String localVarPath = "/eam/randomWorkspace".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
 
-    
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "numberOfApplications", numberOfApplications));
-    
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "levelCountItComponents", levelCountItComponents));
-    
 
     
-
     
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -77,12 +67,9 @@ public class EamApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<JobResponse> localVarReturnType = new GenericType<JobResponse>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
   /**
    * startSync
    * Starts the synchronization of a workspace.
@@ -102,16 +89,13 @@ public class EamApi {
     String localVarPath = "/eam/synchronize".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -124,10 +108,7 @@ public class EamApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<JobResponse> localVarReturnType = new GenericType<JobResponse>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
 }

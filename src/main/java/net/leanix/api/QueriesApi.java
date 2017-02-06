@@ -9,13 +9,8 @@ import javax.ws.rs.core.GenericType;
 
 import net.leanix.api.models.QueryResponse;
 import net.leanix.api.models.SavedQuery;
-import java.util.UUID;
 import net.leanix.api.models.QueryListResponse;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class QueriesApi {
@@ -37,7 +32,6 @@ public class QueriesApi {
     this.apiClient = apiClient;
   }
 
-  
   /**
    * createQuery
    * Saves a query in the database
@@ -52,16 +46,13 @@ public class QueriesApi {
     String localVarPath = "/queries".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -74,12 +65,9 @@ public class QueriesApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<QueryResponse> localVarReturnType = new GenericType<QueryResponse>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
   /**
    * deleteQuery
    * Deletes a query identified by the given ID
@@ -87,7 +75,7 @@ public class QueriesApi {
    * @return QueryResponse
    * @throws ApiException if fails to make API call
    */
-  public QueryResponse deleteQuery(UUID id) throws ApiException {
+  public QueryResponse deleteQuery(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -100,16 +88,13 @@ public class QueriesApi {
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -122,12 +107,9 @@ public class QueriesApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<QueryResponse> localVarReturnType = new GenericType<QueryResponse>() {};
     return apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
   /**
    * getQueriesForUser
    * Retrieves all stored queries a user has created.
@@ -148,20 +130,15 @@ public class QueriesApi {
     String localVarPath = "/queries".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
 
-    
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "queryType", queryType));
-    
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "groupKey", groupKey));
-    
 
     
-
     
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -174,12 +151,9 @@ public class QueriesApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<QueryListResponse> localVarReturnType = new GenericType<QueryListResponse>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
   /**
    * getQuery
    * Retrieves a query by ID
@@ -187,7 +161,7 @@ public class QueriesApi {
    * @return QueryResponse
    * @throws ApiException if fails to make API call
    */
-  public QueryResponse getQuery(UUID id) throws ApiException {
+  public QueryResponse getQuery(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -200,16 +174,13 @@ public class QueriesApi {
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -222,12 +193,9 @@ public class QueriesApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<QueryResponse> localVarReturnType = new GenericType<QueryResponse>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
   /**
    * updateQuery
    * Updates a query stored in the database
@@ -242,16 +210,13 @@ public class QueriesApi {
     String localVarPath = "/queries".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -264,10 +229,7 @@ public class QueriesApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<QueryResponse> localVarReturnType = new GenericType<QueryResponse>() {};
     return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
 }

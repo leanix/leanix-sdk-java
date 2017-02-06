@@ -15,10 +15,6 @@ import net.leanix.api.models.BasicResponse;
 import net.leanix.api.models.DatamodelUpdateResponse;
 import net.leanix.api.models.DatamodelDefinition;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class ModelsApi {
@@ -40,7 +36,6 @@ public class ModelsApi {
     this.apiClient = apiClient;
   }
 
-  
   /**
    * getAuthorization
    * Provides all authorization roles were for each role a set of permission is defined.
@@ -54,16 +49,13 @@ public class ModelsApi {
     String localVarPath = "/models/authorization".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -76,12 +68,9 @@ public class ModelsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<AuthorizationRolesResponse> localVarReturnType = new GenericType<AuthorizationRolesResponse>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
   /**
    * getDataModel
    * Retrieves the model for a workspace
@@ -95,16 +84,13 @@ public class ModelsApi {
     String localVarPath = "/models".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -117,12 +103,9 @@ public class ModelsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<DatamodelDefinitionResponse> localVarReturnType = new GenericType<DatamodelDefinitionResponse>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
   /**
    * getEnrichedDataModel
    * Retrieves the model for a workspace, including redundant data that makes life easy for the web front end
@@ -136,16 +119,13 @@ public class ModelsApi {
     String localVarPath = "/models/enriched".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -158,12 +138,9 @@ public class ModelsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<DatamodelDefinitionResponse> localVarReturnType = new GenericType<DatamodelDefinitionResponse>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
   /**
    * getViewModel
    * Retrieves the view model for a workspace
@@ -177,16 +154,13 @@ public class ModelsApi {
     String localVarPath = "/models/viewModel".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -199,12 +173,9 @@ public class ModelsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<ViewModelResponse> localVarReturnType = new GenericType<ViewModelResponse>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
   /**
    * updateAuthorization
    * Updates all authorization roles for a given workspace. This means all existing roles and its permissions will be overriden
@@ -212,7 +183,7 @@ public class ModelsApi {
    * @return BasicResponse
    * @throws ApiException if fails to make API call
    */
-  public BasicResponse updateAuthorization(List<AuthorizationRole> body) throws ApiException {
+  public BasicResponse updateAuthorization(java.util.List<AuthorizationRole> body) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'body' is set
@@ -224,16 +195,13 @@ public class ModelsApi {
     String localVarPath = "/models/authorization".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -246,12 +214,9 @@ public class ModelsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<BasicResponse> localVarReturnType = new GenericType<BasicResponse>() {};
     return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
   /**
    * updateDataModel
    * Updates the data model for a workspace
@@ -272,18 +237,14 @@ public class ModelsApi {
     String localVarPath = "/models".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
 
-    
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "force", force));
-    
 
     
-
     
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -296,12 +257,9 @@ public class ModelsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<DatamodelUpdateResponse> localVarReturnType = new GenericType<DatamodelUpdateResponse>() {};
     return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
   /**
    * updateViewModel
    * Updates the view model for a workspace
@@ -321,16 +279,13 @@ public class ModelsApi {
     String localVarPath = "/models/viewModel".replaceAll("\\{format\\}","json");
 
     // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
+    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
+    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+
 
     
-
     
-
-    
-
     final String[] localVarAccepts = {
       "application/json"
     };
@@ -343,10 +298,7 @@ public class ModelsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    
     GenericType<BasicResponse> localVarReturnType = new GenericType<BasicResponse>() {};
     return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    
-  }
-  
+      }
 }
