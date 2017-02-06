@@ -30,7 +30,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import net.leanix.api.models.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
 import net.leanix.api.models.DataType;
 
 
@@ -40,9 +41,9 @@ import net.leanix.api.models.DataType;
 
 public class ClassificationType extends DataType  {
   @JsonProperty("values")
-  private java.util.List<String> values = new java.util.ArrayList<String>();
+  private List<String> values = new ArrayList<String>();
 
-  public ClassificationType values(java.util.List<String> values) {
+  public ClassificationType values(List<String> values) {
     this.values = values;
     return this;
   }
@@ -57,11 +58,11 @@ public class ClassificationType extends DataType  {
    * @return values
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<String> getValues() {
+  public List<String> getValues() {
     return values;
   }
 
-  public void setValues(java.util.List<String> values) {
+  public void setValues(List<String> values) {
     this.values = values;
   }
 

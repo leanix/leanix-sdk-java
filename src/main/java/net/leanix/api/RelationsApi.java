@@ -9,8 +9,11 @@ import javax.ws.rs.core.GenericType;
 
 import net.leanix.api.models.Relation;
 import net.leanix.api.models.RelationResponse;
-import net.leanix.api.models.BasicResponse;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class RelationsApi {
@@ -46,9 +49,9 @@ public class RelationsApi {
     String localVarPath = "/relations".replaceAll("\\{format\\}","json");
 
     // query params
-    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
-    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
-    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
 
     
@@ -72,10 +75,9 @@ public class RelationsApi {
    * deleteRelation
    * Deletes the given relation
    * @param id  (required)
-   * @return BasicResponse
    * @throws ApiException if fails to make API call
    */
-  public BasicResponse deleteRelation(String id) throws ApiException {
+  public void deleteRelation(String id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -88,9 +90,9 @@ public class RelationsApi {
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params
-    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
-    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
-    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
 
     
@@ -107,9 +109,9 @@ public class RelationsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<BasicResponse> localVarReturnType = new GenericType<BasicResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
   /**
    * updateRelation
    * Updates the given relation
@@ -131,9 +133,9 @@ public class RelationsApi {
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params
-    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
-    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
-    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
 
     

@@ -30,9 +30,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import net.leanix.api.models.ApiError;
-import net.leanix.api.models.ArrayList;
-import net.leanix.api.models.HashMap;
 
 
 /**
@@ -50,13 +52,13 @@ public class ViewModelResponse   {
   private String message = null;
 
   @JsonProperty("errors")
-  private java.util.List<ApiError> errors = new java.util.ArrayList<ApiError>();
+  private List<ApiError> errors = new ArrayList<ApiError>();
 
   @JsonProperty("total")
   private Long total = null;
 
   @JsonProperty("data")
-  private java.util.Map<String, Object> data = new java.util.HashMap<String, Object>();
+  private Map<String, Object> data = new HashMap<String, Object>();
 
   public ViewModelResponse status(String status) {
     this.status = status;
@@ -112,7 +114,7 @@ public class ViewModelResponse   {
     this.message = message;
   }
 
-  public ViewModelResponse errors(java.util.List<ApiError> errors) {
+  public ViewModelResponse errors(List<ApiError> errors) {
     this.errors = errors;
     return this;
   }
@@ -127,11 +129,11 @@ public class ViewModelResponse   {
    * @return errors
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<ApiError> getErrors() {
+  public List<ApiError> getErrors() {
     return errors;
   }
 
-  public void setErrors(java.util.List<ApiError> errors) {
+  public void setErrors(List<ApiError> errors) {
     this.errors = errors;
   }
 
@@ -153,7 +155,7 @@ public class ViewModelResponse   {
     this.total = total;
   }
 
-  public ViewModelResponse data(java.util.Map<String, Object> data) {
+  public ViewModelResponse data(Map<String, Object> data) {
     this.data = data;
     return this;
   }
@@ -168,11 +170,11 @@ public class ViewModelResponse   {
    * @return data
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.Map<String, Object> getData() {
+  public Map<String, Object> getData() {
     return data;
   }
 
-  public void setData(java.util.Map<String, Object> data) {
+  public void setData(Map<String, Object> data) {
     this.data = data;
   }
 

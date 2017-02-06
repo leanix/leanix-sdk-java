@@ -30,7 +30,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import net.leanix.api.models.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
 import net.leanix.api.models.ComponentConfiguration;
 
 
@@ -40,9 +41,9 @@ import net.leanix.api.models.ComponentConfiguration;
 
 public class ModelConfiguration   {
   @JsonProperty("components")
-  private java.util.List<ComponentConfiguration> components = new java.util.ArrayList<ComponentConfiguration>();
+  private List<ComponentConfiguration> components = new ArrayList<ComponentConfiguration>();
 
-  public ModelConfiguration components(java.util.List<ComponentConfiguration> components) {
+  public ModelConfiguration components(List<ComponentConfiguration> components) {
     this.components = components;
     return this;
   }
@@ -57,11 +58,11 @@ public class ModelConfiguration   {
    * @return components
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<ComponentConfiguration> getComponents() {
+  public List<ComponentConfiguration> getComponents() {
     return components;
   }
 
-  public void setComponents(java.util.List<ComponentConfiguration> components) {
+  public void setComponents(List<ComponentConfiguration> components) {
     this.components = components;
   }
 

@@ -30,8 +30,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import net.leanix.api.models.ApiError;
-import net.leanix.api.models.ArrayList;
 import net.leanix.api.models.WorkspaceSettings;
 
 
@@ -50,7 +51,7 @@ public class SettingsResponse   {
   private String message = null;
 
   @JsonProperty("errors")
-  private java.util.List<ApiError> errors = new java.util.ArrayList<ApiError>();
+  private List<ApiError> errors = new ArrayList<ApiError>();
 
   @JsonProperty("total")
   private Long total = null;
@@ -112,7 +113,7 @@ public class SettingsResponse   {
     this.message = message;
   }
 
-  public SettingsResponse errors(java.util.List<ApiError> errors) {
+  public SettingsResponse errors(List<ApiError> errors) {
     this.errors = errors;
     return this;
   }
@@ -127,11 +128,11 @@ public class SettingsResponse   {
    * @return errors
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<ApiError> getErrors() {
+  public List<ApiError> getErrors() {
     return errors;
   }
 
-  public void setErrors(java.util.List<ApiError> errors) {
+  public void setErrors(List<ApiError> errors) {
     this.errors = errors;
   }
 

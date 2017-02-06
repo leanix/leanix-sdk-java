@@ -31,6 +31,10 @@ import net.leanix.api.models.SavedQuery;
 import net.leanix.api.models.QueryListResponse;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * API tests for QueriesApi

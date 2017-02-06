@@ -30,8 +30,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import net.leanix.api.models.ApiError;
-import net.leanix.api.models.ArrayList;
 import net.leanix.api.models.Deletion;
 
 
@@ -50,13 +51,13 @@ public class DatamodelUpdateResponse   {
   private String message = null;
 
   @JsonProperty("errors")
-  private java.util.List<ApiError> errors = new java.util.ArrayList<ApiError>();
+  private List<ApiError> errors = new ArrayList<ApiError>();
 
   @JsonProperty("total")
   private Long total = null;
 
   @JsonProperty("data")
-  private java.util.List<Deletion> data = new java.util.ArrayList<Deletion>();
+  private List<Deletion> data = new ArrayList<Deletion>();
 
   public DatamodelUpdateResponse status(String status) {
     this.status = status;
@@ -112,7 +113,7 @@ public class DatamodelUpdateResponse   {
     this.message = message;
   }
 
-  public DatamodelUpdateResponse errors(java.util.List<ApiError> errors) {
+  public DatamodelUpdateResponse errors(List<ApiError> errors) {
     this.errors = errors;
     return this;
   }
@@ -127,11 +128,11 @@ public class DatamodelUpdateResponse   {
    * @return errors
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<ApiError> getErrors() {
+  public List<ApiError> getErrors() {
     return errors;
   }
 
-  public void setErrors(java.util.List<ApiError> errors) {
+  public void setErrors(List<ApiError> errors) {
     this.errors = errors;
   }
 
@@ -153,7 +154,7 @@ public class DatamodelUpdateResponse   {
     this.total = total;
   }
 
-  public DatamodelUpdateResponse data(java.util.List<Deletion> data) {
+  public DatamodelUpdateResponse data(List<Deletion> data) {
     this.data = data;
     return this;
   }
@@ -168,11 +169,11 @@ public class DatamodelUpdateResponse   {
    * @return data
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<Deletion> getData() {
+  public List<Deletion> getData() {
     return data;
   }
 
-  public void setData(java.util.List<Deletion> data) {
+  public void setData(List<Deletion> data) {
     this.data = data;
   }
 

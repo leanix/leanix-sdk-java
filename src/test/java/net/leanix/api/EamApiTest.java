@@ -30,6 +30,10 @@ import net.leanix.api.models.JobResponse;
 import net.leanix.api.models.StartSyncWorkspaceRequest;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * API tests for EamApi

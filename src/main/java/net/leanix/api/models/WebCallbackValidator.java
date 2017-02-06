@@ -30,8 +30,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import net.leanix.api.models.CustomValidator;
-import net.leanix.api.models.HashMap;
 
 
 /**
@@ -40,9 +42,9 @@ import net.leanix.api.models.HashMap;
 
 public class WebCallbackValidator extends CustomValidator  {
   @JsonProperty("params")
-  private java.util.Map<String, String> params = new java.util.HashMap<String, String>();
+  private Map<String, String> params = new HashMap<String, String>();
 
-  public WebCallbackValidator params(java.util.Map<String, String> params) {
+  public WebCallbackValidator params(Map<String, String> params) {
     this.params = params;
     return this;
   }
@@ -57,11 +59,11 @@ public class WebCallbackValidator extends CustomValidator  {
    * @return params
   **/
   @ApiModelProperty(example = "null", required = true, value = "")
-  public java.util.Map<String, String> getParams() {
+  public Map<String, String> getParams() {
     return params;
   }
 
-  public void setParams(java.util.Map<String, String> params) {
+  public void setParams(Map<String, String> params) {
     this.params = params;
   }
 

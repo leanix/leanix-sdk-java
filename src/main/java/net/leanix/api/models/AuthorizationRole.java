@@ -30,7 +30,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import net.leanix.api.models.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -39,12 +40,12 @@ import net.leanix.api.models.ArrayList;
 
 public class AuthorizationRole   {
   @JsonProperty("permissions")
-  private java.util.List<String> permissions = new java.util.ArrayList<String>();
+  private List<String> permissions = new ArrayList<String>();
 
   @JsonProperty("name")
   private String name = null;
 
-  public AuthorizationRole permissions(java.util.List<String> permissions) {
+  public AuthorizationRole permissions(List<String> permissions) {
     this.permissions = permissions;
     return this;
   }
@@ -59,11 +60,11 @@ public class AuthorizationRole   {
    * @return permissions
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<String> getPermissions() {
+  public List<String> getPermissions() {
     return permissions;
   }
 
-  public void setPermissions(java.util.List<String> permissions) {
+  public void setPermissions(List<String> permissions) {
     this.permissions = permissions;
   }
 

@@ -30,7 +30,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import net.leanix.api.models.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -54,7 +55,7 @@ public class ExternalIdFieldDefinition   {
   private Boolean readOnly = false;
 
   @JsonProperty("forFactSheets")
-  private java.util.List<String> forFactSheets = new java.util.ArrayList<String>();
+  private List<String> forFactSheets = new ArrayList<String>();
 
   @JsonProperty("validator")
   private String validator = null;
@@ -104,7 +105,7 @@ public class ExternalIdFieldDefinition   {
     return readOnly;
   }
 
-  public ExternalIdFieldDefinition forFactSheets(java.util.List<String> forFactSheets) {
+  public ExternalIdFieldDefinition forFactSheets(List<String> forFactSheets) {
     this.forFactSheets = forFactSheets;
     return this;
   }
@@ -119,11 +120,11 @@ public class ExternalIdFieldDefinition   {
    * @return forFactSheets
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<String> getForFactSheets() {
+  public List<String> getForFactSheets() {
     return forFactSheets;
   }
 
-  public void setForFactSheets(java.util.List<String> forFactSheets) {
+  public void setForFactSheets(List<String> forFactSheets) {
     this.forFactSheets = forFactSheets;
   }
 

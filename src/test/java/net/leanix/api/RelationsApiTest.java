@@ -28,9 +28,12 @@ package net.leanix.api;
 import net.leanix.api.common.ApiException;
 import net.leanix.api.models.Relation;
 import net.leanix.api.models.RelationResponse;
-import net.leanix.api.models.BasicResponse;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * API tests for RelationsApi
@@ -67,7 +70,7 @@ public class RelationsApiTest {
     @Test
     public void deleteRelationTest() throws ApiException {
         String id = null;
-        // BasicResponse response = api.deleteRelation(id);
+        // api.deleteRelation(id);
 
         // TODO: test validations
     }

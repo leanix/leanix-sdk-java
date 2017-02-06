@@ -30,7 +30,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import net.leanix.api.models.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
 import net.leanix.api.models.LxField;
 import net.leanix.api.models.Phase;
 
@@ -41,9 +42,9 @@ import net.leanix.api.models.Phase;
 
 public class Lifecycle extends LxField  {
   @JsonProperty("phases")
-  private java.util.List<Phase> phases = new java.util.ArrayList<Phase>();
+  private List<Phase> phases = new ArrayList<Phase>();
 
-  public Lifecycle phases(java.util.List<Phase> phases) {
+  public Lifecycle phases(List<Phase> phases) {
     this.phases = phases;
     return this;
   }
@@ -58,11 +59,11 @@ public class Lifecycle extends LxField  {
    * @return phases
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<Phase> getPhases() {
+  public List<Phase> getPhases() {
     return phases;
   }
 
-  public void setPhases(java.util.List<Phase> phases) {
+  public void setPhases(List<Phase> phases) {
     this.phases = phases;
   }
 

@@ -30,8 +30,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import net.leanix.api.models.ApiError;
-import net.leanix.api.models.ArrayList;
 import net.leanix.api.models.AuthorizationRole;
 
 
@@ -50,13 +51,13 @@ public class AuthorizationRolesResponse   {
   private String message = null;
 
   @JsonProperty("errors")
-  private java.util.List<ApiError> errors = new java.util.ArrayList<ApiError>();
+  private List<ApiError> errors = new ArrayList<ApiError>();
 
   @JsonProperty("total")
   private Long total = null;
 
   @JsonProperty("data")
-  private java.util.List<AuthorizationRole> data = new java.util.ArrayList<AuthorizationRole>();
+  private List<AuthorizationRole> data = new ArrayList<AuthorizationRole>();
 
   public AuthorizationRolesResponse status(String status) {
     this.status = status;
@@ -112,7 +113,7 @@ public class AuthorizationRolesResponse   {
     this.message = message;
   }
 
-  public AuthorizationRolesResponse errors(java.util.List<ApiError> errors) {
+  public AuthorizationRolesResponse errors(List<ApiError> errors) {
     this.errors = errors;
     return this;
   }
@@ -127,11 +128,11 @@ public class AuthorizationRolesResponse   {
    * @return errors
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<ApiError> getErrors() {
+  public List<ApiError> getErrors() {
     return errors;
   }
 
-  public void setErrors(java.util.List<ApiError> errors) {
+  public void setErrors(List<ApiError> errors) {
     this.errors = errors;
   }
 
@@ -153,7 +154,7 @@ public class AuthorizationRolesResponse   {
     this.total = total;
   }
 
-  public AuthorizationRolesResponse data(java.util.List<AuthorizationRole> data) {
+  public AuthorizationRolesResponse data(List<AuthorizationRole> data) {
     this.data = data;
     return this;
   }
@@ -168,11 +169,11 @@ public class AuthorizationRolesResponse   {
    * @return data
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<AuthorizationRole> getData() {
+  public List<AuthorizationRole> getData() {
     return data;
   }
 
-  public void setData(java.util.List<AuthorizationRole> data) {
+  public void setData(List<AuthorizationRole> data) {
     this.data = data;
   }
 

@@ -30,7 +30,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import net.leanix.api.models.HashMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -87,7 +89,7 @@ public class SavedQuery   {
   private String groupKey = null;
 
   @JsonProperty("state")
-  private java.util.Map<String, Object> state = new java.util.HashMap<String, Object>();
+  private Map<String, Object> state = new HashMap<String, Object>();
 
   @JsonProperty("_rev")
   private Long rev = null;
@@ -200,7 +202,7 @@ public class SavedQuery   {
     this.groupKey = groupKey;
   }
 
-  public SavedQuery state(java.util.Map<String, Object> state) {
+  public SavedQuery state(Map<String, Object> state) {
     this.state = state;
     return this;
   }
@@ -215,11 +217,11 @@ public class SavedQuery   {
    * @return state
   **/
   @ApiModelProperty(example = "null", required = true, value = "")
-  public java.util.Map<String, Object> getState() {
+  public Map<String, Object> getState() {
     return state;
   }
 
-  public void setState(java.util.Map<String, Object> state) {
+  public void setState(Map<String, Object> state) {
     this.state = state;
   }
 

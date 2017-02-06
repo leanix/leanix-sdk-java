@@ -30,7 +30,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import net.leanix.api.models.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -71,7 +72,7 @@ public class SubscriptionSettings   {
   }
 
   @JsonProperty("subscriptionTypes")
-  private java.util.List<SubscriptionTypesEnum> subscriptionTypes = new java.util.ArrayList<SubscriptionTypesEnum>();
+  private List<SubscriptionTypesEnum> subscriptionTypes = new ArrayList<SubscriptionTypesEnum>();
 
   /**
    * Gets or Sets roleAssignment
@@ -106,7 +107,7 @@ public class SubscriptionSettings   {
   @JsonProperty("roleAssignment")
   private RoleAssignmentEnum roleAssignment = null;
 
-  public SubscriptionSettings subscriptionTypes(java.util.List<SubscriptionTypesEnum> subscriptionTypes) {
+  public SubscriptionSettings subscriptionTypes(List<SubscriptionTypesEnum> subscriptionTypes) {
     this.subscriptionTypes = subscriptionTypes;
     return this;
   }
@@ -121,11 +122,11 @@ public class SubscriptionSettings   {
    * @return subscriptionTypes
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<SubscriptionTypesEnum> getSubscriptionTypes() {
+  public List<SubscriptionTypesEnum> getSubscriptionTypes() {
     return subscriptionTypes;
   }
 
-  public void setSubscriptionTypes(java.util.List<SubscriptionTypesEnum> subscriptionTypes) {
+  public void setSubscriptionTypes(List<SubscriptionTypesEnum> subscriptionTypes) {
     this.subscriptionTypes = subscriptionTypes;
   }
 

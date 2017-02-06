@@ -11,6 +11,10 @@ import net.leanix.api.models.SettingsResponse;
 import net.leanix.api.models.BasicResponse;
 import net.leanix.api.models.WorkspaceSettings;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class SettingsApi {
@@ -45,9 +49,9 @@ public class SettingsApi {
     String localVarPath = "/settings".replaceAll("\\{format\\}","json");
 
     // query params
-    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
-    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
-    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
 
     
@@ -86,9 +90,9 @@ public class SettingsApi {
     String localVarPath = "/settings".replaceAll("\\{format\\}","json");
 
     // query params
-    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
-    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
-    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
 
     

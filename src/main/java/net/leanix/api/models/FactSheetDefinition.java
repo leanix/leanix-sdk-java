@@ -30,10 +30,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import net.leanix.api.models.ArrayList;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import net.leanix.api.models.DataType;
 import net.leanix.api.models.FactSheetConfiguration;
-import net.leanix.api.models.HashMap;
 
 
 /**
@@ -42,15 +44,15 @@ import net.leanix.api.models.HashMap;
 
 public class FactSheetDefinition   {
   @JsonProperty("relations")
-  private java.util.List<String> relations = new java.util.ArrayList<String>();
+  private List<String> relations = new ArrayList<String>();
 
   @JsonProperty("config")
   private FactSheetConfiguration config = null;
 
   @JsonProperty("fields")
-  private java.util.Map<String, DataType> fields = new java.util.HashMap<String, DataType>();
+  private Map<String, DataType> fields = new HashMap<String, DataType>();
 
-  public FactSheetDefinition relations(java.util.List<String> relations) {
+  public FactSheetDefinition relations(List<String> relations) {
     this.relations = relations;
     return this;
   }
@@ -65,11 +67,11 @@ public class FactSheetDefinition   {
    * @return relations
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<String> getRelations() {
+  public List<String> getRelations() {
     return relations;
   }
 
-  public void setRelations(java.util.List<String> relations) {
+  public void setRelations(List<String> relations) {
     this.relations = relations;
   }
 
@@ -91,7 +93,7 @@ public class FactSheetDefinition   {
     this.config = config;
   }
 
-  public FactSheetDefinition fields(java.util.Map<String, DataType> fields) {
+  public FactSheetDefinition fields(Map<String, DataType> fields) {
     this.fields = fields;
     return this;
   }
@@ -106,11 +108,11 @@ public class FactSheetDefinition   {
    * @return fields
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.Map<String, DataType> getFields() {
+  public Map<String, DataType> getFields() {
     return fields;
   }
 
-  public void setFields(java.util.Map<String, DataType> fields) {
+  public void setFields(Map<String, DataType> fields) {
     this.fields = fields;
   }
 

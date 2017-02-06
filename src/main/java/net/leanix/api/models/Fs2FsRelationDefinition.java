@@ -30,10 +30,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import net.leanix.api.models.ArrayList;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import net.leanix.api.models.DataType;
 import net.leanix.api.models.FromAndToDefinition;
-import net.leanix.api.models.HashMap;
 
 
 /**
@@ -48,7 +50,7 @@ public class Fs2FsRelationDefinition   {
   private FromAndToDefinition to = null;
 
   @JsonProperty("constrainingRelations")
-  private java.util.List<String> constrainingRelations = new java.util.ArrayList<String>();
+  private List<String> constrainingRelations = new ArrayList<String>();
 
   /**
    * Gets or Sets constraints
@@ -83,10 +85,10 @@ public class Fs2FsRelationDefinition   {
   }
 
   @JsonProperty("constraints")
-  private java.util.List<ConstraintsEnum> constraints = new java.util.ArrayList<ConstraintsEnum>();
+  private List<ConstraintsEnum> constraints = new ArrayList<ConstraintsEnum>();
 
   @JsonProperty("fields")
-  private java.util.Map<String, DataType> fields = new java.util.HashMap<String, DataType>();
+  private Map<String, DataType> fields = new HashMap<String, DataType>();
 
   public Fs2FsRelationDefinition from(FromAndToDefinition from) {
     this.from = from;
@@ -124,7 +126,7 @@ public class Fs2FsRelationDefinition   {
     this.to = to;
   }
 
-  public Fs2FsRelationDefinition constrainingRelations(java.util.List<String> constrainingRelations) {
+  public Fs2FsRelationDefinition constrainingRelations(List<String> constrainingRelations) {
     this.constrainingRelations = constrainingRelations;
     return this;
   }
@@ -139,15 +141,15 @@ public class Fs2FsRelationDefinition   {
    * @return constrainingRelations
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<String> getConstrainingRelations() {
+  public List<String> getConstrainingRelations() {
     return constrainingRelations;
   }
 
-  public void setConstrainingRelations(java.util.List<String> constrainingRelations) {
+  public void setConstrainingRelations(List<String> constrainingRelations) {
     this.constrainingRelations = constrainingRelations;
   }
 
-  public Fs2FsRelationDefinition constraints(java.util.List<ConstraintsEnum> constraints) {
+  public Fs2FsRelationDefinition constraints(List<ConstraintsEnum> constraints) {
     this.constraints = constraints;
     return this;
   }
@@ -162,15 +164,15 @@ public class Fs2FsRelationDefinition   {
    * @return constraints
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<ConstraintsEnum> getConstraints() {
+  public List<ConstraintsEnum> getConstraints() {
     return constraints;
   }
 
-  public void setConstraints(java.util.List<ConstraintsEnum> constraints) {
+  public void setConstraints(List<ConstraintsEnum> constraints) {
     this.constraints = constraints;
   }
 
-  public Fs2FsRelationDefinition fields(java.util.Map<String, DataType> fields) {
+  public Fs2FsRelationDefinition fields(Map<String, DataType> fields) {
     this.fields = fields;
     return this;
   }
@@ -185,11 +187,11 @@ public class Fs2FsRelationDefinition   {
    * @return fields
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.Map<String, DataType> getFields() {
+  public Map<String, DataType> getFields() {
     return fields;
   }
 
-  public void setFields(java.util.Map<String, DataType> fields) {
+  public void setFields(Map<String, DataType> fields) {
     this.fields = fields;
   }
 

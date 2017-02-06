@@ -35,6 +35,10 @@ import net.leanix.api.models.DatamodelUpdateResponse;
 import net.leanix.api.models.DatamodelDefinition;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * API tests for ModelsApi
@@ -114,7 +118,7 @@ public class ModelsApiTest {
      */
     @Test
     public void updateAuthorizationTest() throws ApiException {
-        java.util.List<AuthorizationRole> body = null;
+        List<AuthorizationRole> body = null;
         // BasicResponse response = api.updateAuthorization(body);
 
         // TODO: test validations

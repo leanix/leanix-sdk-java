@@ -30,8 +30,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import net.leanix.api.models.ApiError;
-import net.leanix.api.models.ArrayList;
 import net.leanix.api.models.SavedQuery;
 
 
@@ -50,13 +51,13 @@ public class QueryListResponse   {
   private String message = null;
 
   @JsonProperty("errors")
-  private java.util.List<ApiError> errors = new java.util.ArrayList<ApiError>();
+  private List<ApiError> errors = new ArrayList<ApiError>();
 
   @JsonProperty("total")
   private Long total = null;
 
   @JsonProperty("data")
-  private java.util.List<SavedQuery> data = new java.util.ArrayList<SavedQuery>();
+  private List<SavedQuery> data = new ArrayList<SavedQuery>();
 
   public QueryListResponse status(String status) {
     this.status = status;
@@ -112,7 +113,7 @@ public class QueryListResponse   {
     this.message = message;
   }
 
-  public QueryListResponse errors(java.util.List<ApiError> errors) {
+  public QueryListResponse errors(List<ApiError> errors) {
     this.errors = errors;
     return this;
   }
@@ -127,11 +128,11 @@ public class QueryListResponse   {
    * @return errors
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<ApiError> getErrors() {
+  public List<ApiError> getErrors() {
     return errors;
   }
 
-  public void setErrors(java.util.List<ApiError> errors) {
+  public void setErrors(List<ApiError> errors) {
     this.errors = errors;
   }
 
@@ -153,7 +154,7 @@ public class QueryListResponse   {
     this.total = total;
   }
 
-  public QueryListResponse data(java.util.List<SavedQuery> data) {
+  public QueryListResponse data(List<SavedQuery> data) {
     this.data = data;
     return this;
   }
@@ -168,11 +169,11 @@ public class QueryListResponse   {
    * @return data
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<SavedQuery> getData() {
+  public List<SavedQuery> getData() {
     return data;
   }
 
-  public void setData(java.util.List<SavedQuery> data) {
+  public void setData(List<SavedQuery> data) {
     this.data = data;
   }
 

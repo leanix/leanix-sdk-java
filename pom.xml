@@ -142,7 +142,6 @@
                                 <artifactId>leanix-sdk-java</artifactId>
                                 <invokerPackage>net.leanix.api.common</invokerPackage>
                                 <library>jersey2</library>
-                                <fullJavaUtil>true</fullJavaUtil>
                                 <!--dateLibrary>java8</dateLibrary-->
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
                             </configOptions>

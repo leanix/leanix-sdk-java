@@ -15,6 +15,10 @@ import net.leanix.api.models.BasicResponse;
 import net.leanix.api.models.DatamodelUpdateResponse;
 import net.leanix.api.models.DatamodelDefinition;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class ModelsApi {
@@ -49,9 +53,9 @@ public class ModelsApi {
     String localVarPath = "/models/authorization".replaceAll("\\{format\\}","json");
 
     // query params
-    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
-    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
-    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
 
     
@@ -84,9 +88,9 @@ public class ModelsApi {
     String localVarPath = "/models".replaceAll("\\{format\\}","json");
 
     // query params
-    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
-    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
-    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
 
     
@@ -119,9 +123,9 @@ public class ModelsApi {
     String localVarPath = "/models/enriched".replaceAll("\\{format\\}","json");
 
     // query params
-    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
-    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
-    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
 
     
@@ -154,9 +158,9 @@ public class ModelsApi {
     String localVarPath = "/models/viewModel".replaceAll("\\{format\\}","json");
 
     // query params
-    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
-    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
-    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
 
     
@@ -183,7 +187,7 @@ public class ModelsApi {
    * @return BasicResponse
    * @throws ApiException if fails to make API call
    */
-  public BasicResponse updateAuthorization(java.util.List<AuthorizationRole> body) throws ApiException {
+  public BasicResponse updateAuthorization(List<AuthorizationRole> body) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'body' is set
@@ -195,9 +199,9 @@ public class ModelsApi {
     String localVarPath = "/models/authorization".replaceAll("\\{format\\}","json");
 
     // query params
-    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
-    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
-    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
 
     
@@ -237,9 +241,9 @@ public class ModelsApi {
     String localVarPath = "/models".replaceAll("\\{format\\}","json");
 
     // query params
-    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
-    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
-    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "force", force));
 
@@ -279,9 +283,9 @@ public class ModelsApi {
     String localVarPath = "/models/viewModel".replaceAll("\\{format\\}","json");
 
     // query params
-    java.util.List<Pair> localVarQueryParams = new java.util.ArrayList<Pair>();
-    java.util.Map<String, String> localVarHeaderParams = new java.util.HashMap<String, String>();
-    java.util.Map<String, Object> localVarFormParams = new java.util.HashMap<String, Object>();
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
 
     

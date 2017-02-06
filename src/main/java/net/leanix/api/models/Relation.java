@@ -30,8 +30,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import net.leanix.api.models.HashMap;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import net.leanix.api.models.LxField;
+import net.leanix.api.models.Relation;
+import org.joda.time.LocalDate;
 
 
 /**
@@ -39,10 +44,224 @@ import net.leanix.api.models.LxField;
  */
 
 public class Relation   {
-  @JsonProperty("fields")
-  private java.util.Map<String, LxField> fields = new java.util.HashMap<String, LxField>();
+  @JsonProperty("id")
+  private String id = null;
 
-  public Relation fields(java.util.Map<String, LxField> fields) {
+  @JsonProperty("fromId")
+  private String fromId = null;
+
+  @JsonProperty("toId")
+  private String toId = null;
+
+  @JsonProperty("type")
+  private String type = null;
+
+  @JsonProperty("activeFrom")
+  private LocalDate activeFrom = null;
+
+  @JsonProperty("activeUntil")
+  private LocalDate activeUntil = null;
+
+  @JsonProperty("constrainingRelations")
+  private List<Relation> constrainingRelations = new ArrayList<Relation>();
+
+  @JsonProperty("constrainedRelations")
+  private List<Relation> constrainedRelations = new ArrayList<Relation>();
+
+  @JsonProperty("fields")
+  private Map<String, LxField> fields = new HashMap<String, LxField>();
+
+  @JsonProperty("intentionallyNotSet")
+  private String intentionallyNotSet = null;
+
+  /**
+   * Gets or Sets status
+   */
+  public enum StatusEnum {
+    ACTIVE("ACTIVE"),
+    
+    ARCHIVED("ARCHIVED");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+          if (String.valueOf(b.value).equals(text)) {
+              return b;
+          }
+      }
+      return null;
+    }
+  }
+
+  @JsonProperty("status")
+  private StatusEnum status = null;
+
+  public Relation id(String id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * Get id
+   * @return id
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public Relation fromId(String fromId) {
+    this.fromId = fromId;
+    return this;
+  }
+
+   /**
+   * Get fromId
+   * @return fromId
+  **/
+  @ApiModelProperty(example = "null", required = true, value = "")
+  public String getFromId() {
+    return fromId;
+  }
+
+  public void setFromId(String fromId) {
+    this.fromId = fromId;
+  }
+
+  public Relation toId(String toId) {
+    this.toId = toId;
+    return this;
+  }
+
+   /**
+   * Get toId
+   * @return toId
+  **/
+  @ApiModelProperty(example = "null", required = true, value = "")
+  public String getToId() {
+    return toId;
+  }
+
+  public void setToId(String toId) {
+    this.toId = toId;
+  }
+
+  public Relation type(String type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * Get type
+   * @return type
+  **/
+  @ApiModelProperty(example = "null", required = true, value = "")
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public Relation activeFrom(LocalDate activeFrom) {
+    this.activeFrom = activeFrom;
+    return this;
+  }
+
+   /**
+   * Get activeFrom
+   * @return activeFrom
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public LocalDate getActiveFrom() {
+    return activeFrom;
+  }
+
+  public void setActiveFrom(LocalDate activeFrom) {
+    this.activeFrom = activeFrom;
+  }
+
+  public Relation activeUntil(LocalDate activeUntil) {
+    this.activeUntil = activeUntil;
+    return this;
+  }
+
+   /**
+   * Get activeUntil
+   * @return activeUntil
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public LocalDate getActiveUntil() {
+    return activeUntil;
+  }
+
+  public void setActiveUntil(LocalDate activeUntil) {
+    this.activeUntil = activeUntil;
+  }
+
+  public Relation constrainingRelations(List<Relation> constrainingRelations) {
+    this.constrainingRelations = constrainingRelations;
+    return this;
+  }
+
+  public Relation addConstrainingRelationsItem(Relation constrainingRelationsItem) {
+    this.constrainingRelations.add(constrainingRelationsItem);
+    return this;
+  }
+
+   /**
+   * Get constrainingRelations
+   * @return constrainingRelations
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public List<Relation> getConstrainingRelations() {
+    return constrainingRelations;
+  }
+
+  public void setConstrainingRelations(List<Relation> constrainingRelations) {
+    this.constrainingRelations = constrainingRelations;
+  }
+
+  public Relation constrainedRelations(List<Relation> constrainedRelations) {
+    this.constrainedRelations = constrainedRelations;
+    return this;
+  }
+
+  public Relation addConstrainedRelationsItem(Relation constrainedRelationsItem) {
+    this.constrainedRelations.add(constrainedRelationsItem);
+    return this;
+  }
+
+   /**
+   * Get constrainedRelations
+   * @return constrainedRelations
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public List<Relation> getConstrainedRelations() {
+    return constrainedRelations;
+  }
+
+  public void setConstrainedRelations(List<Relation> constrainedRelations) {
+    this.constrainedRelations = constrainedRelations;
+  }
+
+  public Relation fields(Map<String, LxField> fields) {
     this.fields = fields;
     return this;
   }
@@ -57,12 +276,48 @@ public class Relation   {
    * @return fields
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.Map<String, LxField> getFields() {
+  public Map<String, LxField> getFields() {
     return fields;
   }
 
-  public void setFields(java.util.Map<String, LxField> fields) {
+  public void setFields(Map<String, LxField> fields) {
     this.fields = fields;
+  }
+
+  public Relation intentionallyNotSet(String intentionallyNotSet) {
+    this.intentionallyNotSet = intentionallyNotSet;
+    return this;
+  }
+
+   /**
+   * Get intentionallyNotSet
+   * @return intentionallyNotSet
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public String getIntentionallyNotSet() {
+    return intentionallyNotSet;
+  }
+
+  public void setIntentionallyNotSet(String intentionallyNotSet) {
+    this.intentionallyNotSet = intentionallyNotSet;
+  }
+
+  public Relation status(StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Get status
+   * @return status
+  **/
+  @ApiModelProperty(example = "null", required = true, value = "")
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+  public void setStatus(StatusEnum status) {
+    this.status = status;
   }
 
 
@@ -75,12 +330,22 @@ public class Relation   {
       return false;
     }
     Relation relation = (Relation) o;
-    return Objects.equals(this.fields, relation.fields);
+    return Objects.equals(this.id, relation.id) &&
+        Objects.equals(this.fromId, relation.fromId) &&
+        Objects.equals(this.toId, relation.toId) &&
+        Objects.equals(this.type, relation.type) &&
+        Objects.equals(this.activeFrom, relation.activeFrom) &&
+        Objects.equals(this.activeUntil, relation.activeUntil) &&
+        Objects.equals(this.constrainingRelations, relation.constrainingRelations) &&
+        Objects.equals(this.constrainedRelations, relation.constrainedRelations) &&
+        Objects.equals(this.fields, relation.fields) &&
+        Objects.equals(this.intentionallyNotSet, relation.intentionallyNotSet) &&
+        Objects.equals(this.status, relation.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fields);
+    return Objects.hash(id, fromId, toId, type, activeFrom, activeUntil, constrainingRelations, constrainedRelations, fields, intentionallyNotSet, status);
   }
 
   @Override
@@ -88,7 +353,17 @@ public class Relation   {
     StringBuilder sb = new StringBuilder();
     sb.append("class Relation {\n");
     
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    fromId: ").append(toIndentedString(fromId)).append("\n");
+    sb.append("    toId: ").append(toIndentedString(toId)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    activeFrom: ").append(toIndentedString(activeFrom)).append("\n");
+    sb.append("    activeUntil: ").append(toIndentedString(activeUntil)).append("\n");
+    sb.append("    constrainingRelations: ").append(toIndentedString(constrainingRelations)).append("\n");
+    sb.append("    constrainedRelations: ").append(toIndentedString(constrainedRelations)).append("\n");
     sb.append("    fields: ").append(toIndentedString(fields)).append("\n");
+    sb.append("    intentionallyNotSet: ").append(toIndentedString(intentionallyNotSet)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();
   }

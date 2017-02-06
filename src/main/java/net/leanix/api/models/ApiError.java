@@ -30,7 +30,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import net.leanix.api.models.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -42,7 +43,7 @@ public class ApiError   {
   private String value = null;
 
   @JsonProperty("messages")
-  private java.util.List<String> messages = new java.util.ArrayList<String>();
+  private List<String> messages = new ArrayList<String>();
 
   public ApiError value(String value) {
     this.value = value;
@@ -62,7 +63,7 @@ public class ApiError   {
     this.value = value;
   }
 
-  public ApiError messages(java.util.List<String> messages) {
+  public ApiError messages(List<String> messages) {
     this.messages = messages;
     return this;
   }
@@ -77,11 +78,11 @@ public class ApiError   {
    * @return messages
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.List<String> getMessages() {
+  public List<String> getMessages() {
     return messages;
   }
 
-  public void setMessages(java.util.List<String> messages) {
+  public void setMessages(List<String> messages) {
     this.messages = messages;
   }
 

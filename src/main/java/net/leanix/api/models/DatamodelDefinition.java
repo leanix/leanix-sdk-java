@@ -30,12 +30,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import net.leanix.api.models.CustomValidator;
 import net.leanix.api.models.EffectiveRelationDefinition;
 import net.leanix.api.models.ExternalIdFieldDefinition;
 import net.leanix.api.models.FactSheetDefinition;
 import net.leanix.api.models.Fs2FsRelationDefinition;
-import net.leanix.api.models.HashMap;
 import net.leanix.api.models.RulesDefinition;
 
 
@@ -45,24 +47,24 @@ import net.leanix.api.models.RulesDefinition;
 
 public class DatamodelDefinition   {
   @JsonProperty("relations")
-  private java.util.Map<String, Fs2FsRelationDefinition> relations = new java.util.HashMap<String, Fs2FsRelationDefinition>();
+  private Map<String, Fs2FsRelationDefinition> relations = new HashMap<String, Fs2FsRelationDefinition>();
 
   @JsonProperty("externalIdFields")
-  private java.util.Map<String, ExternalIdFieldDefinition> externalIdFields = new java.util.HashMap<String, ExternalIdFieldDefinition>();
+  private Map<String, ExternalIdFieldDefinition> externalIdFields = new HashMap<String, ExternalIdFieldDefinition>();
 
   @JsonProperty("factSheets")
-  private java.util.Map<String, FactSheetDefinition> factSheets = new java.util.HashMap<String, FactSheetDefinition>();
+  private Map<String, FactSheetDefinition> factSheets = new HashMap<String, FactSheetDefinition>();
 
   @JsonProperty("rules")
   private RulesDefinition rules = null;
 
   @JsonProperty("relationMapping")
-  private java.util.Map<String, EffectiveRelationDefinition> relationMapping = new java.util.HashMap<String, EffectiveRelationDefinition>();
+  private Map<String, EffectiveRelationDefinition> relationMapping = new HashMap<String, EffectiveRelationDefinition>();
 
   @JsonProperty("validators")
-  private java.util.Map<String, CustomValidator> validators = new java.util.HashMap<String, CustomValidator>();
+  private Map<String, CustomValidator> validators = new HashMap<String, CustomValidator>();
 
-  public DatamodelDefinition relations(java.util.Map<String, Fs2FsRelationDefinition> relations) {
+  public DatamodelDefinition relations(Map<String, Fs2FsRelationDefinition> relations) {
     this.relations = relations;
     return this;
   }
@@ -77,15 +79,15 @@ public class DatamodelDefinition   {
    * @return relations
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.Map<String, Fs2FsRelationDefinition> getRelations() {
+  public Map<String, Fs2FsRelationDefinition> getRelations() {
     return relations;
   }
 
-  public void setRelations(java.util.Map<String, Fs2FsRelationDefinition> relations) {
+  public void setRelations(Map<String, Fs2FsRelationDefinition> relations) {
     this.relations = relations;
   }
 
-  public DatamodelDefinition externalIdFields(java.util.Map<String, ExternalIdFieldDefinition> externalIdFields) {
+  public DatamodelDefinition externalIdFields(Map<String, ExternalIdFieldDefinition> externalIdFields) {
     this.externalIdFields = externalIdFields;
     return this;
   }
@@ -100,15 +102,15 @@ public class DatamodelDefinition   {
    * @return externalIdFields
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.Map<String, ExternalIdFieldDefinition> getExternalIdFields() {
+  public Map<String, ExternalIdFieldDefinition> getExternalIdFields() {
     return externalIdFields;
   }
 
-  public void setExternalIdFields(java.util.Map<String, ExternalIdFieldDefinition> externalIdFields) {
+  public void setExternalIdFields(Map<String, ExternalIdFieldDefinition> externalIdFields) {
     this.externalIdFields = externalIdFields;
   }
 
-  public DatamodelDefinition factSheets(java.util.Map<String, FactSheetDefinition> factSheets) {
+  public DatamodelDefinition factSheets(Map<String, FactSheetDefinition> factSheets) {
     this.factSheets = factSheets;
     return this;
   }
@@ -123,11 +125,11 @@ public class DatamodelDefinition   {
    * @return factSheets
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.Map<String, FactSheetDefinition> getFactSheets() {
+  public Map<String, FactSheetDefinition> getFactSheets() {
     return factSheets;
   }
 
-  public void setFactSheets(java.util.Map<String, FactSheetDefinition> factSheets) {
+  public void setFactSheets(Map<String, FactSheetDefinition> factSheets) {
     this.factSheets = factSheets;
   }
 
@@ -149,7 +151,7 @@ public class DatamodelDefinition   {
     this.rules = rules;
   }
 
-  public DatamodelDefinition relationMapping(java.util.Map<String, EffectiveRelationDefinition> relationMapping) {
+  public DatamodelDefinition relationMapping(Map<String, EffectiveRelationDefinition> relationMapping) {
     this.relationMapping = relationMapping;
     return this;
   }
@@ -164,15 +166,15 @@ public class DatamodelDefinition   {
    * @return relationMapping
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.Map<String, EffectiveRelationDefinition> getRelationMapping() {
+  public Map<String, EffectiveRelationDefinition> getRelationMapping() {
     return relationMapping;
   }
 
-  public void setRelationMapping(java.util.Map<String, EffectiveRelationDefinition> relationMapping) {
+  public void setRelationMapping(Map<String, EffectiveRelationDefinition> relationMapping) {
     this.relationMapping = relationMapping;
   }
 
-  public DatamodelDefinition validators(java.util.Map<String, CustomValidator> validators) {
+  public DatamodelDefinition validators(Map<String, CustomValidator> validators) {
     this.validators = validators;
     return this;
   }
@@ -187,11 +189,11 @@ public class DatamodelDefinition   {
    * @return validators
   **/
   @ApiModelProperty(example = "null", value = "")
-  public java.util.Map<String, CustomValidator> getValidators() {
+  public Map<String, CustomValidator> getValidators() {
     return validators;
   }
 
-  public void setValidators(java.util.Map<String, CustomValidator> validators) {
+  public void setValidators(Map<String, CustomValidator> validators) {
     this.validators = validators;
   }
 
