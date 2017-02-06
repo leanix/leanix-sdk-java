@@ -7,6 +7,7 @@ import net.leanix.api.common.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import net.leanix.api.models.ExcelExportResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,14 +15,14 @@ import java.util.List;
 import java.util.Map;
 
 
-public class DocumentsApi {
+public class ImportsApi {
   private ApiClient apiClient;
 
-  public DocumentsApi() {
+  public ImportsApi() {
     this(Configuration.getDefaultApiClient());
   }
 
-  public DocumentsApi(ApiClient apiClient) {
+  public ImportsApi(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
@@ -35,22 +36,16 @@ public class DocumentsApi {
 
   
   /**
-   * downloadDocument
-   * Download a document&#39;s content
-   * @param documentId  (required)
+   * importExcelFile
+   * Imports the Fact Sheet data in the given Excel file
+   * @return ExcelExportResponse
    * @throws ApiException if fails to make API call
    */
-  public void downloadDocument(String documentId) throws ApiException {
+  public ExcelExportResponse importExcelFile() throws ApiException {
     Object localVarPostBody = null;
     
-    // verify the required parameter 'documentId' is set
-    if (documentId == null) {
-      throw new ApiException(400, "Missing the required parameter 'documentId' when calling downloadDocument");
-    }
-    
     // create path and map variables
-    String localVarPath = "/documents/{documentId}/download".replaceAll("\\{format\\}","json")
-      .replaceAll("\\{" + "documentId" + "\\}", apiClient.escapeString(documentId.toString()));
+    String localVarPath = "/imports/excel".replaceAll("\\{format\\}","json");
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -64,19 +59,20 @@ public class DocumentsApi {
     
 
     final String[] localVarAccepts = {
-      
+      "application/json"
     };
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      
+      "multipart/form-data"
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-    String[] localVarAuthNames = new String[] { "token" };
+    String[] localVarAuthNames = new String[] {  };
 
     
-    apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+    GenericType<ExcelExportResponse> localVarReturnType = new GenericType<ExcelExportResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
     
   }
   
