@@ -7,9 +7,10 @@ import net.leanix.api.common.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import net.leanix.api.models.QueryListResponse;
 import net.leanix.api.models.QueryResponse;
 import net.leanix.api.models.SavedQuery;
-import net.leanix.api.models.QueryListResponse;
+import java.util.UUID;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -79,7 +80,7 @@ public class QueriesApi {
    * @return QueryResponse
    * @throws ApiException if fails to make API call
    */
-  public QueryResponse deleteQuery(String id) throws ApiException {
+  public QueryResponse deleteQuery(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -165,7 +166,7 @@ public class QueriesApi {
    * @return QueryResponse
    * @throws ApiException if fails to make API call
    */
-  public QueryResponse getQuery(String id) throws ApiException {
+  public QueryResponse getQuery(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set

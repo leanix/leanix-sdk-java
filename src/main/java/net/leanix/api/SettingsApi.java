@@ -7,8 +7,8 @@ import net.leanix.api.common.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import net.leanix.api.models.SettingsResponse;
 import net.leanix.api.models.BasicResponse;
+import net.leanix.api.models.SettingsResponse;
 import net.leanix.api.models.WorkspaceSettings;
 
 import java.util.ArrayList;

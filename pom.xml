@@ -125,12 +125,43 @@
             <id>codegen</id>
             <build>
                 <plugins>
+                    <plugin>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>enforce</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules combine.children="override">
+                                        <requireMavenVersion>
+                                            <version>3.0.5</version>
+                                        </requireMavenVersion>
+                                        <requirePluginVersions>
+                                            <message>Best Practice is to always define plugin versions!</message>
+                                            <banLatest>true</banLatest>
+                                            <banRelease>true</banRelease>
+                                            <banSnapshots>false</banSnapshots>
+                                            <phases>clean,deploy,site</phases>
+                                            <additionalPlugins>
+                                                <additionalPlugin>org.apache.maven.plugins:maven-eclipse-plugin</additionalPlugin>
+                                            </additionalPlugins>
+                                        </requirePluginVersions>
+                                        <requireJavaVersion>
+                                            <version>[1.7,1.8)</version>
+                                        </requireJavaVersion>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
 
                     <!-- 1) generate api using the swagger-codegen-maven-plugin -->
                     <plugin>
                         <groupId>io.swagger</groupId>
                         <artifactId>swagger-codegen-maven-plugin</artifactId>
-                        <version>2.2.1</version>
+                        <version>2.2.2-SNAPSHOT</version>
                         <configuration>
                             <inputSpec>${swagger-inputSpec}</inputSpec>
                             <language>java</language>
@@ -142,11 +173,11 @@
                                 <artifactId>leanix-sdk-java</artifactId>
                                 <invokerPackage>net.leanix.api.common</invokerPackage>
                                 <library>jersey2</library>
-                                <!--dateLibrary>java8</dateLibrary-->
+                                <dateLibrary>joda</dateLibrary>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
                             </configOptions>
                             <!-- used to get help from cli that describes possible configOptions -->
-                            <!--configHelp>true</configHelp -->
+                            <!-- configHelp>true</configHelp -->
                         </configuration>
                         <executions>
                             <execution>

@@ -7,13 +7,13 @@ import net.leanix.api.common.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import net.leanix.api.models.AuthorizationRolesResponse;
-import net.leanix.api.models.DatamodelDefinitionResponse;
-import net.leanix.api.models.ViewModelResponse;
 import net.leanix.api.models.AuthorizationRole;
+import net.leanix.api.models.AuthorizationRolesResponse;
 import net.leanix.api.models.BasicResponse;
-import net.leanix.api.models.DatamodelUpdateResponse;
 import net.leanix.api.models.DatamodelDefinition;
+import net.leanix.api.models.DatamodelDefinitionResponse;
+import net.leanix.api.models.DatamodelUpdateResponse;
+import net.leanix.api.models.ViewModelResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
