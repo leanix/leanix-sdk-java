@@ -8,8 +8,8 @@ import net.leanix.api.common.Pair;
 import javax.ws.rs.core.GenericType;
 
 import net.leanix.api.models.BasicPFResponse;
+import net.leanix.api.models.FactSheet;
 import net.leanix.api.models.FactSheetArchiveParameter;
-import net.leanix.api.models.FactSheetDataREST;
 import net.leanix.api.models.FactSheetListResponse;
 import net.leanix.api.models.FactSheetResponse;
 
@@ -88,7 +88,7 @@ public class FactSheetsApi {
    * @return FactSheetResponse
    * @throws ApiException if fails to make API call
    */
-  public FactSheetResponse createFactSheet(FactSheetDataREST body) throws ApiException {
+  public FactSheetResponse createFactSheet(FactSheet body) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'body' is set
@@ -213,7 +213,7 @@ public class FactSheetsApi {
    * @return FactSheetResponse
    * @throws ApiException if fails to make API call
    */
-  public FactSheetResponse updateFactSheet(String id, FactSheetDataREST body) throws ApiException {
+  public FactSheetResponse updateFactSheet(String id, FactSheet body) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'id' is set
