@@ -44,12 +44,6 @@ public class Completion {
   @JsonProperty("percentage")
   private Integer percentage = null;
 
-  @JsonProperty("weightedSum")
-  private Double weightedSum = null;
-
-  @JsonProperty("totalWeight")
-  private Double totalWeight = null;
-
   @JsonProperty("subCompletions")
   private Map<String, Completion> subCompletions = new HashMap<String, Completion>();
 
@@ -78,24 +72,6 @@ public class Completion {
   @ApiModelProperty(example = "null", value = "")
   public Integer getPercentage() {
     return percentage;
-  }
-
-   /**
-   * Get weightedSum
-   * @return weightedSum
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public Double getWeightedSum() {
-    return weightedSum;
-  }
-
-   /**
-   * Get totalWeight
-   * @return totalWeight
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public Double getTotalWeight() {
-    return totalWeight;
   }
 
   public Completion subCompletions(Map<String, Completion> subCompletions) {
@@ -134,14 +110,12 @@ public class Completion {
     return Objects.equals(this.type, completion.type) &&
         Objects.equals(this.completion, completion.completion) &&
         Objects.equals(this.percentage, completion.percentage) &&
-        Objects.equals(this.weightedSum, completion.weightedSum) &&
-        Objects.equals(this.totalWeight, completion.totalWeight) &&
         Objects.equals(this.subCompletions, completion.subCompletions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, completion, percentage, weightedSum, totalWeight, subCompletions);
+    return Objects.hash(type, completion, percentage, subCompletions);
   }
 
 
@@ -153,8 +127,6 @@ public class Completion {
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    completion: ").append(toIndentedString(completion)).append("\n");
     sb.append("    percentage: ").append(toIndentedString(percentage)).append("\n");
-    sb.append("    weightedSum: ").append(toIndentedString(weightedSum)).append("\n");
-    sb.append("    totalWeight: ").append(toIndentedString(totalWeight)).append("\n");
     sb.append("    subCompletions: ").append(toIndentedString(subCompletions)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -21,13 +21,13 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import net.leanix.api.models.ApiError;
-import net.leanix.api.models.FactSheet;
+import net.leanix.api.models.Relation;
 
 /**
- * FactSheetListResponse
+ * RelationListResponse
  */
 
-public class FactSheetListResponse {
+public class RelationListResponse {
   @JsonProperty("status")
   private String status = null;
 
@@ -44,12 +44,9 @@ public class FactSheetListResponse {
   private Long total = null;
 
   @JsonProperty("data")
-  private List<FactSheet> data = new ArrayList<FactSheet>();
+  private List<Relation> data = new ArrayList<Relation>();
 
-  @JsonProperty("cursor")
-  private String cursor = null;
-
-  public FactSheetListResponse status(String status) {
+  public RelationListResponse status(String status) {
     this.status = status;
     return this;
   }
@@ -67,7 +64,7 @@ public class FactSheetListResponse {
     this.status = status;
   }
 
-  public FactSheetListResponse type(String type) {
+  public RelationListResponse type(String type) {
     this.type = type;
     return this;
   }
@@ -85,7 +82,7 @@ public class FactSheetListResponse {
     this.type = type;
   }
 
-  public FactSheetListResponse message(String message) {
+  public RelationListResponse message(String message) {
     this.message = message;
     return this;
   }
@@ -103,12 +100,12 @@ public class FactSheetListResponse {
     this.message = message;
   }
 
-  public FactSheetListResponse errors(List<ApiError> errors) {
+  public RelationListResponse errors(List<ApiError> errors) {
     this.errors = errors;
     return this;
   }
 
-  public FactSheetListResponse addErrorsItem(ApiError errorsItem) {
+  public RelationListResponse addErrorsItem(ApiError errorsItem) {
     this.errors.add(errorsItem);
     return this;
   }
@@ -126,7 +123,7 @@ public class FactSheetListResponse {
     this.errors = errors;
   }
 
-  public FactSheetListResponse total(Long total) {
+  public RelationListResponse total(Long total) {
     this.total = total;
     return this;
   }
@@ -144,12 +141,12 @@ public class FactSheetListResponse {
     this.total = total;
   }
 
-  public FactSheetListResponse data(List<FactSheet> data) {
+  public RelationListResponse data(List<Relation> data) {
     this.data = data;
     return this;
   }
 
-  public FactSheetListResponse addDataItem(FactSheet dataItem) {
+  public RelationListResponse addDataItem(Relation dataItem) {
     this.data.add(dataItem);
     return this;
   }
@@ -159,30 +156,12 @@ public class FactSheetListResponse {
    * @return data
   **/
   @ApiModelProperty(example = "null", value = "")
-  public List<FactSheet> getData() {
+  public List<Relation> getData() {
     return data;
   }
 
-  public void setData(List<FactSheet> data) {
+  public void setData(List<Relation> data) {
     this.data = data;
-  }
-
-  public FactSheetListResponse cursor(String cursor) {
-    this.cursor = cursor;
-    return this;
-  }
-
-   /**
-   * Get cursor
-   * @return cursor
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public String getCursor() {
-    return cursor;
-  }
-
-  public void setCursor(String cursor) {
-    this.cursor = cursor;
   }
 
 
@@ -194,26 +173,25 @@ public class FactSheetListResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FactSheetListResponse factSheetListResponse = (FactSheetListResponse) o;
-    return Objects.equals(this.status, factSheetListResponse.status) &&
-        Objects.equals(this.type, factSheetListResponse.type) &&
-        Objects.equals(this.message, factSheetListResponse.message) &&
-        Objects.equals(this.errors, factSheetListResponse.errors) &&
-        Objects.equals(this.total, factSheetListResponse.total) &&
-        Objects.equals(this.data, factSheetListResponse.data) &&
-        Objects.equals(this.cursor, factSheetListResponse.cursor);
+    RelationListResponse relationListResponse = (RelationListResponse) o;
+    return Objects.equals(this.status, relationListResponse.status) &&
+        Objects.equals(this.type, relationListResponse.type) &&
+        Objects.equals(this.message, relationListResponse.message) &&
+        Objects.equals(this.errors, relationListResponse.errors) &&
+        Objects.equals(this.total, relationListResponse.total) &&
+        Objects.equals(this.data, relationListResponse.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, type, message, errors, total, data, cursor);
+    return Objects.hash(status, type, message, errors, total, data);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FactSheetListResponse {\n");
+    sb.append("class RelationListResponse {\n");
     
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
@@ -221,7 +199,6 @@ public class FactSheetListResponse {
     sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
     sb.append("    total: ").append(toIndentedString(total)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
     sb.append("}");
     return sb.toString();
   }

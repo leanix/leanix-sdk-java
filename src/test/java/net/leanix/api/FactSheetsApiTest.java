@@ -19,6 +19,7 @@ import net.leanix.api.models.FactSheet;
 import net.leanix.api.models.FactSheetArchiveParameter;
 import net.leanix.api.models.FactSheetListResponse;
 import net.leanix.api.models.FactSheetResponse;
+import net.leanix.api.models.RelationListResponse;
 import org.junit.Test;
 import org.junit.Ignore;
 
@@ -87,6 +88,24 @@ public class FactSheetsApiTest {
     }
     
     /**
+     * getFactSheetRelations
+     *
+     * Retrieves all relations of a Fact Sheet, with the given type
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void getFactSheetRelationsTest() throws ApiException {
+        String id = null;
+        String type = null;
+        Boolean withFactSheets = null;
+        RelationListResponse response = api.getFactSheetRelations(id, type, withFactSheets);
+
+        // TODO: test validations
+    }
+    
+    /**
      * getFactSheets
      *
      * Retrieves all Fact Sheets
@@ -97,8 +116,10 @@ public class FactSheetsApiTest {
     @Test
     public void getFactSheetsTest() throws ApiException {
         String type = null;
-        String fetchRelations = null;
-        FactSheetListResponse response = api.getFactSheets(type, fetchRelations);
+        String relationTypes = null;
+        Integer pageSize = null;
+        String cursor = null;
+        FactSheetListResponse response = api.getFactSheets(type, relationTypes, pageSize, cursor);
 
         // TODO: test validations
     }
@@ -115,7 +136,8 @@ public class FactSheetsApiTest {
     public void updateFactSheetTest() throws ApiException {
         String id = null;
         FactSheet body = null;
-        FactSheetResponse response = api.updateFactSheet(id, body);
+        String relationTypes = null;
+        FactSheetResponse response = api.updateFactSheet(id, body, relationTypes);
 
         // TODO: test validations
     }

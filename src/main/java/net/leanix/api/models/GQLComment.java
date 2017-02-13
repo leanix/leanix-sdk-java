@@ -35,6 +35,9 @@ public class GQLComment {
   @JsonProperty("id")
   private UUID id = null;
 
+  @JsonProperty("userId")
+  private UUID userId = null;
+
   /**
    * Gets or Sets status
    */
@@ -70,17 +73,14 @@ public class GQLComment {
   @JsonProperty("status")
   private StatusEnum status = null;
 
-  @JsonProperty("userId")
-  private UUID userId = null;
+  @JsonProperty("creationTimestamp")
+  private Instant creationTimestamp = null;
 
   @JsonProperty("factSheetId")
   private UUID factSheetId = null;
 
   @JsonProperty("replies")
   private List<Reply> replies = new ArrayList<Reply>();
-
-  @JsonProperty("creationTimestamp")
-  private Instant creationTimestamp = null;
 
   public GQLComment message(String message) {
     this.message = message;
@@ -118,6 +118,24 @@ public class GQLComment {
     this.id = id;
   }
 
+  public GQLComment userId(UUID userId) {
+    this.userId = userId;
+    return this;
+  }
+
+   /**
+   * Get userId
+   * @return userId
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public UUID getUserId() {
+    return userId;
+  }
+
+  public void setUserId(UUID userId) {
+    this.userId = userId;
+  }
+
   public GQLComment status(StatusEnum status) {
     this.status = status;
     return this;
@@ -136,22 +154,22 @@ public class GQLComment {
     this.status = status;
   }
 
-  public GQLComment userId(UUID userId) {
-    this.userId = userId;
+  public GQLComment creationTimestamp(Instant creationTimestamp) {
+    this.creationTimestamp = creationTimestamp;
     return this;
   }
 
    /**
-   * Get userId
-   * @return userId
+   * Get creationTimestamp
+   * @return creationTimestamp
   **/
   @ApiModelProperty(example = "null", value = "")
-  public UUID getUserId() {
-    return userId;
+  public Instant getCreationTimestamp() {
+    return creationTimestamp;
   }
 
-  public void setUserId(UUID userId) {
-    this.userId = userId;
+  public void setCreationTimestamp(Instant creationTimestamp) {
+    this.creationTimestamp = creationTimestamp;
   }
 
   public GQLComment factSheetId(UUID factSheetId) {
@@ -195,24 +213,6 @@ public class GQLComment {
     this.replies = replies;
   }
 
-  public GQLComment creationTimestamp(Instant creationTimestamp) {
-    this.creationTimestamp = creationTimestamp;
-    return this;
-  }
-
-   /**
-   * Get creationTimestamp
-   * @return creationTimestamp
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public Instant getCreationTimestamp() {
-    return creationTimestamp;
-  }
-
-  public void setCreationTimestamp(Instant creationTimestamp) {
-    this.creationTimestamp = creationTimestamp;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -225,16 +225,16 @@ public class GQLComment {
     GQLComment gqLComment = (GQLComment) o;
     return Objects.equals(this.message, gqLComment.message) &&
         Objects.equals(this.id, gqLComment.id) &&
-        Objects.equals(this.status, gqLComment.status) &&
         Objects.equals(this.userId, gqLComment.userId) &&
+        Objects.equals(this.status, gqLComment.status) &&
+        Objects.equals(this.creationTimestamp, gqLComment.creationTimestamp) &&
         Objects.equals(this.factSheetId, gqLComment.factSheetId) &&
-        Objects.equals(this.replies, gqLComment.replies) &&
-        Objects.equals(this.creationTimestamp, gqLComment.creationTimestamp);
+        Objects.equals(this.replies, gqLComment.replies);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(message, id, status, userId, factSheetId, replies, creationTimestamp);
+    return Objects.hash(message, id, userId, status, creationTimestamp, factSheetId, replies);
   }
 
 
@@ -245,11 +245,11 @@ public class GQLComment {
     
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    creationTimestamp: ").append(toIndentedString(creationTimestamp)).append("\n");
     sb.append("    factSheetId: ").append(toIndentedString(factSheetId)).append("\n");
     sb.append("    replies: ").append(toIndentedString(replies)).append("\n");
-    sb.append("    creationTimestamp: ").append(toIndentedString(creationTimestamp)).append("\n");
     sb.append("}");
     return sb.toString();
   }

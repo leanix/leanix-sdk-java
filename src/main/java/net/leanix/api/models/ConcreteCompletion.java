@@ -36,12 +36,6 @@ public class ConcreteCompletion extends Completion {
   @JsonProperty("percentage")
   private Integer percentage = null;
 
-  @JsonProperty("weightedSum")
-  private Double weightedSum = null;
-
-  @JsonProperty("totalWeight")
-  private Double totalWeight = null;
-
    /**
    * Get type
    * @return type
@@ -69,24 +63,6 @@ public class ConcreteCompletion extends Completion {
     return percentage;
   }
 
-   /**
-   * Get weightedSum
-   * @return weightedSum
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public Double getWeightedSum() {
-    return weightedSum;
-  }
-
-   /**
-   * Get totalWeight
-   * @return totalWeight
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public Double getTotalWeight() {
-    return totalWeight;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -100,14 +76,12 @@ public class ConcreteCompletion extends Completion {
     return Objects.equals(this.type, concreteCompletion.type) &&
         Objects.equals(this.completion, concreteCompletion.completion) &&
         Objects.equals(this.percentage, concreteCompletion.percentage) &&
-        Objects.equals(this.weightedSum, concreteCompletion.weightedSum) &&
-        Objects.equals(this.totalWeight, concreteCompletion.totalWeight) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, completion, percentage, weightedSum, totalWeight, super.hashCode());
+    return Objects.hash(type, completion, percentage, super.hashCode());
   }
 
 
@@ -119,8 +93,6 @@ public class ConcreteCompletion extends Completion {
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    completion: ").append(toIndentedString(completion)).append("\n");
     sb.append("    percentage: ").append(toIndentedString(percentage)).append("\n");
-    sb.append("    weightedSum: ").append(toIndentedString(weightedSum)).append("\n");
-    sb.append("    totalWeight: ").append(toIndentedString(totalWeight)).append("\n");
     sb.append("}");
     return sb.toString();
   }

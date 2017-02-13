@@ -12,6 +12,7 @@ import net.leanix.api.models.FactSheet;
 import net.leanix.api.models.FactSheetArchiveParameter;
 import net.leanix.api.models.FactSheetListResponse;
 import net.leanix.api.models.FactSheetResponse;
+import net.leanix.api.models.RelationListResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +43,7 @@ public class FactSheetsApi {
    * deleteFactSheet
    * Deletes a Fact Sheet
    * @param id  (required)
-   * @param body delete parameter (optional)
+   * @param body Contains the comment and the Fact Sheet revision (optional)
    * @return BasicPFResponse
    * @throws ApiException if fails to make API call
    */
@@ -84,7 +85,7 @@ public class FactSheetsApi {
   /**
    * createFactSheet
    * Creates a Fact Sheet
-   * @param body fact sheet to add (required)
+   * @param body Fact Sheet to add (required)
    * @return FactSheetResponse
    * @throws ApiException if fails to make API call
    */
@@ -126,7 +127,7 @@ public class FactSheetsApi {
    * getFactSheet
    * Retrieves a Fact Sheet
    * @param id  (required)
-   * @param relationTypes relationTypes (optional)
+   * @param relationTypes Comma separated list of relation types to show on the Fact Sheets (optional)
    * @return FactSheetResponse
    * @throws ApiException if fails to make API call
    */
@@ -167,14 +168,62 @@ public class FactSheetsApi {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
+   * getFactSheetRelations
+   * Retrieves all relations of a Fact Sheet, with the given type
+   * @param id  (required)
+   * @param type Only return relations of this type (optional)
+   * @param withFactSheets Include the to Fact Sheet in the relation (optional)
+   * @return RelationListResponse
+   * @throws ApiException if fails to make API call
+   */
+  public RelationListResponse getFactSheetRelations(String id, String type, Boolean withFactSheets) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getFactSheetRelations");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/factSheets/{id}/relations".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "type", type));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "withFactSheets", withFactSheets));
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "token" };
+
+    GenericType<RelationListResponse> localVarReturnType = new GenericType<RelationListResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
    * getFactSheets
    * Retrieves all Fact Sheets
-   * @param type type (optional)
-   * @param fetchRelations fetchRelations (optional)
+   * @param type Only list Fact Sheets with this type (optional)
+   * @param relationTypes Comma separated list of relation types to show on the Fact Sheets (optional)
+   * @param pageSize Number of Fact Sheets to return (optional, default to 40)
+   * @param cursor Marks the position of the first element that should be returned (optional)
    * @return FactSheetListResponse
    * @throws ApiException if fails to make API call
    */
-  public FactSheetListResponse getFactSheets(String type, String fetchRelations) throws ApiException {
+  public FactSheetListResponse getFactSheets(String type, String relationTypes, Integer pageSize, String cursor) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -186,7 +235,9 @@ public class FactSheetsApi {
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "type", type));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "fetchRelations", fetchRelations));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "relationTypes", relationTypes));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "cursor", cursor));
 
     
     
@@ -210,10 +261,11 @@ public class FactSheetsApi {
    * Updates a Fact Sheet
    * @param id  (required)
    * @param body Fact Sheet to update (required)
+   * @param relationTypes Comma separated list of relation types to update. If no types are set, the relations will not be changed. (optional)
    * @return FactSheetResponse
    * @throws ApiException if fails to make API call
    */
-  public FactSheetResponse updateFactSheet(String id, FactSheet body) throws ApiException {
+  public FactSheetResponse updateFactSheet(String id, FactSheet body, String relationTypes) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'id' is set
@@ -235,6 +287,7 @@ public class FactSheetsApi {
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "relationTypes", relationTypes));
 
     
     

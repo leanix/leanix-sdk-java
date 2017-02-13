@@ -21,10 +21,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import net.leanix.api.models.Completion;
-import net.leanix.api.models.FactSheetDataRelation;
 import net.leanix.api.models.FieldnameAndData;
 import net.leanix.api.models.GQLComment;
-import net.leanix.api.models.GQLSubscription;
+import net.leanix.api.models.Relation;
 import net.leanix.api.models.Tag;
 import org.joda.time.DateTime;
 
@@ -55,7 +54,10 @@ public class FactSheet {
   private List<FieldnameAndData> fields = new ArrayList<FieldnameAndData>();
 
   @JsonProperty("relations")
-  private List<FactSheetDataRelation> relations = new ArrayList<FactSheetDataRelation>();
+  private List<Relation> relations = new ArrayList<Relation>();
+
+  @JsonProperty("relationIds")
+  private List<String> relationIds = new ArrayList<String>();
 
   @JsonProperty("intentionallyNotSet")
   private List<String> intentionallyNotSet = new ArrayList<String>();
@@ -68,9 +70,6 @@ public class FactSheet {
 
   @JsonProperty("comments")
   private List<GQLComment> comments = new ArrayList<GQLComment>();
-
-  @JsonProperty("subscriptions")
-  private List<GQLSubscription> subscriptions = new ArrayList<GQLSubscription>();
 
   @JsonProperty("approvedDate")
   private DateTime approvedDate = null;
@@ -111,11 +110,6 @@ public class FactSheet {
   @JsonProperty("rev")
   private Long rev = null;
 
-  public FactSheet id(String id) {
-    this.id = id;
-    return this;
-  }
-
    /**
    * Get id
    * @return id
@@ -123,10 +117,6 @@ public class FactSheet {
   @ApiModelProperty(example = "null", value = "")
   public String getId() {
     return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
   }
 
   public FactSheet name(String name) {
@@ -247,12 +237,12 @@ public class FactSheet {
     this.fields = fields;
   }
 
-  public FactSheet relations(List<FactSheetDataRelation> relations) {
+  public FactSheet relations(List<Relation> relations) {
     this.relations = relations;
     return this;
   }
 
-  public FactSheet addRelationsItem(FactSheetDataRelation relationsItem) {
+  public FactSheet addRelationsItem(Relation relationsItem) {
     this.relations.add(relationsItem);
     return this;
   }
@@ -262,12 +252,35 @@ public class FactSheet {
    * @return relations
   **/
   @ApiModelProperty(example = "null", value = "")
-  public List<FactSheetDataRelation> getRelations() {
+  public List<Relation> getRelations() {
     return relations;
   }
 
-  public void setRelations(List<FactSheetDataRelation> relations) {
+  public void setRelations(List<Relation> relations) {
     this.relations = relations;
+  }
+
+  public FactSheet relationIds(List<String> relationIds) {
+    this.relationIds = relationIds;
+    return this;
+  }
+
+  public FactSheet addRelationIdsItem(String relationIdsItem) {
+    this.relationIds.add(relationIdsItem);
+    return this;
+  }
+
+   /**
+   * Get relationIds
+   * @return relationIds
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public List<String> getRelationIds() {
+    return relationIds;
+  }
+
+  public void setRelationIds(List<String> relationIds) {
+    this.relationIds = relationIds;
   }
 
   public FactSheet intentionallyNotSet(List<String> intentionallyNotSet) {
@@ -352,29 +365,6 @@ public class FactSheet {
     this.comments = comments;
   }
 
-  public FactSheet subscriptions(List<GQLSubscription> subscriptions) {
-    this.subscriptions = subscriptions;
-    return this;
-  }
-
-  public FactSheet addSubscriptionsItem(GQLSubscription subscriptionsItem) {
-    this.subscriptions.add(subscriptionsItem);
-    return this;
-  }
-
-   /**
-   * Get subscriptions
-   * @return subscriptions
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public List<GQLSubscription> getSubscriptions() {
-    return subscriptions;
-  }
-
-  public void setSubscriptions(List<GQLSubscription> subscriptions) {
-    this.subscriptions = subscriptions;
-  }
-
   public FactSheet approvedDate(DateTime approvedDate) {
     this.approvedDate = approvedDate;
     return this;
@@ -411,11 +401,6 @@ public class FactSheet {
     this.status = status;
   }
 
-  public FactSheet rev(Long rev) {
-    this.rev = rev;
-    return this;
-  }
-
    /**
    * Get rev
    * @return rev
@@ -423,10 +408,6 @@ public class FactSheet {
   @ApiModelProperty(example = "null", value = "")
   public Long getRev() {
     return rev;
-  }
-
-  public void setRev(Long rev) {
-    this.rev = rev;
   }
 
 
@@ -447,11 +428,11 @@ public class FactSheet {
         Objects.equals(this.tags, factSheet.tags) &&
         Objects.equals(this.fields, factSheet.fields) &&
         Objects.equals(this.relations, factSheet.relations) &&
+        Objects.equals(this.relationIds, factSheet.relationIds) &&
         Objects.equals(this.intentionallyNotSet, factSheet.intentionallyNotSet) &&
         Objects.equals(this.completion, factSheet.completion) &&
         Objects.equals(this.lastChanged, factSheet.lastChanged) &&
         Objects.equals(this.comments, factSheet.comments) &&
-        Objects.equals(this.subscriptions, factSheet.subscriptions) &&
         Objects.equals(this.approvedDate, factSheet.approvedDate) &&
         Objects.equals(this.status, factSheet.status) &&
         Objects.equals(this.rev, factSheet.rev);
@@ -459,7 +440,7 @@ public class FactSheet {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, description, displayName, type, tags, fields, relations, intentionallyNotSet, completion, lastChanged, comments, subscriptions, approvedDate, status, rev);
+    return Objects.hash(id, name, description, displayName, type, tags, fields, relations, relationIds, intentionallyNotSet, completion, lastChanged, comments, approvedDate, status, rev);
   }
 
 
@@ -476,11 +457,11 @@ public class FactSheet {
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    fields: ").append(toIndentedString(fields)).append("\n");
     sb.append("    relations: ").append(toIndentedString(relations)).append("\n");
+    sb.append("    relationIds: ").append(toIndentedString(relationIds)).append("\n");
     sb.append("    intentionallyNotSet: ").append(toIndentedString(intentionallyNotSet)).append("\n");
     sb.append("    completion: ").append(toIndentedString(completion)).append("\n");
     sb.append("    lastChanged: ").append(toIndentedString(lastChanged)).append("\n");
     sb.append("    comments: ").append(toIndentedString(comments)).append("\n");
-    sb.append("    subscriptions: ").append(toIndentedString(subscriptions)).append("\n");
     sb.append("    approvedDate: ").append(toIndentedString(approvedDate)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    rev: ").append(toIndentedString(rev)).append("\n");

@@ -14,6 +14,10 @@
 package net.leanix.api.models;
 
 import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import net.leanix.api.models.CustomValidator;
 
 /**
@@ -21,6 +25,27 @@ import net.leanix.api.models.CustomValidator;
  */
 
 public class RegexValidator extends CustomValidator {
+  @JsonProperty("type")
+  private String type = null;
+
+  public RegexValidator type(String type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * Get type
+   * @return type
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -30,12 +55,14 @@ public class RegexValidator extends CustomValidator {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    return super.equals(o);
+    RegexValidator regexValidator = (RegexValidator) o;
+    return Objects.equals(this.type, regexValidator.type) &&
+        super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode());
+    return Objects.hash(type, super.hashCode());
   }
 
 
@@ -44,6 +71,7 @@ public class RegexValidator extends CustomValidator {
     StringBuilder sb = new StringBuilder();
     sb.append("class RegexValidator {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

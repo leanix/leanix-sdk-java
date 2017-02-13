@@ -31,6 +31,9 @@ public class WebCallbackValidator extends CustomValidator {
   @JsonProperty("params")
   private Map<String, String> params = new HashMap<String, String>();
 
+  @JsonProperty("type")
+  private String type = null;
+
   public WebCallbackValidator params(Map<String, String> params) {
     this.params = params;
     return this;
@@ -54,6 +57,24 @@ public class WebCallbackValidator extends CustomValidator {
     this.params = params;
   }
 
+  public WebCallbackValidator type(String type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * Get type
+   * @return type
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -65,12 +86,13 @@ public class WebCallbackValidator extends CustomValidator {
     }
     WebCallbackValidator webCallbackValidator = (WebCallbackValidator) o;
     return Objects.equals(this.params, webCallbackValidator.params) &&
+        Objects.equals(this.type, webCallbackValidator.type) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(params, super.hashCode());
+    return Objects.hash(params, type, super.hashCode());
   }
 
 
@@ -80,6 +102,7 @@ public class WebCallbackValidator extends CustomValidator {
     sb.append("class WebCallbackValidator {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    params: ").append(toIndentedString(params)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.leanix.api.models.FactSheet;
 import net.leanix.api.models.LxField;
 import net.leanix.api.models.Relation;
 import org.joda.time.LocalDate;
@@ -40,6 +41,9 @@ public class Relation {
   @JsonProperty("toId")
   private String toId = null;
 
+  @JsonProperty("factSheet")
+  private FactSheet factSheet = null;
+
   @JsonProperty("type")
   private String type = null;
 
@@ -56,7 +60,7 @@ public class Relation {
   private Map<String, LxField> fields = new HashMap<String, LxField>();
 
   @JsonProperty("intentionallyNotSet")
-  private String intentionallyNotSet = null;
+  private List<String> intentionallyNotSet = new ArrayList<String>();
 
   /**
    * Gets or Sets status
@@ -91,11 +95,6 @@ public class Relation {
   @JsonProperty("status")
   private StatusEnum status = null;
 
-  public Relation id(String id) {
-    this.id = id;
-    return this;
-  }
-
    /**
    * Get id
    * @return id
@@ -103,10 +102,6 @@ public class Relation {
   @ApiModelProperty(example = "null", value = "")
   public String getId() {
     return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
   }
 
   public Relation fromId(String fromId) {
@@ -143,6 +138,24 @@ public class Relation {
 
   public void setToId(String toId) {
     this.toId = toId;
+  }
+
+  public Relation factSheet(FactSheet factSheet) {
+    this.factSheet = factSheet;
+    return this;
+  }
+
+   /**
+   * Get factSheet
+   * @return factSheet
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public FactSheet getFactSheet() {
+    return factSheet;
+  }
+
+  public void setFactSheet(FactSheet factSheet) {
+    this.factSheet = factSheet;
   }
 
   public Relation type(String type) {
@@ -245,8 +258,13 @@ public class Relation {
     this.fields = fields;
   }
 
-  public Relation intentionallyNotSet(String intentionallyNotSet) {
+  public Relation intentionallyNotSet(List<String> intentionallyNotSet) {
     this.intentionallyNotSet = intentionallyNotSet;
+    return this;
+  }
+
+  public Relation addIntentionallyNotSetItem(String intentionallyNotSetItem) {
+    this.intentionallyNotSet.add(intentionallyNotSetItem);
     return this;
   }
 
@@ -255,11 +273,11 @@ public class Relation {
    * @return intentionallyNotSet
   **/
   @ApiModelProperty(example = "null", value = "")
-  public String getIntentionallyNotSet() {
+  public List<String> getIntentionallyNotSet() {
     return intentionallyNotSet;
   }
 
-  public void setIntentionallyNotSet(String intentionallyNotSet) {
+  public void setIntentionallyNotSet(List<String> intentionallyNotSet) {
     this.intentionallyNotSet = intentionallyNotSet;
   }
 
@@ -272,7 +290,7 @@ public class Relation {
    * Get status
    * @return status
   **/
-  @ApiModelProperty(example = "null", required = true, value = "")
+  @ApiModelProperty(example = "null", value = "")
   public StatusEnum getStatus() {
     return status;
   }
@@ -294,6 +312,7 @@ public class Relation {
     return Objects.equals(this.id, relation.id) &&
         Objects.equals(this.fromId, relation.fromId) &&
         Objects.equals(this.toId, relation.toId) &&
+        Objects.equals(this.factSheet, relation.factSheet) &&
         Objects.equals(this.type, relation.type) &&
         Objects.equals(this.activeFrom, relation.activeFrom) &&
         Objects.equals(this.activeUntil, relation.activeUntil) &&
@@ -305,7 +324,7 @@ public class Relation {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, fromId, toId, type, activeFrom, activeUntil, constrainingRelations, fields, intentionallyNotSet, status);
+    return Objects.hash(id, fromId, toId, factSheet, type, activeFrom, activeUntil, constrainingRelations, fields, intentionallyNotSet, status);
   }
 
 
@@ -317,6 +336,7 @@ public class Relation {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    fromId: ").append(toIndentedString(fromId)).append("\n");
     sb.append("    toId: ").append(toIndentedString(toId)).append("\n");
+    sb.append("    factSheet: ").append(toIndentedString(factSheet)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    activeFrom: ").append(toIndentedString(activeFrom)).append("\n");
     sb.append("    activeUntil: ").append(toIndentedString(activeUntil)).append("\n");
