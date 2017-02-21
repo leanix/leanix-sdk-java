@@ -1,0 +1,9 @@
+mutation {
+	createFactSheet(input: {name: "%s", type: Application}) {
+			factSheet {
+				id
+				type
+				name
+			}
+		}
+	}

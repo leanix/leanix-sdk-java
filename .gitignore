@@ -19,3 +19,4 @@ nbactions.xml
 /samples/console/target/
 /samples/benchmark/target
 .settings/
+dependency-reduced-pom.xml
