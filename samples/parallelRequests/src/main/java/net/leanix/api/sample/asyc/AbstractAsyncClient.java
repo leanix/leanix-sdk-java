@@ -48,7 +48,7 @@ public abstract class AbstractAsyncClient<MODEL extends Serializable> {
     }
 
     void waitUntilAllRequestsAreFinished() {
-        // Call on each Future.get() to be sure this method will return only when all requests against leanIX are done.
+        // Call on each Future.get() to be sure this method will return only when all requests against pathfinder are processed
         try {
             Futures.successfulAsList(listenableFutures).get();
         } catch (InterruptedException | ExecutionException e) {

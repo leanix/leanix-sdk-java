@@ -3,15 +3,21 @@ package net.leanix.api.sample.parallel;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import java.io.PrintStream;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import net.leanix.api.common.ApiClient;
 import net.leanix.api.common.ApiClientBuilder;
 import net.leanix.api.sample.parallel.config.ArgumentOptions;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class App {
+
+    private final static Logger LOG = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
 
@@ -55,8 +61,37 @@ public class App {
             .withApiToken(options.apiToken)
             .withTokenProviderHost(options.apiMtmHostName)
             .build();
+        ListeningExecutorService executorService =
+                MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(options.threadCount));
+        RandomFactSheetPopulator factSheetPopulator = new RandomFactSheetPopulator(options, apiClient, executorService);
 
-        ListeningExecutorService executorService = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(options.threadCount));
-        new RandomFactSheetPopulator(options, apiClient, executorService).run();
+
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                System.out.println("*** received shutdown ***");
+                finishRun(executorService, factSheetPopulator);
+            }
+        });
+
+        // run import
+        factSheetPopulator.run();
+        finishRun(executorService, factSheetPopulator);
+    }
+
+    public void finishRun(ListeningExecutorService executorService, RandomFactSheetPopulator factSheetPopulator) {
+        // show summary
+        factSheetPopulator.showSummary();
+
+        // Stop executor service
+        try {
+            LOG.info("Stopping Executor Service...");
+            executorService.awaitTermination(10, TimeUnit.SECONDS);
+            List<Runnable> shutdownNow = executorService.shutdownNow();
+            System.out.println(shutdownNow.size());
+            LOG.info("Stopping Executor Service...DONE");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
