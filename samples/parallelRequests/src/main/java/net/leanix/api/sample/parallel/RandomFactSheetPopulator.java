@@ -39,7 +39,7 @@ public class RandomFactSheetPopulator {
         this.argumentOptions = argumentOptions;
         graphQLApiClient = new AsyncGraphqlApiClient(apiClient, executorService);
         template = Preconditions
-            .checkNotNull(SearchPathUtil.getResourceAsString("src/main/resources/graphql/createFactSheet.mutation"));
+            .checkNotNull(SearchPathUtil.getResourceAsString("classpath:/graphql/createFactSheet.mutation"));
         stopWatch = new StopWatch("Importing FactSheets into Pathfinder");
     }
 

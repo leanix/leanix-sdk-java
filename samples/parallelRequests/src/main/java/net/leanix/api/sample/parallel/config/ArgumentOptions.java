@@ -13,10 +13,10 @@ public class ArgumentOptions {
     public int threadCount = 10;
 
     @Option(name = "--apiHostName", usage = "The virtual host name of pathfinder")
-    public String apiHostName = "local-pf.leanix.net";
+    public String apiHostName = "local-eam.leanix.net";
 
     @Option(name = "--apiMtmHostName", usage = "The virtual host name of MTM which generates the JWT Token")
-    public String apiMtmHostName = apiHostName;
+    public String apiMtmHostName = "local-svc.leanix.net";
 
     @Option(name = "--apiToken", usage = "The API Token used to get the JWT token")
     public String apiToken = "ekqUE3hTPskLPdrSnHxhjwJQNwYCW2KKVUDnpKJw";

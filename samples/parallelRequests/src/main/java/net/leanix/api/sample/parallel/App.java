@@ -57,7 +57,7 @@ public class App {
         System.out.println(options);
 
         ApiClient apiClient = new ApiClientBuilder()
-            .withBasePath(String.format("https://%s/api/v1", options.apiHostName))
+            .withBasePath(String.format("https://%s/beta/api/v1", options.apiHostName))
             .withApiToken(options.apiToken)
             .withTokenProviderHost(options.apiMtmHostName)
             .build();
