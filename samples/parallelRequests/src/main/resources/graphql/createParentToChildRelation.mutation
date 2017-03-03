@@ -1,0 +1,14 @@
+mutation {
+  updateFactSheet(id: "%s", 
+    rev: %d, 
+    validateOnly: false, 
+    patches: {
+      op: add, 
+      path: "/relToChild/new", 
+      value: "%s"}) {
+    factSheet {
+      id
+      rev
+    }
+  }
+}

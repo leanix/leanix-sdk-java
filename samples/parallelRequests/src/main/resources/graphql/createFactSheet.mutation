@@ -1,5 +1,5 @@
 mutation {
-	createFactSheet(input: {name: "%s", type: Application}) {
+	createFactSheet(input: {name: "%s", type: %s}) {
 			factSheet {
 				id
 				type

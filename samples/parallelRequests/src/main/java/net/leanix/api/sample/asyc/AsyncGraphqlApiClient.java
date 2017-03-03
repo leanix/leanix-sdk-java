@@ -24,6 +24,7 @@ public class AsyncGraphqlApiClient extends AbstractAsyncClient<Serializable> {
             @Override
             public Serializable/* Map<String, Object> */ call() throws Exception {
                 Map<String, Object> processGraphQL = graphqlApi.processGraphQL(request);
+//                System.out.println("    -> "+request);
                 return (Serializable) processGraphQL;
             }
         });

@@ -1,7 +1,10 @@
 package net.leanix.api.sample.parallel.config;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
 public class ArgumentOptions {
@@ -24,6 +27,11 @@ public class ArgumentOptions {
     @Option(name = "--factSheetCount", usage = "The number of FactSheets that have to be generated")
     public int factSheetCount = 100;
 
+    @Option(name = "--hierarchyLevel", usage = "The hierarchy level (1 -> only parents exists)")
+    public int hierarchyLevel = 3;
+
+    @Argument
+    public List<String> arguments = new ArrayList<String>();
 
     @Override
     public String toString() {

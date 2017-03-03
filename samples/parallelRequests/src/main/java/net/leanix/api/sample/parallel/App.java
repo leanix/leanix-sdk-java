@@ -31,6 +31,7 @@ public class App {
 
         try {
             parser.parseArgument(args);
+
             if (options.help) {
                 showHelp(parser, System.out);
                 return;
@@ -48,6 +49,7 @@ public class App {
 
     public static void showHelp(CmdLineParser parser, PrintStream ps) {
         ps.println("java -jar <App.jar> [options...] arguments...");
+        ps.println("  arguments: hierarchy");
         // print the list of available options
         parser.printUsage(ps);
         ps.println();
@@ -63,23 +65,28 @@ public class App {
             .build();
         ListeningExecutorService executorService =
                 MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(options.threadCount));
-        RandomFactSheetPopulator factSheetPopulator = new RandomFactSheetPopulator(options, apiClient, executorService);
 
+        AbstractRunner runner;
+        if (options.arguments.contains("hierarchy")) {
+            runner = new HierarchyFactSheetPopulator(options, apiClient, executorService);
+        } else {
+            runner = new RandomFactSheetPopulator(options, apiClient, executorService);
+        }
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
                 System.out.println("*** received shutdown ***");
-                finishRun(executorService, factSheetPopulator);
+                finishRun(executorService, runner);
             }
         });
 
-        // run import
-        factSheetPopulator.run();
-        finishRun(executorService, factSheetPopulator);
+        // run the implemetions
+        runner.run();
+        finishRun(executorService, runner);
     }
 
-    public void finishRun(ListeningExecutorService executorService, RandomFactSheetPopulator factSheetPopulator) {
+    public void finishRun(ListeningExecutorService executorService, AbstractRunner factSheetPopulator) {
         // show summary
         factSheetPopulator.showSummary();
 
