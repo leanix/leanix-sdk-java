@@ -12,7 +12,10 @@ import net.leanix.api.models.FactSheet;
 import net.leanix.api.models.FactSheetArchiveParameter;
 import net.leanix.api.models.FactSheetListResponse;
 import net.leanix.api.models.FactSheetResponse;
+import net.leanix.api.models.Relation;
 import net.leanix.api.models.RelationListResponse;
+import net.leanix.api.models.RelationResponse;
+import java.util.UUID;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -124,6 +127,102 @@ public class FactSheetsApi {
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
+   * createFactSheetRelation
+   * Creates the given relation with the Fact Sheet as one side of the relation. When adding constraining relations only the ID of these relations will be used.
+   * @param relation  (required)
+   * @param id  (required)
+   * @return RelationResponse
+   * @throws ApiException if fails to make API call
+   */
+  public RelationResponse createFactSheetRelation(Relation relation, UUID id) throws ApiException {
+    Object localVarPostBody = relation;
+    
+    // verify the required parameter 'relation' is set
+    if (relation == null) {
+      throw new ApiException(400, "Missing the required parameter 'relation' when calling createFactSheetRelation");
+    }
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling createFactSheetRelation");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/factSheets/{id}/relations".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "token" };
+
+    GenericType<RelationResponse> localVarReturnType = new GenericType<RelationResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * deleteFactSheetRelation
+   * Deletes the given relation.
+   * @param id  (required)
+   * @param relationId  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteFactSheetRelation(UUID id, UUID relationId) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteFactSheetRelation");
+    }
+    
+    // verify the required parameter 'relationId' is set
+    if (relationId == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationId' when calling deleteFactSheetRelation");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/factSheets/{id}/relations/{relationId}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
+      .replaceAll("\\{" + "relationId" + "\\}", apiClient.escapeString(relationId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "token" };
+
+
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
+  /**
    * getFactSheet
    * Retrieves a Fact Sheet
    * @param id  (required)
@@ -218,7 +317,7 @@ public class FactSheetsApi {
    * Retrieves all Fact Sheets
    * @param type Only list Fact Sheets with this type (optional)
    * @param relationTypes Comma separated list of relation types to show on the Fact Sheets (optional)
-   * @param pageSize Number of Fact Sheets to return (optional, default to 40)
+   * @param pageSize Number of Fact Sheets to return, maximum is 100 (optional, default to 40)
    * @param cursor Marks the position of the first element that should be returned (optional)
    * @return FactSheetListResponse
    * @throws ApiException if fails to make API call
@@ -304,6 +403,61 @@ public class FactSheetsApi {
     String[] localVarAuthNames = new String[] { "token" };
 
     GenericType<FactSheetResponse> localVarReturnType = new GenericType<FactSheetResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * updateFactSheetRelation
+   * Updates the given relation.
+   * @param id  (required)
+   * @param relationId  (required)
+   * @param relation  (required)
+   * @return RelationResponse
+   * @throws ApiException if fails to make API call
+   */
+  public RelationResponse updateFactSheetRelation(UUID id, UUID relationId, Relation relation) throws ApiException {
+    Object localVarPostBody = relation;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling updateFactSheetRelation");
+    }
+    
+    // verify the required parameter 'relationId' is set
+    if (relationId == null) {
+      throw new ApiException(400, "Missing the required parameter 'relationId' when calling updateFactSheetRelation");
+    }
+    
+    // verify the required parameter 'relation' is set
+    if (relation == null) {
+      throw new ApiException(400, "Missing the required parameter 'relation' when calling updateFactSheetRelation");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/factSheets/{id}/relations/{relationId}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()))
+      .replaceAll("\\{" + "relationId" + "\\}", apiClient.escapeString(relationId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "token" };
+
+    GenericType<RelationResponse> localVarReturnType = new GenericType<RelationResponse>() {};
     return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
 }

@@ -7,7 +7,7 @@ import net.leanix.api.common.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import net.leanix.api.models.JobResponse;
+import net.leanix.api.models.JobStatusResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,10 +38,10 @@ public class JobsApi {
    * cancelJob
    * Stop a running job or avoid to start a queued job.
    * @param jobId The Job Id (required)
-   * @return JobResponse
+   * @return JobStatusResponse
    * @throws ApiException if fails to make API call
    */
-  public JobResponse cancelJob(String jobId) throws ApiException {
+  public JobStatusResponse cancelJob(String jobId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'jobId' is set
@@ -73,17 +73,17 @@ public class JobsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<JobResponse> localVarReturnType = new GenericType<JobResponse>() {};
+    GenericType<JobStatusResponse> localVarReturnType = new GenericType<JobStatusResponse>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
    * getJobStatus
    * Provides information about running or finished jobs
    * @param jobId Job Id (required)
-   * @return JobResponse
+   * @return JobStatusResponse
    * @throws ApiException if fails to make API call
    */
-  public JobResponse getJobStatus(String jobId) throws ApiException {
+  public JobStatusResponse getJobStatus(String jobId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'jobId' is set
@@ -115,7 +115,7 @@ public class JobsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<JobResponse> localVarReturnType = new GenericType<JobResponse>() {};
+    GenericType<JobStatusResponse> localVarReturnType = new GenericType<JobStatusResponse>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
 }

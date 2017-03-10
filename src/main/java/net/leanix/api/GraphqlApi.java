@@ -9,6 +9,7 @@ import javax.ws.rs.core.GenericType;
 
 import java.io.File;
 import net.leanix.api.models.GraphQLRequest;
+import net.leanix.api.models.GraphQLResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,10 +40,10 @@ public class GraphqlApi {
    * processGraphQL
    * Processes GraphQL requests
    * @param request  (required)
-   * @return Map&lt;String, Object&gt;
+   * @return GraphQLResult
    * @throws ApiException if fails to make API call
    */
-  public Map<String, Object> processGraphQL(GraphQLRequest request) throws ApiException {
+  public GraphQLResult processGraphQL(GraphQLRequest request) throws ApiException {
     Object localVarPostBody = request;
     
     // verify the required parameter 'request' is set
@@ -73,7 +74,7 @@ public class GraphqlApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<Map<String, Object>> localVarReturnType = new GenericType<Map<String, Object>>() {};
+    GenericType<GraphQLResult> localVarReturnType = new GenericType<GraphQLResult>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
@@ -81,10 +82,10 @@ public class GraphqlApi {
    * Processes GraphQL requests, supporting multipart documents
    * @param graphQLRequest  (required)
    * @param file  (required)
-   * @return Map&lt;String, Object&gt;
+   * @return GraphQLResult
    * @throws ApiException if fails to make API call
    */
-  public Map<String, Object> processGraphQLMultipart(String graphQLRequest, File file) throws ApiException {
+  public GraphQLResult processGraphQLMultipart(String graphQLRequest, File file) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'graphQLRequest' is set
@@ -124,7 +125,7 @@ if (file != null)
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<Map<String, Object>> localVarReturnType = new GenericType<Map<String, Object>>() {};
+    GenericType<GraphQLResult> localVarReturnType = new GenericType<GraphQLResult>() {};
     return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
 }
