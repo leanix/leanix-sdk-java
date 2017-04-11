@@ -6,7 +6,7 @@
     <artifactId>leanix-sdk-java</artifactId>
     <packaging>jar</packaging>
 
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.9.5-SNAPSHOT</version>
 
     <parent>
         <groupId>net.leanix.poms</groupId>
@@ -173,8 +173,10 @@
                                 <artifactId>leanix-sdk-java</artifactId>
                                 <invokerPackage>net.leanix.api.common</invokerPackage>
                                 <library>jersey2</library>
-                                <dateLibrary>joda</dateLibrary>
+                                <dateLibrary>xxCustom</dateLibrary>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <type-mappings>DateTime=Instant,date=LocalDate</type-mappings>
+                                <import-mappings>Instant=org.joda.time.Instant,LocalDate=org.joda.time.LocalDate</import-mappings>
                             </configOptions>
                             <!-- used to get help from cli that describes possible configOptions -->
                             <!-- configHelp>true</configHelp -->

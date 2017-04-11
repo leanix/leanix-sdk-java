@@ -8,11 +8,11 @@ import net.leanix.api.common.Pair;
 import javax.ws.rs.core.GenericType;
 
 import net.leanix.api.models.BasicPFResponse;
-import net.leanix.api.models.FactSheet;
 import net.leanix.api.models.FactSheetArchiveParameter;
+import net.leanix.api.models.FactSheetData;
+import net.leanix.api.models.FactSheetDataRelation;
 import net.leanix.api.models.FactSheetListResponse;
 import net.leanix.api.models.FactSheetResponse;
-import net.leanix.api.models.Relation;
 import net.leanix.api.models.RelationListResponse;
 import net.leanix.api.models.RelationResponse;
 import java.util.UUID;
@@ -92,7 +92,7 @@ public class FactSheetsApi {
    * @return FactSheetResponse
    * @throws ApiException if fails to make API call
    */
-  public FactSheetResponse createFactSheet(FactSheet body) throws ApiException {
+  public FactSheetResponse createFactSheet(FactSheetData body) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'body' is set
@@ -134,7 +134,7 @@ public class FactSheetsApi {
    * @return RelationResponse
    * @throws ApiException if fails to make API call
    */
-  public RelationResponse createFactSheetRelation(Relation relation, UUID id) throws ApiException {
+  public RelationResponse createFactSheetRelation(FactSheetDataRelation relation, UUID id) throws ApiException {
     Object localVarPostBody = relation;
     
     // verify the required parameter 'relation' is set
@@ -227,10 +227,11 @@ public class FactSheetsApi {
    * Retrieves a Fact Sheet
    * @param id  (required)
    * @param relationTypes Comma separated list of relation types to show on the Fact Sheets (optional)
+   * @param permissions Show a permission field for the Fact Sheet (optional, default to false)
    * @return FactSheetResponse
    * @throws ApiException if fails to make API call
    */
-  public FactSheetResponse getFactSheet(String id, String relationTypes) throws ApiException {
+  public FactSheetResponse getFactSheet(String id, String relationTypes, Boolean permissions) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -248,6 +249,7 @@ public class FactSheetsApi {
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "relationTypes", relationTypes));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "permissions", permissions));
 
     
     
@@ -319,10 +321,11 @@ public class FactSheetsApi {
    * @param relationTypes Comma separated list of relation types to show on the Fact Sheets (optional)
    * @param pageSize Number of Fact Sheets to return, maximum is 100 (optional, default to 40)
    * @param cursor Marks the position of the first element that should be returned (optional)
+   * @param permissions Show a permission field for the Fact Sheet (optional, default to false)
    * @return FactSheetListResponse
    * @throws ApiException if fails to make API call
    */
-  public FactSheetListResponse getFactSheets(String type, String relationTypes, Integer pageSize, String cursor) throws ApiException {
+  public FactSheetListResponse getFactSheets(String type, String relationTypes, Integer pageSize, String cursor, Boolean permissions) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -337,6 +340,7 @@ public class FactSheetsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "relationTypes", relationTypes));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "cursor", cursor));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "permissions", permissions));
 
     
     
@@ -364,7 +368,7 @@ public class FactSheetsApi {
    * @return FactSheetResponse
    * @throws ApiException if fails to make API call
    */
-  public FactSheetResponse updateFactSheet(String id, FactSheet body, String relationTypes) throws ApiException {
+  public FactSheetResponse updateFactSheet(UUID id, FactSheetData body, String relationTypes) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'id' is set
@@ -414,7 +418,7 @@ public class FactSheetsApi {
    * @return RelationResponse
    * @throws ApiException if fails to make API call
    */
-  public RelationResponse updateFactSheetRelation(UUID id, UUID relationId, Relation relation) throws ApiException {
+  public RelationResponse updateFactSheetRelation(UUID id, UUID relationId, FactSheetDataRelation relation) throws ApiException {
     Object localVarPostBody = relation;
     
     // verify the required parameter 'id' is set
