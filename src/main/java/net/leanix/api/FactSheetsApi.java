@@ -7,7 +7,6 @@ import net.leanix.api.common.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import net.leanix.api.models.BasicPFResponse;
 import net.leanix.api.models.FactSheet;
 import net.leanix.api.models.FactSheetArchiveParameter;
 import net.leanix.api.models.FactSheetListResponse;
@@ -47,10 +46,9 @@ public class FactSheetsApi {
    * Deletes a Fact Sheet
    * @param id  (required)
    * @param body Contains the comment and the Fact Sheet revision (optional)
-   * @return BasicPFResponse
    * @throws ApiException if fails to make API call
    */
-  public BasicPFResponse archiveFactSheet(String id, FactSheetArchiveParameter body) throws ApiException {
+  public void archiveFactSheet(String id, FactSheetArchiveParameter body) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'id' is set
@@ -82,9 +80,9 @@ public class FactSheetsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<BasicPFResponse> localVarReturnType = new GenericType<BasicPFResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
   /**
    * createFactSheet
    * Creates a Fact Sheet
