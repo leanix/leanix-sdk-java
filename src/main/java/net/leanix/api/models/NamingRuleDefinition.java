@@ -18,59 +18,53 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
+import net.leanix.api.models.Config;
 
 /**
- * ApiError
+ * NamingRuleDefinition
  */
 
-public class ApiError {
-  @JsonProperty("value")
-  private String value = null;
+public class NamingRuleDefinition {
+  @JsonProperty("regular")
+  private Config regular = null;
 
-  @JsonProperty("messages")
-  private List<String> messages = new ArrayList<String>();
+  @JsonProperty("autogenerate")
+  private Config autogenerate = null;
 
-  public ApiError value(String value) {
-    this.value = value;
+  public NamingRuleDefinition regular(Config regular) {
+    this.regular = regular;
     return this;
   }
 
    /**
-   * Get value
-   * @return value
+   * Get regular
+   * @return regular
   **/
   @ApiModelProperty(example = "null", value = "")
-  public String getValue() {
-    return value;
+  public Config getRegular() {
+    return regular;
   }
 
-  public void setValue(String value) {
-    this.value = value;
+  public void setRegular(Config regular) {
+    this.regular = regular;
   }
 
-  public ApiError messages(List<String> messages) {
-    this.messages = messages;
-    return this;
-  }
-
-  public ApiError addMessagesItem(String messagesItem) {
-    this.messages.add(messagesItem);
+  public NamingRuleDefinition autogenerate(Config autogenerate) {
+    this.autogenerate = autogenerate;
     return this;
   }
 
    /**
-   * Get messages
-   * @return messages
+   * Get autogenerate
+   * @return autogenerate
   **/
   @ApiModelProperty(example = "null", value = "")
-  public List<String> getMessages() {
-    return messages;
+  public Config getAutogenerate() {
+    return autogenerate;
   }
 
-  public void setMessages(List<String> messages) {
-    this.messages = messages;
+  public void setAutogenerate(Config autogenerate) {
+    this.autogenerate = autogenerate;
   }
 
 
@@ -82,24 +76,24 @@ public class ApiError {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ApiError apiError = (ApiError) o;
-    return Objects.equals(this.value, apiError.value) &&
-        Objects.equals(this.messages, apiError.messages);
+    NamingRuleDefinition namingRuleDefinition = (NamingRuleDefinition) o;
+    return Objects.equals(this.regular, namingRuleDefinition.regular) &&
+        Objects.equals(this.autogenerate, namingRuleDefinition.autogenerate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value, messages);
+    return Objects.hash(regular, autogenerate);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ApiError {\n");
+    sb.append("class NamingRuleDefinition {\n");
     
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    messages: ").append(toIndentedString(messages)).append("\n");
+    sb.append("    regular: ").append(toIndentedString(regular)).append("\n");
+    sb.append("    autogenerate: ").append(toIndentedString(autogenerate)).append("\n");
     sb.append("}");
     return sb.toString();
   }

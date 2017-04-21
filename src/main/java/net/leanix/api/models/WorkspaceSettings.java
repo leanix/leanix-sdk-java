@@ -18,59 +18,54 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
+import net.leanix.api.models.SubscriptionSettings;
+import net.leanix.api.models.TagSettings;
 
 /**
- * ApiError
+ * WorkspaceSettings
  */
 
-public class ApiError {
-  @JsonProperty("value")
-  private String value = null;
+public class WorkspaceSettings {
+  @JsonProperty("subscriptions")
+  private SubscriptionSettings subscriptions = null;
 
-  @JsonProperty("messages")
-  private List<String> messages = new ArrayList<String>();
+  @JsonProperty("tags")
+  private TagSettings tags = null;
 
-  public ApiError value(String value) {
-    this.value = value;
+  public WorkspaceSettings subscriptions(SubscriptionSettings subscriptions) {
+    this.subscriptions = subscriptions;
     return this;
   }
 
    /**
-   * Get value
-   * @return value
+   * Get subscriptions
+   * @return subscriptions
   **/
   @ApiModelProperty(example = "null", value = "")
-  public String getValue() {
-    return value;
+  public SubscriptionSettings getSubscriptions() {
+    return subscriptions;
   }
 
-  public void setValue(String value) {
-    this.value = value;
+  public void setSubscriptions(SubscriptionSettings subscriptions) {
+    this.subscriptions = subscriptions;
   }
 
-  public ApiError messages(List<String> messages) {
-    this.messages = messages;
-    return this;
-  }
-
-  public ApiError addMessagesItem(String messagesItem) {
-    this.messages.add(messagesItem);
+  public WorkspaceSettings tags(TagSettings tags) {
+    this.tags = tags;
     return this;
   }
 
    /**
-   * Get messages
-   * @return messages
+   * Get tags
+   * @return tags
   **/
   @ApiModelProperty(example = "null", value = "")
-  public List<String> getMessages() {
-    return messages;
+  public TagSettings getTags() {
+    return tags;
   }
 
-  public void setMessages(List<String> messages) {
-    this.messages = messages;
+  public void setTags(TagSettings tags) {
+    this.tags = tags;
   }
 
 
@@ -82,24 +77,24 @@ public class ApiError {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ApiError apiError = (ApiError) o;
-    return Objects.equals(this.value, apiError.value) &&
-        Objects.equals(this.messages, apiError.messages);
+    WorkspaceSettings workspaceSettings = (WorkspaceSettings) o;
+    return Objects.equals(this.subscriptions, workspaceSettings.subscriptions) &&
+        Objects.equals(this.tags, workspaceSettings.tags);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value, messages);
+    return Objects.hash(subscriptions, tags);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ApiError {\n");
+    sb.append("class WorkspaceSettings {\n");
     
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    messages: ").append(toIndentedString(messages)).append("\n");
+    sb.append("    subscriptions: ").append(toIndentedString(subscriptions)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("}");
     return sb.toString();
   }

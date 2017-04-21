@@ -14,6 +14,7 @@
 package net.leanix.api;
 
 import net.leanix.api.common.ApiException;
+import net.leanix.api.models.SettingsResponse;
 import org.junit.Test;
 import org.junit.Ignore;
 
@@ -23,26 +24,25 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * API tests for DocumentsApi
+ * API tests for FeaturesApi
  */
 @Ignore
-public class DocumentsApiTest {
+public class FeaturesApiTest {
 
-    private final DocumentsApi api = new DocumentsApi();
+    private final FeaturesApi api = new FeaturesApi();
 
     
     /**
-     * downloadDocument
+     * getFeatures
      *
-     * Download a document&#39;s content
+     * Retrieves features for a workspace
      *
      * @throws ApiException
      *          if the Api call fails
      */
     @Test
-    public void downloadDocumentTest() throws ApiException {
-        String documentId = null;
-        api.downloadDocument(documentId);
+    public void getFeaturesTest() throws ApiException {
+        SettingsResponse response = api.getFeatures();
 
         // TODO: test validations
     }
