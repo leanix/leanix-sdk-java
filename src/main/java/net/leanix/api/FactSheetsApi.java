@@ -8,10 +8,10 @@ import net.leanix.api.common.Pair;
 import javax.ws.rs.core.GenericType;
 
 import net.leanix.api.models.BasicPFResponse;
+import net.leanix.api.models.FactSheet;
 import net.leanix.api.models.FactSheetArchiveParameter;
-import net.leanix.api.models.FactSheetData;
-import net.leanix.api.models.FactSheetDataRelation;
 import net.leanix.api.models.FactSheetListResponse;
+import net.leanix.api.models.FactSheetRelation;
 import net.leanix.api.models.FactSheetResponse;
 import net.leanix.api.models.RelationListResponse;
 import net.leanix.api.models.RelationResponse;
@@ -92,7 +92,7 @@ public class FactSheetsApi {
    * @return FactSheetResponse
    * @throws ApiException if fails to make API call
    */
-  public FactSheetResponse createFactSheet(FactSheetData body) throws ApiException {
+  public FactSheetResponse createFactSheet(FactSheet body) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'body' is set
@@ -134,7 +134,7 @@ public class FactSheetsApi {
    * @return RelationResponse
    * @throws ApiException if fails to make API call
    */
-  public RelationResponse createFactSheetRelation(FactSheetDataRelation relation, UUID id) throws ApiException {
+  public RelationResponse createFactSheetRelation(FactSheetRelation relation, UUID id) throws ApiException {
     Object localVarPostBody = relation;
     
     // verify the required parameter 'relation' is set
@@ -368,7 +368,7 @@ public class FactSheetsApi {
    * @return FactSheetResponse
    * @throws ApiException if fails to make API call
    */
-  public FactSheetResponse updateFactSheet(UUID id, FactSheetData body, String relationTypes) throws ApiException {
+  public FactSheetResponse updateFactSheet(UUID id, FactSheet body, String relationTypes) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'id' is set
@@ -418,7 +418,7 @@ public class FactSheetsApi {
    * @return RelationResponse
    * @throws ApiException if fails to make API call
    */
-  public RelationResponse updateFactSheetRelation(UUID id, UUID relationId, FactSheetDataRelation relation) throws ApiException {
+  public RelationResponse updateFactSheetRelation(UUID id, UUID relationId, FactSheetRelation relation) throws ApiException {
     Object localVarPostBody = relation;
     
     // verify the required parameter 'id' is set
