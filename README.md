@@ -137,6 +137,16 @@ $ mvn package
 
 #### Deploy to Maven Central ###
 
+The following is done by the CI server when pushing a new version to master.
+To release, just use the ordinary maven-jgitflow mechanism:
+
+Make sure your local develop and master branches are up-to-date and clean, then
+
+```
+mvn jgitflow:release-start
+mvn jgitflow:release-finish
+```
+
 Details can be read here: http://central.sonatype.org/pages/apache-maven.html
 
 Add LeanIX Developer GPG key and make sure gpg is installed
