@@ -21,58 +21,32 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import net.leanix.api.models.ApiError;
+import net.leanix.api.models.WorkspaceSettings;
 
 /**
- * BasicPFResponse
+ * SettingsResponse
  */
 
-public class BasicPFResponse {
-  /**
-   * Gets or Sets status
-   */
-  public enum StatusEnum {
-    OK("OK"),
-    
-    ERROR("ERROR");
-
-    private String value;
-
-    StatusEnum(String value) {
-      this.value = value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static StatusEnum fromValue(String text) {
-      for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-  }
-
+public class SettingsResponse {
   @JsonProperty("status")
-  private StatusEnum status = null;
+  private String status = null;
 
   @JsonProperty("type")
   private String type = null;
 
-  @JsonProperty("data")
-  private Object data = null;
-
-  @JsonProperty("errorMessage")
-  private String errorMessage = null;
+  @JsonProperty("message")
+  private String message = null;
 
   @JsonProperty("errors")
   private List<ApiError> errors = new ArrayList<ApiError>();
 
-  public BasicPFResponse status(StatusEnum status) {
+  @JsonProperty("total")
+  private Long total = null;
+
+  @JsonProperty("data")
+  private WorkspaceSettings data = null;
+
+  public SettingsResponse status(String status) {
     this.status = status;
     return this;
   }
@@ -82,15 +56,15 @@ public class BasicPFResponse {
    * @return status
   **/
   @ApiModelProperty(example = "null", value = "")
-  public StatusEnum getStatus() {
+  public String getStatus() {
     return status;
   }
 
-  public void setStatus(StatusEnum status) {
+  public void setStatus(String status) {
     this.status = status;
   }
 
-  public BasicPFResponse type(String type) {
+  public SettingsResponse type(String type) {
     this.type = type;
     return this;
   }
@@ -108,48 +82,30 @@ public class BasicPFResponse {
     this.type = type;
   }
 
-  public BasicPFResponse data(Object data) {
-    this.data = data;
+  public SettingsResponse message(String message) {
+    this.message = message;
     return this;
   }
 
    /**
-   * Get data
-   * @return data
+   * Get message
+   * @return message
   **/
   @ApiModelProperty(example = "null", value = "")
-  public Object getData() {
-    return data;
+  public String getMessage() {
+    return message;
   }
 
-  public void setData(Object data) {
-    this.data = data;
+  public void setMessage(String message) {
+    this.message = message;
   }
 
-  public BasicPFResponse errorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-    return this;
-  }
-
-   /**
-   * Get errorMessage
-   * @return errorMessage
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public String getErrorMessage() {
-    return errorMessage;
-  }
-
-  public void setErrorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-  }
-
-  public BasicPFResponse errors(List<ApiError> errors) {
+  public SettingsResponse errors(List<ApiError> errors) {
     this.errors = errors;
     return this;
   }
 
-  public BasicPFResponse addErrorsItem(ApiError errorsItem) {
+  public SettingsResponse addErrorsItem(ApiError errorsItem) {
     this.errors.add(errorsItem);
     return this;
   }
@@ -167,6 +123,42 @@ public class BasicPFResponse {
     this.errors = errors;
   }
 
+  public SettingsResponse total(Long total) {
+    this.total = total;
+    return this;
+  }
+
+   /**
+   * Get total
+   * @return total
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public Long getTotal() {
+    return total;
+  }
+
+  public void setTotal(Long total) {
+    this.total = total;
+  }
+
+  public SettingsResponse data(WorkspaceSettings data) {
+    this.data = data;
+    return this;
+  }
+
+   /**
+   * Get data
+   * @return data
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public WorkspaceSettings getData() {
+    return data;
+  }
+
+  public void setData(WorkspaceSettings data) {
+    this.data = data;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -176,30 +168,32 @@ public class BasicPFResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BasicPFResponse basicPFResponse = (BasicPFResponse) o;
-    return Objects.equals(this.status, basicPFResponse.status) &&
-        Objects.equals(this.type, basicPFResponse.type) &&
-        Objects.equals(this.data, basicPFResponse.data) &&
-        Objects.equals(this.errorMessage, basicPFResponse.errorMessage) &&
-        Objects.equals(this.errors, basicPFResponse.errors);
+    SettingsResponse settingsResponse = (SettingsResponse) o;
+    return Objects.equals(this.status, settingsResponse.status) &&
+        Objects.equals(this.type, settingsResponse.type) &&
+        Objects.equals(this.message, settingsResponse.message) &&
+        Objects.equals(this.errors, settingsResponse.errors) &&
+        Objects.equals(this.total, settingsResponse.total) &&
+        Objects.equals(this.data, settingsResponse.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, type, data, errorMessage, errors);
+    return Objects.hash(status, type, message, errors, total, data);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class BasicPFResponse {\n");
+    sb.append("class SettingsResponse {\n");
     
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("    errorMessage: ").append(toIndentedString(errorMessage)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");
     return sb.toString();
   }

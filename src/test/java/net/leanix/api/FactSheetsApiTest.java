@@ -14,7 +14,6 @@
 package net.leanix.api;
 
 import net.leanix.api.common.ApiException;
-import net.leanix.api.models.BasicPFResponse;
 import net.leanix.api.models.FactSheet;
 import net.leanix.api.models.FactSheetArchiveParameter;
 import net.leanix.api.models.FactSheetListResponse;
@@ -52,7 +51,7 @@ public class FactSheetsApiTest {
     public void archiveFactSheetTest() throws ApiException {
         String id = null;
         FactSheetArchiveParameter body = null;
-        BasicPFResponse response = api.archiveFactSheet(id, body);
+        api.archiveFactSheet(id, body);
 
         // TODO: test validations
     }

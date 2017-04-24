@@ -16,11 +16,11 @@ package net.leanix.api;
 import net.leanix.api.common.ApiException;
 import net.leanix.api.models.AuthorizationRole;
 import net.leanix.api.models.AuthorizationRolesResponse;
-import net.leanix.api.models.BasicResponse;
 import net.leanix.api.models.DataModel;
 import net.leanix.api.models.DataModelDefinitionResponse;
 import net.leanix.api.models.DataModelUpdateResponse;
 import net.leanix.api.models.LanguageResponse;
+import net.leanix.api.models.Response;
 import net.leanix.api.models.ViewModelResponse;
 import org.junit.Test;
 import org.junit.Ignore;
@@ -132,7 +132,7 @@ public class ModelsApiTest {
     public void updateAuthorizationTest() throws ApiException {
         List<AuthorizationRole> body = null;
         String workspaceId = null;
-        BasicResponse response = api.updateAuthorization(body, workspaceId);
+        Response response = api.updateAuthorization(body, workspaceId);
 
         // TODO: test validations
     }
@@ -168,7 +168,7 @@ public class ModelsApiTest {
         String id = null;
         Object definition = null;
         String workspaceId = null;
-        BasicResponse response = api.updateLanguage(id, definition, workspaceId);
+        Response response = api.updateLanguage(id, definition, workspaceId);
 
         // TODO: test validations
     }
@@ -185,7 +185,7 @@ public class ModelsApiTest {
     public void updateViewModelTest() throws ApiException {
         String body = null;
         String workspaceId = null;
-        BasicResponse response = api.updateViewModel(body, workspaceId);
+        api.updateViewModel(body, workspaceId);
 
         // TODO: test validations
     }

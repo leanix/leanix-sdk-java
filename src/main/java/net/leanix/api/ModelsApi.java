@@ -9,11 +9,11 @@ import javax.ws.rs.core.GenericType;
 
 import net.leanix.api.models.AuthorizationRole;
 import net.leanix.api.models.AuthorizationRolesResponse;
-import net.leanix.api.models.BasicResponse;
 import net.leanix.api.models.DataModel;
 import net.leanix.api.models.DataModelDefinitionResponse;
 import net.leanix.api.models.DataModelUpdateResponse;
 import net.leanix.api.models.LanguageResponse;
+import net.leanix.api.models.Response;
 import net.leanix.api.models.ViewModelResponse;
 
 import java.util.ArrayList;
@@ -238,10 +238,10 @@ public class ModelsApi {
    * Updates all authorization roles for a given workspace. This means all existing roles and its permissions will be overriden
    * @param body The authorization configuration for the workspace which contains all roles and its permissions (required)
    * @param workspaceId  (optional)
-   * @return BasicResponse
+   * @return Response
    * @throws ApiException if fails to make API call
    */
-  public BasicResponse updateAuthorization(List<AuthorizationRole> body, String workspaceId) throws ApiException {
+  public Response updateAuthorization(List<AuthorizationRole> body, String workspaceId) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'body' is set
@@ -273,7 +273,7 @@ public class ModelsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<BasicResponse> localVarReturnType = new GenericType<BasicResponse>() {};
+    GenericType<Response> localVarReturnType = new GenericType<Response>() {};
     return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
@@ -327,10 +327,10 @@ public class ModelsApi {
    * @param id  (required)
    * @param definition  (required)
    * @param workspaceId  (optional)
-   * @return BasicResponse
+   * @return Response
    * @throws ApiException if fails to make API call
    */
-  public BasicResponse updateLanguage(String id, Object definition, String workspaceId) throws ApiException {
+  public Response updateLanguage(String id, Object definition, String workspaceId) throws ApiException {
     Object localVarPostBody = definition;
     
     // verify the required parameter 'id' is set
@@ -368,7 +368,7 @@ public class ModelsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<BasicResponse> localVarReturnType = new GenericType<BasicResponse>() {};
+    GenericType<Response> localVarReturnType = new GenericType<Response>() {};
     return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
@@ -376,10 +376,9 @@ public class ModelsApi {
    * Updates the view model for a workspace
    * @param body the view model for the workspace (required)
    * @param workspaceId  (optional)
-   * @return BasicResponse
    * @throws ApiException if fails to make API call
    */
-  public BasicResponse updateViewModel(String body, String workspaceId) throws ApiException {
+  public void updateViewModel(String body, String workspaceId) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'body' is set
@@ -411,7 +410,7 @@ public class ModelsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<BasicResponse> localVarReturnType = new GenericType<BasicResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+
+    apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
 }
