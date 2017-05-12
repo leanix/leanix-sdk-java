@@ -33,7 +33,7 @@ The easiest way to incorporate the SDK into your Java project is to use Maven. I
 <dependency>
     <groupId>net.leanix</groupId>
     <artifactId>leanix-sdk-java</artifactId>
-    <version>2.1.11</version>
+    <version>3.9.7</version>
 </dependency>
 ```
 
@@ -127,10 +127,6 @@ To generate the SDK from the latest REST API use the following maven commands:
 
 ```bash
 $ mvn clean package -Pcodegen
-
-# generate junit test classes
-$ cd codegen
-$ mvn package
 ```
 > Update the pom.xml properties section so specify the host where the swagger doc-api is pulled from.
 
