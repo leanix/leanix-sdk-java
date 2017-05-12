@@ -162,10 +162,11 @@ public class BookmarksApi {
    * Retrieves all stored bookmarks a user can read.
    * @param bookmarkType Specifies the bookmark type (required)
    * @param groupKey A key used to separate bookmarks within the same query type (optional)
+   * @param sharingType Specifies the sharing type which the returned bookmarks need to have (optional)
    * @return BookmarkListResponse
    * @throws ApiException if fails to make API call
    */
-  public BookmarkListResponse getBookmarks(String bookmarkType, String groupKey) throws ApiException {
+  public BookmarkListResponse getBookmarks(String bookmarkType, String groupKey, String sharingType) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'bookmarkType' is set
@@ -183,6 +184,7 @@ public class BookmarksApi {
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "bookmarkType", bookmarkType));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "groupKey", groupKey));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sharingType", sharingType));
 
     
     

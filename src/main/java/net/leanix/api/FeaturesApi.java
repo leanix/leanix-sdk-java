@@ -7,7 +7,7 @@ import net.leanix.api.common.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import net.leanix.api.models.SettingsResponse;
+import net.leanix.api.models.FeatureListResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,10 +37,10 @@ public class FeaturesApi {
   /**
    * getFeatures
    * Retrieves features for a workspace
-   * @return SettingsResponse
+   * @return FeatureListResponse
    * @throws ApiException if fails to make API call
    */
-  public SettingsResponse getFeatures() throws ApiException {
+  public FeatureListResponse getFeatures() throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -66,7 +66,7 @@ public class FeaturesApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<SettingsResponse> localVarReturnType = new GenericType<SettingsResponse>() {};
+    GenericType<FeatureListResponse> localVarReturnType = new GenericType<FeatureListResponse>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
 }
