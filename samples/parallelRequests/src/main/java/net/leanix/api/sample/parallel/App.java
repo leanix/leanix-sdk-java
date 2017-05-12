@@ -93,6 +93,7 @@ public class App {
         // Stop executor service
         try {
             LOG.info("Stopping Executor Service...");
+            executorService.shutdown();
             executorService.awaitTermination(10, TimeUnit.SECONDS);
             List<Runnable> shutdownNow = executorService.shutdownNow();
             System.out.println(shutdownNow.size());

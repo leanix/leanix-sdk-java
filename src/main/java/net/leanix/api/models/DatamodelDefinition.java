@@ -13,20 +13,11 @@
 
 package net.leanix.api.models;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import net.leanix.api.models.CustomValidator;
-import net.leanix.api.models.EffectiveRelationDefinition;
-import net.leanix.api.models.ExternalIdFieldDefinition;
-import net.leanix.api.models.FactSheetDefinition;
-import net.leanix.api.models.Fs2FsRelationDefinition;
-import net.leanix.api.models.RulesDefinition;
+import java.util.Objects;
 
 /**
  * DatamodelDefinition

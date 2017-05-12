@@ -127,6 +127,8 @@ public class HierarchyFactSheetPopulator extends AbstractRunner {
                             String childId = FactSheetGraphQLUtil.parseFactSheetId((Map<String, Object>) input);
                             // System.out.println(String.format(" Created child (L%d) with id: %s", level, childId));
 
+// TODO rwe: i think, the creation of the relations have to be done within an iteration and not parallel, because creating parallel relations can cause a row lock
+                            
                             // add relation from child to parent
                             GraphQLRequest graphQLRequest = FactSheetGraphQLUtil
                                 .updateFactSheetRequest_AddNewChildToParentRelation(childId, 0, parentFsId);
