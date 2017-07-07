@@ -6,7 +6,7 @@
     <artifactId>leanix-sdk-java</artifactId>
     <packaging>jar</packaging>
 
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
 
     <parent>
         <groupId>net.leanix.poms</groupId>
@@ -53,7 +53,7 @@
         <!-- properties related to sdk code generation -->
         <leanix-dropkit-sdk-utils-version>1.0.3</leanix-dropkit-sdk-utils-version>
         <codegenHost>local-eam.leanix.net</codegenHost>
-        <swagger-inputSpec>https://${codegenHost}/beta/api/v1/api-docs/</swagger-inputSpec>
+        <swagger-inputSpec>https://${codegenHost}/services/pathfinder/v1/api-docs/</swagger-inputSpec>
 
     </properties>
 
@@ -91,12 +91,70 @@
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                        <showDeprecation>true</showDeprecation>
+                        <showWarnings>true</showWarnings>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <skipTests>true</skipTests>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules combine.children="override">
+                                <requireMavenVersion>
+                                    <version>3.0.5</version>
+                                </requireMavenVersion>
+                                <requirePluginVersions>
+                                    <message>Best Practice is to always define plugin versions!</message>
+                                    <banLatest>true</banLatest>
+                                    <banRelease>true</banRelease>
+                                    <banSnapshots>false</banSnapshots>
+                                    <phases>clean,deploy,site</phases>
+                                    <additionalPlugins>
+                                        <additionalPlugin>org.apache.maven.plugins:maven-eclipse-plugin</additionalPlugin>
+                                    </additionalPlugins>
+                                </requirePluginVersions>
+                                <requireJavaVersion>
+                                    <version>[1.8,1.9)</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -125,38 +183,6 @@
             <id>codegen</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>enforce</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules combine.children="override">
-                                        <requireMavenVersion>
-                                            <version>3.0.5</version>
-                                        </requireMavenVersion>
-                                        <requirePluginVersions>
-                                            <message>Best Practice is to always define plugin versions!</message>
-                                            <banLatest>true</banLatest>
-                                            <banRelease>true</banRelease>
-                                            <banSnapshots>false</banSnapshots>
-                                            <phases>clean,deploy,site</phases>
-                                            <additionalPlugins>
-                                                <additionalPlugin>org.apache.maven.plugins:maven-eclipse-plugin</additionalPlugin>
-                                            </additionalPlugins>
-                                        </requirePluginVersions>
-                                        <requireJavaVersion>
-                                            <version>[1.7,1.8)</version>
-                                        </requireJavaVersion>
-                                    </rules>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
                     <!-- 1) generate api using the swagger-codegen-maven-plugin -->
                     <plugin>
                         <groupId>io.swagger</groupId>
