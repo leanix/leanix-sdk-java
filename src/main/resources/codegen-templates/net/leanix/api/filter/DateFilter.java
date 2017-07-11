@@ -9,7 +9,7 @@ public class DateFilter {
     private String maxDate;
     private String from;
     private String to;
-    private DateFilterType dateFilterType;
+    private DateFilterType type;
 
     public String getMinDate() {
         return minDate;
@@ -43,11 +43,11 @@ public class DateFilter {
         this.to = to;
     }
 
-    public DateFilterType getDateFilterType() {
-        return dateFilterType;
+    public DateFilterType getType() {
+        return type;
     }
 
-    public void setDateFilterType(DateFilterType dateFilterType) {
-        this.dateFilterType = dateFilterType;
+    public void setType(DateFilterType type) {
+        this.type = type;
     }
 }
