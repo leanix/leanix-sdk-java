@@ -42,7 +42,6 @@ public class FilterWrapper {
     }
 
     private final String factSheetTypeFilter = "FactSheetTypes";
-    private final String fallBackFSType = "Default";
     private String filterOptions = "filterOptions\n"
         + "      { facets\n"
         + "        {\n"
@@ -131,7 +130,7 @@ public class FilterWrapper {
             }
         }
 
-        return fallBackFSType;
+        return "";
     }
 
     private Map<String,Object> buildVariables(List<FacetFilter> filterList, String sortings, String fullTextSearchTerm) {
@@ -149,8 +148,9 @@ public class FilterWrapper {
 
         if (filterList.size() > 0) {
             facetFilterMap.put("facetFilters", filterList);
-            result.put("filter", facetFilterMap);
         }
+
+        result.put("filter", facetFilterMap);
 
         return result;
     }
