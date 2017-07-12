@@ -5,11 +5,10 @@ import java.util.List;
 public class FacetFilter {
     private String facetKey;
     private List<String> keys;
-    private String operator;
+    private FilterOperator operator;
     private DateFilter dateFilter;
     private SubscriptionFilter subscriptionFilter;
     private List<FacetFilter> subFilter;
-
     public String getFacetKey() {
         return facetKey;
     }
@@ -26,11 +25,11 @@ public class FacetFilter {
         this.keys = keys;
     }
 
-    public String getOperator() {
+    public FilterOperator getOperator() {
         return operator;
     }
 
-    public void setOperator(String operator) {
+    public void setOperator(FilterOperator operator) {
         this.operator = operator;
     }
 
@@ -56,5 +55,9 @@ public class FacetFilter {
 
     public void setSubFilter(List<FacetFilter> subFilter) {
         this.subFilter = subFilter;
+    }
+
+    public enum FilterOperator {
+        AND, OR, NOR
     }
 }
