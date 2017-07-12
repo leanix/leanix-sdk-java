@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import jersey.repackaged.com.google.common.base.Joiner;
 import net.leanix.api.common.ApiClient;
 import net.leanix.api.common.ApiException;
@@ -14,6 +15,7 @@ import net.leanix.api.filter.FacetListEntry;
 import net.leanix.api.filter.PageRequest;
 import net.leanix.api.models.GraphQLRequest;
 import net.leanix.api.models.GraphQLResult;
+import net.leanix.api.filter.Sorting;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -70,21 +72,30 @@ public class FilterWrapper {
      *
      * @param filterList the list of filters to be applied, may be empty
      * @param fullTextSearchTerm the search term for full text search, may be null
+     * @param idList a list of IDs to search for, may be null
      * @param pageRequest the page request
-     * @param sortings the sorting the results should have
+     * @param sortingList the sorting the results should have
      * @param fieldList the list of fields which should be retrieved
      *
      * @return the result of the graphQL query built by this function, will be null if the request could not be performed
      */
     public GraphQLResult processFilterRequest(
-        List<FacetFilter> filterList, String fullTextSearchTerm, PageRequest pageRequest, String sortings, List<String> fieldList
+        List<FacetFilter> filterList,
+        String fullTextSearchTerm,
+        List<UUID> idList,
+        PageRequest pageRequest,
+        List<Sorting> sortingList,
+        List<String> fieldList
     ) throws ApiException {
         // Transform FacetFilter to Facet Group, and determine Fact Sheet Type
-        List<FacetGroup> groups = createGroupsFromFacetFilter(filterList);
+        List<FacetGroup> groups = new ArrayList<>();
+        if (filterList != null) {
+            groups = createGroupsFromFacetFilter(filterList);
+        }
 
         String factSheetType = getFactSheetTypeFromFilter(groups);
         String query = buildQuery(factSheetType, fieldList, pageRequest);
-        Map<String, Object> variables = buildVariables(filterList, sortings, fullTextSearchTerm);
+        Map<String, Object> variables = buildVariables(filterList, sortingList, fullTextSearchTerm, idList);
 
         GraphQLRequest request = new GraphQLRequest();
         request.setQuery(query);
@@ -133,9 +144,11 @@ public class FilterWrapper {
         return "";
     }
 
-    private Map<String,Object> buildVariables(List<FacetFilter> filterList, String sortings, String fullTextSearchTerm) {
+    private Map<String,Object> buildVariables(
+        List<FacetFilter> filterList, List<Sorting> sortings, String fullTextSearchTerm, List<UUID> idList
+    ) {
         Map<String, Object> result = new HashMap<>();
-        if (StringUtils.isNotEmpty(sortings)) {
+        if (sortings != null && sortings.size() > 0) {
             result.put("sortings", sortings);
         } else {
             result.put("sortings", new ArrayList<>());
@@ -146,7 +159,11 @@ public class FilterWrapper {
             facetFilterMap.put("fullTextSearch", fullTextSearchTerm);
         }
 
-        if (filterList.size() > 0) {
+        if (idList != null && idList.size() > 0) {
+            facetFilterMap.put("ids", idList);
+        }
+
+        if (filterList != null && filterList.size() > 0) {
             facetFilterMap.put("facetFilters", filterList);
         }
 
