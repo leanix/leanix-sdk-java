@@ -6,7 +6,7 @@
     <artifactId>leanix-sdk-java</artifactId>
     <packaging>jar</packaging>
 
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.9.8-SNAPSHOT</version>
 
     <parent>
         <groupId>net.leanix.poms</groupId>
@@ -210,7 +210,7 @@
                                 <artifactId>leanix-sdk-java</artifactId>
                                 <invokerPackage>net.leanix.api.common</invokerPackage>
                                 <library>jersey2</library>
-                                <dateLibrary>joda</dateLibrary>
+                                <dateLibrary>java8</dateLibrary>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
                             </configOptions>
                             <!-- used to get help from cli that describes possible configOptions -->
