@@ -16,6 +16,8 @@ import net.leanix.api.common.ApiException;
 import net.leanix.api.models.GraphQLRequest;
 import net.leanix.api.models.GraphQLResult;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Iterator for GraphQL/Relay paging logic.
  * Usable only on list type top level query fields which use queries of the form:
@@ -54,19 +56,19 @@ public class GraphQLQueryIterator<R> extends AbstractIterator<R> {
      * @param graphqlApi used to send the GraphQL requests
      */
     public GraphQLQueryIterator(
-        String queryField,
-        Map<String, String> args,
-        String selections,
-        String fragmentDefinitions,
-        String variableDeclaration,
-        Map<String, Object> variables,
-        int pageSize,
-        Class<R> modelClass,
-        GraphqlApi graphqlApi
+            String queryField,
+            Map<String, String> args,
+            String selections,
+            String fragmentDefinitions,
+            String variableDeclaration,
+            Map<String, Object> variables,
+            int pageSize,
+            Class<R> modelClass,
+            GraphqlApi graphqlApi
     ) {
         if (variables != null && variables.containsKey(END_CURSOR_VARIABLE_NAME)) {
             throw new IllegalArgumentException(
-                "Variable " + END_CURSOR_VARIABLE_NAME + " may not be used---it is used internally in the paging iterator.");
+                    "Variable " + END_CURSOR_VARIABLE_NAME + " may not be used---it is used internally in the paging iterator.");
         }
 
         if (pageSize <= 0) {
@@ -85,11 +87,16 @@ public class GraphQLQueryIterator<R> extends AbstractIterator<R> {
         this.queryField = queryField;
         sb.setLength(0);
         if (fragmentDefinitions != null) {
-            sb.append(fragmentDefinitions).append(' ');
+            sb.append(fragmentDefinitions);
         }
-        this.document = sb.append("query (").append(variableDeclaration).append(" $")
-            .append(END_CURSOR_VARIABLE_NAME).append(":String) {").append(queryField).append("(").append(arguments)
-            .append("){pageInfo{hasNextPage endCursor} edges{node{").append(selections).append("}}}}").toString();
+        sb.append("query ($").append(END_CURSOR_VARIABLE_NAME).append(":String");
+        if (!StringUtils.isEmpty(variableDeclaration)) {
+            sb.append(variableDeclaration);
+        }
+        sb.append("){").append(queryField).append("(").append(arguments)
+                .append("){pageInfo{hasNextPage endCursor} edges{node{").append(selections).append("}}}}");
+        document = sb.toString();
+
         this.variables = variables == null ? new HashMap<>() : new HashMap<>(variables);
 
         mapper = new ObjectMapper();
@@ -113,8 +120,8 @@ public class GraphQLQueryIterator<R> extends AbstractIterator<R> {
         }
 
         GraphQLRequest graphQLRequest = new GraphQLRequest()
-            .query(document)
-            .variables(variables);
+                .query(document)
+                .variables(variables);
 
         GraphQLResult graphQLResult;
         try {
