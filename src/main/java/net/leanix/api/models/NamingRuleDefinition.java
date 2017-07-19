@@ -18,52 +18,53 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import net.leanix.api.models.Config;
 
 /**
- * Instant
+ * NamingRuleDefinition
  */
 
-public class Instant {
-  @JsonProperty("nano")
-  private Integer nano = null;
+public class NamingRuleDefinition {
+  @JsonProperty("regular")
+  private Config regular = null;
 
-  @JsonProperty("epochSecond")
-  private Long epochSecond = null;
+  @JsonProperty("autogenerate")
+  private Config autogenerate = null;
 
-  public Instant nano(Integer nano) {
-    this.nano = nano;
+  public NamingRuleDefinition regular(Config regular) {
+    this.regular = regular;
     return this;
   }
 
    /**
-   * Get nano
-   * @return nano
+   * Get regular
+   * @return regular
   **/
   @ApiModelProperty(example = "null", value = "")
-  public Integer getNano() {
-    return nano;
+  public Config getRegular() {
+    return regular;
   }
 
-  public void setNano(Integer nano) {
-    this.nano = nano;
+  public void setRegular(Config regular) {
+    this.regular = regular;
   }
 
-  public Instant epochSecond(Long epochSecond) {
-    this.epochSecond = epochSecond;
+  public NamingRuleDefinition autogenerate(Config autogenerate) {
+    this.autogenerate = autogenerate;
     return this;
   }
 
    /**
-   * Get epochSecond
-   * @return epochSecond
+   * Get autogenerate
+   * @return autogenerate
   **/
   @ApiModelProperty(example = "null", value = "")
-  public Long getEpochSecond() {
-    return epochSecond;
+  public Config getAutogenerate() {
+    return autogenerate;
   }
 
-  public void setEpochSecond(Long epochSecond) {
-    this.epochSecond = epochSecond;
+  public void setAutogenerate(Config autogenerate) {
+    this.autogenerate = autogenerate;
   }
 
 
@@ -75,24 +76,24 @@ public class Instant {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Instant instant = (Instant) o;
-    return Objects.equals(this.nano, instant.nano) &&
-        Objects.equals(this.epochSecond, instant.epochSecond);
+    NamingRuleDefinition namingRuleDefinition = (NamingRuleDefinition) o;
+    return Objects.equals(this.regular, namingRuleDefinition.regular) &&
+        Objects.equals(this.autogenerate, namingRuleDefinition.autogenerate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nano, epochSecond);
+    return Objects.hash(regular, autogenerate);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Instant {\n");
+    sb.append("class NamingRuleDefinition {\n");
     
-    sb.append("    nano: ").append(toIndentedString(nano)).append("\n");
-    sb.append("    epochSecond: ").append(toIndentedString(epochSecond)).append("\n");
+    sb.append("    regular: ").append(toIndentedString(regular)).append("\n");
+    sb.append("    autogenerate: ").append(toIndentedString(autogenerate)).append("\n");
     sb.append("}");
     return sb.toString();
   }

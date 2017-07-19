@@ -212,6 +212,8 @@
                                 <library>jersey2</library>
                                 <dateLibrary>java8</dateLibrary>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <type-mappings>DateTime=Instant,date=LocalDate</type-mappings>
+                                <import-mappings>Instant=java.time.Instant,LocalDate=java.time.LocalDate</import-mappings>
                             </configOptions>
                             <!-- used to get help from cli that describes possible configOptions -->
                             <!-- configHelp>true</configHelp -->

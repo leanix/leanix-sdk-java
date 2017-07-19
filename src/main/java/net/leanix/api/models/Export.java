@@ -18,8 +18,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.time.Instant;
 import java.util.UUID;
-import net.leanix.api.models.Instant;
 import net.leanix.api.models.User;
 
 /**
