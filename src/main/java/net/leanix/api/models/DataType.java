@@ -47,11 +47,11 @@ public class DataType {
   @JsonProperty("inView")
   private Boolean inView = false;
 
-  @JsonProperty("quickSearch")
-  private Boolean quickSearch = false;
-
   @JsonProperty("fullTextSearch")
   private Boolean fullTextSearch = false;
+
+  @JsonProperty("quickSearch")
+  private Boolean quickSearch = false;
 
    /**
    * Get type
@@ -81,21 +81,21 @@ public class DataType {
   }
 
    /**
-   * Get quickSearch
-   * @return quickSearch
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public Boolean getQuickSearch() {
-    return quickSearch;
-  }
-
-   /**
    * Get fullTextSearch
    * @return fullTextSearch
   **/
   @ApiModelProperty(example = "null", value = "")
   public Boolean getFullTextSearch() {
     return fullTextSearch;
+  }
+
+   /**
+   * Get quickSearch
+   * @return quickSearch
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public Boolean getQuickSearch() {
+    return quickSearch;
   }
 
 
@@ -111,13 +111,13 @@ public class DataType {
     return Objects.equals(this.type, dataType.type) &&
         Objects.equals(this.inFacet, dataType.inFacet) &&
         Objects.equals(this.inView, dataType.inView) &&
-        Objects.equals(this.quickSearch, dataType.quickSearch) &&
-        Objects.equals(this.fullTextSearch, dataType.fullTextSearch);
+        Objects.equals(this.fullTextSearch, dataType.fullTextSearch) &&
+        Objects.equals(this.quickSearch, dataType.quickSearch);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, inFacet, inView, quickSearch, fullTextSearch);
+    return Objects.hash(type, inFacet, inView, fullTextSearch, quickSearch);
   }
 
 
@@ -129,8 +129,8 @@ public class DataType {
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    inFacet: ").append(toIndentedString(inFacet)).append("\n");
     sb.append("    inView: ").append(toIndentedString(inView)).append("\n");
-    sb.append("    quickSearch: ").append(toIndentedString(quickSearch)).append("\n");
     sb.append("    fullTextSearch: ").append(toIndentedString(fullTextSearch)).append("\n");
+    sb.append("    quickSearch: ").append(toIndentedString(quickSearch)).append("\n");
     sb.append("}");
     return sb.toString();
   }

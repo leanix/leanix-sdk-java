@@ -21,6 +21,7 @@ import net.leanix.api.models.DataModelDefinitionResponse;
 import net.leanix.api.models.DataModelUpdateResponse;
 import net.leanix.api.models.LanguageResponse;
 import net.leanix.api.models.Response;
+import net.leanix.api.models.Translation;
 import net.leanix.api.models.ViewModelDefinition;
 import net.leanix.api.models.ViewModelResponse;
 import org.junit.Test;
@@ -167,7 +168,7 @@ public class ModelsApiTest {
     @Test
     public void updateLanguageTest() throws ApiException {
         String id = null;
-        Object definition = null;
+        Translation definition = null;
         String workspaceId = null;
         Response response = api.updateLanguage(id, definition, workspaceId);
 
