@@ -276,6 +276,10 @@ public class ApiClient {
     return this;
   }
 
+  public void registerWithHttpClient(Class<?> componentClass) {
+    httpClient.register(componentClass);
+  }
+
   /**
    * The path of temporary folder used to store downloaded files from endpoints
    * with file response. The default value is <code>null</code>, i.e. using

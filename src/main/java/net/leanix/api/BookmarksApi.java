@@ -77,10 +77,9 @@ public class BookmarksApi {
    * deleteBookmark
    * Deletes a bookmark identified by the given ID
    * @param id  (required)
-   * @return BookmarkResponse
    * @throws ApiException if fails to make API call
    */
-  public BookmarkResponse deleteBookmark(UUID id) throws ApiException {
+  public void deleteBookmark(UUID id) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -112,9 +111,9 @@ public class BookmarksApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<BookmarkResponse> localVarReturnType = new GenericType<BookmarkResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
+
+    apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
   /**
    * getBookmark
    * Retrieves a bookmark by ID

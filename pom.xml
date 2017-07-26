@@ -6,7 +6,7 @@
     <artifactId>leanix-sdk-java</artifactId>
     <packaging>jar</packaging>
 
-    <version>3.9.7</version>
+    <version>3.9.8</version>
 
     <parent>
         <groupId>net.leanix.poms</groupId>
@@ -52,7 +52,7 @@
 
         <!-- properties related to sdk code generation -->
         <leanix-dropkit-sdk-utils-version>1.0.3</leanix-dropkit-sdk-utils-version>
-        <codegenHost>pentest.leanix.net</codegenHost>
+        <codegenHost>local-eam.leanix.net</codegenHost>
         <swagger-inputSpec>https://${codegenHost}/services/pathfinder/v1/api-docs/</swagger-inputSpec>
 
     </properties>
@@ -88,15 +88,84 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>21.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.6.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                        <showDeprecation>true</showDeprecation>
+                        <showWarnings>true</showWarnings>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <skipTests>true</skipTests>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules combine.children="override">
+                                <requireMavenVersion>
+                                    <version>3.0.5</version>
+                                </requireMavenVersion>
+                                <requirePluginVersions>
+                                    <message>Best Practice is to always define plugin versions!</message>
+                                    <banLatest>true</banLatest>
+                                    <banRelease>true</banRelease>
+                                    <banSnapshots>false</banSnapshots>
+                                    <phases>clean,deploy,site</phases>
+                                    <additionalPlugins>
+                                        <additionalPlugin>org.apache.maven.plugins:maven-eclipse-plugin</additionalPlugin>
+                                    </additionalPlugins>
+                                </requirePluginVersions>
+                                <requireJavaVersion>
+                                    <version>[1.8,1.9)</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -125,38 +194,6 @@
             <id>codegen</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>enforce</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules combine.children="override">
-                                        <requireMavenVersion>
-                                            <version>3.0.5</version>
-                                        </requireMavenVersion>
-                                        <requirePluginVersions>
-                                            <message>Best Practice is to always define plugin versions!</message>
-                                            <banLatest>true</banLatest>
-                                            <banRelease>true</banRelease>
-                                            <banSnapshots>false</banSnapshots>
-                                            <phases>clean,deploy,site</phases>
-                                            <additionalPlugins>
-                                                <additionalPlugin>org.apache.maven.plugins:maven-eclipse-plugin</additionalPlugin>
-                                            </additionalPlugins>
-                                        </requirePluginVersions>
-                                        <requireJavaVersion>
-                                            <version>[1.7,1.8)</version>
-                                        </requireJavaVersion>
-                                    </rules>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
                     <!-- 1) generate api using the swagger-codegen-maven-plugin -->
                     <plugin>
                         <groupId>io.swagger</groupId>
@@ -173,10 +210,10 @@
                                 <artifactId>leanix-sdk-java</artifactId>
                                 <invokerPackage>net.leanix.api.common</invokerPackage>
                                 <library>jersey2</library>
-                                <dateLibrary>xxCustom</dateLibrary>
+                                <dateLibrary>java8</dateLibrary>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
                                 <type-mappings>DateTime=Instant,date=LocalDate</type-mappings>
-                                <import-mappings>Instant=org.joda.time.Instant,LocalDate=org.joda.time.LocalDate</import-mappings>
+                                <import-mappings>Instant=java.time.Instant,LocalDate=java.time.LocalDate</import-mappings>
                             </configOptions>
                             <!-- used to get help from cli that describes possible configOptions -->
                             <!-- configHelp>true</configHelp -->

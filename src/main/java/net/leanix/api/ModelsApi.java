@@ -14,6 +14,8 @@ import net.leanix.api.models.DataModelDefinitionResponse;
 import net.leanix.api.models.DataModelUpdateResponse;
 import net.leanix.api.models.LanguageResponse;
 import net.leanix.api.models.Response;
+import net.leanix.api.models.Translation;
+import net.leanix.api.models.ViewModelDefinition;
 import net.leanix.api.models.ViewModelResponse;
 
 import java.util.ArrayList;
@@ -330,7 +332,7 @@ public class ModelsApi {
    * @return Response
    * @throws ApiException if fails to make API call
    */
-  public Response updateLanguage(String id, Object definition, String workspaceId) throws ApiException {
+  public Response updateLanguage(String id, Translation definition, String workspaceId) throws ApiException {
     Object localVarPostBody = definition;
     
     // verify the required parameter 'id' is set
@@ -378,7 +380,7 @@ public class ModelsApi {
    * @param workspaceId  (optional)
    * @throws ApiException if fails to make API call
    */
-  public void updateViewModel(String body, String workspaceId) throws ApiException {
+  public void updateViewModel(ViewModelDefinition body, String workspaceId) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'body' is set

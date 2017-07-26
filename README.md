@@ -82,8 +82,8 @@ for (Service cur : services) {
 In case that you need to use a proxy to access LeanIX you can setup a http proxy by setting the standard proxy system properties:
 
 ```
--Dhttp.proxyHost=<proxy hostname>
--Dhttp.proxyPort=<proxy port> (default is 80)
+-Dhttps.proxyHost=<proxy hostname>
+-Dhttps.proxyPort=<proxy port> (default is 80)
 ```
 
 ## Instructions for SDK developers
