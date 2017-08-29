@@ -16,6 +16,7 @@ public class ServiceHasProject   {
   private String serviceID = null;
   private String projectID = null;
   private String comment = null;
+  private String projectImpactID = null;
 
   
   /**
@@ -86,6 +87,23 @@ public class ServiceHasProject   {
   }
 
   
+  /**
+   **/
+  public ServiceHasProject projectImpactID(String projectImpactID) {
+    this.projectImpactID = projectImpactID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("projectImpactID")
+  public String getProjectImpactID() {
+    return projectImpactID;
+  }
+  public void setProjectImpactID(String projectImpactID) {
+    this.projectImpactID = projectImpactID;
+  }
+
+  
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -99,12 +117,13 @@ public class ServiceHasProject   {
     return Objects.equals(this.ID, serviceHasProject.ID) &&
         Objects.equals(this.serviceID, serviceHasProject.serviceID) &&
         Objects.equals(this.projectID, serviceHasProject.projectID) &&
-        Objects.equals(this.comment, serviceHasProject.comment);
+        Objects.equals(this.comment, serviceHasProject.comment) &&
+        Objects.equals(this.projectImpactID, serviceHasProject.projectImpactID);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(ID, serviceID, projectID, comment);
+    return Objects.hash(ID, serviceID, projectID, comment, projectImpactID);
   }
 
   @Override
@@ -116,6 +135,7 @@ public class ServiceHasProject   {
     sb.append("    serviceID: ").append(toIndentedString(serviceID)).append("\n");
     sb.append("    projectID: ").append(toIndentedString(projectID)).append("\n");
     sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
+    sb.append("    projectImpactID: ").append(toIndentedString(projectImpactID)).append("\n");
     sb.append("}");
     return sb.toString();
   }

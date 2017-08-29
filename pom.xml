@@ -6,7 +6,7 @@
     <artifactId>leanix-sdk-java</artifactId>
     <packaging>jar</packaging>
 
-    <version>2.1.11</version>
+    <version>2.1.12-SNAPSHOT</version>
 
     <parent>
         <groupId>net.leanix.poms</groupId>
@@ -52,7 +52,7 @@
 
         <!-- properties related to sdk code generation -->
         <leanix-dropkit-sdk-utils-version>1.0.3</leanix-dropkit-sdk-utils-version>
-        <codegenHost>test-app.leanix.net</codegenHost>
+        <codegenHost>local-eam.leanix.net</codegenHost>
         <swagger-inputSpec>https://${codegenHost}/demo/api/v1/api-docs/</swagger-inputSpec>
 
     </properties>

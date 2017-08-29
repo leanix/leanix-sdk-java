@@ -180,7 +180,7 @@ public class DocumentsApi {
    * 
    * @param relations If set to true, all relations of the Fact Sheet are fetched as well. Fetching all relations can be slower. Default: false. (optional, default to false)
    * @param filter Full-text filter (optional)
-   * @param referenceSystem Reference system filter (optional)
+   * @param referenceSystem Reference system filter, e.g. Signavio (optional)
    * @param referenceID ReferenceID, e.g. Signavio ID (optional)
    * @param factSheetID FactSheetID, e.g. LeanIX ID (optional)
    * @return List<Document>
@@ -203,10 +203,13 @@ public class DocumentsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "filter", filter));
     
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "referenceSystem", referenceSystem));
-
+    
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "referenceID", referenceID));
-
+    
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "factSheetID", factSheetID));
+    
+
+    
 
     
 

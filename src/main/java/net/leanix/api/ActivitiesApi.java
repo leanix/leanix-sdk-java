@@ -44,10 +44,13 @@ public class ActivitiesApi {
    * @param factSheetType Type of Fact Sheet, e.g. services for Application (optional)
    * @param eventType Event type, e.g. creation of a Fact Sheet: OBJECT_CREATE (optional)
    * @param countOnly If set to 1, then only the count is transmitted and data is left empty (optional)
+   * @param orderById If set to 1, the result is ordered by ID (optional)
+   * @param startId If set this ID is used as starting point for the query. (optional)
+   * @param pageSize If set only the given number of results is returned. (optional)
    * @return ActivityStream
    * @throws ApiException if fails to make API call
    */
-  public ActivityStream getActivities(String scope, String startDate, String endDate, String factSheetType, String eventType, Integer countOnly) throws ApiException {
+  public ActivityStream getActivities(String scope, String startDate, String endDate, String factSheetType, String eventType, Integer countOnly, Integer orderById, String startId, Integer pageSize) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -70,6 +73,12 @@ public class ActivitiesApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "eventType", eventType));
     
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "countOnly", countOnly));
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "orderById", orderById));
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "startId", startId));
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
     
 
     

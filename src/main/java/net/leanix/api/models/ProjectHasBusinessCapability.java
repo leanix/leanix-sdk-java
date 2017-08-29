@@ -18,6 +18,7 @@ public class ProjectHasBusinessCapability   {
   private String comment = null;
   private String supportTypeID = null;
   private String constraints = null;
+  private String projectImpactID = null;
 
   
   /**
@@ -122,6 +123,23 @@ public class ProjectHasBusinessCapability   {
   }
 
   
+  /**
+   **/
+  public ProjectHasBusinessCapability projectImpactID(String projectImpactID) {
+    this.projectImpactID = projectImpactID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("projectImpactID")
+  public String getProjectImpactID() {
+    return projectImpactID;
+  }
+  public void setProjectImpactID(String projectImpactID) {
+    this.projectImpactID = projectImpactID;
+  }
+
+  
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -137,12 +155,13 @@ public class ProjectHasBusinessCapability   {
         Objects.equals(this.businessCapabilityID, projectHasBusinessCapability.businessCapabilityID) &&
         Objects.equals(this.comment, projectHasBusinessCapability.comment) &&
         Objects.equals(this.supportTypeID, projectHasBusinessCapability.supportTypeID) &&
-        Objects.equals(this.constraints, projectHasBusinessCapability.constraints);
+        Objects.equals(this.constraints, projectHasBusinessCapability.constraints) &&
+        Objects.equals(this.projectImpactID, projectHasBusinessCapability.projectImpactID);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(ID, projectID, businessCapabilityID, comment, supportTypeID, constraints);
+    return Objects.hash(ID, projectID, businessCapabilityID, comment, supportTypeID, constraints, projectImpactID);
   }
 
   @Override
@@ -156,6 +175,7 @@ public class ProjectHasBusinessCapability   {
     sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
     sb.append("    supportTypeID: ").append(toIndentedString(supportTypeID)).append("\n");
     sb.append("    constraints: ").append(toIndentedString(constraints)).append("\n");
+    sb.append("    projectImpactID: ").append(toIndentedString(projectImpactID)).append("\n");
     sb.append("}");
     return sb.toString();
   }

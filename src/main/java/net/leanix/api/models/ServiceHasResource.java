@@ -19,6 +19,7 @@ public class ServiceHasResource   {
   private String technicalSuitabilityID = null;
   private Double costTotalAnnual = null;
   private String serviceLevelID = null;
+  private String primaryTypeID = null;
 
   
   /**
@@ -140,6 +141,23 @@ public class ServiceHasResource   {
   }
 
   
+  /**
+   **/
+  public ServiceHasResource primaryTypeID(String primaryTypeID) {
+    this.primaryTypeID = primaryTypeID;
+    return this;
+  }
+  
+  @ApiModelProperty(example = "null", value = "")
+  @JsonProperty("primaryTypeID")
+  public String getPrimaryTypeID() {
+    return primaryTypeID;
+  }
+  public void setPrimaryTypeID(String primaryTypeID) {
+    this.primaryTypeID = primaryTypeID;
+  }
+
+  
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -156,12 +174,13 @@ public class ServiceHasResource   {
         Objects.equals(this.comment, serviceHasResource.comment) &&
         Objects.equals(this.technicalSuitabilityID, serviceHasResource.technicalSuitabilityID) &&
         Objects.equals(this.costTotalAnnual, serviceHasResource.costTotalAnnual) &&
-        Objects.equals(this.serviceLevelID, serviceHasResource.serviceLevelID);
+        Objects.equals(this.serviceLevelID, serviceHasResource.serviceLevelID) &&
+        Objects.equals(this.primaryTypeID, serviceHasResource.primaryTypeID);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(ID, resourceID, serviceID, comment, technicalSuitabilityID, costTotalAnnual, serviceLevelID);
+    return Objects.hash(ID, resourceID, serviceID, comment, technicalSuitabilityID, costTotalAnnual, serviceLevelID, primaryTypeID);
   }
 
   @Override
@@ -176,6 +195,7 @@ public class ServiceHasResource   {
     sb.append("    technicalSuitabilityID: ").append(toIndentedString(technicalSuitabilityID)).append("\n");
     sb.append("    costTotalAnnual: ").append(toIndentedString(costTotalAnnual)).append("\n");
     sb.append("    serviceLevelID: ").append(toIndentedString(serviceLevelID)).append("\n");
+    sb.append("    primaryTypeID: ").append(toIndentedString(primaryTypeID)).append("\n");
     sb.append("}");
     return sb.toString();
   }
