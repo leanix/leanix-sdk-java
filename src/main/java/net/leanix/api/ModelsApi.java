@@ -13,6 +13,8 @@ import net.leanix.api.models.DataModel;
 import net.leanix.api.models.DataModelDefinitionResponse;
 import net.leanix.api.models.DataModelUpdateResponse;
 import net.leanix.api.models.LanguageResponse;
+import net.leanix.api.models.ReportingModelDefinition;
+import net.leanix.api.models.ReportingModelResponse;
 import net.leanix.api.models.Response;
 import net.leanix.api.models.Translation;
 import net.leanix.api.models.ViewModelDefinition;
@@ -199,6 +201,43 @@ public class ModelsApi {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
+   * getReportingModel
+   * Retrieves the report model for a workspace
+   * @param workspaceId  (optional)
+   * @return ReportingModelResponse
+   * @throws ApiException if fails to make API call
+   */
+  public ReportingModelResponse getReportingModel(String workspaceId) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/models/reportingModel".replaceAll("\\{format\\}","json");
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "token" };
+
+    GenericType<ReportingModelResponse> localVarReturnType = new GenericType<ReportingModelResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
    * getViewModel
    * Retrieves the view model for a workspace
    * @param workspaceId  (optional)
@@ -373,6 +412,48 @@ public class ModelsApi {
     GenericType<Response> localVarReturnType = new GenericType<Response>() {};
     return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
+  /**
+   * updateReportingModel
+   * Updates the report model for a workspace
+   * @param body the report model for the workspace (required)
+   * @param workspaceId  (optional)
+   * @throws ApiException if fails to make API call
+   */
+  public void updateReportingModel(ReportingModelDefinition body, String workspaceId) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'body' is set
+    if (body == null) {
+      throw new ApiException(400, "Missing the required parameter 'body' when calling updateReportingModel");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/models/reportingModel".replaceAll("\\{format\\}","json");
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "token" };
+
+
+    apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
+  }
   /**
    * updateViewModel
    * Updates the view model for a workspace
