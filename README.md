@@ -33,7 +33,7 @@ The easiest way to incorporate the SDK into your Java project is to use Maven. I
 <dependency>
     <groupId>net.leanix</groupId>
     <artifactId>leanix-sdk-java</artifactId>
-    <version>3.9.8</version>
+    <version>3.9.9</version>
 </dependency>
 ```
 
@@ -43,7 +43,7 @@ If you'd prefer to build the SDK yourself, it's as simple as running
 $ mvn package
 ```
 
-You'll find `leanix-sdk-java-3.9.8.jar`, together with a sources jar and a javadoc jar in the target directory after the build completes.
+You'll find `leanix-sdk-java-3.9.9.jar`, together with a sources jar and a javadoc jar in the target directory after the build completes.
 In `target/lib` you will find the required libraries to use the SDK.
 
 ## Usage ##
@@ -54,7 +54,6 @@ In order to use the SDK in your Java application, import the following packages:
 import net.leanix.api.*;
 import net.leanix.api.common.*;
 import net.leanix.api.models.*;
-import net.leanix.api.filter.*;
 ```
 
 You need to instantiate a LeanIX API Client (ApiClient) which can be easily created using the builder class ApiClientBuilder.
@@ -68,37 +67,31 @@ ApiClient apiClient = new ApiClientBuilder()
     .build();
 ```
 
-You can then use an API class to execute functions. For the different REST resources of LeanIX one API class exists (for Fact Sheets the class is called FactSheetsApi). Additionally one API class for graphQL queries is present (called GraphqlApi). 
+You can then use an API class to execute functions. For the different REST resources of LeanIX one API class exists (for Fact Sheets the class is called FactSheetsApi). Additionally one API class for graphQL queries exists called GraphqlApi. 
 In order to print the names of all applications which match the full-text search of "design", the graphQL request could look like this:
 
 ```java
 GraphqlApi graphqlApi = new GraphqlApi(apiClient);
 
-String fields = "id displayName";
-Map<String, String> arguments = new HashMap<>();
-arguments.put("filter", "$filter");
-String variableDeclaration = "$filter: FilterInput!";
-QueryFilter filter = new QueryFilter("Applications", null, "design");
+String query = "{" + 
+  "allFactSheets(filter: {fullTextSearch: \"design\"}) {" + 
+    "edges { node {id displayName}}" + 
+  "}" + 
+"}";
 
-GraphQlQueryIterator<FactSheet> applications = new GraphQLQueryIterator<>(
-  "allFactSheets",
-  arguments,
-  fields,
-  null,
-  variableDeclaration,
-  GraphQLHelper.buildVariables(filter, null),
-  100,
-  FactSheet.class,
-  graphqlApi
-);
+GraphQLResult graphqlResult = graphqlApi.processGraphQL(graphqlRequest);
 
-while(applications.hasNext()) {
-  FactSheet factSheet = queryIterator.next();
-  System.out.println(factSheet.getDisplayName()); 
+Map<String, Map<String, Object>> data = (Map<String, Map<String, Object>>) result.getData();
+List<Map<String, Object>> edgeList = (List<Map<String, Object>>) data.get("allFactSheets").get("edges");
+
+for (Map<String, Object> edge : edgeList) {
+  Map<String, Object> node = (Map<String, Object>) edge.get("node");
+  System.out.println(node.get("displayName"));
 }
 ```
 
-This uses a lot of helper functions in order to be able to use the graphQL result directly in java. You can ommit the helper functions and call the graphqlApi directly, and send a string containing the query and expect a JSON response.
+This is the simplest approach to use the graphQL API. If you want to page through the records found for your request, we suggest you create helper functions for iterating over the results and mapping them directly into POJOs. 
+Using variables to set the startCursor value seems to be a good way to implement this, since this avoids the string replacement within a query.
 
 ### Using a proxy
 In case that you need to use a proxy to access LeanIX you can setup a http proxy by setting the standard proxy system properties:
@@ -110,7 +103,7 @@ In case that you need to use a proxy to access LeanIX you can setup a http proxy
 
 ## Instructions for SDK developers
 
-Instructions for developers can be found here [Dev-instructions.md](Dev-instructions.md)
+Instructions for developers can be found here [Dev Instructions](Dev-instructions.md)
 
 ## Thank You ##
 This API made use of the swagger-* libraries which help you to describe REST APIs in an elegant way. See here for more details: https://github.com/wordnik/swagger-codegen
