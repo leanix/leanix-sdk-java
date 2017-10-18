@@ -79,6 +79,9 @@ String query = "{" +
   "}" + 
 "}";
 
+GraphQLRequest graphqlRequest = new GraphQLRequest();
+graphqlRequest.setQuery(query);
+
 GraphQLResult graphqlResult = graphqlApi.processGraphQL(graphqlRequest);
 
 Map<String, Map<String, Object>> data = (Map<String, Map<String, Object>>) result.getData();
@@ -92,6 +95,35 @@ for (Map<String, Object> edge : edgeList) {
 
 This is the simplest approach to use the graphQL API. If you want to page through the records found for your request, we suggest you create helper functions for iterating over the results and mapping them directly into POJOs. 
 Using variables to set the startCursor value seems to be a good way to implement this, since this avoids the string replacement within a query.
+
+If you want to change data via graphQL you need to create a mutation an example for this looks like this:
+
+```java
+GraphQLRequest graphQLRequest = new GraphQLRequest();
+
+String mutationQuery = "mutation ($patches: [Patch]!) {"
+    + "  createFactSheet(input: {name: \"New Test App\", type: Application}, patches: $patches) {"
+    + "    factSheet {"
+    + "      id name"
+    + "      ... on Application { release }"
+    + "    }"
+    + "  }"
+    + "}";
+
+graphQLRequest.setQuery(mutationQuery);
+
+Map<String, Object> patches = new HashMap<>();
+Map<String, String> patch = new HashMap<>();
+patch.put("op", "add");
+patch.put("path", "/release");
+patch.put("value", "4.2");
+patches.put("patches", patch);
+graphQLRequest.setVariables(patches);
+
+graphqlApi.processGraphQL(graphQLRequest);
+```
+
+In order to check if the request was successful you can check for the existence of an error element in the data of the request result.
 
 ### Using a proxy
 In case that you need to use a proxy to access LeanIX you can setup a http proxy by setting the standard proxy system properties:
