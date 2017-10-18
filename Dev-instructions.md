@@ -40,6 +40,13 @@ To generate the SDK from the latest REST API use the following maven commands:
 ```bash
 $ mvn clean package -Pcodegen
 ```
+
+or (for more flexibility):
+
+```bash
+$ mvn clean process-sources -Pcodegen
+$ mvn clean package
+```
 > Update the pom.xml properties section so specify the host where the swagger doc-api is pulled from.
 
 

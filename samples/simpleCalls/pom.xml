@@ -12,7 +12,7 @@
         <dependency>
             <groupId>net.leanix</groupId>
             <artifactId>leanix-sdk-java</artifactId>
-            <version>3.9.5-SNAPSHOT</version>
+            <version>3.9.9</version>
         </dependency>
     </dependencies>
 </project>
