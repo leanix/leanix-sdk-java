@@ -22,7 +22,9 @@ The host name of the token provider is normally "svc.leanix.net".
 
 ### Swagger documentation
 
-You can find the LeanIX GraphQL API documentation here [https://dev.leanix.net/docs](https://dev.leanix.net/docs) and the LeanIX REST API documentation here [https://app.leanix.net/services/pathfinder/v1/docs/](https://app.leanix.net/services/pathfinder/v1/docs/). The documentation of the REST API is interactive - if you are logged in to your workspace and the REST API is activated, you can try out every function directly from the documentation. For the GraphQL API a nice tool to explore the schema and experiment with querys, can be found in the administration in the Tools section. This tool is called GraphiQL.  
+You can find the LeanIX GraphQL API documentation here [https://dev.leanix.net/docs](https://dev.leanix.net/docs) and the LeanIX REST API documentation here [https://app.leanix.net/services/pathfinder/v1/docs/](https://app.leanix.net/services/pathfinder/v1/docs/). The documentation of the REST API is interactive - if you are logged in to your workspace and the REST API is activated, you can try out every function directly from the documentation. Alternatively, you can enter an API Token in the text field at the top.
+
+For the GraphQL API, there is a nice tool to explore the schema and experiment with querys. It is called GraphiQL and can be found in the Administration/Developers/Tools section.  
 
 
 ## Including the SDK in your project ##
