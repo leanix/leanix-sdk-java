@@ -115,10 +115,7 @@ String mutationQuery = "mutation ($patches: [Patch]!) {"
 graphQLRequest.setQuery(mutationQuery);
 
 Map<String, Object> patches = new HashMap<>();
-Map<String, String> patch = new HashMap<>();
-patch.put("op", "add");
-patch.put("path", "/release");
-patch.put("value", "4.2");
+Patch patch = new Patch(PatchOperation.add, "/release", "4.4");
 patches.put("patches", patch);
 graphQLRequest.setVariables(patches);
 
