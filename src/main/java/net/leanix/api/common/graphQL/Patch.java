@@ -1,12 +1,23 @@
 package net.leanix.api.common.graphQL;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Patch {
     public enum PatchOperation {
-        add, replace, remove
+        ADD, REPLACE, REMOVE;
+
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase();
+        }
+
+        @JsonCreator
+        public static PatchOperation fromJson(String rawValue) {
+            return valueOf(rawValue.toUpperCase());
+        }
     }
 
     @JsonProperty("path")
