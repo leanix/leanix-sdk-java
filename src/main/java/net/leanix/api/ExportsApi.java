@@ -73,7 +73,7 @@ public class ExportsApi {
   /**
    * createFullExport
    * Creates a full export of the workspace data, or an export of the changelog, depending on given type
-   * @param exportType The type of the export, must be either SNAPSHOT or AUDIT_LOG (optional)
+   * @param exportType The type of the export, must be either SNAPSHOT, AUDIT_LOG or AUDIT_LOG_LEGACY (optional)
    * @param startDate The start date of the audit log export in ISO-8601 format. (optional)
    * @param endDate The end date of the audit log export in ISO-8601 format. If left empty today is assumed (optional)
    * @return JobResponse
