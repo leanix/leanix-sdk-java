@@ -3,7 +3,7 @@
 LeanIX API version v1, https://developer.leanix.net
 
 ## Overview ##
-This SDK contains wrapper code used to call the LeanIX GraphQL and REST API from Java.
+This SDK contains wrapper code used to call the LeanIX GraphQL and REST APIs from Java.
 
 The SDK also contains one simple example. The code in [samples/simpleCalls](samples/simpleCalls/src/main/java/net/leanix/pathfinder/samples/simpleCalls/Main.java) demonstrates the basic use of the SDK to read Applications from the leanIX Inventory.
 
@@ -22,7 +22,9 @@ The host name of the token provider is normally "svc.leanix.net".
 
 ### Swagger documentation
 
-You can find the LeanIX GraphQL API documentation here [https://dev.leanix.net/docs](https://dev.leanix.net/docs) and the LeanIX REST API documentation here [https://app.leanix.net/services/pathfinder/v1/docs/](https://app.leanix.net/services/pathfinder/v1/docs/). The documentation of the REST API is interactive - if you are logged in to your workspace and the REST API is activated, you can try out every function directly from the documentation. For the GraphQL API a nice tool to explore the schema and experiment with querys, can be found in the administration in the Tools section. This tool is called GraphiQL.  
+You can find the LeanIX GraphQL API documentation here [https://dev.leanix.net/docs](https://dev.leanix.net/docs) and the LeanIX REST API documentation here [https://app.leanix.net/services/pathfinder/v1/docs/](https://app.leanix.net/services/pathfinder/v1/docs/). The documentation of the REST API is interactive - if you are logged in to your workspace and the REST API is activated, you can try out every function directly from the documentation. Alternatively, you can enter an API Token in the text field at the top.
+
+For the GraphQL API, there is a nice tool to explore the schema and experiment with querys. It is called GraphiQL and can be found in the Administration/Developers/Tools section.  
 
 
 ## Including the SDK in your project ##
@@ -67,8 +69,8 @@ ApiClient apiClient = new ApiClientBuilder()
     .build();
 ```
 
-You can then use an API class to execute functions. For the different REST resources of LeanIX one API class exists (for Fact Sheets the class is called FactSheetsApi). Additionally one API class for graphQL queries exists called GraphqlApi. 
-In order to print the names of all applications which match the full-text search of "design", the graphQL request could look like this:
+You can then use an API class to execute functions. For each of the different REST resources of LeanIX, there is one API class (for the Fact Sheet resource the class is called FactSheetsApi). Additionally, there is one API class called GraphqlApi for GraphQL queries. 
+In order to print the names of all applications which match the full-text search of "design", the GraphQL request could look like this:
 
 ```java
 GraphqlApi graphqlApi = new GraphqlApi(apiClient);
@@ -93,10 +95,10 @@ for (Map<String, Object> edge : edgeList) {
 }
 ```
 
-This is the simplest approach to use the graphQL API. If you want to page through the records found for your request, we suggest you create helper functions for iterating over the results and mapping them directly into POJOs. 
+This is the simplest approach to use the GraphQL API. If you want to page through the records found for your request, we suggest you create helper functions for iterating over the results and mapping them directly into POJOs. 
 Using variables to set the startCursor value seems to be a good way to implement this, since this avoids the string replacement within a query.
 
-If you want to change data via graphQL you need to create a mutation an example for this looks like this:
+If you want to change data via GraphQL you need to create a mutation an example for this looks like this:
 
 ```java
 GraphQLRequest graphQLRequest = new GraphQLRequest();
@@ -117,17 +119,17 @@ Patch patch = new Patch(PatchOperation.add, "/release", "4.4");
 patches.put("patches", patch);
 graphQLRequest.setVariables(patches);
 
-graphqlApi.processGraphQL(graphQLRequest);
+GraphQLResult result = graphqlApi.processGraphQL(graphQLRequest);
 ```
 
-In order to check if the request was successful you can check for the existence of an error element in the data of the request result.
+In order to check if the request was successful, you need to check for the existence of an `errors` element in the GraphQLResult.
 
 ### Using a proxy
-In case that you need to use a proxy to access LeanIX you can setup a http proxy by setting the standard proxy system properties:
+In case that you need to use a proxy to access LeanIX you can setup a https proxy by setting the standard proxy system properties:
 
 ```
 -Dhttps.proxyHost=<proxy hostname>
--Dhttps.proxyPort=<proxy port> (default is 80)
+-Dhttps.proxyPort=<proxy port> (default is 443)
 ```
 
 ## Instructions for SDK developers
