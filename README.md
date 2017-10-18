@@ -3,9 +3,9 @@
 LeanIX API version v1, https://developer.leanix.net
 
 ## Overview ##
-This SDK contains wrapper code used to call the LeanIX REST API from Java.
+This SDK contains wrapper code used to call the LeanIX GraphQL and REST APIs from Java.
 
-The SDK also contains two simple examples. The code in [samples/ServicesTest.java](samples/console/ServicesTest.java) demonstrates the basic use of the SDK to read Applications from the leanIX Inventory. The code in [samples/ProjectsTest.java](samples/console/ProjectsTest.java) demonstrates the basic use of the SDK for Projects in leanIX.
+The SDK also contains one simple example. The code in [samples/simpleCalls](samples/simpleCalls/src/main/java/net/leanix/pathfinder/samples/simpleCalls/Main.java) demonstrates the basic use of the SDK to read Applications from the leanIX Inventory.
 
 ## Prerequisites ##
 
@@ -22,7 +22,9 @@ The host name of the token provider is normally "svc.leanix.net".
 
 ### Swagger documentation
 
-You can find the LeanIX REST API documentation here [https://app.leanix.net/demo/api/v1/](https://app.leanix.net/demo/api/v1/). The documentation is interactive - if you are logged in to your workspace and the REST API is activated, you can try out every function directly from the documentation.
+You can find the LeanIX GraphQL API documentation here [https://dev.leanix.net/docs](https://dev.leanix.net/docs) and the LeanIX REST API documentation here [https://app.leanix.net/services/pathfinder/v1/docs/](https://app.leanix.net/services/pathfinder/v1/docs/). The documentation of the REST API is interactive - if you are logged in to your workspace and the REST API is activated, you can try out every function directly from the documentation. Alternatively, you can enter an API Token in the text field at the top.
+
+For the GraphQL API, there is a nice tool to explore the schema and experiment with querys. It is called GraphiQL and can be found in the Administration/Developers/Tools section.  
 
 
 ## Including the SDK in your project ##
@@ -33,7 +35,7 @@ The easiest way to incorporate the SDK into your Java project is to use Maven. I
 <dependency>
     <groupId>net.leanix</groupId>
     <artifactId>leanix-sdk-java</artifactId>
-    <version>3.9.7</version>
+    <version>3.9.9</version>
 </dependency>
 ```
 
@@ -43,7 +45,7 @@ If you'd prefer to build the SDK yourself, it's as simple as running
 $ mvn package
 ```
 
-You'll find `leanix-sdk-java-2.1.11.jar`, together with a sources jar and a javadoc jar in the target directory after the build completes.
+You'll find `leanix-sdk-java-3.9.9.jar`, together with a sources jar and a javadoc jar in the target directory after the build completes.
 In `target/lib` you will find the required libraries to use the SDK.
 
 ## Usage ##
@@ -57,116 +59,82 @@ import net.leanix.api.models.*;
 ```
 
 You need to instantiate a LeanIX API Client (ApiClient) which can be easily created using the builder class ApiClientBuilder.
-An important property of the ApiClient is the URL to the REST API of your workspace. Please replace `demo` with the name of your workspace.
-You also need to provide the API token and the hostname of the token provider here.
+You need to provide the API token and the hostname of the token provider here. The workspace will be determined by the API token used. If you use a dedicated instance you need to adapt the base path correspondingly.
 
 ```java
 ApiClient apiClient = new ApiClientBuilder()
-    .withBasePath("https://app.leanix.net/demo/api/v1")
+    .withBasePath("https://app.leanix.net/services/pathfinder/v1")
     .withApiToken("NOnrUpMXEh87xbDCYkLfrBmfbzLOFznjqVqEbNMp")
     .withTokenProviderHost("app.leanix.net")
     .build();
 ```
 
-You can then use an API class to execute functions. For each Fact Sheet in LeanIX there is one API class, e.g. for the Fact Sheet "Application" the API class is called `ServicesApi`. To print the names of all applications which match the full-text search of "design", you could do the following:
+You can then use an API class to execute functions. For each of the different REST resources of LeanIX, there is one API class (for the Fact Sheet resource the class is called FactSheetsApi). Additionally, there is one API class called GraphqlApi for GraphQL queries. 
+In order to print the names of all applications which match the full-text search of "design", the GraphQL request could look like this:
 
 ```java
-ServicesApi servicesApi = new ServicesApi(apiClient);
-List<Service> services = servicesApi.getServices(false, "design");
-for (Service cur : services) {
-	System.out.println(cur);
+GraphqlApi graphqlApi = new GraphqlApi(apiClient);
+
+String query = "{" + 
+  "allFactSheets(filter: {fullTextSearch: \"design\"}) {" + 
+    "edges { node {id displayName}}" + 
+  "}" + 
+"}";
+
+GraphQLRequest graphqlRequest = new GraphQLRequest();
+graphqlRequest.setQuery(query);
+
+GraphQLResult graphqlResult = graphqlApi.processGraphQL(graphqlRequest);
+
+Map<String, Map<String, Object>> data = (Map<String, Map<String, Object>>) result.getData();
+List<Map<String, Object>> edgeList = (List<Map<String, Object>>) data.get("allFactSheets").get("edges");
+
+for (Map<String, Object> edge : edgeList) {
+  Map<String, Object> node = (Map<String, Object>) edge.get("node");
+  System.out.println(node.get("displayName"));
 }
 ```
 
+This is the simplest approach to use the GraphQL API. If you want to page through the records found for your request, we suggest you create helper functions for iterating over the results and mapping them directly into POJOs. 
+Using variables to set the startCursor value seems to be a good way to implement this, since this avoids the string replacement within a query.
+
+If you want to change data via GraphQL you need to create a mutation an example for this looks like this:
+
+```java
+GraphQLRequest graphQLRequest = new GraphQLRequest();
+
+String mutationQuery = "mutation ($patches: [Patch]!) {"
+    + "  createFactSheet(input: {name: \"New Test App\", type: Application}, patches: $patches) {"
+    + "    factSheet {"
+    + "      id name"
+    + "      ... on Application { release }"
+    + "    }"
+    + "  }"
+    + "}";
+
+graphQLRequest.setQuery(mutationQuery);
+
+Map<String, Object> patches = new HashMap<>();
+Patch patch = new Patch(PatchOperation.ADD, "/release", "4.4");
+patches.put("patches", patch);
+graphQLRequest.setVariables(patches);
+
+GraphQLResult result = graphqlApi.processGraphQL(graphQLRequest);
+```
+
+In order to check if the request was successful, you need to check for the existence of an `errors` element in the GraphQLResult.
+
 ### Using a proxy
-In case that you need to use a proxy to access LeanIX you can setup a http proxy by setting the standard proxy system properties:
+In case that you need to use a proxy to access LeanIX you can setup a https proxy by setting the standard proxy system properties:
 
 ```
 -Dhttps.proxyHost=<proxy hostname>
--Dhttps.proxyPort=<proxy port> (default is 80)
+-Dhttps.proxyPort=<proxy port> (default is 443)
 ```
 
 ## Instructions for SDK developers
 
-### Testing
-
-The SDK contains units tests, but note: to operate on a defined data stock,
-each test creates a fresh workspace and deletes it afterwards.
-So it is really intended to be used by LeanIX developers only.
-
-The tests can be executed as follows:
-
-```bash
-$ mvn test \\
-    -Dapi.hostname=local-eam.leanix.net \\
-    -Dapi.clientId=<clientID used generate workspace and permissions, optional, default: eam> \\
-    -Dapi.clientSecret=<secret for clientID> \\
-    -Dapi.token=<Personal Access Token, optional, only required, when no clientID/clientSecret is used> \\
-    -Dapi.mtm.hostname=<host on which mtm is running, optional, default is: api.hostname>
-    -Djava.util.logging.config.file=./target/test-classes/logging.properties
-
-# E.G.: When running on development environment with virtual hostname 'boot2docker.leanix.net':
-$ mvn test \\
-  -Dapi.hostname=boot2docker.leanix.net \\
-  -Dapi.clientSecret=ldtP4b9o3K6IkKm3SolA_eam \\
-  -Djava.util.logging.config.file=./target/test-classes/logging.properties
-  
-# Using the API-Token and running against 'local-eam.leanix.net'
-# with Contract 'leanix eam REGULAR 2016-05-30'
-$ mvn test -Dapi.hostname=local-eam.leanix.net \
-    -Dapi.token=SvP6eADtbyC6PzLpSK9CmsxQcxnWEcXQxaEkxvan \
-    -Dcontract.displayname="leanix eam REGULAR 2016-05-30"
-```
-> In case of using an API-Token for authentication, be aware that the owner of the API-Token has the role SUPERADMIN.
-
-### Updating
-
-#### Generate from swagger.json
-
-To generate the SDK from the latest REST API use the following maven commands:
-
-```bash
-$ mvn clean package -Pcodegen
-```
-> Update the pom.xml properties section so specify the host where the swagger doc-api is pulled from.
-
-
-#### Deploy to Maven Central ###
-
-The following is done by the CI server when pushing a new version to master.
-To release, just use the ordinary maven-jgitflow mechanism:
-
-Make sure your local develop and master branches are up-to-date and clean, then
-
-```
-mvn jgitflow:release-start
-mvn jgitflow:release-finish
-```
-
-Details can be read here: http://central.sonatype.org/pages/apache-maven.html
-
-Add LeanIX Developer GPG key and make sure gpg is installed
-```bash
-$ gpg --import private.key
-```
-
-Create maven settings.xml file (in ~/.m2/settings.xml) with Sonatype account info:
-```xml
-<settings>
-  <servers>
-    <server>
-      <id>ossrh</id>
-      <username>andre_christ</username>
-      <password>PASSWORD</password>
-    </server>
-  </servers>
-</settings>
-```
-
-To create a package without tests do:
-```bash
-mvn package -Dmaven.test.skip=true
-```
+Instructions for developers can be found here [Dev Instructions](Dev-instructions.md)
 
 ## Thank You ##
 This API made use of the swagger-* libraries which help you to describe REST APIs in an elegant way. See here for more details: https://github.com/wordnik/swagger-codegen
