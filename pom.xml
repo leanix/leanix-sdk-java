@@ -6,7 +6,7 @@
     <artifactId>leanix-sdk-java</artifactId>
     <packaging>jar</packaging>
 
-    <version>3.9.12-SNAPSHOT</version>
+    <version>3.9.11</version>
 
     <parent>
         <groupId>net.leanix.poms</groupId>
