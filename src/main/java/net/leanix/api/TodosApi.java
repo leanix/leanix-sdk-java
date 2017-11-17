@@ -79,9 +79,10 @@ public class TodosApi {
    * deleteTodo
    * deletes a todo item based on provided id.
    * @param id  (required)
+   * @param workspaceId ID of the Workspace that the Todo shall be updated in in case that the user is not assigned to one workspace by his/her permissions. (optional)
    * @throws ApiException if fails to make API call
    */
-  public void deleteTodo(UUID id) throws ApiException {
+  public void deleteTodo(UUID id, UUID workspaceId) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -98,6 +99,7 @@ public class TodosApi {
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
 
     
     

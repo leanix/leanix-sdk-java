@@ -27,50 +27,14 @@ import java.util.Map;
  */
 
 public class Response {
-  @JsonProperty("status")
-  private Integer status = null;
+  @JsonProperty("metadata")
+  private Map<String, List<Object>> metadata = new HashMap<String, List<Object>>();
 
   @JsonProperty("entity")
   private Object entity = null;
 
-  @JsonProperty("metadata")
-  private Map<String, List<Object>> metadata = new HashMap<String, List<Object>>();
-
-  public Response status(Integer status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Get status
-   * @return status
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public Integer getStatus() {
-    return status;
-  }
-
-  public void setStatus(Integer status) {
-    this.status = status;
-  }
-
-  public Response entity(Object entity) {
-    this.entity = entity;
-    return this;
-  }
-
-   /**
-   * Get entity
-   * @return entity
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public Object getEntity() {
-    return entity;
-  }
-
-  public void setEntity(Object entity) {
-    this.entity = entity;
-  }
+  @JsonProperty("status")
+  private Integer status = null;
 
   public Response metadata(Map<String, List<Object>> metadata) {
     this.metadata = metadata;
@@ -95,6 +59,42 @@ public class Response {
     this.metadata = metadata;
   }
 
+  public Response entity(Object entity) {
+    this.entity = entity;
+    return this;
+  }
+
+   /**
+   * Get entity
+   * @return entity
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public Object getEntity() {
+    return entity;
+  }
+
+  public void setEntity(Object entity) {
+    this.entity = entity;
+  }
+
+  public Response status(Integer status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Get status
+   * @return status
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public Integer getStatus() {
+    return status;
+  }
+
+  public void setStatus(Integer status) {
+    this.status = status;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -105,14 +105,14 @@ public class Response {
       return false;
     }
     Response response = (Response) o;
-    return Objects.equals(this.status, response.status) &&
+    return Objects.equals(this.metadata, response.metadata) &&
         Objects.equals(this.entity, response.entity) &&
-        Objects.equals(this.metadata, response.metadata);
+        Objects.equals(this.status, response.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, entity, metadata);
+    return Objects.hash(metadata, entity, status);
   }
 
 
@@ -121,9 +121,9 @@ public class Response {
     StringBuilder sb = new StringBuilder();
     sb.append("class Response {\n");
     
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    entity: ").append(toIndentedString(entity)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
+    sb.append("    entity: ").append(toIndentedString(entity)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();
   }

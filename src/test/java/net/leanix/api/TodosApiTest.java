@@ -63,7 +63,8 @@ public class TodosApiTest {
     @Test
     public void deleteTodoTest() throws ApiException {
         UUID id = null;
-        api.deleteTodo(id);
+        UUID workspaceId = null;
+        api.deleteTodo(id, workspaceId);
 
         // TODO: test validations
     }
