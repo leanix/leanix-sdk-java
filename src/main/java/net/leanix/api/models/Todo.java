@@ -40,13 +40,13 @@ public class Todo {
    * Gets or Sets type
    */
   public enum TypeEnum {
-    FACTSHEET("FACTSHEET"),
+    FACT_SHEET("FACT_SHEET"),
     
     LIFECYCLE("LIFECYCLE"),
     
-    SURVEYRESPONSE("SURVEYRESPONSE"),
+    SURVEY_RESPONSE("SURVEY_RESPONSE"),
     
-    INACTIVEUSER("INACTIVEUSER");
+    INACTIVE_USER("INACTIVE_USER");
 
     private String value;
 
@@ -123,8 +123,8 @@ public class Todo {
   @JsonProperty("data")
   private Map<String, Object> data = new HashMap<String, Object>();
 
-  @JsonProperty("changedBy")
-  private UUID changedBy = null;
+  @JsonProperty("updatedBy")
+  private UUID updatedBy = null;
 
   public Todo id(UUID id) {
     this.id = id;
@@ -293,22 +293,22 @@ public class Todo {
     this.data = data;
   }
 
-  public Todo changedBy(UUID changedBy) {
-    this.changedBy = changedBy;
+  public Todo updatedBy(UUID updatedBy) {
+    this.updatedBy = updatedBy;
     return this;
   }
 
    /**
-   * Get changedBy
-   * @return changedBy
+   * Get updatedBy
+   * @return updatedBy
   **/
   @ApiModelProperty(example = "null", value = "")
-  public UUID getChangedBy() {
-    return changedBy;
+  public UUID getUpdatedBy() {
+    return updatedBy;
   }
 
-  public void setChangedBy(UUID changedBy) {
-    this.changedBy = changedBy;
+  public void setUpdatedBy(UUID updatedBy) {
+    this.updatedBy = updatedBy;
   }
 
 
@@ -330,12 +330,12 @@ public class Todo {
         Objects.equals(this.updatedAt, todo.updatedAt) &&
         Objects.equals(this.priority, todo.priority) &&
         Objects.equals(this.data, todo.data) &&
-        Objects.equals(this.changedBy, todo.changedBy);
+        Objects.equals(this.updatedBy, todo.updatedBy);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, userId, type, status, dueDate, createdAt, updatedAt, priority, data, changedBy);
+    return Objects.hash(id, userId, type, status, dueDate, createdAt, updatedAt, priority, data, updatedBy);
   }
 
 
@@ -353,7 +353,7 @@ public class Todo {
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    priority: ").append(toIndentedString(priority)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
-    sb.append("    changedBy: ").append(toIndentedString(changedBy)).append("\n");
+    sb.append("    updatedBy: ").append(toIndentedString(updatedBy)).append("\n");
     sb.append("}");
     return sb.toString();
   }

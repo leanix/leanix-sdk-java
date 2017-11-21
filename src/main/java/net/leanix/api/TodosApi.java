@@ -78,8 +78,8 @@ public class TodosApi {
   /**
    * deleteTodo
    * deletes a todo item based on provided id.
-   * @param id  (required)
-   * @param workspaceId ID of the Workspace that the Todo shall be updated in in case that the user is not assigned to one workspace by his/her permissions. (optional)
+   * @param id the id of the todo item (required)
+   * @param workspaceId the workspaceId in case that the SYSTEM deletes the todo (optional)
    * @throws ApiException if fails to make API call
    */
   public void deleteTodo(UUID id, UUID workspaceId) throws ApiException {
