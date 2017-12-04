@@ -7,7 +7,7 @@ import net.leanix.api.common.Pair;
 
 import javax.ws.rs.core.GenericType;
 
-import net.leanix.api.models.Todo;
+import net.leanix.api.models.TodoData;
 import net.leanix.api.models.TodoListResponse;
 import net.leanix.api.models.TodoResponse;
 import java.util.UUID;
@@ -38,14 +38,14 @@ public class TodosApi {
   }
 
   /**
-   * createTodo
+   * parseTodoDataToTodo
    * Saves a todo in the database
    * @param body Creates a new Todo item (optional)
    * @param workspaceId ID of the Workspace that the Todo shall be created in. (optional)
    * @return TodoResponse
    * @throws ApiException if fails to make API call
    */
-  public TodoResponse createTodo(Todo body, UUID workspaceId) throws ApiException {
+  public TodoResponse createTodo(TodoData body, UUID workspaceId) throws ApiException {
     Object localVarPostBody = body;
     
     // create path and map variables
@@ -168,10 +168,11 @@ public class TodosApi {
    * @param factSheetId Specifies the ID of the Fact Sheet the todo is connected to - only works with manual Todos (optional)
    * @param userId Specify the user Id for the user to look for (optional)
    * @param workspaceId Id of the workspace to get the TodoItems from. (optional)
+   * @param getArchived If set to true, then todos associated with archived factsheets are retrieved as well (optional, default to false)
    * @return TodoListResponse
    * @throws ApiException if fails to make API call
    */
-  public TodoListResponse getTodos(String type, String status, UUID factSheetId, UUID userId, UUID workspaceId) throws ApiException {
+  public TodoListResponse getTodos(String type, String status, UUID factSheetId, UUID userId, UUID workspaceId, Boolean getArchived) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -187,6 +188,7 @@ public class TodosApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "factSheetId", factSheetId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "userId", userId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "getArchived", getArchived));
 
     
     
@@ -214,7 +216,7 @@ public class TodosApi {
    * @return TodoResponse
    * @throws ApiException if fails to make API call
    */
-  public TodoResponse updateTodo(UUID id, UUID workspaceId, Todo body) throws ApiException {
+  public TodoResponse updateTodo(UUID id, UUID workspaceId, TodoData body) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'id' is set
