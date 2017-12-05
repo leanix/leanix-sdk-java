@@ -36,9 +36,6 @@ import java.util.UUID;
 })
 
 public class TodoData {
-  @JsonProperty("type")
-  private String type = null;
-
   @JsonProperty("id")
   private UUID id = null;
 
@@ -95,23 +92,8 @@ public class TodoData {
   @JsonProperty("updatedBy")
   private UUID updatedBy = null;
 
-  public TodoData type(String type) {
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * Get type
-   * @return type
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
+  @JsonProperty("type")
+  private String type = null;
 
   public TodoData id(UUID id) {
     this.id = id;
@@ -257,6 +239,15 @@ public class TodoData {
     this.updatedBy = updatedBy;
   }
 
+   /**
+   * Get type
+   * @return type
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public String getType() {
+    return type;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -267,20 +258,20 @@ public class TodoData {
       return false;
     }
     TodoData todoData = (TodoData) o;
-    return Objects.equals(this.type, todoData.type) &&
-        Objects.equals(this.id, todoData.id) &&
+    return Objects.equals(this.id, todoData.id) &&
         Objects.equals(this.userId, todoData.userId) &&
         Objects.equals(this.status, todoData.status) &&
         Objects.equals(this.dueDate, todoData.dueDate) &&
         Objects.equals(this.createdAt, todoData.createdAt) &&
         Objects.equals(this.updatedAt, todoData.updatedAt) &&
         Objects.equals(this.priority, todoData.priority) &&
-        Objects.equals(this.updatedBy, todoData.updatedBy);
+        Objects.equals(this.updatedBy, todoData.updatedBy) &&
+        Objects.equals(this.type, todoData.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, id, userId, status, dueDate, createdAt, updatedAt, priority, updatedBy);
+    return Objects.hash(id, userId, status, dueDate, createdAt, updatedAt, priority, updatedBy, type);
   }
 
 
@@ -289,7 +280,6 @@ public class TodoData {
     StringBuilder sb = new StringBuilder();
     sb.append("class TodoData {\n");
     
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
@@ -298,6 +288,7 @@ public class TodoData {
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    priority: ").append(toIndentedString(priority)).append("\n");
     sb.append("    updatedBy: ").append(toIndentedString(updatedBy)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }
