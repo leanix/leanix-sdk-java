@@ -38,7 +38,7 @@ public class TodosApi {
   }
 
   /**
-   * parseTodoDataToTodo
+   * createTodo
    * Saves a todo in the database
    * @param body Creates a new Todo item (optional)
    * @param workspaceId ID of the Workspace that the Todo shall be created in. (optional)
