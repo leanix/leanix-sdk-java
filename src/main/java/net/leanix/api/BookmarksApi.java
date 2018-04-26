@@ -10,6 +10,7 @@ import javax.ws.rs.core.GenericType;
 import net.leanix.api.models.Bookmark;
 import net.leanix.api.models.BookmarkListResponse;
 import net.leanix.api.models.BookmarkResponse;
+import net.leanix.api.models.BookmarkWorkingCopy;
 import java.util.UUID;
 
 import java.util.ArrayList;
@@ -114,6 +115,48 @@ public class BookmarksApi {
 
     apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
   }
+  /**
+   * deleteWorkingCopy
+   * Deletes a working copy for a bookmark stored in the database
+   * @param id  (required)
+   * @return BookmarkResponse
+   * @throws ApiException if fails to make API call
+   */
+  public BookmarkResponse deleteWorkingCopy(UUID id) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteWorkingCopy");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/bookmarks/{id}/workingCopy".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "token" };
+
+    GenericType<BookmarkResponse> localVarReturnType = new GenericType<BookmarkResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
   /**
    * getBookmark
    * Retrieves a bookmark by ID
@@ -220,6 +263,49 @@ public class BookmarksApi {
     
     // create path and map variables
     String localVarPath = "/bookmarks/{id}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "token" };
+
+    GenericType<BookmarkResponse> localVarReturnType = new GenericType<BookmarkResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
+   * updateWorkingCopy
+   * Updates a working copy for a bookmark stored in the database
+   * @param id  (required)
+   * @param body workingCopy (optional)
+   * @return BookmarkResponse
+   * @throws ApiException if fails to make API call
+   */
+  public BookmarkResponse updateWorkingCopy(UUID id, BookmarkWorkingCopy body) throws ApiException {
+    Object localVarPostBody = body;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling updateWorkingCopy");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/bookmarks/{id}/workingCopy".replaceAll("\\{format\\}","json")
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
 
     // query params

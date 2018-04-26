@@ -9,6 +9,7 @@ import javax.ws.rs.core.GenericType;
 
 import net.leanix.api.models.ExportListResponse;
 import net.leanix.api.models.JobResponse;
+import java.util.UUID;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -162,7 +163,8 @@ public class ExportsApi {
   /**
    * getExports
    * Lists all exports of the given type in the workspace of the authorized user
-   * @param exportType Comma separated list of types of exports to return, if left empty AUDIT_LOG and SNAPSHOT exports are returned (optional)
+   * @param exportType Comma separated list of types of exports to return, if left empty AUDIT_LOG and SNAPSHOT, and AUDIT_LOG_LEGACY exports are returned (optional)
+   * @param userId Retrieve exports initiated by the given user (optional)
    * @param pageSize Number of Exports to return, maximum is 100 (optional, default to 40)
    * @param cursor Marks the position of the first element that should be returned (optional)
    * @param sorting the field to sort the results by (optional, default to createdAt)
@@ -170,7 +172,7 @@ public class ExportsApi {
    * @return ExportListResponse
    * @throws ApiException if fails to make API call
    */
-  public ExportListResponse getExports(String exportType, Integer pageSize, String cursor, String sorting, String sortDirection) throws ApiException {
+  public ExportListResponse getExports(String exportType, UUID userId, Integer pageSize, String cursor, String sorting, String sortDirection) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -182,6 +184,7 @@ public class ExportsApi {
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "exportType", exportType));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "userId", userId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "cursor", cursor));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sorting", sorting));
