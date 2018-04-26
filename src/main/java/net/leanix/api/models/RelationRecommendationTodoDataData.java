@@ -21,24 +21,25 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import net.leanix.api.models.FactSheetReference;
+import net.leanix.api.models.RecommendationReference;
 
 /**
- * FactSheetTodoDataData
+ * RelationRecommendationTodoDataData
  */
 
-public class FactSheetTodoDataData {
+public class RelationRecommendationTodoDataData {
   @JsonProperty("factSheets")
   private List<FactSheetReference> factSheets = new ArrayList<FactSheetReference>();
 
-  @JsonProperty("description")
-  private String description = null;
+  @JsonProperty("recommendations")
+  private List<RecommendationReference> recommendations = new ArrayList<RecommendationReference>();
 
-  public FactSheetTodoDataData factSheets(List<FactSheetReference> factSheets) {
+  public RelationRecommendationTodoDataData factSheets(List<FactSheetReference> factSheets) {
     this.factSheets = factSheets;
     return this;
   }
 
-  public FactSheetTodoDataData addFactSheetsItem(FactSheetReference factSheetsItem) {
+  public RelationRecommendationTodoDataData addFactSheetsItem(FactSheetReference factSheetsItem) {
     this.factSheets.add(factSheetsItem);
     return this;
   }
@@ -56,22 +57,27 @@ public class FactSheetTodoDataData {
     this.factSheets = factSheets;
   }
 
-  public FactSheetTodoDataData description(String description) {
-    this.description = description;
+  public RelationRecommendationTodoDataData recommendations(List<RecommendationReference> recommendations) {
+    this.recommendations = recommendations;
+    return this;
+  }
+
+  public RelationRecommendationTodoDataData addRecommendationsItem(RecommendationReference recommendationsItem) {
+    this.recommendations.add(recommendationsItem);
     return this;
   }
 
    /**
-   * Get description
-   * @return description
+   * Get recommendations
+   * @return recommendations
   **/
   @ApiModelProperty(example = "null", value = "")
-  public String getDescription() {
-    return description;
+  public List<RecommendationReference> getRecommendations() {
+    return recommendations;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setRecommendations(List<RecommendationReference> recommendations) {
+    this.recommendations = recommendations;
   }
 
 
@@ -83,24 +89,24 @@ public class FactSheetTodoDataData {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FactSheetTodoDataData factSheetTodoDataData = (FactSheetTodoDataData) o;
-    return Objects.equals(this.factSheets, factSheetTodoDataData.factSheets) &&
-        Objects.equals(this.description, factSheetTodoDataData.description);
+    RelationRecommendationTodoDataData relationRecommendationTodoDataData = (RelationRecommendationTodoDataData) o;
+    return Objects.equals(this.factSheets, relationRecommendationTodoDataData.factSheets) &&
+        Objects.equals(this.recommendations, relationRecommendationTodoDataData.recommendations);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(factSheets, description);
+    return Objects.hash(factSheets, recommendations);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FactSheetTodoDataData {\n");
+    sb.append("class RelationRecommendationTodoDataData {\n");
     
     sb.append("    factSheets: ").append(toIndentedString(factSheets)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    recommendations: ").append(toIndentedString(recommendations)).append("\n");
     sb.append("}");
     return sb.toString();
   }

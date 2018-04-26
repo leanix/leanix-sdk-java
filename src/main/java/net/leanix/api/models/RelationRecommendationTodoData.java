@@ -19,52 +19,35 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.UUID;
+import net.leanix.api.models.RelationRecommendationTodoDataData;
+import net.leanix.api.models.TodoData;
 
 /**
- * Phase
+ * RelationRecommendationTodoData
  */
 
-public class Phase {
-  @JsonProperty("startDate")
-  private LocalDate startDate = null;
+public class RelationRecommendationTodoData extends TodoData {
+  @JsonProperty("data")
+  private RelationRecommendationTodoDataData data = null;
 
-  @JsonProperty("phase")
-  private String phase = null;
-
-  public Phase startDate(LocalDate startDate) {
-    this.startDate = startDate;
+  public RelationRecommendationTodoData data(RelationRecommendationTodoDataData data) {
+    this.data = data;
     return this;
   }
 
    /**
-   * Get startDate
-   * @return startDate
+   * Get data
+   * @return data
   **/
   @ApiModelProperty(example = "null", value = "")
-  public LocalDate getStartDate() {
-    return startDate;
+  public RelationRecommendationTodoDataData getData() {
+    return data;
   }
 
-  public void setStartDate(LocalDate startDate) {
-    this.startDate = startDate;
-  }
-
-  public Phase phase(String phase) {
-    this.phase = phase;
-    return this;
-  }
-
-   /**
-   * Get phase
-   * @return phase
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public String getPhase() {
-    return phase;
-  }
-
-  public void setPhase(String phase) {
-    this.phase = phase;
+  public void setData(RelationRecommendationTodoDataData data) {
+    this.data = data;
   }
 
 
@@ -76,24 +59,23 @@ public class Phase {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Phase phase = (Phase) o;
-    return Objects.equals(this.startDate, phase.startDate) &&
-        Objects.equals(this.phase, phase.phase);
+    RelationRecommendationTodoData relationRecommendationTodoData = (RelationRecommendationTodoData) o;
+    return Objects.equals(this.data, relationRecommendationTodoData.data) &&
+        super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(startDate, phase);
+    return Objects.hash(data, super.hashCode());
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Phase {\n");
-    
-    sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
-    sb.append("    phase: ").append(toIndentedString(phase)).append("\n");
+    sb.append("class RelationRecommendationTodoData {\n");
+    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");
     return sb.toString();
   }
