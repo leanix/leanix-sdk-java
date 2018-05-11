@@ -169,12 +169,12 @@ public class TodosApi {
    * @param userId Specify the user Id for the user to look for (optional)
    * @param workspaceId Id of the workspace to get the TodoItems from. (optional)
    * @param getArchived If set to true, then todos associated with archived factsheets are retrieved as well (optional, default to false)
-   * @param maxResults Specifies the number of Todos to get, (optional, default to 10)
-   * @param pageNumber Specifies the page of Todos to get, (optional, default to 1)
+   * @param size Specifies the number of Todos to get, (optional, default to 10)
+   * @param page Specifies the page of Todos to get, (optional, default to 1)
    * @return TodoListResponse
    * @throws ApiException if fails to make API call
    */
-  public TodoListResponse getTodos(String type, String status, UUID factSheetId, UUID userId, UUID workspaceId, Boolean getArchived, Integer maxResults, Integer pageNumber) throws ApiException {
+  public TodoListResponse getTodos(String type, String status, UUID factSheetId, UUID userId, UUID workspaceId, Boolean getArchived, Integer size, Integer page) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -191,8 +191,8 @@ public class TodosApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "userId", userId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "getArchived", getArchived));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "maxResults", maxResults));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageNumber", pageNumber));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "size", size));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "page", page));
 
     
     
