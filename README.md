@@ -35,7 +35,7 @@ The easiest way to incorporate the SDK into your Java project is to use Maven. I
 <dependency>
     <groupId>net.leanix</groupId>
     <artifactId>leanix-sdk-java</artifactId>
-    <version>3.9.9</version>
+    <version>3.9.24</version>
 </dependency>
 ```
 
@@ -45,7 +45,7 @@ If you'd prefer to build the SDK yourself, it's as simple as running
 $ mvn package
 ```
 
-You'll find `leanix-sdk-java-3.9.9.jar`, together with a sources jar and a javadoc jar in the target directory after the build completes.
+You'll find `leanix-sdk-java-3.9.24.jar`, together with a sources jar and a javadoc jar in the target directory after the build completes.
 In `target/lib` you will find the required libraries to use the SDK.
 
 ## Usage ##
@@ -86,7 +86,7 @@ graphqlRequest.setQuery(query);
 
 GraphQLResult graphqlResult = graphqlApi.processGraphQL(graphqlRequest);
 
-Map<String, Map<String, Object>> data = (Map<String, Map<String, Object>>) result.getData();
+Map<String, Map<String, Object>> data = (Map<String, Map<String, Object>>) graphqlResult.getData();
 List<Map<String, Object>> edgeList = (List<Map<String, Object>>) data.get("allFactSheets").get("edges");
 
 for (Map<String, Object> edge : edgeList) {
