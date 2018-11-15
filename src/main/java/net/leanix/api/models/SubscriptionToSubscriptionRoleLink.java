@@ -19,22 +19,23 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import net.leanix.api.models.SubscriptionRole;
 
 /**
- * FactSheetReference
+ * SubscriptionToSubscriptionRoleLink
  */
 
-public class FactSheetReference {
+public class SubscriptionToSubscriptionRoleLink {
   @JsonProperty("id")
   private UUID id = null;
 
-  @JsonProperty("type")
-  private String type = null;
+  @JsonProperty("subscriptionRole")
+  private SubscriptionRole subscriptionRole = null;
 
-  @JsonProperty("displayName")
-  private String displayName = null;
+  @JsonProperty("comment")
+  private String comment = null;
 
-  public FactSheetReference id(UUID id) {
+  public SubscriptionToSubscriptionRoleLink id(UUID id) {
     this.id = id;
     return this;
   }
@@ -52,40 +53,40 @@ public class FactSheetReference {
     this.id = id;
   }
 
-  public FactSheetReference type(String type) {
-    this.type = type;
+  public SubscriptionToSubscriptionRoleLink subscriptionRole(SubscriptionRole subscriptionRole) {
+    this.subscriptionRole = subscriptionRole;
     return this;
   }
 
    /**
-   * Get type
-   * @return type
+   * Get subscriptionRole
+   * @return subscriptionRole
   **/
-  @ApiModelProperty(example = "null", value = "")
-  public String getType() {
-    return type;
+  @ApiModelProperty(example = "null", required = true, value = "")
+  public SubscriptionRole getSubscriptionRole() {
+    return subscriptionRole;
   }
 
-  public void setType(String type) {
-    this.type = type;
+  public void setSubscriptionRole(SubscriptionRole subscriptionRole) {
+    this.subscriptionRole = subscriptionRole;
   }
 
-  public FactSheetReference displayName(String displayName) {
-    this.displayName = displayName;
+  public SubscriptionToSubscriptionRoleLink comment(String comment) {
+    this.comment = comment;
     return this;
   }
 
    /**
-   * Get displayName
-   * @return displayName
+   * Get comment
+   * @return comment
   **/
   @ApiModelProperty(example = "null", value = "")
-  public String getDisplayName() {
-    return displayName;
+  public String getComment() {
+    return comment;
   }
 
-  public void setDisplayName(String displayName) {
-    this.displayName = displayName;
+  public void setComment(String comment) {
+    this.comment = comment;
   }
 
 
@@ -97,26 +98,26 @@ public class FactSheetReference {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FactSheetReference factSheetReference = (FactSheetReference) o;
-    return Objects.equals(this.id, factSheetReference.id) &&
-        Objects.equals(this.type, factSheetReference.type) &&
-        Objects.equals(this.displayName, factSheetReference.displayName);
+    SubscriptionToSubscriptionRoleLink subscriptionToSubscriptionRoleLink = (SubscriptionToSubscriptionRoleLink) o;
+    return Objects.equals(this.id, subscriptionToSubscriptionRoleLink.id) &&
+        Objects.equals(this.subscriptionRole, subscriptionToSubscriptionRoleLink.subscriptionRole) &&
+        Objects.equals(this.comment, subscriptionToSubscriptionRoleLink.comment);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, displayName);
+    return Objects.hash(id, subscriptionRole, comment);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FactSheetReference {\n");
+    sb.append("class SubscriptionToSubscriptionRoleLink {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
+    sb.append("    subscriptionRole: ").append(toIndentedString(subscriptionRole)).append("\n");
+    sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
     sb.append("}");
     return sb.toString();
   }
