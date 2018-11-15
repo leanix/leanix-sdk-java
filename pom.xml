@@ -52,7 +52,7 @@
 
         <!-- properties related to sdk code generation -->
         <leanix-dropkit-sdk-utils-version>1.0.3</leanix-dropkit-sdk-utils-version>
-        <codegenHost>local-eam.leanix.net</codegenHost>
+        <codegenHost>test-app-1.leanix.net</codegenHost>
         <swagger-inputSpec>https://${codegenHost}/services/pathfinder/v1/api-docs/</swagger-inputSpec>
 
     </properties>
