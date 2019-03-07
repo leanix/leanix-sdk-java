@@ -20,14 +20,23 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import net.leanix.api.models.AccessControlEntity;
 import net.leanix.api.models.ApiError;
-import net.leanix.api.models.Bookmark;
 
 /**
- * BookmarkListResponse
+ * AccessControlEntityListResponse
  */
 
-public class BookmarkListResponse {
+public class AccessControlEntityListResponse {
+  @JsonProperty("data")
+  private List<AccessControlEntity> data = new ArrayList<AccessControlEntity>();
+
+  @JsonProperty("total")
+  private Integer total = null;
+
+  @JsonProperty("endCursor")
+  private String endCursor = null;
+
   /**
    * Gets or Sets status
    */
@@ -64,60 +73,18 @@ public class BookmarkListResponse {
   @JsonProperty("type")
   private String type = null;
 
-  @JsonProperty("data")
-  private List<Bookmark> data = new ArrayList<Bookmark>();
-
   @JsonProperty("errorMessage")
   private String errorMessage = null;
 
   @JsonProperty("errors")
   private List<ApiError> errors = new ArrayList<ApiError>();
 
-  @JsonProperty("total")
-  private Integer total = null;
-
-  public BookmarkListResponse status(StatusEnum status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Get status
-   * @return status
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public StatusEnum getStatus() {
-    return status;
-  }
-
-  public void setStatus(StatusEnum status) {
-    this.status = status;
-  }
-
-  public BookmarkListResponse type(String type) {
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * Get type
-   * @return type
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  public BookmarkListResponse data(List<Bookmark> data) {
+  public AccessControlEntityListResponse data(List<AccessControlEntity> data) {
     this.data = data;
     return this;
   }
 
-  public BookmarkListResponse addDataItem(Bookmark dataItem) {
+  public AccessControlEntityListResponse addDataItem(AccessControlEntity dataItem) {
     this.data.add(dataItem);
     return this;
   }
@@ -127,56 +94,15 @@ public class BookmarkListResponse {
    * @return data
   **/
   @ApiModelProperty(example = "null", value = "")
-  public List<Bookmark> getData() {
+  public List<AccessControlEntity> getData() {
     return data;
   }
 
-  public void setData(List<Bookmark> data) {
+  public void setData(List<AccessControlEntity> data) {
     this.data = data;
   }
 
-  public BookmarkListResponse errorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-    return this;
-  }
-
-   /**
-   * Get errorMessage
-   * @return errorMessage
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public String getErrorMessage() {
-    return errorMessage;
-  }
-
-  public void setErrorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-  }
-
-  public BookmarkListResponse errors(List<ApiError> errors) {
-    this.errors = errors;
-    return this;
-  }
-
-  public BookmarkListResponse addErrorsItem(ApiError errorsItem) {
-    this.errors.add(errorsItem);
-    return this;
-  }
-
-   /**
-   * Get errors
-   * @return errors
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public List<ApiError> getErrors() {
-    return errors;
-  }
-
-  public void setErrors(List<ApiError> errors) {
-    this.errors = errors;
-  }
-
-  public BookmarkListResponse total(Integer total) {
+  public AccessControlEntityListResponse total(Integer total) {
     this.total = total;
     return this;
   }
@@ -194,6 +120,92 @@ public class BookmarkListResponse {
     this.total = total;
   }
 
+   /**
+   * Get endCursor
+   * @return endCursor
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public String getEndCursor() {
+    return endCursor;
+  }
+
+  public AccessControlEntityListResponse status(StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Get status
+   * @return status
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
+
+  public AccessControlEntityListResponse type(String type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * Get type
+   * @return type
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public AccessControlEntityListResponse errorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
+    return this;
+  }
+
+   /**
+   * Get errorMessage
+   * @return errorMessage
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
+  public void setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
+  }
+
+  public AccessControlEntityListResponse errors(List<ApiError> errors) {
+    this.errors = errors;
+    return this;
+  }
+
+  public AccessControlEntityListResponse addErrorsItem(ApiError errorsItem) {
+    this.errors.add(errorsItem);
+    return this;
+  }
+
+   /**
+   * Get errors
+   * @return errors
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public List<ApiError> getErrors() {
+    return errors;
+  }
+
+  public void setErrors(List<ApiError> errors) {
+    this.errors = errors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -203,32 +215,34 @@ public class BookmarkListResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BookmarkListResponse bookmarkListResponse = (BookmarkListResponse) o;
-    return Objects.equals(this.status, bookmarkListResponse.status) &&
-        Objects.equals(this.type, bookmarkListResponse.type) &&
-        Objects.equals(this.data, bookmarkListResponse.data) &&
-        Objects.equals(this.errorMessage, bookmarkListResponse.errorMessage) &&
-        Objects.equals(this.errors, bookmarkListResponse.errors) &&
-        Objects.equals(this.total, bookmarkListResponse.total);
+    AccessControlEntityListResponse accessControlEntityListResponse = (AccessControlEntityListResponse) o;
+    return Objects.equals(this.data, accessControlEntityListResponse.data) &&
+        Objects.equals(this.total, accessControlEntityListResponse.total) &&
+        Objects.equals(this.endCursor, accessControlEntityListResponse.endCursor) &&
+        Objects.equals(this.status, accessControlEntityListResponse.status) &&
+        Objects.equals(this.type, accessControlEntityListResponse.type) &&
+        Objects.equals(this.errorMessage, accessControlEntityListResponse.errorMessage) &&
+        Objects.equals(this.errors, accessControlEntityListResponse.errors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, type, data, errorMessage, errors, total);
+    return Objects.hash(data, total, endCursor, status, type, errorMessage, errors);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class BookmarkListResponse {\n");
+    sb.append("class AccessControlEntityListResponse {\n");
     
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("    endCursor: ").append(toIndentedString(endCursor)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    errorMessage: ").append(toIndentedString(errorMessage)).append("\n");
     sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
-    sb.append("    total: ").append(toIndentedString(total)).append("\n");
     sb.append("}");
     return sb.toString();
   }

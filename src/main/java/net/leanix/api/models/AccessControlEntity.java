@@ -21,20 +21,23 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 
 /**
- * FactSheetReference
+ * AccessControlEntity
  */
 
-public class FactSheetReference {
+public class AccessControlEntity {
   @JsonProperty("id")
   private UUID id = null;
 
-  @JsonProperty("type")
-  private String type = null;
+  @JsonProperty("name")
+  private String name = null;
 
   @JsonProperty("displayName")
   private String displayName = null;
 
-  public FactSheetReference id(UUID id) {
+  @JsonProperty("description")
+  private String description = null;
+
+  public AccessControlEntity id(UUID id) {
     this.id = id;
     return this;
   }
@@ -52,25 +55,25 @@ public class FactSheetReference {
     this.id = id;
   }
 
-  public FactSheetReference type(String type) {
-    this.type = type;
+  public AccessControlEntity name(String name) {
+    this.name = name;
     return this;
   }
 
    /**
-   * Get type
-   * @return type
+   * Get name
+   * @return name
   **/
   @ApiModelProperty(example = "null", value = "")
-  public String getType() {
-    return type;
+  public String getName() {
+    return name;
   }
 
-  public void setType(String type) {
-    this.type = type;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public FactSheetReference displayName(String displayName) {
+  public AccessControlEntity displayName(String displayName) {
     this.displayName = displayName;
     return this;
   }
@@ -88,6 +91,24 @@ public class FactSheetReference {
     this.displayName = displayName;
   }
 
+  public AccessControlEntity description(String description) {
+    this.description = description;
+    return this;
+  }
+
+   /**
+   * Get description
+   * @return description
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -97,26 +118,28 @@ public class FactSheetReference {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FactSheetReference factSheetReference = (FactSheetReference) o;
-    return Objects.equals(this.id, factSheetReference.id) &&
-        Objects.equals(this.type, factSheetReference.type) &&
-        Objects.equals(this.displayName, factSheetReference.displayName);
+    AccessControlEntity accessControlEntity = (AccessControlEntity) o;
+    return Objects.equals(this.id, accessControlEntity.id) &&
+        Objects.equals(this.name, accessControlEntity.name) &&
+        Objects.equals(this.displayName, accessControlEntity.displayName) &&
+        Objects.equals(this.description, accessControlEntity.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, displayName);
+    return Objects.hash(id, name, displayName, description);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FactSheetReference {\n");
+    sb.append("class AccessControlEntity {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
     return sb.toString();
   }
