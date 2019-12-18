@@ -161,10 +161,11 @@ public class BookmarksApi {
    * getBookmark
    * Retrieves a bookmark by ID
    * @param id  (required)
+   * @param markAsViewed  (optional, default to true)
    * @return BookmarkResponse
    * @throws ApiException if fails to make API call
    */
-  public BookmarkResponse getBookmark(UUID id) throws ApiException {
+  public BookmarkResponse getBookmark(UUID id, Boolean markAsViewed) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -181,6 +182,7 @@ public class BookmarksApi {
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "markAsViewed", markAsViewed));
 
     
     
@@ -204,11 +206,10 @@ public class BookmarksApi {
    * Retrieves all stored bookmarks a user can read.
    * @param bookmarkType Specifies the bookmark type (required)
    * @param groupKey A key used to separate bookmarks within the same query type (optional)
-   * @param sharingType Specifies the sharing type which the returned bookmarks need to have (optional)
    * @return BookmarkListResponse
    * @throws ApiException if fails to make API call
    */
-  public BookmarkListResponse getBookmarks(String bookmarkType, String groupKey, String sharingType) throws ApiException {
+  public BookmarkListResponse getBookmarks(String bookmarkType, String groupKey) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'bookmarkType' is set
@@ -226,7 +227,6 @@ public class BookmarksApi {
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "bookmarkType", bookmarkType));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "groupKey", groupKey));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sharingType", sharingType));
 
     
     
