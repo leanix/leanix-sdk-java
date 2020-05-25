@@ -1,19 +1,16 @@
 package net.leanix.api;
 
-import net.leanix.api.common.ApiException;
-import net.leanix.api.common.ApiClient;
-import net.leanix.api.common.Configuration;
-import net.leanix.api.common.Pair;
-
-import javax.ws.rs.core.GenericType;
-
-import net.leanix.api.models.BookmarkSuggestionsResponse;
-import java.util.UUID;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import javax.ws.rs.core.GenericType;
+import net.leanix.api.common.ApiClient;
+import net.leanix.api.common.ApiException;
+import net.leanix.api.common.Configuration;
+import net.leanix.api.common.Pair;
+import net.leanix.api.models.BookmarkSuggestionsResponse;
 
 
 public class SearchbookmarksApi {
@@ -35,19 +32,19 @@ public class SearchbookmarksApi {
     this.apiClient = apiClient;
   }
 
-  /**
-   * getBookmarkSuggestions
-   * Returns a list of bookmark suggestions for a given search term or all the bookmarks matching filter
-   * @param type Bookmark type (optional)
-   * @param subtype Bookmark subtype (optional)
-   * @param q Search term (optional)
-   * @param personalized Personalized (optional, default to false)
-   * @param sort Sorting. Default sorting criterion is bookmark name. (optional)
-   * @param cursor Pagination cursor. The result page will start with the entry immediately after the entry corresponding to the cursor. Order of the cursor values matters.This parameter needs to be specified multiple times: once for each entry in the list, e.g., cursor&#x3D;b2h5by1vaHlv&amp;cursor&#x3D;Ym9va21hcmsj (optional)
-   * @param pageSize Page size (optional, default to 40)
-   * @param sortDirection The direction of the sorting. Default sorting order for name is ASC, for date fields - DSC. (optional)
-   * @param factSheetId FactSheet ID, which must appear in bookmark (applicable only to bookmarks of BookmarkType VISUALIZER) (optional)
-   * @param predefinedOnly Indicates if only predefined bookmarks should be returned. (optional, default to false)
+    /**
+     * getBookmarkSuggestions
+     * Returns a list of bookmark suggestions
+     * @param type Bookmark type (optional)
+     * @param subtype Bookmark subtype (optional)
+     * @param q Search term (optional)
+     * @param personalized Personalized (optional, default to false)
+     * @param sort Sorting. Default sorting criterion is bookmark name. (optional)
+     * @param cursor Pagination cursor. The result page will start with the entry immediately after the entry corresponding to the cursor. Order of the cursor values matters.This parameter needs to be specified multiple times: once for each entry in the list, e.g., cursor&#x3D;b2h5by1vaHlv&amp;cursor&#x3D;Ym9va21hcmsj (optional)
+     * @param pageSize Page size (optional, default to 40)
+     * @param sortDirection The direction of the sorting. Default sorting order for name is ASC, for date fields - DSC. (optional)
+     * @param factSheetId FactSheet ID, which must appear in bookmark (applicable only to bookmarks of BookmarkType VISUALIZER) (optional)
+     * @param predefinedOnly Indicates if only predefined bookmarks should be returned. (optional, default to false)
    * @return BookmarkSuggestionsResponse
    * @throws ApiException if fails to make API call
    */

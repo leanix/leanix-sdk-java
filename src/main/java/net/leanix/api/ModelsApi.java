@@ -1,12 +1,15 @@
 package net.leanix.api;
 
-import net.leanix.api.common.ApiException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import javax.ws.rs.core.GenericType;
 import net.leanix.api.common.ApiClient;
+import net.leanix.api.common.ApiException;
 import net.leanix.api.common.Configuration;
 import net.leanix.api.common.Pair;
-
-import javax.ws.rs.core.GenericType;
-
 import net.leanix.api.models.AccessControlEntity;
 import net.leanix.api.models.AccessControlEntityListResponse;
 import net.leanix.api.models.AccessControlEntityResponse;
@@ -15,19 +18,15 @@ import net.leanix.api.models.AuthorizationRolesResponse;
 import net.leanix.api.models.DataModel;
 import net.leanix.api.models.DataModelDefinitionResponse;
 import net.leanix.api.models.DataModelUpdateResponse;
+import net.leanix.api.models.FactSheetResourceModelDefinition;
+import net.leanix.api.models.FactSheetResourceModelResponse;
 import net.leanix.api.models.LanguageResponse;
 import net.leanix.api.models.ReportingModelDefinition;
 import net.leanix.api.models.ReportingModelResponse;
 import net.leanix.api.models.Response;
 import net.leanix.api.models.Translation;
-import java.util.UUID;
 import net.leanix.api.models.ViewModelDefinition;
 import net.leanix.api.models.ViewModelResponse;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class ModelsApi {
@@ -166,63 +165,30 @@ public class ModelsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<AccessControlEntityListResponse> localVarReturnType = new GenericType<AccessControlEntityListResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * getAuthorization
-   * Provides all authorization roles were for each role a set of permission is defined.
-   * @param workspaceId  (optional)
-   * @return AuthorizationRolesResponse
-   * @throws ApiException if fails to make API call
-   */
-  public AuthorizationRolesResponse getAuthorization(String workspaceId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/models/authorization".replaceAll("\\{format\\}","json");
+      GenericType<AccessControlEntityListResponse> localVarReturnType = new GenericType<AccessControlEntityListResponse>() {
+      };
+      return apiClient
+          .invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
+              localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    /**
+     * getAuthorization
+     * Provides all authorization roles were for each role a set of permission is defined.
+     * @param workspaceId  (optional)
+     * @return AuthorizationRolesResponse
+     * @throws ApiException if fails to make API call
+     */
+    public AuthorizationRolesResponse getAuthorization(UUID workspaceId) throws ApiException {
+        Object localVarPostBody = null;
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+        // create path and map variables
+        String localVarPath = "/models/authorization".replaceAll("\\{format\\}", "json");
 
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "token" };
-
-    GenericType<AuthorizationRolesResponse> localVarReturnType = new GenericType<AuthorizationRolesResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * getDataModel
-   * Retrieves the model for a workspace
-   * @param workspaceId  (optional)
-   * @return DataModelDefinitionResponse
-   * @throws ApiException if fails to make API call
-   */
-  public DataModelDefinitionResponse getDataModel(String workspaceId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/models/dataModel".replaceAll("\\{format\\}","json");
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
 
@@ -240,65 +206,151 @@ public class ModelsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<DataModelDefinitionResponse> localVarReturnType = new GenericType<DataModelDefinitionResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * getEnrichedDataModel
-   * Retrieves the model for a workspace, including redundant data that makes life easy for the web front end
-   * @param workspaceId  (optional)
-   * @return DataModelDefinitionResponse
-   * @throws ApiException if fails to make API call
-   */
-  public DataModelDefinitionResponse getEnrichedDataModel(String workspaceId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/models/dataModel/enriched".replaceAll("\\{format\\}","json");
-
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "token" };
-
-    GenericType<DataModelDefinitionResponse> localVarReturnType = new GenericType<DataModelDefinitionResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * getLanguage
-   * Get the given language
-   * @param id  (required)
-   * @param workspaceId  (optional)
-   * @return LanguageResponse
-   * @throws ApiException if fails to make API call
-   */
-  public LanguageResponse getLanguage(String id, String workspaceId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getLanguage");
+        GenericType<AuthorizationRolesResponse> localVarReturnType = new GenericType<AuthorizationRolesResponse>() {
+        };
+        return apiClient
+            .invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
+                localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
     }
+
+    /**
+     * getDataModel
+     * Retrieves the model for a workspace
+     * @param workspaceId  (optional)
+     * @return DataModelDefinitionResponse
+     * @throws ApiException if fails to make API call
+     */
+    public DataModelDefinitionResponse getDataModel(UUID workspaceId) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/models/dataModel".replaceAll("\\{format\\}", "json");
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+
     
-    // create path and map variables
-    String localVarPath = "/models/languages/{id}".replaceAll("\\{format\\}","json")
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "token" };
+
+        GenericType<DataModelDefinitionResponse> localVarReturnType = new GenericType<DataModelDefinitionResponse>() {
+        };
+        return apiClient
+            .invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
+                localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    }
+
+    /**
+     * getEnrichedDataModel
+     * Retrieves the model for a workspace, including redundant data that makes life easy for the web front end
+     * @param workspaceId  (optional)
+     * @return DataModelDefinitionResponse
+     * @throws ApiException if fails to make API call
+     */
+    public DataModelDefinitionResponse getEnrichedDataModel(UUID workspaceId) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/models/dataModel/enriched".replaceAll("\\{format\\}", "json");
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+        String[] localVarAuthNames = new String[]{"token"};
+
+        GenericType<DataModelDefinitionResponse> localVarReturnType = new GenericType<DataModelDefinitionResponse>() {
+        };
+        return apiClient
+            .invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
+                localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    }
+
+    /**
+     * getFactSheetResourceModel
+     * Retrieves the fact sheet resource model for a workspace
+     * @param workspaceId  (optional)
+     * @return FactSheetResourceModelResponse
+     * @throws ApiException if fails to make API call
+     */
+    public FactSheetResourceModelResponse getFactSheetResourceModel(UUID workspaceId) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/models/factSheetResources".replaceAll("\\{format\\}", "json");
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+        String[] localVarAuthNames = new String[]{"token"};
+
+        GenericType<FactSheetResourceModelResponse> localVarReturnType = new GenericType<FactSheetResourceModelResponse>() {
+        };
+        return apiClient
+            .invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
+                localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    }
+
+    /**
+     * getLanguage
+     * Get the given language
+     * @param id  (required)
+     * @param workspaceId  (optional)
+     * @return LanguageResponse
+     * @throws ApiException if fails to make API call
+     */
+    public LanguageResponse getLanguage(String id, UUID workspaceId) throws ApiException {
+        Object localVarPostBody = null;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(400, "Missing the required parameter 'id' when calling getLanguage");
+        }
+
+        // create path and map variables
+        String localVarPath = "/models/languages/{id}".replaceAll("\\{format\\}", "json")
+            .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id));
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -321,26 +373,30 @@ public class ModelsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<LanguageResponse> localVarReturnType = new GenericType<LanguageResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * getReportingModel
-   * Retrieves the report model for a workspace
-   * @param workspaceId  (optional)
-   * @return ReportingModelResponse
-   * @throws ApiException if fails to make API call
-   */
-  public ReportingModelResponse getReportingModel(String workspaceId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/models/reportingModel".replaceAll("\\{format\\}","json");
+        GenericType<LanguageResponse> localVarReturnType = new GenericType<LanguageResponse>() {
+        };
+        return apiClient
+            .invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
+                localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    }
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    /**
+     * getReportingModel
+     * Retrieves the report model for a workspace
+     * @param workspaceId  (optional)
+     * @return ReportingModelResponse
+     * @throws ApiException if fails to make API call
+     */
+    public ReportingModelResponse getReportingModel(UUID workspaceId) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/models/reportingModel".replaceAll("\\{format\\}", "json");
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
 
@@ -358,26 +414,30 @@ public class ModelsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<ReportingModelResponse> localVarReturnType = new GenericType<ReportingModelResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * getViewModel
-   * Retrieves the view model for a workspace
-   * @param workspaceId  (optional)
-   * @return ViewModelResponse
-   * @throws ApiException if fails to make API call
-   */
-  public ViewModelResponse getViewModel(String workspaceId) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/models/viewModel".replaceAll("\\{format\\}","json");
+        GenericType<ReportingModelResponse> localVarReturnType = new GenericType<ReportingModelResponse>() {
+        };
+        return apiClient
+            .invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
+                localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    }
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    /**
+     * getViewModel
+     * Retrieves the view model for a workspace
+     * @param workspaceId  (optional)
+     * @return ViewModelResponse
+     * @throws ApiException if fails to make API call
+     */
+    public ViewModelResponse getViewModel(UUID workspaceId) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/models/viewModel".replaceAll("\\{format\\}", "json");
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
 
@@ -481,26 +541,29 @@ public class ModelsApi {
     String[] localVarAuthNames = new String[] { "token" };
 
     GenericType<AccessControlEntityResponse> localVarReturnType = new GenericType<AccessControlEntityResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * updateAuthorization
-   * Updates all authorization roles for a given workspace. This means all existing roles and its permissions will be overriden
-   * @param body The authorization configuration for the workspace which contains all roles and its permissions (required)
-   * @param workspaceId  (optional)
-   * @return Response
-   * @throws ApiException if fails to make API call
-   */
-  public Response updateAuthorization(List<AuthorizationRole> body, String workspaceId) throws ApiException {
-    Object localVarPostBody = body;
-    
-    // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new ApiException(400, "Missing the required parameter 'body' when calling updateAuthorization");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/models/authorization".replaceAll("\\{format\\}","json");
+      return apiClient
+          .invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
+              localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+  }
+
+    /**
+     * updateAuthorization
+     * Updates all authorization roles for a given workspace. This means all existing roles and its permissions will be overriden
+     * @param body The authorization configuration for the workspace which contains all roles and its permissions (required)
+     * @param workspaceId  (optional)
+     * @return Response
+     * @throws ApiException if fails to make API call
+     */
+    public Response updateAuthorization(List<AuthorizationRole> body, UUID workspaceId) throws ApiException {
+        Object localVarPostBody = body;
+
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException(400, "Missing the required parameter 'body' when calling updateAuthorization");
+        }
+
+        // create path and map variables
+        String localVarPath = "/models/authorization".replaceAll("\\{format\\}", "json");
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -525,26 +588,27 @@ public class ModelsApi {
 
     GenericType<Response> localVarReturnType = new GenericType<Response>() {};
     return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * updateDataModel
-   * Updates the data model for a workspace
-   * @param body the data model for the workspace (required)
-   * @param force whether changes should be forced (optional, default to false)
-   * @param workspaceId  (optional)
-   * @return DataModelUpdateResponse
-   * @throws ApiException if fails to make API call
-   */
-  public DataModelUpdateResponse updateDataModel(DataModel body, Boolean force, String workspaceId) throws ApiException {
-    Object localVarPostBody = body;
-    
-    // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new ApiException(400, "Missing the required parameter 'body' when calling updateDataModel");
     }
-    
-    // create path and map variables
-    String localVarPath = "/models/dataModel".replaceAll("\\{format\\}","json");
+
+    /**
+     * updateDataModel
+     * Updates the data model for a workspace
+     * @param body the data model for the workspace (required)
+     * @param force whether changes should be forced (optional, default to false)
+     * @param workspaceId  (optional)
+     * @return DataModelUpdateResponse
+     * @throws ApiException if fails to make API call
+     */
+    public DataModelUpdateResponse updateDataModel(DataModel body, Boolean force, UUID workspaceId) throws ApiException {
+        Object localVarPostBody = body;
+
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException(400, "Missing the required parameter 'body' when calling updateDataModel");
+        }
+
+        // create path and map variables
+        String localVarPath = "/models/dataModel".replaceAll("\\{format\\}", "json");
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -562,40 +626,129 @@ public class ModelsApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      "application/json"
+        "application/json"
     };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-    String[] localVarAuthNames = new String[] { "token" };
+        String[] localVarAuthNames = new String[]{"token"};
 
-    GenericType<DataModelUpdateResponse> localVarReturnType = new GenericType<DataModelUpdateResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * updateLanguage
-   * Updates the given language
-   * @param id  (required)
-   * @param definition  (required)
-   * @param workspaceId  (optional)
-   * @return Response
-   * @throws ApiException if fails to make API call
-   */
-  public Response updateLanguage(String id, Translation definition, String workspaceId) throws ApiException {
-    Object localVarPostBody = definition;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateLanguage");
+        GenericType<DataModelUpdateResponse> localVarReturnType = new GenericType<DataModelUpdateResponse>() {
+        };
+        return apiClient
+            .invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
+                localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
     }
-    
-    // verify the required parameter 'definition' is set
-    if (definition == null) {
-      throw new ApiException(400, "Missing the required parameter 'definition' when calling updateLanguage");
+
+    /**
+     * updateFactSheetResourceModel
+     * Updates the fact sheet resource model for a workspace
+     * @param body the fact sheet resource model for the workspace (required)
+     * @param workspaceId  (optional)
+     * @throws ApiException if fails to make API call
+     */
+    public void updateFactSheetResourceModel(FactSheetResourceModelDefinition body, UUID workspaceId) throws ApiException {
+        Object localVarPostBody = body;
+
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException(400, "Missing the required parameter 'body' when calling updateFactSheetResourceModel");
+        }
+
+        // create path and map variables
+        String localVarPath = "/models/factSheetResources".replaceAll("\\{format\\}", "json");
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+        String[] localVarAuthNames = new String[]{"token"};
+
+        apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
+            localVarAccept, localVarContentType, localVarAuthNames, null);
     }
-    
-    // create path and map variables
-    String localVarPath = "/models/languages/{id}".replaceAll("\\{format\\}","json")
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+    /**
+     * updateLanguage
+     * Updates the given language
+     * @param id  (required)
+     * @param definition  (required)
+     * @param workspaceId  (optional)
+     * @return Response
+     * @throws ApiException if fails to make API call
+     */
+    public Response updateLanguage(String id, Translation definition, UUID workspaceId) throws ApiException {
+        Object localVarPostBody = definition;
+
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(400, "Missing the required parameter 'id' when calling updateLanguage");
+        }
+
+        // verify the required parameter 'definition' is set
+        if (definition == null) {
+            throw new ApiException(400, "Missing the required parameter 'definition' when calling updateLanguage");
+        }
+
+        // create path and map variables
+        String localVarPath = "/models/languages/{id}".replaceAll("\\{format\\}", "json")
+            .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id));
+
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+        String[] localVarAuthNames = new String[] { "token" };
+
+        GenericType<Response> localVarReturnType = new GenericType<Response>() {
+        };
+        return apiClient
+            .invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
+                localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    }
+
+    /**
+     * updateReportingModel
+     * Updates the report model for a workspace
+     * @param body the report model for the workspace (required)
+     * @param workspaceId  (optional)
+     * @throws ApiException if fails to make API call
+     */
+    public void updateReportingModel(ReportingModelDefinition body, UUID workspaceId) throws ApiException {
+        Object localVarPostBody = body;
+
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException(400, "Missing the required parameter 'body' when calling updateReportingModel");
+        }
+
+        // create path and map variables
+        String localVarPath = "/models/reportingModel".replaceAll("\\{format\\}", "json");
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -618,68 +771,27 @@ public class ModelsApi {
 
     String[] localVarAuthNames = new String[] { "token" };
 
-    GenericType<Response> localVarReturnType = new GenericType<Response>() {};
-    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-      }
-  /**
-   * updateReportingModel
-   * Updates the report model for a workspace
-   * @param body the report model for the workspace (required)
-   * @param workspaceId  (optional)
-   * @throws ApiException if fails to make API call
-   */
-  public void updateReportingModel(ReportingModelDefinition body, String workspaceId) throws ApiException {
-    Object localVarPostBody = body;
-    
-    // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new ApiException(400, "Missing the required parameter 'body' when calling updateReportingModel");
+        apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
+            localVarAccept, localVarContentType, localVarAuthNames, null);
     }
-    
-    // create path and map variables
-    String localVarPath = "/models/reportingModel".replaceAll("\\{format\\}","json");
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    /**
+     * updateViewModel
+     * Updates the view model for a workspace
+     * @param body the view model for the workspace (required)
+     * @param workspaceId  (optional)
+     * @throws ApiException if fails to make API call
+     */
+    public void updateViewModel(ViewModelDefinition body, UUID workspaceId) throws ApiException {
+        Object localVarPostBody = body;
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException(400, "Missing the required parameter 'body' when calling updateViewModel");
+        }
 
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "token" };
-
-
-    apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, null);
-  }
-  /**
-   * updateViewModel
-   * Updates the view model for a workspace
-   * @param body the view model for the workspace (required)
-   * @param workspaceId  (optional)
-   * @throws ApiException if fails to make API call
-   */
-  public void updateViewModel(ViewModelDefinition body, String workspaceId) throws ApiException {
-    Object localVarPostBody = body;
-    
-    // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new ApiException(400, "Missing the required parameter 'body' when calling updateViewModel");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/models/viewModel".replaceAll("\\{format\\}","json");
+        // create path and map variables
+        String localVarPath = "/models/viewModel".replaceAll("\\{format\\}", "json");
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
