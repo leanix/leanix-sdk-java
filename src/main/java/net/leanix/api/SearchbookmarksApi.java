@@ -24,13 +24,13 @@ public class SearchbookmarksApi {
     this.apiClient = apiClient;
   }
 
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
     /**
      * getBookmarkSuggestions
@@ -45,16 +45,27 @@ public class SearchbookmarksApi {
      * @param sortDirection The direction of the sorting. Default sorting order for name is ASC, for date fields - DSC. (optional)
      * @param factSheetId FactSheet ID, which must appear in bookmark (applicable only to bookmarks of BookmarkType VISUALIZER) (optional)
      * @param predefinedOnly Indicates if only predefined bookmarks should be returned. (optional, default to false)
-   * @return BookmarkSuggestionsResponse
-   * @throws ApiException if fails to make API call
-   */
-  public BookmarkSuggestionsResponse getBookmarkSuggestions(String type, String subtype, String q, Boolean personalized, String sort, List<String> cursor, Integer pageSize, String sortDirection, UUID factSheetId, Boolean predefinedOnly) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // create path and map variables
-    String localVarPath = "/search/bookmarks".replaceAll("\\{format\\}","json");
+     * @return BookmarkSuggestionsResponse
+     * @throws ApiException if fails to make API call
+     */
+    public BookmarkSuggestionsResponse getBookmarkSuggestions(
+        String type,
+        String subtype,
+        String q,
+        Boolean personalized,
+        String sort,
+        List<String> cursor,
+        Integer pageSize,
+        String sortDirection,
+        UUID factSheetId,
+        Boolean predefinedOnly) throws ApiException
+    {
+        Object localVarPostBody = null;
 
-    // query params
+        // create path and map variables
+        String localVarPath = "/search/bookmarks".replaceAll("\\{format\\}", "json");
+
+        // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();

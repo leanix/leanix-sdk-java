@@ -38,7 +38,7 @@ public class MetaModelApi {
     /**
      * getMetaModelActionBatch
      * Return a single action batch
-     * @param id  (required)
+     * @param id Id of the requested actionBatch (required)
      * @return MetaModelActionBatchResponse
      * @throws ApiException if fails to make API call
      */
@@ -121,11 +121,11 @@ public class MetaModelApi {
 
     /**
      * getMetaModel
-     * Retrieves the full meta model
+     * Retrieves the full MetaModel
      * @return MetaModelResponse
      * @throws ApiException if fails to make API call
      */
-    public MetaModelResponse getDataModel() throws ApiException {
+    public MetaModelResponse getMetaModel() throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -162,12 +162,12 @@ public class MetaModelApi {
      * @return MetaModelResponse
      * @throws ApiException if fails to make API call
      */
-    public MetaModelResponse getDataModelForType(String factSheetType) throws ApiException {
+    public MetaModelResponse getMetaModelForType(String factSheetType) throws ApiException {
         Object localVarPostBody = null;
 
         // verify the required parameter 'factSheetType' is set
         if (factSheetType == null) {
-            throw new ApiException(400, "Missing the required parameter 'factSheetType' when calling getDataModelForType");
+            throw new ApiException(400, "Missing the required parameter 'factSheetType' when calling getMetaModelForType");
         }
 
         // create path and map variables
@@ -195,42 +195,6 @@ public class MetaModelApi {
         };
         return apiClient
             .invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
-                localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    }
-
-    /**
-     * postMetaModelActionBatch
-     * Apply a batch of actions to the metamodel
-     * @return MetaModelActionBatchResponse
-     * @throws ApiException if fails to make API call
-     */
-    public MetaModelActionBatchResponse postActionBatch() throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/models/metaModel/actionBatches".replaceAll("\\{format\\}", "json");
-
-        // query params
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-        String[] localVarAuthNames = new String[]{"token"};
-
-        GenericType<MetaModelActionBatchResponse> localVarReturnType = new GenericType<MetaModelActionBatchResponse>() {
-        };
-        return apiClient
-            .invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
                 localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
     }
 }
