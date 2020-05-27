@@ -148,22 +148,20 @@ public class ModelsApi {
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "cursor", cursor));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sorting", sorting));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "sortDirection", sortDirection));
+      localVarQueryParams.addAll(apiClient.parameterToPairs("", "sorting", sorting));
+      localVarQueryParams.addAll(apiClient.parameterToPairs("", "sortDirection", sortDirection));
 
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+      final String[] localVarAccepts = {
+          "application/json"
+      };
+      final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+      final String[] localVarContentTypes = {
+          "application/json"
+      };
+      final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-    String[] localVarAuthNames = new String[] { "token" };
+      String[] localVarAuthNames = new String[]{"token"};
 
       GenericType<AccessControlEntityListResponse> localVarReturnType = new GenericType<AccessControlEntityListResponse>() {
       };
@@ -190,21 +188,19 @@ public class ModelsApi {
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
 
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-    String[] localVarAuthNames = new String[] { "token" };
+        String[] localVarAuthNames = new String[]{"token"};
 
         GenericType<AuthorizationRolesResponse> localVarReturnType = new GenericType<AuthorizationRolesResponse>() {
         };
@@ -231,21 +227,19 @@ public class ModelsApi {
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
 
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-    String[] localVarAuthNames = new String[] { "token" };
+        String[] localVarAuthNames = new String[]{"token"};
 
         GenericType<DataModelDefinitionResponse> localVarReturnType = new GenericType<DataModelDefinitionResponse>() {
         };
@@ -352,26 +346,24 @@ public class ModelsApi {
         String localVarPath = "/models/languages/{id}".replaceAll("\\{format\\}", "json")
             .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id));
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
 
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-    String[] localVarAuthNames = new String[] { "token" };
+        String[] localVarAuthNames = new String[]{"token"};
 
         GenericType<LanguageResponse> localVarReturnType = new GenericType<LanguageResponse>() {
         };
@@ -398,21 +390,19 @@ public class ModelsApi {
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
 
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-    String[] localVarAuthNames = new String[] { "token" };
+        String[] localVarAuthNames = new String[]{"token"};
 
         GenericType<ReportingModelResponse> localVarReturnType = new GenericType<ReportingModelResponse>() {
         };
@@ -439,24 +429,25 @@ public class ModelsApi {
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
 
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-    String[] localVarAuthNames = new String[] { "token" };
+        String[] localVarAuthNames = new String[]{"token"};
 
-    GenericType<ViewModelResponse> localVarReturnType = new GenericType<ViewModelResponse>() {};
-    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+        GenericType<ViewModelResponse> localVarReturnType = new GenericType<ViewModelResponse>() {
+        };
+        return apiClient
+            .invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
+                localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
    * getAccessControlEntity
@@ -523,24 +514,22 @@ public class ModelsApi {
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+      Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+      final String[] localVarAccepts = {
+          "application/json"
+      };
+      final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+      final String[] localVarContentTypes = {
+          "application/json"
+      };
+      final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+      String[] localVarAuthNames = new String[]{"token"};
 
-    String[] localVarAuthNames = new String[] { "token" };
-
-    GenericType<AccessControlEntityResponse> localVarReturnType = new GenericType<AccessControlEntityResponse>() {};
+      GenericType<AccessControlEntityResponse> localVarReturnType = new GenericType<AccessControlEntityResponse>() {
+      };
       return apiClient
           .invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
               localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
@@ -565,29 +554,30 @@ public class ModelsApi {
         // create path and map variables
         String localVarPath = "/models/authorization".replaceAll("\\{format\\}", "json");
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
 
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-    String[] localVarAuthNames = new String[] { "token" };
+        String[] localVarAuthNames = new String[]{"token"};
 
-    GenericType<Response> localVarReturnType = new GenericType<Response>() {};
-    return apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+        GenericType<Response> localVarReturnType = new GenericType<Response>() {
+        };
+        return apiClient
+            .invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
+                localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
     }
 
     /**
@@ -610,24 +600,22 @@ public class ModelsApi {
         // create path and map variables
         String localVarPath = "/models/dataModel".replaceAll("\\{format\\}", "json");
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "force", force));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "force", force));
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
 
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
-    final String[] localVarContentTypes = {
-        "application/json"
-    };
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
         String[] localVarAuthNames = new String[]{"token"};
@@ -723,7 +711,7 @@ public class ModelsApi {
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-        String[] localVarAuthNames = new String[] { "token" };
+        String[] localVarAuthNames = new String[]{"token"};
 
         GenericType<Response> localVarReturnType = new GenericType<Response>() {
         };
@@ -750,26 +738,24 @@ public class ModelsApi {
         // create path and map variables
         String localVarPath = "/models/reportingModel".replaceAll("\\{format\\}", "json");
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
 
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-    String[] localVarAuthNames = new String[] { "token" };
+        String[] localVarAuthNames = new String[]{"token"};
 
         apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams,
             localVarAccept, localVarContentType, localVarAuthNames, null);
@@ -793,19 +779,17 @@ public class ModelsApi {
         // create path and map variables
         String localVarPath = "/models/viewModel".replaceAll("\\{format\\}", "json");
 
-    // query params
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        // query params
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "workspaceId", workspaceId));
 
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
       "application/json"
