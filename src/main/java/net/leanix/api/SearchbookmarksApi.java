@@ -1,20 +1,22 @@
 package net.leanix.api;
 
+import net.leanix.api.common.ApiException;
+import net.leanix.api.common.ApiClient;
+import net.leanix.api.common.Configuration;
+import net.leanix.api.common.Pair;
+
+import javax.ws.rs.core.GenericType;
+
+import net.leanix.api.models.BookmarkSuggestionsResponse;
+import java.util.UUID;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-import javax.ws.rs.core.GenericType;
-import net.leanix.api.common.ApiClient;
-import net.leanix.api.common.ApiException;
-import net.leanix.api.common.Configuration;
-import net.leanix.api.common.Pair;
-import net.leanix.api.models.BookmarkSuggestionsResponse;
 
 
 public class SearchbookmarksApi {
-
   private ApiClient apiClient;
 
   public SearchbookmarksApi() {
@@ -37,7 +39,7 @@ public class SearchbookmarksApi {
    * getBookmarkSuggestions
    * Returns a list of bookmark suggestions
    * @param type Bookmark type (optional)
-   * @param subtype Bookmark subtype (optional)
+   * @param subtype A list of bookmark subtypes. This parameter needs to be specified multiple times: once for each subtype value, e.g., subtype&#x3D;bc-cost&amp;subtype&#x3D;bc-map (optional)
    * @param q Search term (optional)
    * @param personalized Personalized (optional, default to false)
    * @param sort Sorting. Default sorting criterion is bookmark name. (optional)
@@ -45,26 +47,17 @@ public class SearchbookmarksApi {
    * @param pageSize Page size (optional, default to 40)
    * @param sortDirection The direction of the sorting. Default sorting order for name is ASC, for date fields - DSC. (optional)
    * @param factSheetId FactSheet ID, which must appear in bookmark (applicable only to bookmarks of BookmarkType VISUALIZER) (optional)
+   * @param ownedByMe If set, then only bookmarks with an owner equal to the user id of the auth token are returned. (optional, default to false)
    * @param predefinedOnly Indicates if only predefined bookmarks should be returned. (optional, default to false)
+   * @param userdefinedOnly Indicates if only userdefined bookmarks should be returned. (optional, default to false)
    * @return BookmarkSuggestionsResponse
    * @throws ApiException if fails to make API call
    */
-  public BookmarkSuggestionsResponse getBookmarkSuggestions(
-      String type,
-      String subtype,
-      String q,
-      Boolean personalized,
-      String sort,
-      List<String> cursor,
-      Integer pageSize,
-      String sortDirection,
-      UUID factSheetId,
-      Boolean predefinedOnly) throws ApiException
-  {
+  public BookmarkSuggestionsResponse getBookmarkSuggestions(String type, List<String> subtype, String q, Boolean personalized, String sort, List<String> cursor, Integer pageSize, String sortDirection, UUID factSheetId, Boolean ownedByMe, Boolean predefinedOnly, Boolean userdefinedOnly) throws ApiException {
     Object localVarPostBody = null;
-
+    
     // create path and map variables
-    String localVarPath = "/search/bookmarks".replaceAll("\\{format\\}", "json");
+    String localVarPath = "/search/bookmarks".replaceAll("\\{format\\}","json");
 
     // query params
     List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -72,7 +65,7 @@ public class SearchbookmarksApi {
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "type", type));
-    localVarQueryParams.addAll(apiClient.parameterToPairs("", "subtype", subtype));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "subtype", subtype));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "q", q));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "personalized", personalized));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sort", sort));
@@ -80,7 +73,9 @@ public class SearchbookmarksApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sortDirection", sortDirection));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "factSheetId", factSheetId));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "ownedByMe", ownedByMe));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "predefinedOnly", predefinedOnly));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "userdefinedOnly", userdefinedOnly));
 
     
     
