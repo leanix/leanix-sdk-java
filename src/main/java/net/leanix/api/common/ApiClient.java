@@ -51,7 +51,7 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
  */
 public class ApiClient {
   private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
-  private String basePath = "https://localhost/services/synclog/v1";
+  private String basePath = "https://local-eam.leanix.net/demo/api/v1";
   private boolean debugging = false;
   private int connectionTimeout = 0;
 
