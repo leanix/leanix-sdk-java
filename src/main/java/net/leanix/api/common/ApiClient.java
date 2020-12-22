@@ -18,7 +18,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -29,21 +28,19 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
-import org.glassfish.jersey.client.ClientConfig;
-import org.glassfish.jersey.client.ClientProperties;
-import org.glassfish.jersey.filter.LoggingFilter;
-import org.glassfish.jersey.jackson.JacksonFeature;
-import org.glassfish.jersey.media.multipart.FormDataBodyPart;
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-import org.glassfish.jersey.media.multipart.MultiPart;
-import org.glassfish.jersey.media.multipart.MultiPartFeature;
-
 import net.leanix.api.common.auth.ApiKeyAuth;
 import net.leanix.api.common.auth.Authentication;
 import net.leanix.api.common.auth.ClientCredentialRefreshingOAuth;
 import net.leanix.api.common.auth.HttpBasicAuth;
 import net.leanix.api.common.auth.OAuth;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientProperties;
+import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.logging.LoggingFeature;
+import org.glassfish.jersey.media.multipart.FormDataBodyPart;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.MultiPart;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 
 /**
  * This class was originally created with swagger-codegen-maven-plugin's file version 2.1.6 and is slightly modified with features:
@@ -76,22 +73,21 @@ public class ApiClient {
     /** rwe: Disable this feature, that was introduced in swagger-codegen. We want to use the ISO 8601.
      * See original templage: https://github.com/swagger-api/swagger-codegen/blob/master/modules/swagger-codegen/src/main/resources/Java/libraries/jersey2/ApiClient.mustache
 
-    // Use RFC3339 format for date and datetime.
-    // See http://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
-    this.dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+     // Use RFC3339 format for date and datetime.
+     // See http://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14
+     this.dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
-    // Use UTC as the default time zone.
-    this.dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+     // Use UTC as the default time zone.
+     this.dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-    this.json.setDateFormat((DateFormat) dateFormat.clone());
-    */
+     this.json.setDateFormat((DateFormat) dateFormat.clone());
+     */
     // Set default User-Agent.
     setUserAgent("Swagger-Codegen/1.0.0/java");
 
     // Setup authentications (key: authentication name, value: authentication).
     authentications = new HashMap<String, Authentication>();
     authentications.put("token", new ClientCredentialRefreshingOAuth());
-    authentications.put("apiKey", new ApiKeyAuth("header", "Api-Key"));
     // Prevent the authentications from being modified.
     authentications = Collections.unmodifiableMap(authentications);
   }
@@ -239,6 +235,20 @@ public class ApiClient {
   }
 
   /**
+   * Returns the OAuth2 access token that was last obtained in a previous request
+   * using OAuth2 authentication.
+   * @return
+   */
+  public String getAccessToken() {
+    for (Authentication auth : authentications.values()) {
+      if (auth instanceof OAuth) {
+        return ((OAuth) auth).getAccessToken();
+      }
+    }
+    throw new IllegalStateException("No OAuth2 authentication configured!");
+  }
+
+  /**
    * Set the User-Agent header's value (by adding to the default header map).
    */
   public ApiClient setUserAgent(String userAgent) {
@@ -274,10 +284,6 @@ public class ApiClient {
     // Rebuild HTTP Client according to the new "debugging" value.
     this.httpClient = buildHttpClient(debugging);
     return this;
-  }
-
-  public void registerWithHttpClient(Class<?> componentClass) {
-    httpClient.register(componentClass);
   }
 
   /**
@@ -503,7 +509,7 @@ public class ApiClient {
         if (param.getValue() instanceof File) {
           File file = (File) param.getValue();
           FormDataContentDisposition contentDisp = FormDataContentDisposition.name(param.getKey())
-                  .fileName(file.getName()).size(file.length()).build();
+              .fileName(file.getName()).size(file.length()).build();
           multiPart.bodyPart(new FormDataBodyPart(contentDisp, file, MediaType.APPLICATION_OCTET_STREAM_TYPE));
         } else {
           FormDataContentDisposition contentDisp = FormDataContentDisposition.name(param.getKey()).build();
@@ -610,7 +616,7 @@ public class ApiClient {
    * @return The response body in type of string
    */
   public <T> T invokeAPI(String path, String method, List<Pair> queryParams, Object body, Map<String, String> headerParams, Map<String, Object> formParams, String accept, String contentType, String[] authNames, GenericType<T> returnType) throws ApiException {
-    updateParamsForAuth(new String[]{"token", "apiKey"}/*authNames*/, queryParams, headerParams);
+    updateParamsForAuth(authNames, queryParams, headerParams);
 
     // Not using `.target(this.basePath).path(path)` below,
     // to support (constant) query string in `path`, e.g. "/posts?draft=1"
@@ -680,23 +686,23 @@ public class ApiClient {
         }
       }
       throw new ApiException(
-              response.getStatus(),
-              message,
-              buildResponseHeaders(response),
-              respBody);
+          response.getStatus(),
+          message,
+          buildResponseHeaders(response),
+          respBody);
     }
   }
 
   /**
    * Build the Client used to make HTTP requests.
    */
-  private Client buildHttpClient(boolean debugging) {
+  public Client buildHttpClient(boolean logging) {
     final ClientConfig clientConfig = new ClientConfig();
     clientConfig.register(MultiPartFeature.class);
     clientConfig.register(json);
     clientConfig.register(JacksonFeature.class);
-    if (debugging) {
-      clientConfig.register(LoggingFilter.class);
+    if (logging) {
+      clientConfig.register(logging());
     }
     return ClientBuilder.newClient(clientConfig);
   }
@@ -725,5 +731,10 @@ public class ApiClient {
       if (auth == null) throw new RuntimeException("Authentication undefined: " + authName);
       auth.applyToParams(queryParams, headerParams);
     }
+  }
+
+  protected LoggingFeature logging() {
+    java.util.logging.Logger logger = java.util.logging.Logger.getLogger(this.getClass().getName());
+    return new LoggingFeature(logger, java.util.logging.Level.INFO, null, null);
   }
 }

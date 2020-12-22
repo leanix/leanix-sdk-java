@@ -119,7 +119,7 @@ public class ExportsApi {
    * @param key a one time use key identifying the download to retrieve (required)
    * @throws ApiException if fails to make API call
    */
-  public void downloadExportFile(String workspaceId, String key) throws ApiException {
+  public void downloadExportFile(UUID workspaceId, UUID key) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'workspaceId' is set
@@ -146,7 +146,7 @@ public class ExportsApi {
     
     
     final String[] localVarAccepts = {
-      "application/octet-stream"
+      "application/octet-stream", "application/json"
     };
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 

@@ -267,6 +267,52 @@ public class FactSheetsApi {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
+   * getFactSheetHierarchy
+   * Retrieves a list of all Fact Sheets equal to or below a certain root Fact Sheet
+   * @param rootId  (required)
+   * @param pageSize Number of Fact Sheets to return, maximum is 5000 (optional, default to 40)
+   * @param cursor Marks the position of the first element that should be returned (optional)
+   * @return FactSheetListResponse
+   * @throws ApiException if fails to make API call
+   */
+  public FactSheetListResponse getFactSheetHierarchy(String rootId, Integer pageSize, String cursor) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'rootId' is set
+    if (rootId == null) {
+      throw new ApiException(400, "Missing the required parameter 'rootId' when calling getFactSheetHierarchy");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/factSheets/hierarchy/{rootId}".replaceAll("\\{format\\}","json")
+      .replaceAll("\\{" + "rootId" + "\\}", apiClient.escapeString(rootId.toString()));
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "cursor", cursor));
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "token" };
+
+    GenericType<FactSheetListResponse> localVarReturnType = new GenericType<FactSheetListResponse>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+      }
+  /**
    * getFactSheetRelations
    * Retrieves all relations of a Fact Sheet, with the given type
    * @param id  (required)
@@ -315,15 +361,19 @@ public class FactSheetsApi {
   /**
    * getFactSheets
    * Retrieves all Fact Sheets
-   * @param type Only list Fact Sheets with this type (optional)
+   * @param type Comma separated list of Fact Sheets types to list, leave empty for all (optional)
    * @param relationTypes Comma separated list of relation types to show on the Fact Sheets (optional)
-   * @param pageSize Number of Fact Sheets to return, maximum is 100 (optional, default to 40)
+   * @param fields Comma separated list of fields to show on the Fact Sheets, leave empty for all (optional)
+   * @param archivedOnly Retrieve archived fact sheets instead of active ones (optional, default to false)
+   * @param pageSize Number of Fact Sheets to return, maximum is 5000 (optional, default to 40)
    * @param cursor Marks the position of the first element that should be returned (optional)
    * @param permissions Show a permission field for the Fact Sheet (optional, default to false)
+   * @param completion Show completion status for the Fact Sheet (optional, default to true)
+   * @param documents Include documents of the Fact Sheet (optional, default to true)
    * @return FactSheetListResponse
    * @throws ApiException if fails to make API call
    */
-  public FactSheetListResponse getFactSheets(String type, String relationTypes, Integer pageSize, String cursor, Boolean permissions) throws ApiException {
+  public FactSheetListResponse getFactSheets(String type, String relationTypes, String fields, Boolean archivedOnly, Integer pageSize, String cursor, Boolean permissions, Boolean completion, Boolean documents) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -336,9 +386,13 @@ public class FactSheetsApi {
 
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "type", type));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "relationTypes", relationTypes));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "fields", fields));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "archivedOnly", archivedOnly));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "cursor", cursor));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "permissions", permissions));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "completion", completion));
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "documents", documents));
 
     
     
