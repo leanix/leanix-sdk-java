@@ -2,15 +2,12 @@ package net.leanix.api.common.auth;
 
 import java.net.URI;
 import java.nio.charset.Charset;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
-
-import org.glassfish.jersey.internal.util.Base64;
-
 import net.leanix.api.common.ApiException;
 import net.leanix.api.common.Pair;
 import net.leanix.api.common.responses.AccessTokenResponse;
@@ -66,13 +63,13 @@ public class ClientCredentialRefreshingOAuth extends OAuth {
 
         try {
             accessTokenResponse = jerseyClient
-                    .target(tokenUrl)
-                    .queryParam("grant_type", "client_credentials")
-                    .request()
-                    .accept(MediaType.APPLICATION_JSON)
-                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED)
-                    .header(HttpHeaders.AUTHORIZATION, basicAuthorizationHeader)
-                    .post(null, AccessTokenResponse.class);
+                .target(tokenUrl)
+                .queryParam("grant_type", "client_credentials")
+                .request()
+                .accept(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED)
+                .header(HttpHeaders.AUTHORIZATION, basicAuthorizationHeader)
+                .post(null, AccessTokenResponse.class);
         } catch (RuntimeException ex) {
             throw new ApiException("Failed to retrieve a new oauth token from " + tokenUrl, ex, 0, null);
         }
@@ -84,7 +81,7 @@ public class ClientCredentialRefreshingOAuth extends OAuth {
         String userAndPw = sb.toString();
 
         sb.setLength(0);
-        sb.append("Basic ").append(Base64.encodeAsString(userAndPw.getBytes(UTF8)));
+        sb.append("Basic ").append(Base64.getEncoder().encodeToString(userAndPw.getBytes(UTF8)));
         return sb.toString();
     }
 
