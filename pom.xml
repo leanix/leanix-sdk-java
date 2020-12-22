@@ -6,7 +6,7 @@
     <artifactId>leanix-sdk-java</artifactId>
     <packaging>jar</packaging>
 
-    <version>no real version because of fixing unsynchronized master</version>
+    <version>3.9.30</version>
 
     <parent>
         <groupId>net.leanix.poms</groupId>
@@ -181,4 +181,3 @@
     </profiles>
 
 </project>
-
